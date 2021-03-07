@@ -1,8 +1,16 @@
-import React from 'react';
-import Testing from './component/testing';
+import React, { useState } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import Board from './component/board';
 
-export default class App extends React.Component {
-  render() {
-    return <Testing />;
-  }
-}
+const App = () => {
+
+  return (
+  <div className="d-flex justify-content-center h-100">
+    <DragDropContext onDragEnd={e => console.log(e)}>
+
+    </DragDropContext>
+  </div>
+  );
+};
+
+export default App;

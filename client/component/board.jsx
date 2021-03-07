@@ -1,6 +1,7 @@
 import React from 'react';
 
-const testing = () => {
+const Board = () => {
+
   return (
     <div>
       <h1>Hello</h1>
@@ -8,4 +9,4 @@ const testing = () => {
   );
 };
 
-export default testing;
+export default Board;
