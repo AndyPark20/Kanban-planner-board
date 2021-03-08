@@ -31,15 +31,12 @@ const App = () => {
   };
 
   return (
-    <div className="container d-flex justify-content-center">
-      <div className="row d-flex justify-content-center w-50">
+    <div className="columnCustom">
         <DragDropContext onDragEnd={handleOnDragEnd}>
-
             {Object.values(character).map((values, index) => (
               <Column values={values} key={values.id} />
             ))}
         </DragDropContext>
-      </div>
     </div>
   );
 };

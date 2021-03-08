@@ -1,15 +1,28 @@
 import React from 'react';
-import item from './item';
+import Item from './item';
 import { Droppable } from 'react-beautiful-dnd';
 
-const Column = ({ values: { id, list } }) => {
+const Column = ({ values: { list, id } }) => {
 
   return (
-    <Droppable droppableId ={id}>
+
+    <Droppable droppableId={id}>
       {provided => (
-          <h3 className="border border-danger">{list}</h3>
+        <div>
+          <div className="listColumn">
+            <h2>{id}</h2>
+          </div>
+          <div>
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {list.map((value, index) => (
+                <Item key={value} text={value} index={index} />
+              ))}
+            </div>
+          </div>
+        </div>
       )}
     </Droppable>
+
   );
 
 };
