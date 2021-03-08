@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const characters =
   [
@@ -19,33 +19,43 @@ const characters =
     }
   ];
 
-const renderIt = provided => {
-  const animals = characters.map((value, index) => {
-    return (
-      <div key={index} {...provided.droppableProps} ref={provided.innerRef}>
-        <Draggable key={value.id} draggableId={value.id} index={index} >
-          {provided => {
-            return (
-              < div className="col-12 d-flex align-items-center border border-secondary mt-3" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                <img className="picture" src={value.pic} alt={value.name} />
-                <h3>{value.id}</h3>
-              </div>
-            );
-          }}
-        </Draggable>
-      </div>
-    );
-  });
-  return animals;
-};
-
 const App = () => {
+  const [character, updateCharacters] = useState(characters);
+
+  const renderIt = provided => {
+    const animals = character.map((value, index) => {
+      return (
+        <div key={index} {...provided.droppableProps} ref={provided.innerRef}>
+          <Draggable key={value.id} draggableId={value.id} index={index} >
+            {provided => {
+              return (
+                < div className="col-12 d-flex align-items-center border border-secondary mt-3" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                  <img className="picture" src={value.pic} alt={value.name} />
+                  <h3>{value.id}</h3>
+                </div>
+              );
+            }}
+          </Draggable>
+        </div>
+      );
+    });
+    return animals;
+  };
+
+  const handleOnDragEnd = result => {
+    const items = Array.from(character);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    updateCharacters(items);
+    console.log(result);
+  };
+
   return (
     <div className="container d-flex justify-content-center">
       <div className="row d-flex justify-content-center w-50">
         <h1>Dogs That I want</h1>
-        <DragDropContext>
-          <Droppable droppableId="characters">
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="character">
             {provided => renderIt(provided)}
           </Droppable>
         </DragDropContext>
