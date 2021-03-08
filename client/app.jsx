@@ -43,11 +43,13 @@ const App = () => {
   };
 
   const handleOnDragEnd = result => {
+    console.log(result.source.index);
+    console.log(result.destination.index);
     const items = Array.from(character);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
+    console.log(items);
     updateCharacters(items);
-    console.log(result);
   };
 
   return (
