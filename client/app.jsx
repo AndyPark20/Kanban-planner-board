@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const characters =
   [
     {
@@ -22,11 +22,17 @@ const characters =
 const renderIt = provided => {
   const animals = characters.map((value, index) => {
     return (
-      <div key={index} className="col-12 d-flex  align-items-center w-25 border border-secondary mt-3"{...provided.droppableProps} ref={provided.innerRef}>
-          <img className="picture" src={value.pic} alt={value.name} />
-        <ul className="information ">
-          <li>{value.id}</li>
-        </ul>
+      <div key={index} {...provided.droppableProps} ref={provided.innerRef}>
+        <Draggable key={value.id} draggableId={value.id} index={index} >
+          {provided => {
+            return (
+              < div className="col-12 d-flex align-items-center border border-secondary mt-3" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                <img className="picture" src={value.pic} alt={value.name} />
+                <h3>{value.id}</h3>
+              </div>
+            );
+          }}
+        </Draggable>
       </div>
     );
   });
@@ -40,9 +46,7 @@ const App = () => {
         <h1>Dogs That I want</h1>
         <DragDropContext>
           <Droppable droppableId="characters">
-            {provided => {
-              renderIt(provided);
-            }}
+            {provided => renderIt(provided)}
           </Droppable>
         </DragDropContext>
       </div>
