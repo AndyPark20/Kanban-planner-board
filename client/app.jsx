@@ -19,12 +19,12 @@ const App = () => {
     }
   };
   const [character, updateCharacters] = useState(characters);
-
   const handleOnDragEnd = result => {
     if (!result.destination) {
       return;
     }
-
+    console.log(result);
+    console.log(result.source.droppableId);
     const [reorderedItem] = character.splice(result.source.index, 1);
     character.splice(result.destination.index, 0, reorderedItem);
     updateCharacters(character);
