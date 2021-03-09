@@ -29,11 +29,18 @@ const App = () => {
       const reOrder = character[idName].list;
       const [chosenIndex] = reOrder.splice(result.source.index, 1);
       reOrder.splice(result.destination.index, 0, chosenIndex);
-      console.log(result.destination);
+      updateCharacters(characters);
     } else {
       const idName = result.destination.droppableId;
+      const originalName = result.source;
       const movedOrder = character[idName].list;
-      console.log(movedOrder);
+      movedOrder.push(result.draggableId);
+      Object.values(character).forEach(values => {
+        if (values.id === originalName.droppableId) {
+          const deleteOriginal = character[originalName.droppableId].list;
+          deleteOriginal.splice(result.source.index, 1);
+        }
+      });
     }
 
   };
