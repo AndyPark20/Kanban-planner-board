@@ -19,10 +19,23 @@ const App = () => {
 
   const [character, updateCharacters] = useState(characters);
 
+  const allowDrop = e => {
+    e.preventDefault();
+    console.log('working');
+  };
+
+  const dropIt = e => {
+    e.preventDefault();
+    const data = e.dataTransfer.getData('id');
+    console.log(data);
+  };
+
   const renderIt = () => {
     const loop = Object.values(character).map((info, index) => {
       return (
-        <Column values={info} key={index} />
+        <div key={index} onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e)}>
+          <Column values={info} key={index} />
+        </div>
       );
     });
     return loop;

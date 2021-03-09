@@ -1,8 +1,9 @@
 import React from 'react';
 
-const Item = ({ values, img }) => {
+const Item = ({ value, img }) => {
+
   return (
-    <div>
+    <div >
       <img className="pictureCustom" src={img} alt="dog" />
     </div>
   );
