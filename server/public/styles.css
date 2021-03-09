@@ -7,3 +7,18 @@ h1 {
   width: 50%;
   padding:3% 2%;
 }
+
+.columnCustom {
+  display:flex;
+  text-align:center;
+  justify-content: space-evenly;
+  border:1px solid black;
+  width:80%;
+  height: 80vh;
+  gap: 8px;
+}
+
+.listColumn{
+  border:1px solid red;
+
+}
