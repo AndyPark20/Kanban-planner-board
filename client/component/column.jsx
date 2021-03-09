@@ -6,13 +6,14 @@ const Column = ({ values: { list, id } }) => {
 
   return (
 
-    <Droppable droppableId={id}>
-      {provided => (
-        <div>
-          <div className="listColumn">
+  <Droppable droppableId={id}>
+    {provided => (
+      <div className="container">
+        <div className="row d-flex flex-column align-items-center">
+          <div className="col-4">
             <h2>{id}</h2>
           </div>
-          <div>
+          <div className="border border-danger w-50 custom">
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {list.map((value, index) => (
                 <Item key={value} text={value} index={index} />
@@ -21,11 +22,10 @@ const Column = ({ values: { list, id } }) => {
             </div>
           </div>
         </div>
-      )}
-    </Droppable>
-
-  );
-
+      </div>
+    )}
+  </Droppable>
+);
 };
 
 export default Column;
