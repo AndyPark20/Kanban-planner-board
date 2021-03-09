@@ -5,7 +5,6 @@ import { Droppable } from 'react-beautiful-dnd';
 const Column = ({ values: { list, id } }) => {
 
   return (
-
   <Droppable droppableId={id}>
     {provided => (
       <div className="container">
@@ -16,7 +15,7 @@ const Column = ({ values: { list, id } }) => {
           <div className="border border-danger w-50 custom">
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {list.map((value, index) => (
-                <Item key={value} text={value} index={index} />
+                <Item key={value.name} text={value.name} img={value.img} index={index} />
               ))}
               {provided.placeholder}
             </div>
@@ -25,7 +24,9 @@ const Column = ({ values: { list, id } }) => {
       </div>
     )}
   </Droppable>
+
 );
+
 };
 
 export default Column;
