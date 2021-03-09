@@ -17,6 +17,7 @@ const Column = ({ values: { list, id } }) => {
               {list.map((value, index) => (
                 <Item key={value} text={value} index={index} />
               ))}
+              {provided.placeholder}
             </div>
           </div>
         </div>

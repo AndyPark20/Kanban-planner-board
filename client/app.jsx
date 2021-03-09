@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 import Column from './component/column';
 
 const App = () => {
@@ -20,14 +20,22 @@ const App = () => {
   };
   const [character, updateCharacters] = useState(characters);
   const handleOnDragEnd = result => {
+
     if (!result.destination) {
       return;
     }
-    console.log(result);
-    console.log(result.source.droppableId);
-    const [reorderedItem] = character.splice(result.source.index, 1);
-    character.splice(result.destination.index, 0, reorderedItem);
-    updateCharacters(character);
+    if (result.source.droppableId === result.destination.droppableId) {
+      const idName = result.destination.droppableId;
+      const reOrder = character[idName].list;
+      const [chosenIndex] = reOrder.splice(result.source.index, 1);
+      reOrder.splice(result.destination.index, 0, chosenIndex);
+      console.log(result.destination);
+    } else {
+      const idName = result.destination.droppableId;
+      const movedOrder = character[idName].list;
+      console.log(movedOrder);
+    }
+
   };
 
   return (
