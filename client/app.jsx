@@ -20,6 +20,8 @@ const App = () => {
   const [character, updateCharacters] = useState(characters);
 
   useEffect(() => {
+    console.log(character.doing.list);
+
   }, [character]);
 
   const allowDrop = e => {
@@ -31,8 +33,9 @@ const App = () => {
     const id = e.dataTransfer.getData('id');
     const name = e.dataTransfer.getData('name');
     const img = e.dataTransfer.getData('img');
-
+    const destinationId = info.id;
     if (character[info.id].id !== id) {
+
       character[info.id].list.push({ name: name, img: img });
       const returnedObject = Object.assign({}, character);
       character[id].list.forEach((values, index) => {
@@ -41,7 +44,6 @@ const App = () => {
         }
       });
       updateCharacters(returnedObject);
-
     }
   };
 
