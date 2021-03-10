@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Item from './item';
 
 const Column = ({ values: { list, id } }) => {
 
   const listing = () => {
+
+    const [ordered, setOrdered] = useState(list);
+
+    const lastIndex = (e, index) => {
+      if (id === id) {
+        console.log(list);
+        const startIndex = e.dataTransfer.getData('startIndex');
+        const finishedIndex = index;
+        const [reordered] = list.splice(startIndex, 1);
+        list.splice(finishedIndex, 0, reordered);
+        setOrdered(list);
+      }
+    };
 
     const controlDragStart = (e, values, index) => {
       e.dataTransfer.setData('name', values.name);
@@ -12,11 +25,7 @@ const Column = ({ values: { list, id } }) => {
       e.dataTransfer.setData('startIndex', index);
     };
 
-    const lastIndex = (e, index) => {
-      e.dataTransfer.setData('finishIndex', index);
-    };
-
-    const renderIt = list.map((values, index) => {
+    const renderIt = ordered.map((values, index) => {
       return (
           <div key={index} draggable onDragStart={e => controlDragStart(e, values, index)} onDrop={e => lastIndex(e, index)} >
             <Item value={values.name} img={values.img} />

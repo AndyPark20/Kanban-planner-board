@@ -30,9 +30,9 @@ const App = () => {
     const img = e.dataTransfer.getData('img');
     const index = e.dataTransfer.getData('startIndex');
     const finishIndex = e.dataTransfer.getData('finishIndex');
-    console.log(e.dataTransfer.types);
-    console.log(index);
-    console.log(finishIndex);
+    // console.log(e.dataTransfer.types);
+    // console.log(index);
+    // console.log(finishIndex);
     if (character[id].id === id) {
       // const [reorderedItem] = character[id].list.map(;
 
