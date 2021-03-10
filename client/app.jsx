@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Column from './component/column';
 
 const App = () => {
@@ -19,6 +19,9 @@ const App = () => {
 
   const [character, updateCharacters] = useState(characters);
 
+  useEffect(() => {
+  }, [character]);
+
   const allowDrop = e => {
     e.preventDefault();
   };
@@ -28,17 +31,18 @@ const App = () => {
     const id = e.dataTransfer.getData('id');
     const name = e.dataTransfer.getData('name');
     const img = e.dataTransfer.getData('img');
-    const index = e.dataTransfer.getData('startIndex');
-    const finishIndex = e.dataTransfer.getData('finishIndex');
-    // console.log(e.dataTransfer.types);
-    // console.log(index);
-    // console.log(finishIndex);
-    if (character[id].id === id) {
-      console.log(id);
-      // const [reorderedItem] = character[id].list.map(;
+
+    if (character[info.id].id !== id) {
+      character[info.id].list.push({ name: name, img: img });
+      const returnedObject = Object.assign({}, character);
+      character[id].list.forEach((values, index) => {
+        if (values.name === name) {
+          character[id].list.splice(index, 1);
+        }
+      });
+      updateCharacters(returnedObject);
 
     }
-
   };
 
   const renderIt = () => {

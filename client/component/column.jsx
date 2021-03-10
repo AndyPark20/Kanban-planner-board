@@ -18,7 +18,7 @@ const Column = ({ values: { list, id } }) => {
 
   const controlDragStart = (e, values, index) => {
     e.dataTransfer.setData('name', values.name);
-    e.dataTransfer.setData('img', list.img);
+    e.dataTransfer.setData('img', values.img);
     e.dataTransfer.setData('id', id);
     e.dataTransfer.setData('startIndex', index);
   };
