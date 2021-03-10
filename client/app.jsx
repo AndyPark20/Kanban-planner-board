@@ -34,6 +34,7 @@ const App = () => {
     // console.log(index);
     // console.log(finishIndex);
     if (character[id].id === id) {
+      console.log(id);
       // const [reorderedItem] = character[id].list.map(;
 
     }
