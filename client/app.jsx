@@ -21,19 +21,29 @@ const App = () => {
 
   const allowDrop = e => {
     e.preventDefault();
-    console.log('working');
   };
 
-  const dropIt = e => {
+  const dropIt = (e, info, position) => {
     e.preventDefault();
-    const data = e.dataTransfer.getData('id');
-    console.log(data);
+    const id = e.dataTransfer.getData('id');
+    const name = e.dataTransfer.getData('name');
+    const img = e.dataTransfer.getData('img');
+    const index = e.dataTransfer.getData('startIndex');
+    const finishIndex = e.dataTransfer.getData('finishIndex');
+    console.log(e.dataTransfer.types);
+    console.log(index);
+    console.log(finishIndex);
+    if (character[id].id === id) {
+      // const [reorderedItem] = character[id].list.map(;
+
+    }
+
   };
 
   const renderIt = () => {
     const loop = Object.values(character).map((info, index) => {
       return (
-        <div key={index} onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e)}>
+        <div key={index} onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
           <Column values={info} key={index} />
         </div>
       );

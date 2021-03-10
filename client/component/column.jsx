@@ -5,13 +5,20 @@ const Column = ({ values: { list, id } }) => {
 
   const listing = () => {
 
-    const controlDragStart = (e, values) => {
-      e.dataTransfer.setData('id', values);
+    const controlDragStart = (e, values, index) => {
+      e.dataTransfer.setData('name', values.name);
+      e.dataTransfer.setData('img', list.img);
+      e.dataTransfer.setData('id', id);
+      e.dataTransfer.setData('startIndex', index);
+    };
+
+    const lastIndex = (e, index) => {
+      e.dataTransfer.setData('finishIndex', index);
     };
 
     const renderIt = list.map((values, index) => {
       return (
-          <div key={index} draggable onDragStart={e => controlDragStart(e, values)} >
+          <div key={index} draggable onDragStart={e => controlDragStart(e, values, index)} onDrop={e => lastIndex(e, index)} >
             <Item value={values.name} img={values.img} />
           </div>
       );
