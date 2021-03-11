@@ -35,7 +35,6 @@ const Column = () => {
         });
         updateCharacters(returnedObjects);
         character[info.id].list.forEach((value, index) => {
-          console.log(value);
           // console.log(character[info.id].list);
         });
       }
@@ -57,10 +56,6 @@ const Column = () => {
     e.preventDefault();
   };
 
-  const differentColumnIndex = (e, index) => {
-    e.dataTransfer.setData('diff', index);
-  };
-
   const controlDragStart = (e, values, info, index) => {
     e.dataTransfer.setData('originId', info.id);
     e.dataTransfer.setData('name', values.name);
@@ -76,7 +71,7 @@ const Column = () => {
           <div className="border border-danger w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)} >
             {info.list.map((values, index) => {
               return (
-                <div key={index} draggable onDragStart={e => controlDragStart(e, values, info, index)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, index)} onDragEnter={e => differentColumnIndex(e, index)}>
+                <div key={index} draggable onDragStart={e => controlDragStart(e, values, info, index)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, index)} >
                   <img className="pictureCustom" src={values.img} alt="dogs" />
                 </div>
               );
