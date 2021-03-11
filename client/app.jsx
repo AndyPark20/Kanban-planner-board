@@ -20,8 +20,7 @@ const App = () => {
   const [character, updateCharacters] = useState(characters);
 
   useEffect(() => {
-    console.log(character.doing.list);
-
+    // console.log('Overall object', character);
   }, [character]);
 
   const allowDrop = e => {
@@ -33,17 +32,17 @@ const App = () => {
     const id = e.dataTransfer.getData('id');
     const name = e.dataTransfer.getData('name');
     const img = e.dataTransfer.getData('img');
-    const destinationId = info.id;
     if (character[info.id].id !== id) {
-
-      character[info.id].list.push({ name: name, img: img });
-      const returnedObject = Object.assign({}, character);
-      character[id].list.forEach((values, index) => {
-        if (values.name === name) {
-          character[id].list.splice(index, 1);
-        }
-      });
-      updateCharacters(returnedObject);
+      if (e.target.nodeName !== 'IMG') {
+        character[info.id].list.push({ name: name, img: img });
+        const returnedObject = Object.assign({}, character);
+        character[id].list.forEach((values, index) => {
+          if (values.name === name) {
+            character[id].list.splice(index, 1);
+          }
+        });
+        updateCharacters(returnedObject);
+      }
     }
   };
 
@@ -51,7 +50,7 @@ const App = () => {
     const loop = Object.values(character).map((info, index) => {
       return (
         <div key={index} onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
-          <Column values={info} key={index} />
+          <Column values={info} key={index} column={index} />
         </div>
       );
     });
@@ -60,7 +59,7 @@ const App = () => {
 
   return (
     <div className="columnCustom">
-      {renderIt()}
+      <Column />
     </div>
   );
 };
