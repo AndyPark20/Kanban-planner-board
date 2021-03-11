@@ -21,9 +21,6 @@ const Column = () => {
   const dropIt = (e, info, position) => {
     // the column index number
     e.preventDefault();
-    info.list.forEach((value, index) => {
-      console.log(index);
-    });
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('originId');
@@ -37,6 +34,10 @@ const Column = () => {
           }
         });
         updateCharacters(returnedObjects);
+        character[info.id].list.forEach((value, index) => {
+          console.log(value);
+          // console.log(character[info.id].list);
+        });
       }
     }
   };
@@ -56,6 +57,10 @@ const Column = () => {
     e.preventDefault();
   };
 
+  const differentColumnIndex = (e, index) => {
+    e.dataTransfer.setData('diff', index);
+  };
+
   const controlDragStart = (e, values, info, index) => {
     e.dataTransfer.setData('originId', info.id);
     e.dataTransfer.setData('name', values.name);
@@ -68,10 +73,10 @@ const Column = () => {
       return (
         <div key={index} className="col-4 d-flex text-center align-items-center flex-column justify-content-around">
           <h2>{info.id}</h2>
-          <div className="border border-danger w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
+          <div className="border border-danger w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)} >
             {info.list.map((values, index) => {
               return (
-                <div key={index} draggable onDragStart={e => controlDragStart(e, values, info, index)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, index)}>
+                <div key={index} draggable onDragStart={e => controlDragStart(e, values, info, index)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, index)} onDragEnter={e => differentColumnIndex(e, index)}>
                   <img className="pictureCustom" src={values.img} alt="dogs" />
                 </div>
               );
