@@ -1,7 +1,9 @@
 
 
 body{
-  background-image:url('./images/mountain.jpg')
+  background-image:url('./images/mountain.jpg');
+  background-repeat:no-repeat;
+  background-size:auto;
 }
 
 h1 {
@@ -18,7 +20,7 @@ h1 {
   text-align:center;
   justify-content: space-evenly;
   width:100%;
-  height: 95vh;
+  height: 80vh;
 
 }
 
