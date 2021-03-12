@@ -19,7 +19,6 @@ const Column = () => {
 
   const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
-  const [packageColumn, updatePackageColumn] = useState(false);
 
   const dropIt = (e, info, position) => {
     // the column index number
@@ -27,7 +26,7 @@ const Column = () => {
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('originId');
-    if (character[info.id].id !== originId && columnMover && !packageColumn) {
+    if (character[info.id].id !== originId && !columnMover) {
       if (e.target.nodeName !== 'IMG') {
         character[info.id].list.push({ img: imgs, name: identity });
         const returnedObjects = Object.assign({}, character);
@@ -36,13 +35,10 @@ const Column = () => {
             character[originId].list.splice(index, 1);
           }
         });
-        updateCharacters(returnedObjects);
-        character[info.id].list.forEach((value, index) => {
-          // console.log(character[info.id].list);
-        });
       }
+    } else {
+      console.log('working!');
     }
-
   };
 
   /** **the column part */
@@ -61,9 +57,8 @@ const Column = () => {
   };
 
   const controlDragStart = (e, values, info, index) => {
-    console.log('item');
-    updatePackageColumn(false);
-    updateColumnMover(true);
+    // updatePackageColumn(false);
+    // updateColumnMover(true);
     e.dataTransfer.setData('originId', info.id);
     e.dataTransfer.setData('name', values.name);
     e.dataTransfer.setData('img', values.img);
@@ -80,9 +75,15 @@ const Column = () => {
   // functions to move columns around
 
   const moveColumn = (e, index) => {
-    // updateColumnMover(false);
-    // updatePackageColumn(true);
-    e.dataTransfer.setData('columnStartIndex', index);
+
+    if (e.target.nodeName === 'IMG') {
+      console.log('img');
+      updateColumnMover(false);
+      e.dataTransfer.setData('columnStartIndex', index);
+    } else {
+      updateColumnMover(true);
+    }
+
   };
 
   const renderIt = () => {
