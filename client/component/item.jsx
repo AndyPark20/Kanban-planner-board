@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Item = ({ value, img }) => {
+const Item = ({ values}) => {
 
   return (
     <div draggable>
-      <img className="pictureCustom" src={img} alt="dog" />
+      <img className="pictureCustom" src={values.img} alt="dogs" />
     </div>
   );
 };

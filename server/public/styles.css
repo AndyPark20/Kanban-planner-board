@@ -18,12 +18,20 @@ h1 {
 }
 
 
-
 .pictureCustom{
   width:90%;
 }
 
 .listColumn{
   border:1px solid red;
+}
 
+.point:hover{
+  cursor: pointer;
+}
+
+@media screen and (max-width:1450px){
+  .pictureCustom{
+    width:80%;
+  }
 }
