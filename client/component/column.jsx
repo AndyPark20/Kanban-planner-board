@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Column = () => {
   const characters = {
     todo: {
       id: 'todo',
-      list: [{ name: 'gogo', img: 'images/pek1.jpg' }, { name: 'doodle', img: 'images/austrailian.jpg' }, { name: 'lab', img: 'images/golden.jpg' }]
+      list: []
     },
     doing: {
       id: 'doing',
@@ -17,6 +17,10 @@ const Column = () => {
   };
 
   const [character, updateCharacters] = useState(characters);
+
+  useEffect(()=>{
+    console.log(character)
+  },[character])
 
   const dropIt = (e, info, position) => {
     // the column index number
@@ -63,11 +67,21 @@ const Column = () => {
     e.dataTransfer.setData('startIndex', index);
   };
 
+  const makeNewItem = (e, info) => {
+    const chosenTopic = info.id;
+    character[info.id].list.push({ name: 'gogo', img: 'images/pek1.jpg' })
+    const addedCardObject = Object.assign({},character)
+    updateCharacters(addedCardObject);
+  }
+
   const renderIt = () => {
     const loop = Object.values(character).map((info, index) => {
       return (
-        <div key={index} className="col-4 d-flex text-center align-items-center flex-column justify-content-around">
-          <h2>{info.id}</h2>
+        <div key={index} className="col-4 d-flex text-center flex-column justify-content-around w-100">
+          <div className="d-flex align-items-end border border-danger justify-content-around w-100">
+            <h2>{info.id}</h2>
+            <h6 className="point" onClick={e => makeNewItem(e, info)}>add</h6>
+          </div>
           <div className="border border-danger w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)} >
             {info.list.map((values, index) => {
               return (
