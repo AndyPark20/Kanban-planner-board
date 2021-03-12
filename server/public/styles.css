@@ -1,4 +1,11 @@
 
+
+body{
+  background-image:url('./images/mountain.jpg');
+  background-repeat:no-repeat;
+  background-size:auto;
+}
+
 h1 {
   font-size: 4rem;
 }
@@ -34,4 +41,16 @@ h1 {
   .pictureCustom{
     width:80%;
   }
+}
+
+.select{
+  cursor: pointer;
+}
+
+.fontColor{
+  color:white;
+}
+
+.columnBackground{
+  background-color:rgba(46, 49, 49, .4)
 }
