@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Item from './item';
 
 const Column = () => {
   const characters = {
@@ -86,7 +87,7 @@ const Column = () => {
             {info.list.map((values, index) => {
               return (
                 <div key={index} draggable onDragStart={e => controlDragStart(e, values, info, index)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, index)} >
-                  <img className="pictureCustom" src={values.img} alt="dogs" />
+                  <Item values={values} />
                 </div>
               );
             })}
