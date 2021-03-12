@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Item from './item';
 
 const Column = () => {
+
   const characters = {
     todo: {
       id: 'todo',
@@ -30,6 +31,7 @@ const Column = () => {
       if (e.target.nodeName !== 'IMG') {
         character[info.id].list.push({ img: imgs, name: identity });
         const returnedObjects = Object.assign({}, character);
+        updateCharacters(returnedObjects);
         character[originId].list.forEach((values, index) => {
           if (values.name === identity) {
             character[originId].list.splice(index, 1);
@@ -37,7 +39,16 @@ const Column = () => {
         });
       }
     } else {
-      console.log('working!');
+      const originCol = e.dataTransfer.getData('originColumn');
+      // console.log(character);
+      // console.log(position);
+      // console.log(character[originCol].id);
+      const movedColumnObject = Object.values(character).map((description, value) => {
+        if (description.id === character[originCol].id) {
+          console.log(description);
+          console.log(value);
+        }
+      });
     }
   };
 
@@ -66,22 +77,19 @@ const Column = () => {
   };
 
   const makeNewItem = (e, info) => {
-    const chosenTopic = info.id;
     character[info.id].list.push({ name: 'gogo', img: 'images/pek1.jpg' });
     const addedCardObject = Object.assign({}, character);
     updateCharacters(addedCardObject);
   };
 
   // functions to move columns around
-
-  const moveColumn = (e, index) => {
-
+  const moveColumn = (e, info, value) => {
     if (e.target.nodeName === 'IMG') {
-      console.log('img');
       updateColumnMover(false);
-      e.dataTransfer.setData('columnStartIndex', index);
+      e.dataTransfer.setData('columnStartIndex', value);
     } else {
       updateColumnMover(true);
+      e.dataTransfer.setData('originColumn', info.id);
     }
 
   };
@@ -89,7 +97,7 @@ const Column = () => {
   const renderIt = () => {
     const loop = Object.values(character).map((info, index) => {
       return (
-        <div key={index} className="col-4 d-flex text-center flex-column justify-content-around w-100 border select" draggable onDragStart={e => moveColumn(e, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
+        <div key={index} className="col-4 d-flex text-center flex-column justify-content-around w-100 border select" draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
           <div className="d-flex align-items-end justify-content-around w-100">
             <h2 className="fontColor">{info.id}</h2>
             <h6 className="point fontColor" onClick={e => makeNewItem(e, info)}>add</h6>
