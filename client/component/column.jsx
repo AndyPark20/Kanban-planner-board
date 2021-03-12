@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Item from './item';
 
 const Column = () => {
-
   const characters = {
     todo: {
       id: 'todo',
