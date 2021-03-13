@@ -39,9 +39,9 @@ const Column = () => {
       }
     } else {
       const originCol = e.dataTransfer.getData('originColumn');
-      // console.log(character);
-      // console.log(position);
-      // console.log(character[originCol].id);
+      console.log(character);
+      console.log(position);
+      console.log(character[originCol].id);
       const movedColumnObject = Object.values(character).map((description, value) => {
         if (description.id === character[originCol].id) {
           console.log(description);
