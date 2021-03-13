@@ -67,8 +67,8 @@ const Column = () => {
   };
 
   const controlDragStart = (e, values, info, index) => {
-    // updatePackageColumn(false);
-    // updateColumnMover(true);
+    updatePackageColumn(false);
+    updateColumnMover(true);
     e.dataTransfer.setData('originId', info.id);
     e.dataTransfer.setData('name', values.name);
     e.dataTransfer.setData('img', values.img);
