@@ -27,9 +27,9 @@ const Column = () => {
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('originId');
-    if (character[info.id].id !== originId && !columnMover) {
+    if (character.id !== originId && !columnMover) {
       if (e.target.nodeName !== 'IMG') {
-        character[info.id].list.push({ img: imgs, name: identity });
+        character.list.push({ img: imgs, name: identity });
         const returnedObjects = Object.assign({}, character);
         updateCharacters(returnedObjects);
         character[originId].list.forEach((values, index) => {
@@ -40,12 +40,12 @@ const Column = () => {
       }
     } else {
       const originCol = e.dataTransfer.getData('originColumn');
-      const movedColumnObject = character.map((description, value) => {
-        if (description.id === character[originCol].id) {
-          console.log(description);
-          console.log(value);
-        }
-      });
+      // const movedColumnObject = character.map((description, value) => {
+      //   if (description.id === character[originCol].id) {
+      //     console.log(description);
+      //     console.log(value);
+      //   }
+      // });
     }
   };
 
@@ -54,8 +54,8 @@ const Column = () => {
     e.preventDefault();
     const startIndex = e.dataTransfer.getData('startIndex');
     const finishedIndex = index;
-    const [reordered] = character[info.id].list.splice(startIndex, 1);
-    character[info.id].list.splice(finishedIndex, 0, reordered);
+    const [reordered] = character.list.splice(startIndex, 1);
+    character.list.splice(finishedIndex, 0, reordered);
     const returnedObject = Object.assign({}, character);
     updateCharacters(returnedObject);
   };
@@ -71,9 +71,9 @@ const Column = () => {
     e.dataTransfer.setData('startIndex', index);
   };
 
-  const makeNewItem = (e, info) => {
-    character[info.id].list.push({ name: 'gogo', img: 'images/pek1.jpg' });
-    const addedCardObject = Object.assign({}, character);
+  const makeNewItem = (e, info, index) => {
+    character[index].list.push({ name: 'gogo', img: 'images/pek1.jpg' });
+    const addedCardObject = character.concat();
     updateCharacters(addedCardObject);
   };
 
@@ -95,17 +95,16 @@ const Column = () => {
         <div key={index} className="col-4 d-flex text-center flex-column justify-content-around w-100 border select" draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
           <div className="d-flex align-items-end justify-content-around w-100">
             <h2 className="fontColor">{info.id}</h2>
-            <h6 className="point fontColor" onClick={e => makeNewItem(e, info)}>add</h6>
+            <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
           </div>
           <div className=" columnBackground w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} >
-            {console.log(info.todo)}
-            {/* {info.list.map((values, index) => {
+            {info.list.map((values, index) => {
               return (
                 <div key={index} draggable onDragStart={e => controlDragStart(e, values, info, index)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, index)} >
                   <Item values={values} />
                 </div>
               );
-            })} */}
+            })}
           </div>
         </div>
       );
