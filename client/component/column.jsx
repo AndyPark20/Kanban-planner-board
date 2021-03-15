@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react';
 import Item from './item';
 
 const Column = () => {
-  const characters = {
-    todo: {
+  const characters = [
+    {
       id: 'todo',
       list: []
+
     },
-    doing: {
+    {
       id: 'doing',
       list: []
     },
-    done: {
+    {
       id: 'done',
       list: []
     }
-  };
+  ];
 
   const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
@@ -39,7 +40,7 @@ const Column = () => {
       }
     } else {
       const originCol = e.dataTransfer.getData('originColumn');
-      const movedColumnObject = Object.values(character).map((description, value) => {
+      const movedColumnObject = character.map((description, value) => {
         if (description.id === character[originCol].id) {
           console.log(description);
           console.log(value);
@@ -89,7 +90,7 @@ const Column = () => {
   };
 
   const renderIt = () => {
-    const loop = Object.values(character).map((info, index) => {
+    const loop = character.map((info, index) => {
       return (
         <div key={index} className="col-4 d-flex text-center flex-column justify-content-around w-100 border select" draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
           <div className="d-flex align-items-end justify-content-around w-100">
@@ -97,13 +98,14 @@ const Column = () => {
             <h6 className="point fontColor" onClick={e => makeNewItem(e, info)}>add</h6>
           </div>
           <div className=" columnBackground w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} >
-            {info.list.map((values, index) => {
+            {console.log(info.todo)}
+            {/* {info.list.map((values, index) => {
               return (
                 <div key={index} draggable onDragStart={e => controlDragStart(e, values, info, index)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, index)} >
                   <Item values={values} />
                 </div>
               );
-            })}
+            })} */}
           </div>
         </div>
       );
