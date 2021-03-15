@@ -27,14 +27,15 @@ const Column = () => {
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('startIndex');
+    const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     if (character.id !== originId && !columnMover) {
       if (e.target.nodeName !== 'IMG') {
         character[position].list.push({ img: imgs, name: identity });
         const returnedObjects = character.concat();
         updateCharacters(returnedObjects);
-        character[originId].list.forEach((values, index) => {
+        character[columnStartIndex].list.forEach((values, index) => {
           if (values.name === identity) {
-            character[originId].list.splice(index, 1);
+            character[columnStartIndex].list.splice(index, 1);
           }
         });
       }
@@ -54,6 +55,7 @@ const Column = () => {
     e.preventDefault();
     const startIndex = e.dataTransfer.getData('startIndex');
     const finishedIndex = index;
+
     const [reordered] = character.list.splice(startIndex, 1);
     character.list.splice(finishedIndex, 0, reordered);
     const returnedObject = Object.assign({}, character);
@@ -69,7 +71,6 @@ const Column = () => {
     e.dataTransfer.setData('name', values.name);
     e.dataTransfer.setData('img', values.img);
     e.dataTransfer.setData('startIndex', index);
-    console.log(index);
   };
 
   const makeNewItem = (e, info, index) => {
