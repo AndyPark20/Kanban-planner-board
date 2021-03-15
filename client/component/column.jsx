@@ -39,9 +39,9 @@ const Column = () => {
       }
     } else {
       const originCol = e.dataTransfer.getData('originColumn');
-      // console.log(character);
-      // console.log(position);
-      // console.log(character[originCol].id);
+      console.log(character);
+      console.log(position);
+      console.log(character[originCol].id);
       const movedColumnObject = Object.values(character).map((description, value) => {
         if (description.id === character[originCol].id) {
           console.log(description);
@@ -67,8 +67,8 @@ const Column = () => {
   };
 
   const controlDragStart = (e, values, info, index) => {
-    // updatePackageColumn(false);
-    // updateColumnMover(true);
+    updatePackageColumn(false);
+    updateColumnMover(true);
     e.dataTransfer.setData('originId', info.id);
     e.dataTransfer.setData('name', values.name);
     e.dataTransfer.setData('img', values.img);
