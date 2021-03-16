@@ -43,11 +43,15 @@ const Column = () => {
       const originCol = e.dataTransfer.getData('columnStartIndex');
       character.forEach((description, value) => {
         if (description.id === character[originCol].id) {
-          character.splice(value, 1, character[position]);
+          const swap = character[position];
+          character[position] = character[value];
+          character[value] = swap;
+          // character.splice(value, 1, character[position]);
           // character.splice(position, 1, character[value]);
-          const strippedData = character.concat();
-          console.log(strippedData);
-          updateCharacters(strippedData);
+          // const strippedData = character.concat();
+          const swappedResult = character.concat();
+
+          updateCharacters(swappedResult);
         }
       });
     }
