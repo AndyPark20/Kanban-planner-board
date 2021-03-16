@@ -4,16 +4,16 @@ import Item from './item';
 const Column = () => {
   const characters = [
     {
-      id: 'todo',
+      id: 'Todo',
       list: []
 
     },
     {
-      id: 'doing',
+      id: 'Doing',
       list: []
     },
     {
-      id: 'done',
+      id: 'Done',
       list: []
     }
   ];
@@ -46,11 +46,7 @@ const Column = () => {
           const swap = character[position];
           character[position] = character[value];
           character[value] = swap;
-          // character.splice(value, 1, character[position]);
-          // character.splice(position, 1, character[value]);
-          // const strippedData = character.concat();
           const swappedResult = character.concat();
-
           updateCharacters(swappedResult);
         }
       });
