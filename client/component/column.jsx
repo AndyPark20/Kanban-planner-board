@@ -40,13 +40,16 @@ const Column = () => {
         });
       }
     } else {
-      const originCol = e.dataTransfer.getData('originColumn');
-      // const movedColumnObject = character.map((description, value) => {
-      //   if (description.id === character[originCol].id) {
-      //     console.log(description);
-      //     console.log(value);
-      //   }
-      // });
+      const originCol = e.dataTransfer.getData('columnStartIndex');
+      character.forEach((description, value) => {
+        if (description.id === character[originCol].id) {
+          character.splice(value, 1, character[position]);
+          // character.splice(position, 1, character[value]);
+          const strippedData = character.concat();
+          console.log(strippedData);
+          updateCharacters(strippedData);
+        }
+      });
     }
   };
 
@@ -86,7 +89,7 @@ const Column = () => {
       e.dataTransfer.setData('columnStartIndex', value);
     } else {
       updateColumnMover(true);
-      e.dataTransfer.setData('originColumn', info.id);
+      e.dataTransfer.setData('columnStartIndex', value);
     }
 
   };
