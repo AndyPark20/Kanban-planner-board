@@ -33,9 +33,9 @@ const Column = () => {
         character[position].list.push({ img: imgs, name: identity });
         const returnedObjects = character.concat();
         updateCharacters(returnedObjects);
-        character[columnStartIndex].list.forEach((values, index) => {
+        character[columnStartIndex].list.forEach((values, location) => {
           if (values.name === identity) {
-            character[columnStartIndex].list.splice(index, 1);
+            character[columnStartIndex].list.splice(location, 1);
           }
         });
       }
