@@ -91,13 +91,20 @@ const Column = () => {
       updateColumnMover(true);
       e.dataTransfer.setData('columnStartIndex', value);
     }
-
   };
+
+  const result = character.map((info, values) => {
+    if (info.list.length > 1) {
+      return 'scroll col-4 d-flex text-center flex-column justify-content-around w-100 border select';
+    } else if (info.list.length <= 1) {
+      return 'col-4 d-flex text-center flex-column justify-content-around w-100 border select';
+    }
+  });
 
   const renderIt = () => {
     const loop = character.map((info, index) => {
       return (
-        <div key={index} className="col-4 d-flex text-center flex-column justify-content-around w-100 border select" draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
+        <div key={index} className={result} draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
           <div className="d-flex align-items-end justify-content-around w-100">
             <h2 className="fontColor">{info.id}</h2>
             <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
