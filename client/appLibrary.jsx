@@ -58,21 +58,3 @@ const App = () => {
 };
 
 export default App;
-
-// [
-//   {
-//     id: 'Pekingese',
-//     name: 'Gogo',
-//     pic: '/images/pek1.jpg'
-//   },
-//   {
-//     id: 'Golden-Retriever',
-//     name: 'Lemon',
-//     pic: '/images/golden.jpg'
-//   },
-//   {
-//     id: 'Austrailian',
-//     name: 'Peach',
-//     pic: '/images/austrailian.jpg'
-//   }
-// ];
