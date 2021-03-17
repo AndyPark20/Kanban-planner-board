@@ -18,7 +18,6 @@ h1 {
 .columnCustom {
   display:flex;
   text-align:center;
-  justify-content: space-evenly;
   width:100%;
   height: 80vh;
 
