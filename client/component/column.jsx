@@ -5,7 +5,7 @@ const Column = () => {
   const characters = [
     {
       id: 'Todo',
-      list: []
+      list: [{ name: 'gogo', img: 'images/pek1.jpg' }, { name: 'Doodle', img: 'images/austrailian.jpg' }]
 
     },
     {
@@ -54,30 +54,29 @@ const Column = () => {
   };
 
   /** **the column part */
-  const lastIndex = (e, info, index) => {
+  const lastIndex = (e, info, indexItem, index) => {
     e.preventDefault();
     const startIndex = e.dataTransfer.getData('startIndex');
-    const finishedIndex = index;
-
-    const [reordered] = character.list.splice(startIndex, 1);
-    character.list.splice(finishedIndex, 0, reordered);
-    const returnedObject = Object.assign({}, character);
-    updateCharacters(returnedObject);
+    const finishedIndex = indexItem;
+    const [reordered] = character[index].list.splice(startIndex, 1);
+    character[index].list.splice(finishedIndex, 0, reordered);
+    const copyCharacter = character.concat();
+    updateCharacters(copyCharacter);
   };
 
   const allowDrop = e => {
     e.preventDefault();
   };
 
-  const controlDragStart = (e, values, info, index) => {
+  const controlDragStart = (e, values, info, indexItem) => {
     e.dataTransfer.setData('originId', info.id);
     e.dataTransfer.setData('name', values.name);
     e.dataTransfer.setData('img', values.img);
-    e.dataTransfer.setData('startIndex', index);
+    e.dataTransfer.setData('startIndex', indexItem);
   };
 
   const makeNewItem = (e, info, index) => {
-    character[index].list.push({ name: 'gogo', img: 'images/pek1.jpg' });
+    character[index].list.push({ name: 'golden', img: 'images/golden.jpg' });
     const addedCardObject = character.concat();
     updateCharacters(addedCardObject);
   };
@@ -91,28 +90,32 @@ const Column = () => {
       updateColumnMover(true);
       e.dataTransfer.setData('columnStartIndex', value);
     }
+
   };
 
-  const result = character.map((info, values) => {
-    if (info.list.length > 1) {
-      return 'scroll col-4 d-flex text-center flex-column justify-content-around w-100 border select';
-    } else if (info.list.length <= 1) {
-      return 'col-4 d-flex text-center flex-column justify-content-around w-100 border select';
-    }
-  });
+  const styles = () => {
+    const result = character.map((info, values) => {
+      if (info.list.length > 1) {
+        return 'scroll col-4 d-flex text-center flex-column justify-content-around w-100 border select';
+      } else if (info.list.length <= 1) {
+        return 'col-4 d-flex text-center flex-column justify-content-around w-100 border select';
+      }
+    });
+    return result;
+  };
 
   const renderIt = () => {
     const loop = character.map((info, index) => {
       return (
-        <div key={index} className={result} draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
+        <div key={index} className={styles()} draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
           <div className="d-flex align-items-end justify-content-around w-100">
             <h2 className="fontColor">{info.id}</h2>
             <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
           </div>
           <div className=" columnBackground w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} >
-            {info.list.map((values, index) => {
+            {info.list.map((values, indexItem) => {
               return (
-                <div key={index} onDragStart={e => controlDragStart(e, values, info, index)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, index)} >
+                <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} >
                   <Item values={values} />
                 </div>
               );
