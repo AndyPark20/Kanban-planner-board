@@ -29,7 +29,7 @@ const Column = () => {
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     if (character.id !== originId && !columnMover) {
-      if (e.target.nodeName !== 'IMG') {
+      if (e.target.nodeName === 'DIV') {
         character[position].list.push({ img: imgs, name: identity });
         const returnedObjects = character.concat();
         updateCharacters(returnedObjects);
@@ -51,6 +51,7 @@ const Column = () => {
         }
       });
     }
+
   };
 
   /** **the column part */
@@ -62,6 +63,7 @@ const Column = () => {
     character[index].list.splice(finishedIndex, 0, reordered);
     const copyCharacter = character.concat();
     updateCharacters(copyCharacter);
+
   };
 
   const allowDrop = e => {
@@ -83,7 +85,7 @@ const Column = () => {
 
   // functions to move columns around
   const moveColumn = (e, info, value) => {
-    if (e.target.nodeName === 'IMG') {
+    if (e.target.nodeName === 'DIV' && e.target.className === 'card spacing') {
       updateColumnMover(false);
       e.dataTransfer.setData('columnStartIndex', value);
     } else {
@@ -93,36 +95,45 @@ const Column = () => {
 
   };
 
-  const styles = () => {
-    const result = character.map((info, values) => {
-      if (info.list.length > 1) {
-        return 'scroll col-4 d-flex text-center flex-column justify-content-around w-100 border select';
-      } else if (info.list.length <= 1) {
-        return 'col-4 d-flex text-center flex-column justify-content-around w-100 border select';
-      }
-    });
-    return result;
-  };
-
   const renderIt = () => {
     const loop = character.map((info, index) => {
-      return (
-        <div key={index} className={styles()} draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
-          <div className="d-flex align-items-end justify-content-around w-100">
-            <h2 className="fontColor">{info.id}</h2>
-            <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
+      if (info.list.length > 1) {
+        return (
+          <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 border select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
+            <div className="d-flex align-items-end justify-content-around w-100">
+              <h2 className="fontColor">{info.id}</h2>
+              <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
+            </div>
+            <div className=" columnBackground w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} >
+              {info.list.map((values, indexItem) => {
+                return (
+                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} >
+                    <Item values={values} />
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div className=" columnBackground w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} >
-            {info.list.map((values, indexItem) => {
-              return (
-                <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} >
-                  <Item values={values} />
-                </div>
-              );
-            })}
+        );
+      } else {
+        return (
+          <div key={index} className='col-4 d-flex text-center flex-column justify-content-around w-100 border select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
+            <div className="d-flex align-items-end justify-content-around w-100">
+              <h2 className="fontColor">{info.id}</h2>
+              <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
+            </div>
+            <div className=" columnBackground w-100 columnCustom d-flex flex-column" onDragOver={e => allowDrop(e)} >
+              {info.list.map((values, indexItem) => {
+                return (
+                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} >
+                    <Item values={values} />
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     });
     return loop;
   };
