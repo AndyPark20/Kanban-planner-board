@@ -4,7 +4,7 @@ const Item = ({ values }) => {
 
   return (
 
-    <div className="card" draggable>
+    <div className="card spacing" draggable>
       <img className="card-img-top" src={values.img} alt="Card image cap" />
       <div className="card-body">
         <h5 className="card-title">Card title</h5>

@@ -15,6 +15,14 @@ h1 {
   padding:3% 2%;
 }
 
+
+.spacing{
+    margin-bottom:10%;
+}
+
+
+
+
 .columnCustom {
   display:flex;
   text-align:center;
