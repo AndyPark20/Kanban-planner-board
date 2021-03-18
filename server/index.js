@@ -21,10 +21,7 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
       return res.json();
     })
     .then(data => {
-      console.log(data);
-      // data.forEach(values => {
-      //   console.log(values);
-      // });
+      res.status(201).json(data);
     });
 
 });

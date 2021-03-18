@@ -9,7 +9,7 @@ const Item = ({ values }) => {
     fetch(`/api/picture/${ocean}/${land}/${size}`)
       .then(res => res.json())
       .then(result => {
-        console.log(result.rows);
+        console.log(result);
       })
       .catch(err => {
         console.error(err);
