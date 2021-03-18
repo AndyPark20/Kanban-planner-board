@@ -2,6 +2,7 @@ require('dotenv/config');
 const { json } = require('express');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
+const fetch = require('node-fetch');
 
 const app = express();
 
@@ -21,6 +22,9 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
     })
     .then(data => {
       console.log(data);
+      // data.forEach(values => {
+      //   console.log(values);
+      // });
     });
 
 });
