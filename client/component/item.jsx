@@ -6,10 +6,10 @@ const Item = ({ values }) => {
     const ocean = 'Ocean';
     const land = 'landscape';
     const size = 'medium';
-    fetch(`api/picture/${ocean}/${land}/${size}`)
+    fetch(`/api/picture/${ocean}/${land}/${size}`)
       .then(res => res.json())
       .then(result => {
-        console.log(result);
+        console.log(result.rows);
       })
       .catch(err => {
         console.error(err);
