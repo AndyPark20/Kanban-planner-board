@@ -6,6 +6,7 @@ import Background from './component/library/backgroundOption';
 const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
   const [naviOption, naviOptionUpdate] = useState('');
+  const [modalStatus, modalStatusUpdate] = useState(false);
 
   const change = e => {
     if (!hamburger && e.target.className === 'fas fa-bars') {
@@ -22,6 +23,14 @@ const App = () => {
 
   };
 
+  const modalChange = () => {
+    if (!modalStatus) {
+      modalStatusUpdate(true);
+    } else {
+      modalStatusUpdate(false);
+    }
+  };
+
   return (
     <div style={{
       backgroundImage: 'url(https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)',
@@ -32,10 +41,10 @@ const App = () => {
     }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div>
-          <Background />
+          <Background status={modalStatus}/>
         </div>
         <div className="hamburgerStyle">
-          <Navigation values={hamburger} class={naviOption} />
+          <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
         <Column />
       </div>
