@@ -3,13 +3,7 @@ import React from 'react';
 export default class Navigation extends React.Component {
   constructor(props) {
     super(props);
-    this.changeView = this.changeView.bind(this);
     this.revealSlider = this.revealSlider.bind(this);
-  }
-
-  changeView(e) {
-
-    this.props.click();
   }
 
   revealSlider(e) {
@@ -28,7 +22,7 @@ export default class Navigation extends React.Component {
 
   render() {
     return (
-    <div onClick={this.changeView}>
+    <div >
         <i className={this.hideHamburg()}></i>
         <div className={this.revealSlider()}>
           <div className="row">

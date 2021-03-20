@@ -5,12 +5,13 @@ import Navigation from './options';
 const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
 
-  const change = () => {
-    if (!hamburger) {
+  const change = e => {
+    if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
     } else {
       hamburgerUpdate(false);
     }
+
   };
 
   return (
@@ -20,10 +21,10 @@ const App = () => {
       backgroundSize: 'cover',
       overflow: 'hidden',
       height: '100vh'
-    }} className="cursorMain" onClick={() => change()}>
+    }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div className="hamburgerStyle">
-          <Navigation values={hamburger}/>
+          <Navigation values={hamburger} />
         </div>
         <Column />
       </div>
