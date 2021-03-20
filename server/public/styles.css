@@ -122,3 +122,27 @@ ul{
 .cursorMain{
   cursor: pointer;
 }
+
+/* Modal Position */
+
+.modalPosition{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  z-index:2;
+  background-color:rgba(46, 49, 49, .9)
+}
+
+.rowModal{
+  height:100vh;
+}
+
+.color{
+  color:white;
+  z-index:100;
+}
+
+.btnSize{
+  width:10%;
+}
