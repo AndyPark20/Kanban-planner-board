@@ -4,8 +4,12 @@ import Column from './component/column';
 const App = () => {
 
   return (
-    <div className="columnCustom">
-      <Column />
+    <div style={{
+      backgroundImage: 'url(\'https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500\')'
+    }}>
+      <div className="columnCustom">
+        <Column />
+      </div>
     </div>
   );
 };
