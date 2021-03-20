@@ -7,9 +7,13 @@ const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
   const [naviOption, naviOptionUpdate] = useState('');
   const [modalStatus, modalStatusUpdate] = useState(false);
+  const [wallpaper, wallpaperUpdate] = useState({});
+
+  useEffect(() => {
+    console.log(wallpaper);
+  }, [wallpaper]);
 
   const change = e => {
-    console.log(e.target.className);
     if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
     }
@@ -36,10 +40,11 @@ const App = () => {
   const userSearch = e => {
     e.preventDefault();
     if (e.key === 'Enter') {
+      console.log(e.target.value);
       fetch(`/api/picture/${e.target.value}/${'landscape'}/${'medium'}`)
         .then(res => res.json())
         .then(result => {
-          console.log(result);
+          wallpaperUpdate(result);
         })
         .catch(err => {
           console.error(err);
@@ -50,7 +55,7 @@ const App = () => {
 
   return (
     <div style={{
-      backgroundImage: 'url(https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)',
+      backgroundImage: 'url(https://images.pexels.com/photos/1183021/pexels-photo-1183021.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       overflow: 'hidden',
