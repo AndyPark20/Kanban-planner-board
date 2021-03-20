@@ -36,7 +36,7 @@ const App = () => {
   const userSearch = e => {
     e.preventDefault();
     if (e.key === 'Enter') {
-      fetch(`/api/picture/${e.target.value}/${'land'}/${'size'}`)
+      fetch(`/api/picture/${e.target.value}/${'landscape'}/${'medium'}`)
         .then(res => res.json())
         .then(result => {
           console.log(result);

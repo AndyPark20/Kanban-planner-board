@@ -1,11 +1,12 @@
 require('dotenv/config');
-const { json } = require('express');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const fetch = require('node-fetch');
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
 app.use(staticMiddleware);
 
 app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
