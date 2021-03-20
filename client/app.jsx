@@ -9,10 +9,6 @@ const App = () => {
   const [modalStatus, modalStatusUpdate] = useState(false);
   const [wallpaper, wallpaperUpdate] = useState({});
 
-  useEffect(() => {
-    console.log(wallpaper);
-  }, [wallpaper]);
-
   const change = e => {
     if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
@@ -40,17 +36,22 @@ const App = () => {
   const userSearch = e => {
     e.preventDefault();
     if (e.key === 'Enter') {
-      console.log(e.target.value);
       fetch(`/api/picture/${e.target.value}/${'landscape'}/${'medium'}`)
         .then(res => res.json())
         .then(result => {
-          wallpaperUpdate(result);
+          localStorage.setItem('wallpaper', JSON.stringify(result));
+          const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
+          wallpaperUpdate(retrieveWallpaper);
+
         })
         .catch(err => {
           console.error(err);
         });
-
     }
+  };
+
+  const test = () => {
+    console.log(wallpaper);
   };
 
   return (
@@ -63,6 +64,7 @@ const App = () => {
     }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div>
+          {test()}
           <Background status={modalStatus} searchValue={userSearch} />
         </div>
         <div className="hamburgerStyle">
