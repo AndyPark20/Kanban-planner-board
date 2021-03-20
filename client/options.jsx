@@ -29,7 +29,7 @@ export default class Navigation extends React.Component {
           <div className="row">
             <div className="columnHamburger ">
               <ul>
-                <li><h6 className="check">Change wallpaper</h6></li>
+                <li><h6 className="check" onClick={() => console.log('hello')}>Change wallpaper</h6></li>
               </ul>
             </div>
           </div>
