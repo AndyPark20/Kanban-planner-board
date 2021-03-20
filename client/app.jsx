@@ -9,9 +9,11 @@ const App = () => {
   const [modalStatus, modalStatusUpdate] = useState(false);
 
   const change = e => {
+    console.log(e.target.className);
     if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
-    } else {
+    }
+    if (!hamburger && e.target.className === 'fas fa-bars' && e.target.className === 'rowModal') {
       hamburgerUpdate(false);
     }
 
@@ -31,6 +33,21 @@ const App = () => {
     }
   };
 
+  const userSearch = e => {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      fetch(`/api/picture/${e.target.value}/${'land'}/${'size'}`)
+        .then(res => res.json())
+        .then(result => {
+          console.log(result);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+
+    }
+  };
+
   return (
     <div style={{
       backgroundImage: 'url(https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)',
@@ -41,7 +58,7 @@ const App = () => {
     }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div>
-          <Background status={modalStatus}/>
+          <Background status={modalStatus} searchValue={userSearch} />
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />

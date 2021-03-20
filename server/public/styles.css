@@ -142,3 +142,7 @@ ul{
   color:white;
   z-index:100;
 }
+
+.btnSize{
+  width:10%;
+}
