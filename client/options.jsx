@@ -4,17 +4,18 @@ export default class Navigation extends React.Component {
   constructor(props) {
     super(props);
     this.revealSlider = this.revealSlider.bind(this);
+    this.hideHamburg = this.hideHamburg.bind(this);
   }
 
-  revealSlider(e) {
-    if (!this.props.values) {
+  revealSlider() {
+    if (!this.props.values && this.props.class === '') {
       return 'container hidden';
     }
     return 'container';
   }
 
   hideHamburg() {
-    if (!this.props.values) {
+    if (!this.props.values && this.props.class === '') {
       return 'fas fa-bars';
     }
     return 'fas';

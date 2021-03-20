@@ -4,12 +4,19 @@ import Navigation from './options';
 
 const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
+  const [naviOption, naviOptionUpdate] = useState('');
 
   const change = e => {
     if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
     } else {
       hamburgerUpdate(false);
+    }
+
+    if (e.target.className === 'check') {
+      naviOptionUpdate('check');
+    } else {
+      naviOptionUpdate('');
     }
 
   };
@@ -24,7 +31,7 @@ const App = () => {
     }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div className="hamburgerStyle">
-          <Navigation values={hamburger} />
+          <Navigation values={hamburger} class={naviOption} />
         </div>
         <Column />
       </div>
