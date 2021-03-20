@@ -5,12 +5,12 @@ import Navigation from './options';
 const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
 
-  const outSide = () => {
-    console.log('working');
+  const change = () => {
     if (!hamburger) {
       hamburgerUpdate(true);
+    } else {
+      hamburgerUpdate(false);
     }
-    hamburgerUpdate(false);
   };
 
   return (
@@ -20,10 +20,10 @@ const App = () => {
       backgroundSize: 'cover',
       overflow: 'hidden',
       height: '100vh'
-    }} className="cursorMain" onClick={() => outSide()}>
+    }} className="cursorMain" onClick={() => change()}>
       <div className="columnCustom">
         <div className="hamburgerStyle">
-          <Navigation />
+          <Navigation values={hamburger}/>
         </div>
         <Column />
       </div>

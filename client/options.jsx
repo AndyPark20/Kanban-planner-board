@@ -3,27 +3,24 @@ import React from 'react';
 export default class Navigation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ props: false });
     this.changeView = this.changeView.bind(this);
     this.revealSlider = this.revealSlider.bind(this);
   }
 
   changeView(e) {
-    if (!this.state.props) {
-      this.setState({ props: true });
-    } else {
-      this.setState({ propse: false });
-    }
+
+    this.props.click();
   }
 
   revealSlider(e) {
-    if (!this.state.props) {
+    if (!this.props.values) {
       return 'container hidden';
     }
+    return 'container';
   }
 
   hideHamburg() {
-    if (!this.state.props) {
+    if (!this.props.values) {
       return 'fas fa-bars';
     }
     return 'fas';
@@ -37,7 +34,7 @@ export default class Navigation extends React.Component {
           <div className="row">
             <div className="columnHamburger ">
               <ul>
-                <li><h3 className="check">Menu</h3></li>
+                <li><h6 className="check">Change wallpaper</h6></li>
               </ul>
             </div>
           </div>
