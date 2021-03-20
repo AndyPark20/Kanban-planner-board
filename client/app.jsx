@@ -3,6 +3,15 @@ import Column from './component/column';
 import Navigation from './options';
 
 const App = () => {
+  const [hamburger, hamburgerUpdate] = useState(false);
+
+  const outSide = () => {
+    console.log('working');
+    if (!hamburger) {
+      hamburgerUpdate(true);
+    }
+    hamburgerUpdate(false);
+  };
 
   return (
     <div style={{
@@ -11,7 +20,7 @@ const App = () => {
       backgroundSize: 'cover',
       overflow: 'hidden',
       height: '100vh'
-    }}>
+    }} className="cursorMain" onClick={() => outSide()}>
       <div className="columnCustom">
         <div className="hamburgerStyle">
           <Navigation />

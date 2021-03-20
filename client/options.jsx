@@ -35,12 +35,11 @@ export default class Navigation extends React.Component {
         <i className={this.hideHamburg()}></i>
         <div className={this.revealSlider()}>
           <div className="row">
-            <div className="columnHamburger">
+            <div className="columnHamburger ">
               <ul>
                 <li><h3 className="check">Menu</h3></li>
               </ul>
             </div>
-            <div className="columnShade"></div>
           </div>
         </div>
     </div>

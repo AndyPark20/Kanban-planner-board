@@ -112,3 +112,13 @@ ul{
 .hidden{
   display:none;
 }
+
+.columnShade{
+  width:100%;
+  background-color:grey;
+  cursor: pointer;
+}
+
+.cursorMain{
+  cursor: pointer;
+}
