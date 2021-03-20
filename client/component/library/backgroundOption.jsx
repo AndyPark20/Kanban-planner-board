@@ -2,12 +2,22 @@ import React from 'react';
 
 const Background = ({ status }) => {
 
-  const test = () => {
-    console.log('hello');
+  const modalUpdate = () => {
+    if (!status) {
+      return 'container modalPosition hidden';
+    }
+    return 'container modalPosition';
+  };
+
+  const modalContext = () => {
+    if (!status) {
+      return 'column hidden';
+    }
+    return 'airportForm d-flex flex-column';
   };
 
   return (
-    <div className="container modalPosition">
+    <div className={modalUpdate()}>
       <div className="rowModal">
         <div className="column">
           <form className="airportForm d-flex flex-column" >
