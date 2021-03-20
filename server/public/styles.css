@@ -27,11 +27,8 @@ h1 {
 }
 
 
-
-
 .columnCustom {
   display:flex;
-  text-align:center;
   width:100%;
   height: 80vh;
 }
@@ -69,4 +66,49 @@ h1 {
 
 .columnBackground{
   background-color:rgba(46, 49, 49, .4)
+}
+
+
+/*Hamburger*/
+.fa-bars{
+  font-size:2rem;
+}
+
+.hamburgerStyle{
+  padding:0px;
+  cursor:pointer;
+}
+
+.navi{
+  width:100%;
+  border:3px solid black
+}
+
+.row{
+    display:flex;
+    height:80vh;
+}
+
+.columnHamburger{
+  background-color: white;;
+  border:2px solid black;
+  background-color:rgba(46, 49, 49, .4)
+}
+
+li{
+  list-style-type:none;
+}
+
+ul{
+  margin:0px;
+  padding:2rem;
+
+}
+
+.check{
+  text-align: center;
+}
+
+.hidden{
+  display:none;
 }

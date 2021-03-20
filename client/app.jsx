@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Column from './component/column';
+import Navigation from './options';
 
 const App = () => {
 
@@ -12,8 +13,12 @@ const App = () => {
       height: '100vh'
     }}>
       <div className="columnCustom">
+        <div className="hamburgerStyle">
+          <Navigation />
+        </div>
         <Column />
       </div>
+
     </div>
   );
 };
