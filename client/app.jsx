@@ -33,24 +33,22 @@ const App = () => {
     }
   };
 
-  const userSearch = e => {
-      e.preventDefault();
+  const userSearch = (e, keyWord) => {
+    if (e.target.className === 'btn btn-primary btnSize') {
+      fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`)
+        .then(res => res.json())
+        .then(result => {
+          localStorage.setItem('wallpaper', JSON.stringify(result));
+          const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
+          wallpaperUpdate(retrieveWallpaper);
 
-      // fetch(`/api/picture/${e.target.value}/${'landscape'}/${'medium'}`)
-      //   .then(res => res.json())
-      //   .then(result => {
-      //     localStorage.setItem('wallpaper', JSON.stringify(result));
-      //     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
-      //     wallpaperUpdate(retrieveWallpaper);
-
-      //   })
-      //   .catch(err => {
-      //     console.error(err);
-      //   });
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
 
   };
-
-
 
   return (
     <div style={{

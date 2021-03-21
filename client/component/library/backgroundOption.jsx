@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 const Background = ({ status, searchValue }) => {
-  const [type, updateType] = useState('');
-  const [search, updateSearch]=useState('')
+  const [keyWord, keyWordUpdate] = useState('');
 
   const modalUpdate = () => {
     if (!status) {
@@ -11,23 +10,18 @@ const Background = ({ status, searchValue }) => {
     return 'container modalPosition';
   };
 
-  const test =(e)=>{
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log(e.target.keyCode)
-    // if(e.key === 'Enter'){
-    //   console.log(e.target.value)
-    // }
-  }
-
+  };
 
   return (
     <div className={modalUpdate()}>
       <div className="rowModal">
         <div className="column">
-          <form className="airportForm d-flex flex-column" >
-            <label className="labelStyle"> Airport Code:</label>
-            <input className="inputStyle" type="text" name="airportCode"  placeholder="ocean" required></input>
-            <button type="button" className="btn btn-primary btnSize" onChange={e => test(e)}>submit</button>
+          <form className="airportForm d-flex flex-column" onSubmit={e => handleSubmit(e)}>
+            <label className="labelStyle"> Category:</label>
+            <input className="inputStyle" type="text" name="airportCode" placeholder="ocean" onKeyUp={e => { keyWordUpdate(e.target.value); }} required></input>
+            <button type="click" className="btn btn-primary btnSize" onClick={e => searchValue(e, keyWord)}>submit</button>
           </form>
         </div>
       </div>
