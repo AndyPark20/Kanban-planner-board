@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { render } from 'react-dom';
 
-const Background = ({ status, searchValue, pictures }) => {
+const Background = ({ status, searchValue, pictures, modalUpdateParent }) => {
   const [keyWord, keyWordUpdate] = useState('');
 
   const modalUpdate = () => {
@@ -29,7 +29,7 @@ const Background = ({ status, searchValue, pictures }) => {
   };
 
   return (
-    <div className='container modalPosition'>
+    <div className={modalUpdate()}>
       <div className="rowModal">
         <div className="column">
           <form className="airportForm d-flex flex-column" onSubmit={e => handleSubmit(e)}>
@@ -37,9 +37,9 @@ const Background = ({ status, searchValue, pictures }) => {
             <div className="d-flex">
               <input className="inputStyle w-50 mr-1" type="text" name="airportCode" placeholder="ocean" onKeyUp={e => { keyWordUpdate(e.target.value); }} required></input>
               <button type="click" className="btn btn-primary btnSize mr-1" onClick={e => searchValue(e, keyWord)}>Search</button>
-              <button type="click" className="btn btn-danger btnSize" onClick={e => console.log('hello') }>Cancel</button>
             </div>
           </form>
+          <button type="click" className="btn btn-danger btnSize" onClick={() => modalUpdateParent()}>Cancel</button>
         </div>
           <div className="row">
             {renderPictures()}

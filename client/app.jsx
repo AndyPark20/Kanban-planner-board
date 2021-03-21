@@ -27,10 +27,17 @@ const App = () => {
     } else {
       naviOptionUpdate('');
     }
-
   };
 
   const modalChange = () => {
+    if (!modalStatus) {
+      modalStatusUpdate(true);
+    } else {
+      modalStatusUpdate(false);
+    }
+  };
+
+  const modalCancelFunction = () => {
     if (!modalStatus) {
       modalStatusUpdate(true);
     } else {
@@ -65,7 +72,7 @@ const App = () => {
     }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div>
-          <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper}/>
+          <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction}/>
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
