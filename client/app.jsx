@@ -34,9 +34,7 @@ const App = () => {
   };
 
   const userSearch = e => {
-    e.preventDefault();
-  console.log(e.target.value)
-
+      e.preventDefault();
 
       // fetch(`/api/picture/${e.target.value}/${'landscape'}/${'medium'}`)
       //   .then(res => res.json())
@@ -49,11 +47,10 @@ const App = () => {
       //   .catch(err => {
       //     console.error(err);
       //   });
+
   };
 
-  const test = () => {
-    console.log(wallpaper);
-  };
+
 
   return (
     <div style={{
@@ -65,7 +62,6 @@ const App = () => {
     }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div>
-          {test()}
           <Background status={modalStatus} searchValue={userSearch} />
         </div>
         <div className="hamburgerStyle">
