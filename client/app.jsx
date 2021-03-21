@@ -43,7 +43,7 @@ const App = () => {
       fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`)
         .then(res => res.json())
         .then(result => {
-          const splitData = result.photos.splice(0, 50);
+          const splitData = result.photos;
           localStorage.setItem('wallpaper', JSON.stringify(splitData));
           const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
           wallpaperUpdate(retrieveWallpaper);

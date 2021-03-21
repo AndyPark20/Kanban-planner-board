@@ -16,15 +16,16 @@ const Background = ({ status, searchValue, pictures }) => {
   };
 
   const renderPictures = () => {
-    console.log(pictures);
-    const downloadedData = pictures.map((values, index) => {
-      return (
-        <div key={index}>
-          {/* <img src={values} alt="pictures" /> */}
-        </div>
-      );
-    });
-    return downloadedData;
+    if (Object.keys(pictures).length !== 0) {
+      const downloadedData = pictures.photos.map((values, index) => {
+        return (
+          <div key={index} className="col-3 d-flex p-3">
+            <img className="wallPaperStyle" src={values.src.original} alt="pictures" />
+          </div>
+        );
+      });
+      return downloadedData;
+    }
   };
 
   return (
@@ -32,13 +33,15 @@ const Background = ({ status, searchValue, pictures }) => {
       <div className="rowModal">
         <div className="column">
           <form className="airportForm d-flex flex-column" onSubmit={e => handleSubmit(e)}>
-            <label className="labelStyle"> Category:</label>
-            <input className="inputStyle" type="text" name="airportCode" placeholder="ocean" onKeyUp={e => { keyWordUpdate(e.target.value); }} required></input>
+            <label className="labelStyle">Category:</label>
+            <div className="d-flex">
+            <input className="inputStyle w-50" type="text" name="airportCode" placeholder="ocean" onKeyUp={e => { keyWordUpdate(e.target.value); }} required></input>
             <button type="click" className="btn btn-primary btnSize" onClick={e => searchValue(e, keyWord)}>submit</button>
+            </div>
           </form>
         </div>
-        <div className="column">
-          {renderPictures()}
+        <div className="row">
+            {renderPictures()}
         </div>
       </div>
     </div>
