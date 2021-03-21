@@ -16,8 +16,8 @@ const Background = ({ status, searchValue, pictures }) => {
   };
 
   const renderPictures = () => {
-    if (Object.keys(pictures).length !== 0) {
-      const downloadedData = pictures.photos.map((values, index) => {
+    if (pictures.length !== 0) {
+      const downloadedData = pictures.map((values, index) => {
         return (
           <div key={index} className="col-3 d-flex p-3">
             <img className="wallPaperStyle" src={values.src.original} alt="pictures" />
@@ -29,7 +29,7 @@ const Background = ({ status, searchValue, pictures }) => {
   };
 
   return (
-    <div className='container modalPosition'>
+    <div className={modalUpdate()}>
       <div className="rowModal">
         <div className="column">
           <form className="airportForm d-flex flex-column" onSubmit={e => handleSubmit(e)}>

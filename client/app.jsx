@@ -7,7 +7,7 @@ const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
   const [naviOption, naviOptionUpdate] = useState('');
   const [modalStatus, modalStatusUpdate] = useState(false);
-  const [wallpaper, wallpaperUpdate] = useState({});
+  const [wallpaper, wallpaperUpdate] = useState([]);
 
   useEffect(() => {
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
@@ -18,7 +18,7 @@ const App = () => {
     if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
     }
-    if (!hamburger && e.target.className === 'fas fa-bars' && e.target.className === 'rowModal') {
+    if (hamburger && e.target.className !== 'fas fa-bars') {
       hamburgerUpdate(false);
     }
 
