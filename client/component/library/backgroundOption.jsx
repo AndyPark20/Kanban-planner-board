@@ -29,22 +29,23 @@ const Background = ({ status, searchValue, pictures }) => {
   };
 
   return (
-    <div className={modalUpdate()}>
+    <div className='container modalPosition'>
       <div className="rowModal">
         <div className="column">
           <form className="airportForm d-flex flex-column" onSubmit={e => handleSubmit(e)}>
             <label className="labelStyle">Category:</label>
             <div className="d-flex">
-            <input className="inputStyle w-50" type="text" name="airportCode" placeholder="ocean" onKeyUp={e => { keyWordUpdate(e.target.value); }} required></input>
-            <button type="click" className="btn btn-primary btnSize" onClick={e => searchValue(e, keyWord)}>submit</button>
+              <input className="inputStyle w-50" type="text" name="airportCode" placeholder="ocean" onKeyUp={e => { keyWordUpdate(e.target.value); }} required></input>
+              <button type="click" className="btn btn-primary btnSize" onClick={e => searchValue(e, keyWord)}>Search</button>
+                <button type="click" className="btn btn-danger btnSize" onClick={e => console.log('hello')}>Cancel</button>
             </div>
           </form>
         </div>
-        <div className="row">
+          <div className="row">
             {renderPictures()}
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
