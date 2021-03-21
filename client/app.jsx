@@ -9,6 +9,11 @@ const App = () => {
   const [modalStatus, modalStatusUpdate] = useState(false);
   const [wallpaper, wallpaperUpdate] = useState({});
 
+  useEffect(() => {
+    const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
+    wallpaperUpdate(retrieveWallpaper);
+  }, []);
+
   const change = e => {
     if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
@@ -38,7 +43,8 @@ const App = () => {
       fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`)
         .then(res => res.json())
         .then(result => {
-          localStorage.setItem('wallpaper', JSON.stringify(result));
+          const splitData = result.photos.splice(0, 50);
+          localStorage.setItem('wallpaper', JSON.stringify(splitData));
           const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
           wallpaperUpdate(retrieveWallpaper);
 
@@ -47,7 +53,6 @@ const App = () => {
           console.error(err);
         });
     }
-
   };
 
   return (
@@ -60,7 +65,7 @@ const App = () => {
     }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div>
-          <Background status={modalStatus} searchValue={userSearch} />
+          <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper}/>
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
