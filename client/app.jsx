@@ -35,19 +35,20 @@ const App = () => {
 
   const userSearch = e => {
     e.preventDefault();
-    if (e.key === 'Enter') {
-      fetch(`/api/picture/${e.target.value}/${'landscape'}/${'medium'}`)
-        .then(res => res.json())
-        .then(result => {
-          localStorage.setItem('wallpaper', JSON.stringify(result));
-          const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
-          wallpaperUpdate(retrieveWallpaper);
+  console.log(e.target.value)
 
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    }
+
+      // fetch(`/api/picture/${e.target.value}/${'landscape'}/${'medium'}`)
+      //   .then(res => res.json())
+      //   .then(result => {
+      //     localStorage.setItem('wallpaper', JSON.stringify(result));
+      //     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
+      //     wallpaperUpdate(retrieveWallpaper);
+
+      //   })
+      //   .catch(err => {
+      //     console.error(err);
+      //   });
   };
 
   const test = () => {
