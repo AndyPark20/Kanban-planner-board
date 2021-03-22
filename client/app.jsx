@@ -47,8 +47,9 @@ const App = () => {
     }
   };
 
-  const chosenWallpaper = e => {
-    console.log('hello');
+  const chosenWallpaper = index => {
+    console.log(wallpaper[index].src.original);
+
   };
 
   const userSearch = (e, keyWord) => {

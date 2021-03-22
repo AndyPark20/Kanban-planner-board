@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { render } from 'react-dom';
 
-const Background = ({ status, searchValue, pictures, modalUpdateParent }) => {
+const Background = ({ status, searchValue, pictures, modalUpdateParent, userSelect }) => {
   const [keyWord, keyWordUpdate] = useState('');
 
   const modalUpdate = () => {
@@ -20,7 +20,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent }) => {
       const downloadedData = pictures.map((values, index) => {
         return (
           <div key={index} className="col-3 d-flex p-3">
-            <img className="wallPaperStyle" src={values.src.original} alt="pictures" onClick={() => console.log(index)} />
+            <img className="wallPaperStyle" src={values.src.original} alt="pictures" onClick={() => userSelect(index)} />
           </div>
         );
       });
