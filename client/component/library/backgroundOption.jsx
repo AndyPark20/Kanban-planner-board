@@ -35,7 +35,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent }) => {
           <form className="airportForm d-flex flex-column" onSubmit={e => handleSubmit(e)}>
             <label className="labelStyle">Category:</label>
             <div className="d-flex">
-              <input className="inputStyle w-50 mr-1" type="text" name="airportCode" placeholder="ocean" onKeyUp={e => { keyWordUpdate(e.target.value); }} required></input>
+              <input className="inputStyle w-50 mr-1" type="text" name="airportCode" placeholder="ocean" onKeyUp={e => keyWordUpdate(e.target.value)} required></input>
               <button type="click" className="btn btn-primary btnSize mr-1" onClick={e => searchValue(e, keyWord)}>Search</button>
               <button type="click" className="btn btn-danger btnSize" onClick={() => modalUpdateParent()}>Cancel</button>
             </div>

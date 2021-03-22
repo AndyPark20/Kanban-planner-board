@@ -46,11 +46,12 @@ const App = () => {
   };
 
   const userSearch = (e, keyWord) => {
-    if (e.target.className === 'btn btn-primary btnSize') {
+    if (e.target.className === 'btn btn-primary btnSize mr-1') {
       fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`)
         .then(res => res.json())
         .then(result => {
           const splitData = result.photos;
+          console.log(splitData);
           localStorage.setItem('wallpaper', JSON.stringify(splitData));
           const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
           wallpaperUpdate(retrieveWallpaper);
