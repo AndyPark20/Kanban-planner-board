@@ -8,8 +8,7 @@ const App = () => {
   const [naviOption, naviOptionUpdate] = useState('');
   const [modalStatus, modalStatusUpdate] = useState(false);
   const [wallpaper, wallpaperUpdate] = useState([]);
-  const [userWallpaper, userwallpaperUpdate] = useState('');
-  const url = 'https://images.pexels.com/photos/1183021/pexels-photo-1183021.jpeg';
+  const [userWallpaper, userWallPaperUpdate] = useState('');
 
   useEffect(() => {
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
@@ -48,7 +47,8 @@ const App = () => {
   };
 
   const chosenWallpaper = index => {
-    console.log(wallpaper[index].src.original);
+    const selectedPicture = wallpaper[index].src.original;
+    userWallPaperUpdate(selectedPicture);
 
   };
 
@@ -71,7 +71,7 @@ const App = () => {
 
   return (
     <div style={{
-      backgroundImage: `url(${url}?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)`,
+      backgroundImage: `url(${userWallpaper}?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       overflow: 'hidden',
