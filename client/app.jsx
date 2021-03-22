@@ -8,6 +8,8 @@ const App = () => {
   const [naviOption, naviOptionUpdate] = useState('');
   const [modalStatus, modalStatusUpdate] = useState(false);
   const [wallpaper, wallpaperUpdate] = useState([]);
+  const [userWallpaper, userwallpaperUpdate] = useState('');
+  const url = 'https://images.pexels.com/photos/1183021/pexels-photo-1183021.jpeg';
 
   useEffect(() => {
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
@@ -45,13 +47,16 @@ const App = () => {
     }
   };
 
+  const chosenWallpaper = e => {
+    console.log('hello');
+  };
+
   const userSearch = (e, keyWord) => {
     if (e.target.className === 'btn btn-primary btnSize mr-1') {
       fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`)
         .then(res => res.json())
         .then(result => {
           const splitData = result.photos;
-          console.log(splitData);
           localStorage.setItem('wallpaper', JSON.stringify(splitData));
           const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
           wallpaperUpdate(retrieveWallpaper);
@@ -65,7 +70,7 @@ const App = () => {
 
   return (
     <div style={{
-      backgroundImage: 'url(https://images.pexels.com/photos/1183021/pexels-photo-1183021.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)',
+      backgroundImage: `url(${url}?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       overflow: 'hidden',
@@ -73,7 +78,7 @@ const App = () => {
     }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div>
-          <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction}/>
+          <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper}/>
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
