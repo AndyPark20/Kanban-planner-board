@@ -7,13 +7,19 @@ const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
   const [naviOption, naviOptionUpdate] = useState('');
   const [modalStatus, modalStatusUpdate] = useState(false);
-  const [wallpaper, wallpaperUpdate] = useState({});
+  const [wallpaper, wallpaperUpdate] = useState([]);
+  const [userWallpaper, userWallPaperUpdate] = useState('');
+
+  useEffect(() => {
+    const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
+    wallpaperUpdate(retrieveWallpaper);
+  }, []);
 
   const change = e => {
     if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
     }
-    if (!hamburger && e.target.className === 'fas fa-bars' && e.target.className === 'rowModal') {
+    if (hamburger && e.target.className !== 'fas fa-bars') {
       hamburgerUpdate(false);
     }
 
@@ -22,7 +28,6 @@ const App = () => {
     } else {
       naviOptionUpdate('');
     }
-
   };
 
   const modalChange = () => {
@@ -33,28 +38,40 @@ const App = () => {
     }
   };
 
-  const userSearch = e => {
-      e.preventDefault();
+  const modalCancelFunction = () => {
+    if (!modalStatus) {
+      modalStatusUpdate(true);
+    } else {
+      modalStatusUpdate(false);
+    }
+  };
 
-      // fetch(`/api/picture/${e.target.value}/${'landscape'}/${'medium'}`)
-      //   .then(res => res.json())
-      //   .then(result => {
-      //     localStorage.setItem('wallpaper', JSON.stringify(result));
-      //     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
-      //     wallpaperUpdate(retrieveWallpaper);
-
-      //   })
-      //   .catch(err => {
-      //     console.error(err);
-      //   });
+  const chosenWallpaper = index => {
+    const selectedPicture = wallpaper[index].src.original;
+    userWallPaperUpdate(selectedPicture);
 
   };
 
+  const userSearch = (e, keyWord) => {
+    if (e.target.className === 'btn btn-primary btnSize mr-1') {
+      fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`)
+        .then(res => res.json())
+        .then(result => {
+          const splitData = result.photos;
+          localStorage.setItem('wallpaper', JSON.stringify(splitData));
+          const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
+          wallpaperUpdate(retrieveWallpaper);
 
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  };
 
   return (
     <div style={{
-      backgroundImage: 'url(https://images.pexels.com/photos/1183021/pexels-photo-1183021.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)',
+      backgroundImage: `url(${userWallpaper}?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       overflow: 'hidden',
@@ -62,7 +79,7 @@ const App = () => {
     }} className="cursorMain" onClick={e => change(e)}>
       <div className="columnCustom">
         <div>
-          <Background status={modalStatus} searchValue={userSearch} />
+          <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper}/>
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />

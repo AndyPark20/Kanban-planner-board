@@ -131,7 +131,7 @@ ul{
   left:50%;
   transform: translate(-50%,-50%);
   z-index:2;
-  background-color:rgba(46, 49, 49, .9)
+  background-color:black
 }
 
 .rowModal{
@@ -145,4 +145,12 @@ ul{
 
 .btnSize{
   width:10%;
+}
+
+.labelStyle{
+  color:white;
+}
+
+.wallPaperStyle{
+  width:100%;
 }
