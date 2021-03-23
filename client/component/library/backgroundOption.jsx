@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 
 const Background = ({ status, searchValue, pictures, modalUpdateParent, userSelect }) => {
   const [keyWord, keyWordUpdate] = useState('');
+  const [highlightBorder, updateHighLight] = useState(false);
 
   const modalUpdate = () => {
     if (!status) {
@@ -15,12 +16,21 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
     e.preventDefault();
   };
 
+  const highlight = index => {
+    const picture = pictures.map((values, index) => {
+
+    });
+
+    // return 'wallPaperStyle';
+    return picture;
+  };
+
   const renderPictures = () => {
     if (pictures.length !== 0) {
       const downloadedData = pictures.map((values, index) => {
         return (
           <div key={index} className="col-3 d-flex p-3">
-            <img className="wallPaperStyle" src={values.src.original} alt="pictures" onClick={() => userSelect(index)} />
+            <img className={highlight()} src={values.src.original} alt="pictures" onClick={() => { userSelect(index); updateHighLight(true); }} />
           </div>
         );
       });
