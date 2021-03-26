@@ -30,7 +30,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
       const downloadedData = pictures.map((values, index) => {
         return (
           <div key={index} className="col-3 d-flex p-3">
-            <img className={highlight()} src={values.src.original} alt="pictures" onClick={() => { userSelect(index); updateHighLight(true); }} />
+            <img className="wallPaperStyle" src={values.src.original} alt="pictures" onClick={() => { userSelect(index); updateHighLight(true); }} />
           </div>
         );
       });
