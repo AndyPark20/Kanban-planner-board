@@ -1,13 +1,12 @@
 import React from 'react';
 
-const Item = ({ values }) => {
+const Item = () => {
 
   return (
-
-    <div className="card spacing" draggable>
+    <div className="card spacing cardStyle" draggable>
       {/* <img className="card-img-top" src={values.img} alt="Card image cap" /> */}
       <div className="card-body">
-        <h5 className="card-title">{values.name}</h5>
+      <input type="text" placeholder="Enter a title for this card" className="titleEnter"></input>
       </div>
     </div>
   );

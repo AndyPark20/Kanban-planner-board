@@ -78,7 +78,7 @@ const Column = () => {
   };
 
   const makeNewItem = (e, info, index) => {
-    character[index].list.push({ name: 'Click to modify'});
+    character[index].list.push({ name: '' });
     const addedCardObject = character.concat();
     updateCharacters(addedCardObject);
   };
