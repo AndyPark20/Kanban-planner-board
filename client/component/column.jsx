@@ -20,6 +20,7 @@ const Column = () => {
 
   const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
+  const [cardTitle, updateCardTitle] = useState('');
 
   const dropIt = (e, info, position) => {
     // the column index number
@@ -78,9 +79,12 @@ const Column = () => {
   };
 
   const makeNewItem = (e, info, index) => {
-    character[index].list.push({ name: '' });
+    character[index].list.push({ name: cardTitle });
     const addedCardObject = character.concat();
     updateCharacters(addedCardObject);
+    if (cardTitle) {
+      updateCardTitle('');
+    }
   };
 
   // functions to move columns around
@@ -126,7 +130,7 @@ const Column = () => {
               {info.list.map((values, indexItem) => {
                 return (
                   <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} >
-                    <Item values={values} />
+                    <Item values={values} cardName={updateCardTitle} userCardTitle={cardTitle}/>
                   </div>
                 );
               })}
