@@ -26,8 +26,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
   };
 
   const renderPictures = () => {
-    console.log(pictures);
-    if (pictures.length !== 0) {
+    if (pictures !== null) {
       const downloadedData = pictures.map((values, index) => {
         return (
           <div key={index} className="col-3 d-flex p-3">
