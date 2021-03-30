@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Item = () => {
+  const [title, updateTitle] = useState(true);
 
   const handleSubmit = e => {
     e.preventDefault();
   };
 
   const enterTitle = e => {
-    if (e.key === 'Enter') {
-
+    if (e.key === 'Enter' && e.target.value !== '') {
+      updateTitle(false);
     }
+  };
+
+  const hideTitleEdit = () => {
+    if (!title) {
+      return 'hidden';
+    }
+    return 'titleEnter';
   };
 
   return (
     <div className="card spacing cardStyle" draggable>
       {/* <img className="card-img-top" src={values.img} alt="Card image cap" /> */}
-      <h5 className="card-title">Hello</h5>
+      <h5 className="card-title">Testing</h5>
       <form onSubmit={e => handleSubmit(e)}>
-          <input type="text" placeholder="Enter a title for this card" className="titleEnter" onKeyUp={e => enterTitle(e)}></input>
+          <input type="text" placeholder="Enter a title for this card" className={hideTitleEdit()} onKeyUp={e => enterTitle(e)} required></input>
       </form>
     </div>
   );
