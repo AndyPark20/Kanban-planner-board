@@ -26,6 +26,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
   };
 
   const renderPictures = () => {
+    console.log(pictures);
     if (pictures.length !== 0) {
       const downloadedData = pictures.map((values, index) => {
         return (
