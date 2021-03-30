@@ -5,7 +5,7 @@ const Column = () => {
   const characters = [
     {
       id: 'Todo',
-      list: [{ name: 'gogo', img: 'images/pek1.jpg' }, { name: 'Doodle', img: 'images/austrailian.jpg' }]
+      list: []
 
     },
     {
@@ -78,7 +78,7 @@ const Column = () => {
   };
 
   const makeNewItem = (e, info, index) => {
-    character[index].list.push({ name: 'golden', img: 'images/golden.jpg' });
+    character[index].list.push({ name: 'Click to modify'});
     const addedCardObject = character.concat();
     updateCharacters(addedCardObject);
   };
