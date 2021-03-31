@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Item = ({ values }) => {
+const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean }) => {
+
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
+
+  const enterTitle = e => {
+    if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
+      masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
+      update(masterCharacter);
+      titleBoolean(true);
+    }
+  };
+
+  const hideTitleEdit = () => {
+    if (values.name !== '') {
+      return 'hidden';
+    }
+    return 'titleEnter';
+  };
 
   return (
-
     <div className="card spacing" draggable>
-      {/* <img className="card-img-top" src={values.img} alt="Card image cap" /> */}
       <div className="card-body">
-        <h5 className="card-title">{values.name}</h5>
-      </div>
+      <h5 className="card-title">{values.name}</h5>
+      <form onSubmit={e => handleSubmit(e)}>
+          <input type="text" placeholder="Enter a title for this card" className={hideTitleEdit()} onKeyUp={e => enterTitle(e)} required></input>
+      </form>
+    </div>
     </div>
   );
 };

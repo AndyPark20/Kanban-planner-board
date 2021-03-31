@@ -20,6 +20,14 @@ const Column = () => {
 
   const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
+  const [cardNumber, updateCardNumber] = useState(0);
+  const [cardTitle, updateCardTitle] = useState('');
+  const [titleBoolean, updateTitleBoolean] = useState(false);
+
+  useEffect(() => {
+    renderIt();
+    updateTitleBoolean(false);
+  }, [titleBoolean]);
 
   const dropIt = (e, info, position) => {
     // the column index number
@@ -75,10 +83,11 @@ const Column = () => {
     e.dataTransfer.setData('name', values.name);
     e.dataTransfer.setData('img', values.img);
     e.dataTransfer.setData('startIndex', indexItem);
+
   };
 
   const makeNewItem = (e, info, index) => {
-    character[index].list.push({ name: 'Click to modify'});
+    character[index].list.push({ name: '' });
     const addedCardObject = character.concat();
     updateCharacters(addedCardObject);
   };
@@ -95,10 +104,22 @@ const Column = () => {
 
   };
 
+  const changeTitle = indexItem => {
+    updateCardNumber(indexItem);
+  };
+
+  const columnStyle = () => {
+    character.forEach((info, index) => {
+      if (info.list.length > 1) {
+        return 'scroll col-4 d-flex text-center flex-column justify-content-around w-100 select';
+      }
+    });
+    return 'col-4 d-flex text-center flex-column justify-content-around w-100 select';
+  };
+
   const renderIt = () => {
     const loop = character.map((info, index) => {
-      if (info.list.length > 1) {
-        return (
+      return (
           <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
             <div className="d-flex align-items-end justify-content-around w-100">
               <h2 className="fontColor">{info.id}</h2>
@@ -107,33 +128,14 @@ const Column = () => {
             <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
               {info.list.map((values, indexItem) => {
                 return (
-                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} >
-                    <Item values={values} />
+                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => changeTitle(indexItem)}>
+                    <Item values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}/>
                   </div>
                 );
               })}
             </div>
           </div>
-        );
-      } else {
-        return (
-          <div key={index} className='col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
-            <div className="d-flex align-items-end justify-content-around w-100">
-              <h2 className="fontColor">{info.id}</h2>
-              <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
-            </div>
-            <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
-              {info.list.map((values, indexItem) => {
-                return (
-                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} >
-                    <Item values={values} />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      }
+      );
     });
     return loop;
   };
