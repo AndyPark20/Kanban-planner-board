@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = () => {
+const Column = ({ updateModal }) => {
   const characters = [
     {
       id: 'Todo',
@@ -129,7 +129,7 @@ const Column = () => {
               {info.list.map((values, indexItem) => {
                 return (
                   <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => changeTitle(indexItem)}>
-                    <Item values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}/>
+                    <Item updateModal={updateModal} values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}/>
                   </div>
                 );
               })}

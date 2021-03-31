@@ -10,6 +10,7 @@ const App = () => {
   const [modalStatus, modalStatusUpdate] = useState(false);
   const [wallpaper, wallpaperUpdate] = useState([]);
   const [userWallpaper, userWallPaperUpdate] = useState('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg');
+  const [modal, updateModal] = useState(false);
 
   useEffect(() => {
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
@@ -70,6 +71,10 @@ const App = () => {
     }
   };
 
+  const test = () => {
+    console.log(modal);
+  };
+
   return (
     <div style={{
       backgroundImage: `url(${userWallpaper}?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)`,
@@ -88,7 +93,8 @@ const App = () => {
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
-        <Column />
+        {test()}
+        <Column modal={modal} updateModal={updateModal} />
       </div>
     </div>
   );
