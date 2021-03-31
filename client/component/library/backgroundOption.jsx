@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { render } from 'react-dom';
 
 const Background = ({ status, searchValue, pictures, modalUpdateParent, userSelect }) => {
   const [keyWord, keyWordUpdate] = useState('');
