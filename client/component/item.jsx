@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Item = ({ cardName, userCardTitle }) => {
+const Item = ({ cardName, userCardTitle, cardSequence, columnNumber }) => {
   const [title, updateTitle] = useState(true);
 
   const handleSubmit = e => {
@@ -21,10 +21,15 @@ const Item = ({ cardName, userCardTitle }) => {
     return 'titleEnter';
   };
 
+  const test = () => {
+    console.log('cardSeq', cardSequence);
+    console.log('column', columnNumber);
+  };
+
   return (
     <div className="card spacing cardStyle" draggable>
-      {/* <img className="card-img-top" src={values.img} alt="Card image cap" /> */}
       <h5 className="card-title">{userCardTitle}</h5>
+      {test()}
       <form onSubmit={e => handleSubmit(e)}>
           <input type="text" placeholder="Enter a title for this card" className={hideTitleEdit()} onKeyUp={e => enterTitle(e)} required></input>
       </form>

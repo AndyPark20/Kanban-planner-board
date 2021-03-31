@@ -20,7 +20,7 @@ const Column = () => {
 
   const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
-  const [cardTitle, updateCardTitle] = useState('');
+  const [cardNumber, updateCardNumber] = useState(0);
 
   const dropIt = (e, info, position) => {
     // the column index number
@@ -76,15 +76,13 @@ const Column = () => {
     e.dataTransfer.setData('name', values.name);
     e.dataTransfer.setData('img', values.img);
     e.dataTransfer.setData('startIndex', indexItem);
+
   };
 
   const makeNewItem = (e, info, index) => {
-    character[index].list.push({ name: cardTitle });
+    character[index].list.push({ name: '' });
     const addedCardObject = character.concat();
     updateCharacters(addedCardObject);
-    if (cardTitle) {
-      updateCardTitle('');
-    }
   };
 
   // functions to move columns around
@@ -99,6 +97,10 @@ const Column = () => {
 
   };
 
+  const changeTitle = indexItem => {
+    updateCardNumber(indexItem);
+  };
+
   const renderIt = () => {
     const loop = character.map((info, index) => {
       if (info.list.length > 1) {
@@ -111,8 +113,8 @@ const Column = () => {
             <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
               {info.list.map((values, indexItem) => {
                 return (
-                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} >
-                    <Item values={values} />
+                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => changeTitle(indexItem)}>
+                    <Item values={values} cardSequence={cardNumber} columnNumber={index}/>
                   </div>
                 );
               })}
@@ -129,8 +131,8 @@ const Column = () => {
             <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
               {info.list.map((values, indexItem) => {
                 return (
-                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} >
-                    <Item values={values} cardName={updateCardTitle} userCardTitle={cardTitle}/>
+                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => console.log(indexItem)}>
+                    <Item values={values} />
                   </div>
                 );
               })}
