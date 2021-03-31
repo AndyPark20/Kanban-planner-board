@@ -21,6 +21,13 @@ const Column = () => {
   const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
   const [cardNumber, updateCardNumber] = useState(0);
+  const [cardTitle, updateCardTitle] = useState('');
+  const [titleBoolean, updateTitleBoolean] = useState(false);
+
+  useEffect(() => {
+    renderIt();
+    updateTitleBoolean(false);
+  }, [titleBoolean]);
 
   const dropIt = (e, info, position) => {
     // the column index number
@@ -114,7 +121,7 @@ const Column = () => {
               {info.list.map((values, indexItem) => {
                 return (
                   <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => changeTitle(indexItem)}>
-                    <Item values={values} cardSequence={cardNumber} columnNumber={index}/>
+                    <Item values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}/>
                   </div>
                 );
               })}
@@ -131,8 +138,8 @@ const Column = () => {
             <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
               {info.list.map((values, indexItem) => {
                 return (
-                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => console.log(indexItem)}>
-                    <Item values={values} />
+                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => changeTitle(indexItem)}>
+                    <Item values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}/>
                   </div>
                 );
               })}

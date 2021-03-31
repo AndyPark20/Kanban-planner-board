@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Item = ({ cardName, userCardTitle, cardSequence, columnNumber }) => {
+const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean }) => {
   const [title, updateTitle] = useState(true);
 
   const handleSubmit = e => {
@@ -8,9 +8,11 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber }) => {
   };
 
   const enterTitle = e => {
-    if (e.key === 'Enter' && e.target.value !== '') {
+    if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       updateTitle(false);
-      cardName(e.target.value);
+      masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
+      update(masterCharacter);
+      titleBoolean(true);
     }
   };
 
@@ -21,15 +23,9 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber }) => {
     return 'titleEnter';
   };
 
-  const test = () => {
-    console.log('cardSeq', cardSequence);
-    console.log('column', columnNumber);
-  };
-
   return (
     <div className="card spacing cardStyle" draggable>
-      <h5 className="card-title">{userCardTitle}</h5>
-      {test()}
+      <h5 className="card-title">{values.name}</h5>
       <form onSubmit={e => handleSubmit(e)}>
           <input type="text" placeholder="Enter a title for this card" className={hideTitleEdit()} onKeyUp={e => enterTitle(e)} required></input>
       </form>
