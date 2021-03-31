@@ -8,7 +8,7 @@ const App = () => {
   const [naviOption, naviOptionUpdate] = useState('');
   const [modalStatus, modalStatusUpdate] = useState(false);
   const [wallpaper, wallpaperUpdate] = useState([]);
-  const [userWallpaper, userWallPaperUpdate] = useState('');
+  const [userWallpaper, userWallPaperUpdate] = useState('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg');
 
   useEffect(() => {
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
