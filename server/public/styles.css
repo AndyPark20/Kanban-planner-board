@@ -24,6 +24,11 @@ h1 {
 
 .spacing{
     margin-bottom:10%;
+    background-color:rgba(255,255,255, 0.3);
+}
+
+.spacing:hover{
+  background-color:rgba(255, 255, 255, 0.897);
 }
 
 
