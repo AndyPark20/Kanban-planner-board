@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean }) => {
 
+  const [pencil, updatePencil] = useState(false);
+
   const handleSubmit = e => {
     e.preventDefault();
   };
@@ -21,11 +23,26 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
     return 'titleEnter';
   };
 
+  const editPencil = () => {
+    updatePencil(true);
+  };
+
+  const hidePencil = () => {
+    updatePencil(false);
+  };
+
+  const pencilVisibility = () => {
+    if (pencil) {
+      return 'fas fa-pencil-alt';
+    }
+    return 'hidden';
+  };
+
   return (
-    <div className="card spacing" draggable>
-      <div className="card-body border border-primary">
+    <div className="card spacing" draggable onMouseEnter={() => editPencil()} onMouseLeave={() => hidePencil()}>
+      <div className="card-body">
         <div className="text-right">
-          <i className="fas fa-pencil-alt"></i>
+          <i className={pencilVisibility()}></i>
         </div>
         <h5 className="card-title">{values.name}</h5>
         <form onSubmit={e => handleSubmit(e)}>
