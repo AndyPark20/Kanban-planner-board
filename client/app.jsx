@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Column from './component/column';
 import Navigation from './options';
 import Background from './component/library/backgroundOption';
+import Modal from './component/modalList';
 
 const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
@@ -81,12 +82,14 @@ const App = () => {
         <div>
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper}/>
         </div>
+        <div>
+          <Modal />
+        </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
         <Column />
       </div>
-
     </div>
   );
 };

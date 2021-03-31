@@ -164,3 +164,13 @@ ul{
   width:90%;
   border: 1px solid black;
 }
+
+.centerModal{
+  height:100vh;
+  background-color:rgba(177, 187, 187, 0.9);
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  z-index:3;
+}

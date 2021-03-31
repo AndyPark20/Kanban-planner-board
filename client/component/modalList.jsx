@@ -1,12 +1,15 @@
 
 import React from 'react';
-import { formatters } from 'stylelint';
 
 export default class modal extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Hello</h1>
+      <div className="container centerModal hidden">
+        <div className="row">
+          <div className="col d-flex justify-content-center align-items-center">
+            <h1>Hello</h1>
+          </div>
+        </div>
       </div>
     );
   }
