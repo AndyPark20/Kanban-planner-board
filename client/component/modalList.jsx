@@ -4,12 +4,13 @@ import React from 'react';
 export default class modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ value: '', modalStatus: false });
+    this.state = ({ value: '', modalStatus: false, modalClose: false });
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.switchModal = this.switchModal.bind(this);
     this.switchCardTitle = this.switchCardTitle.bind(this);
     this.updateCardTitle = this.updateCardTitle.bind(this);
+    this.closeModdal = this.closeModal.bind(this);
   }
 
   componentDidUpdate(prev) {
@@ -20,10 +21,13 @@ export default class modal extends React.Component {
       this.setState({ value: updatedtitle });
     }
 
+    if (prev.modal !== this.props.modal) {
+      this.setState({ modalClose: this.props.modal });
+    }
   }
 
   modalEffect() {
-    if (!this.props.modal) {
+    if (!this.state.modalClose) {
       return 'container centerModal hidden';
     }
     return 'container centerModal ';
@@ -41,6 +45,10 @@ export default class modal extends React.Component {
       return 'hidden';
     }
     return 'pl-2';
+  }
+
+  closeModal() {
+    this.setState({ modalClose: false });
   }
 
   updateCardTitle(e) {
@@ -86,7 +94,7 @@ export default class modal extends React.Component {
             </div>
           </div>
           <div>
-            <button type="button" className="btn btn-light" onClick={() => console.log('hello')}>Close</button>
+            <button type="button" className="btn btn-light" onClick={() => this.closeModal()}>Close</button>
           </div>
         </div>
       </div>
