@@ -15,9 +15,6 @@ export default class modal extends React.Component {
   componentDidUpdate(prev) {
     const column = this.props.columnNumber;
     const card = this.props.cardNumber;
-
-    console.log('previous', prev.masterCharacter);
-    console.log('after', this.props.masterCharacter);
     if (prev.masterCharacter !== this.props.masterCharacter) {
       const updatedtitle = this.props.masterCharacter[column].list[card].name;
       this.setState({ value: updatedtitle });
@@ -28,7 +25,6 @@ export default class modal extends React.Component {
   modalEffect() {
     if (!this.props.modal) {
       return 'container centerModal hidden';
-      // hidden
     }
     return 'container centerModal ';
   }
@@ -49,7 +45,11 @@ export default class modal extends React.Component {
 
   updateCardTitle(e) {
     if (e.key === 'Enter') {
-      console.log(e.target.value);
+      const column = this.props.columnNumber;
+      const card = this.props.cardNumber;
+      const character = this.props.masterCharacter;
+      character[column].list[card].name = e.target.value;
+      this.props.updateMasterCharacter(character);
     }
   }
 
