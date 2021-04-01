@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ updateModal }) => {
+const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster, masterCharacter }) => {
   const characters = [
     {
       id: 'Todo',
@@ -104,8 +104,11 @@ const Column = ({ updateModal }) => {
 
   };
 
-  const changeTitle = indexItem => {
+  const changeTitle = (indexItem, index) => {
+    updateColumnNumberMaster(index);
+    updateColumnNumberMaster(indexItem);
     updateCardNumber(indexItem);
+
   };
 
   const columnStyle = () => {
@@ -128,8 +131,8 @@ const Column = ({ updateModal }) => {
             <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
               {info.list.map((values, indexItem) => {
                 return (
-                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => changeTitle(indexItem)}>
-                    <Item updateModal={updateModal} values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}/>
+                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => changeTitle(indexItem, index)}>
+                    <Item updateModal={updateModal} values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean} masterCharacterUpdate={masterCharacter}/>
                   </div>
                 );
               })}

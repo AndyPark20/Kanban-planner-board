@@ -11,6 +11,9 @@ const App = () => {
   const [wallpaper, wallpaperUpdate] = useState([]);
   const [userWallpaper, userWallPaperUpdate] = useState('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg');
   const [modal, updateModal] = useState(false);
+  const [columnNumberMaster, updateColumnNumberMaster] = useState(0);
+  const [cardNumberMaster, updateCardNumberMaster] = useState(0);
+  const [masterCharacter, updateMasterCharacter] = useState([]);
 
   useEffect(() => {
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
@@ -84,12 +87,12 @@ const App = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper}/>
         </div>
         <div>
-          <Modal modal={modal} />
+          <Modal modal={modal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter}/>
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
-        <Column updateModal={updateModal} />
+        <Column updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} masterCharacter={updateMasterCharacter}/>
       </div>
     </div>
   );

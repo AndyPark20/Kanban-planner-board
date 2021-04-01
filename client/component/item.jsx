@@ -1,7 +1,7 @@
 import e from 'cors';
 import React, { useState } from 'react';
 
-const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean, updateModal }) => {
+const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean, updateModal, masterCharacterUpdate }) => {
 
   const [pencil, updatePencil] = useState(false);
   const [openModal, updateOpenModal] = useState(false);
@@ -14,6 +14,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       update(masterCharacter);
+      masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
     }
