@@ -32,7 +32,6 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
   useEffect(() => {
     if (updatedCharacter.length !== 0) {
       updateCharacters(updatedCharacter);
-      console.log('In the column level', updatedCharacter);
     }
   }, [updatedCharacter]);
 
