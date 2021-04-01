@@ -21,11 +21,17 @@ export default class modal extends React.Component {
     this.setState({ value: e.target.value });
   }
 
-  // selectedListInfo() {
-  //   console.log('columnNumber', this.props.columnNumber);
-  //   console.log('cardNumber', this.props.cardNumber);
-  //   console.log('masterCharacter', this.props.masterCharacter);
-  // }
+  selectedListInfo() {
+    const column = this.props.columnNumber;
+    const card = this.props.cardNumber;
+    const character = this.props.masterCharacter;
+    // console.log('columnNumber', this.props.columnNumber);
+    // console.log('cardNumber', this.props.cardNumber);
+    // console.log('masterCharacter', this.props.masterCharacter);
+    if (character.length !== 0) {
+      return character[column].list[card].name;
+    }
+  }
 
   render() {
     return (
@@ -34,7 +40,7 @@ export default class modal extends React.Component {
           <div className="col pt-2">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
-              <h3 className="pl-2">Hello</h3>
+              <h3 className="pl-2">{this.selectedListInfo()}</h3>
               <p className="pl-2" onClick={() => console.log('hello')}>edit</p>
               <input text="type" className=" w-50" value={this.state.value} onChange={this.handleSubmit}></input>
             </div>
