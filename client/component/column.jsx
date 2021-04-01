@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster, masterCharacter }) => {
+const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter }) => {
   const characters = [
     {
       id: 'Todo',
@@ -28,6 +28,13 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
     renderIt();
     updateTitleBoolean(false);
   }, [titleBoolean]);
+
+  useEffect(() => {
+    if (updatedCharacter.length !== 0) {
+      updateCharacters(updatedCharacter);
+      console.log('In the column level', updatedCharacter);
+    }
+  }, [updatedCharacter]);
 
   const dropIt = (e, info, position) => {
     // the column index number
@@ -132,7 +139,7 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
               {info.list.map((values, indexItem) => {
                 return (
                   <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => changeTitle(indexItem, index)}>
-                    <Item updateModal={updateModal} values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean} masterCharacterUpdate={masterCharacter}/>
+                    <Item updateModal={updateModal} values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean} masterCharacterUpdate={updateMasterCharacter}/>
                   </div>
                 );
               })}
