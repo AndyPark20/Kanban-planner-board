@@ -21,18 +21,17 @@ export default class modal extends React.Component {
     this.setState({ value: e.target.value });
   }
 
-  test() {
-    console.log('columnNumber', this.props.columnNumber);
-    console.log('cardNumber', this.props.cardNumber);
-    console.log('masterCharacter', this.props.masterCharacter);
-  }
+  // selectedListInfo() {
+  //   console.log('columnNumber', this.props.columnNumber);
+  //   console.log('cardNumber', this.props.cardNumber);
+  //   console.log('masterCharacter', this.props.masterCharacter);
+  // }
 
   render() {
     return (
       <div className={this.modalEffect()}>
         <div className="row">
           <div className="col pt-2">
-            {this.test()}
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
               <h3 className="pl-2">Hello</h3>

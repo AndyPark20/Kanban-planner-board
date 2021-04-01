@@ -106,7 +106,7 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
 
   const changeTitle = (indexItem, index) => {
     updateColumnNumberMaster(index);
-    updateColumnNumberMaster(indexItem);
+    updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
 
   };
