@@ -85,8 +85,12 @@ export default class modal extends React.Component {
               <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
             </div>
           </div>
+          <div>
+            <button type="button" className="btn btn-light" onClick={() => console.log('hello')}>Close</button>
+          </div>
         </div>
       </div>
+
     );
   }
 }
