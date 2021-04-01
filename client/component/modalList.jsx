@@ -15,7 +15,9 @@ export default class modal extends React.Component {
   componentDidUpdate(prev) {
     const column = this.props.columnNumber;
     const card = this.props.cardNumber;
-    if (this.state.value !== this.props.masterCharacter && prev.masterCharacter.length !== 0) {
+    console.log('this props', this.props.masterCharacter);
+    console.log('prev', prev.masterCharacter);
+    if (prev.masterCharacter !== this.props.masterCharacter && prev.masterCharacter.length !== 0) {
       this.setState({ value: prev.masterCharacter[column].list[card].name });
     }
   }
