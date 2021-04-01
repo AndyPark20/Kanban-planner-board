@@ -9,7 +9,8 @@ export default class modal extends React.Component {
 
   modalEffect() {
     if (!this.props.modal) {
-      return 'hidden';
+      return 'container centerModal';
+      // hidden
     }
     return 'container centerModal ';
   }
@@ -18,8 +19,13 @@ export default class modal extends React.Component {
     return (
       <div className={this.modalEffect()}>
         <div className="row">
-          <div className="col d-flex justify-content-center align-items-center">
-            <h1>Hello</h1>
+          <div className="col pt-2">
+            <div className="d-flex align-items-center pl-2">
+              <i className="fas fa-tasks logoSize"></i>
+              <h3 className="pl-2">Hello</h3>
+              <p className="pl-2" onClick={() => console.log('hello')}>edit</p>
+              <input text="type" className=" w-50"></input>
+            </div>
           </div>
         </div>
       </div>
