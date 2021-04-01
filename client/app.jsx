@@ -14,6 +14,7 @@ const App = () => {
   const [columnNumberMaster, updateColumnNumberMaster] = useState(0);
   const [cardNumberMaster, updateCardNumberMaster] = useState(0);
   const [masterCharacter, updateMasterCharacter] = useState([]);
+  const [columnUpdate, updateColumnComponent] = useState(false);
 
   useEffect(() => {
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
@@ -87,12 +88,12 @@ const App = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper}/>
         </div>
         <div>
-          <Modal modal={modal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter}/>
+          <Modal modal={modal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent}/>
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
-        <Column updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter ={masterCharacter}/>
+        <Column updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter ={masterCharacter}/>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter }) => {
+const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
   const characters = [
     {
       id: 'Todo',
@@ -32,8 +32,9 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
   useEffect(() => {
     if (updatedCharacter.length !== 0) {
       updateCharacters(updatedCharacter);
+      updateColumnComponent(false);
     }
-  }, [updatedCharacter]);
+  }, [columnUpdate]);
 
   const dropIt = (e, info, position) => {
     // the column index number

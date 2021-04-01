@@ -50,6 +50,7 @@ export default class modal extends React.Component {
       const character = this.props.masterCharacter;
       character[column].list[card].name = e.target.value;
       this.props.updateMasterCharacter(character);
+      this.props.updateColumnComponent(true);
       const name = e.target.value;
       this.setState({ value: name, modalStatus: false });
     }
