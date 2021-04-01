@@ -8,6 +8,8 @@ export default class modal extends React.Component {
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.switchModal = this.switchModal.bind(this);
+    this.switchCardTitle = this.switchCardTitle.bind(this);
+    this.updateCardTitle = this.updateCardTitle.bind(this);
   }
 
   modalEffect() {
@@ -25,6 +27,19 @@ export default class modal extends React.Component {
     return 'hidden';
   }
 
+  switchCardTitle() {
+    if (this.state.modalStatus) {
+      return 'hidden';
+    }
+    return 'pl-2';
+  }
+
+  updateCardTitle(e) {
+    if (e.key === 'Enter') {
+      console.log(e.target.value);
+    }
+  }
+
   handleSubmit(e) {
     this.setState({ value: e.target.value });
   }
@@ -39,15 +54,18 @@ export default class modal extends React.Component {
   }
 
   render() {
+    const column = this.props.columnNumber;
+    const card = this.props.cardNumber;
+    const character = this.props.masterCharacter;
     return (
       <div className={this.modalEffect()}>
         <div className="row">
           <div className="col pt-2">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
-              <h3 className="pl-2">{this.selectedListInfo()}</h3>
-              <p className="pl-2" onClick={() => this.setState({ modalStatus: true }) }>edit</p>
-              <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit}></input>
+              <h3 className={this.switchCardTitle()}>{this.selectedListInfo()}</h3>
+              <p className={this.switchCardTitle()} onClick={() => this.setState({ value: character[column].list[card].name, modalStatus: true })}>edit</p>
+              <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
             </div>
           </div>
         </div>
