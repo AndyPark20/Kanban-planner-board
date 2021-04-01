@@ -71,10 +71,6 @@ const App = () => {
     }
   };
 
-  const test = () => {
-    console.log(modal);
-  };
-
   return (
     <div style={{
       backgroundImage: `url(${userWallpaper}?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)`,
@@ -88,13 +84,12 @@ const App = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper}/>
         </div>
         <div>
-          <Modal />
+          <Modal modal={modal} />
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
-        {test()}
-        <Column modal={modal} updateModal={updateModal} />
+        <Column updateModal={updateModal} />
       </div>
     </div>
   );

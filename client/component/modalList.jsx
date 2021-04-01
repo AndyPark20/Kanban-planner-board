@@ -4,15 +4,14 @@ import React from 'react';
 export default class modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ modalVisible: false });
     this.modalEffect = this.modalEffect.bind(this);
   }
 
   modalEffect() {
-    if (!this.state.modalVisible) {
-      return 'container centerModal hidden';
+    if (!this.props.modal) {
+      return 'hidden';
     }
-    return 'hidden';
+    return 'container centerModal ';
   }
 
   render() {

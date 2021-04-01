@@ -1,8 +1,10 @@
+import e from 'cors';
 import React, { useState } from 'react';
 
 const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean, updateModal }) => {
 
   const [pencil, updatePencil] = useState(false);
+  const [openModal, updateOpenModal] = useState(false);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -13,6 +15,13 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       update(masterCharacter);
       titleBoolean(true);
+      updateOpenModal(true);
+    }
+  };
+
+  const openModalComponent = () => {
+    if (openModal) {
+      updateModal(true);
     }
   };
 
@@ -39,7 +48,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   };
 
   return (
-    <div className="card spacing" draggable onMouseEnter={() => editPencil()} onMouseLeave={() => hidePencil()} onClick={() => updateModal(true)}>
+    <div className="card spacing" draggable onMouseEnter={() => editPencil()} onMouseLeave={() => hidePencil()} onClick={() => openModalComponent()}>
       <div className="card-body">
         <div className="text-right position-relative">
           <i className={pencilVisibility()}></i>
