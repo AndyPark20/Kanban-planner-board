@@ -47,6 +47,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
             </div>
           </form>
         </div>
+
           <div className="row">
             {renderPictures()}
           </div>
