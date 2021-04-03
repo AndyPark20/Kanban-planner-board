@@ -17,10 +17,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
 
   const highlight = index => {
     const picture = pictures.map((values, index) => {
-
     });
-
-    // return 'wallPaperStyle';
     return picture;
   };
 
