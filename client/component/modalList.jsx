@@ -84,13 +84,18 @@ export default class modal extends React.Component {
     const character = this.props.masterCharacter;
     return (
       <div className={this.modalEffect()}>
-        <div className="row">
+        <div className="row d-flex flex-column ">
           <div className="col pt-2">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
               <h3 className={this.switchCardTitle()}>{this.state.value}</h3>
               <p className={this.switchCardTitle()} onClick={() => this.setState({ value: character[column].list[card].name, modalStatus: true })}>edit</p>
               <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
+            </div>
+          </div>
+          <div className="col pt-2">
+            <div className="d-flex align-items-center pl-2">
+              <i className="fas fa-database"></i>
             </div>
           </div>
           <div>
