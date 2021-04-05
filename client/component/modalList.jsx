@@ -4,7 +4,7 @@ import React from 'react';
 export default class modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ value: '', modalStatus: false, modalClose: false });
+    this.state = ({ value: '', modalStatus: false, modalClose: false, description: '', descriptionStatus: false });
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.switchModal = this.switchModal.bind(this);
@@ -12,6 +12,7 @@ export default class modal extends React.Component {
     this.updateCardTitle = this.updateCardTitle.bind(this);
     this.closeModdal = this.closeModal.bind(this);
     this.descriptionInfo = this.descriptionInfo.bind(this);
+    this.descriptionStatus = this.descriptionStatus.bind(this);
   }
 
   componentDidUpdate(prev) {
@@ -24,6 +25,12 @@ export default class modal extends React.Component {
 
     if (prev.modal !== this.props.modal) {
       this.setState({ modalClose: this.props.modal });
+    }
+  }
+
+  descriptionStatus() {
+    if (this.state.descriptionStatus) {
+      return 'hidden';
     }
   }
 
@@ -43,7 +50,8 @@ export default class modal extends React.Component {
 
   descriptionInfo(e) {
     if (e.key === 'Enter') {
-      console.log('working');
+      this.setState({ description: e.target.value, descriptionStatus: true });
+
     }
   }
 
