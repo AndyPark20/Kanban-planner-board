@@ -11,6 +11,7 @@ export default class modal extends React.Component {
     this.switchCardTitle = this.switchCardTitle.bind(this);
     this.updateCardTitle = this.updateCardTitle.bind(this);
     this.closeModdal = this.closeModal.bind(this);
+    this.descriptionInfo = this.descriptionInfo.bind(this);
   }
 
   componentDidUpdate(prev) {
@@ -38,6 +39,12 @@ export default class modal extends React.Component {
       return 'w-50';
     }
     return 'hidden';
+  }
+
+  descriptionInfo(e) {
+    if (e.key === 'Enter') {
+      console.log('working');
+    }
   }
 
   switchCardTitle() {
@@ -84,8 +91,8 @@ export default class modal extends React.Component {
     const character = this.props.masterCharacter;
     return (
       <div className={this.modalEffect()}>
-        <div className="row d-flex flex-column ">
-          <div className="col pt-2">
+        <div className="row d-flex flex-column">
+          <div className="col pt-2 border border-danger pb-50">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
               <h3 className={this.switchCardTitle()}>{this.state.value}</h3>
@@ -93,13 +100,13 @@ export default class modal extends React.Component {
               <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
             </div>
           </div>
-          <div className="col pt-2">
+          <div className="col pt-2 border border-danger">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-database"></i>
                 <h3 className={this.switchCardTitle()}>Description</h3>
             </div>
             <div>
-              <textarea className="form-control w-100" id="exampleFormControlTextarea1" rows="2"></textarea>
+              <textarea className="form-control w-100" id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)}></textarea>
             </div>
           </div>
           <div>
