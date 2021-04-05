@@ -96,10 +96,10 @@ export default class modal extends React.Component {
           <div className="col pt-2">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-database"></i>
-              <div className="d-flex flex-column">
                 <h3 className={this.switchCardTitle()}>Description</h3>
-                <textarea className="form-control w-100" id="exampleFormControlTextarea1" rows="2"></textarea>
-              </div>
+            </div>
+            <div>
+              <textarea className="form-control w-100" id="exampleFormControlTextarea1" rows="2"></textarea>
             </div>
           </div>
           <div>
