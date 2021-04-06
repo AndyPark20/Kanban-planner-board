@@ -59,13 +59,14 @@ export default class modal extends React.Component {
   }
 
   descriptionInfo(e) {
+    this.setState({ description: e.target.value });
     if (e.key === 'Enter') {
-      this.setState({ description: e.target.value, descriptionStatus: true });
+      this.setState({ descriptionStatus: true });
     }
   }
 
   saveBtn(e) {
-    this.setState({ description: e.target.value, descriptionStatus: true });
+    this.setState({ descriptionStatus: true });
   }
 
   switchCardTitle() {
