@@ -13,6 +13,7 @@ export default class modal extends React.Component {
     this.closeModdal = this.closeModal.bind(this);
     this.descriptionInfo = this.descriptionInfo.bind(this);
     this.descriptionStatus = this.descriptionStatus.bind(this);
+    this.infoDescription = this.infoDescription.bind(this);
   }
 
   componentDidUpdate(prev) {
@@ -26,6 +27,13 @@ export default class modal extends React.Component {
     if (prev.modal !== this.props.modal) {
       this.setState({ modalClose: this.props.modal });
     }
+  }
+
+  infoDescription() {
+    if (!this.descriptionStatus) {
+      return 'pl-4';
+    }
+    return 'hidden';
   }
 
   descriptionStatus() {
@@ -100,7 +108,7 @@ export default class modal extends React.Component {
     return (
       <div className={this.modalEffect()}>
         <div className="row d-flex flex-column">
-          <div className=" pt-2 pb-50">
+          <div className=" pt-2 pb-50 h-25">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
               <h3 className={this.switchCardTitle()}>{this.state.value}</h3>
@@ -114,8 +122,8 @@ export default class modal extends React.Component {
                 <h3 className="pl-2">Description</h3>
             </div>
             <div>
-              <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)}></textarea>
-              <h3>{this.state.description}</h3>
+              <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)} ></textarea>
+              <p className="" onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
             </div>
           </div>
           <div>
