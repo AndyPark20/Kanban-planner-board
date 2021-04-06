@@ -14,6 +14,7 @@ export default class modal extends React.Component {
     this.descriptionInfo = this.descriptionInfo.bind(this);
     this.descriptionStatus = this.descriptionStatus.bind(this);
     this.infoDescription = this.infoDescription.bind(this);
+    this.saveBtn = this.saveBtn.bind(this);
   }
 
   componentDidUpdate(prev) {
@@ -61,6 +62,10 @@ export default class modal extends React.Component {
     if (e.key === 'Enter') {
       this.setState({ description: e.target.value, descriptionStatus: true });
     }
+  }
+
+  saveBtn(e) {
+    this.setState({ description: e.target.value, descriptionStatus: true });
   }
 
   switchCardTitle() {
@@ -125,7 +130,7 @@ export default class modal extends React.Component {
             <div className="pl-2">
               <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)} ></textarea>
               <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
-              <button type="button" className="btn btn-success mt-2">Save</button>
+              <button type="button" className="btn btn-success mt-2" onClick={e => this.saveBtn(e)}>Save</button>
               <button type="button" className="btn btn-danger mt-2 ml-1">Cancel</button>
             </div>
           </div>
