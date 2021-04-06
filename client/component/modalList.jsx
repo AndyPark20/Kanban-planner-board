@@ -32,7 +32,7 @@ export default class modal extends React.Component {
     if (this.state.descriptionStatus) {
       return 'hidden';
     }
-    return 'form-control w-100';
+    return 'form-control w-75';
   }
 
   modalEffect() {
@@ -108,10 +108,10 @@ export default class modal extends React.Component {
               <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
             </div>
           </div>
-          <div className="col pt-2">
+          <div className="col pt-2 descriptionPadding">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-database"></i>
-                <h3 className={this.switchCardTitle()}>Description</h3>
+                <h3 className="pl-2">Description</h3>
             </div>
             <div>
               <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)}></textarea>
