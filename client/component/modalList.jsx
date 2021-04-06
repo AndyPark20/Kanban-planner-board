@@ -100,7 +100,7 @@ export default class modal extends React.Component {
     return (
       <div className={this.modalEffect()}>
         <div className="row d-flex flex-column">
-          <div className="col pt-2 border border-danger pb-50">
+          <div className=" pt-2 pb-50">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
               <h3 className={this.switchCardTitle()}>{this.state.value}</h3>
@@ -108,7 +108,7 @@ export default class modal extends React.Component {
               <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
             </div>
           </div>
-          <div className="col pt-2 border border-danger">
+          <div className="col pt-2">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-database"></i>
                 <h3 className={this.switchCardTitle()}>Description</h3>
