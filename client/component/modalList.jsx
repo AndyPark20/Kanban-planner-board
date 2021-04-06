@@ -30,7 +30,7 @@ export default class modal extends React.Component {
   }
 
   infoDescription() {
-    if (!this.descriptionStatus) {
+    if (this.state.descriptionStatus) {
       return 'pl-4';
     }
     return 'hidden';
@@ -112,7 +112,7 @@ export default class modal extends React.Component {
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
               <h3 className={this.switchCardTitle()}>{this.state.value}</h3>
-              <p className={this.switchCardTitle()} onClick={() => this.setState({ value: character[column].list[card].name, modalStatus: true })}>edit</p>
+              <p className={this.switchCardTitle()} onClick={() => this.setState({ value: character[column].list[card].name, modalStatus: true })}>Edit</p>
               <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
             </div>
           </div>
@@ -120,10 +120,13 @@ export default class modal extends React.Component {
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-database"></i>
                 <h3 className="pl-2">Description</h3>
+              <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p>
             </div>
-            <div>
+            <div className="pl-2">
               <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)} ></textarea>
-              <p className="" onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
+              <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
+              <button type="button" className="btn btn-success mt-2">Save</button>
+              <button type="button" className="btn btn-danger mt-2 ml-1">Cancel</button>
             </div>
           </div>
           <div>
