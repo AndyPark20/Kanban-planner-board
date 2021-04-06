@@ -1,6 +1,10 @@
+import e from 'cors';
 import React, { useState } from 'react';
 
-const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean }) => {
+const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean, updateModal, masterCharacterUpdate }) => {
+
+  const [pencil, updatePencil] = useState(false);
+  const [openModal, updateOpenModal] = useState(false);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -10,7 +14,15 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       update(masterCharacter);
+      masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
+      updateOpenModal(true);
+    }
+  };
+
+  const openModalComponent = () => {
+    if (openModal) {
+      updateModal(true);
     }
   };
 
@@ -21,14 +33,32 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
     return 'titleEnter';
   };
 
+  const editPencil = () => {
+    updatePencil(true);
+  };
+
+  const hidePencil = () => {
+    updatePencil(false);
+  };
+
+  const pencilVisibility = () => {
+    if (pencil) {
+      return 'fas fa-pencil-alt position-absolute  top-0 start-0';
+    }
+    return 'hidden';
+  };
+
   return (
-    <div className="card spacing" draggable>
+    <div className="card spacing" draggable onMouseEnter={() => editPencil()} onMouseLeave={() => hidePencil()} onClick={() => openModalComponent()}>
       <div className="card-body">
-      <h5 className="card-title">{values.name}</h5>
-      <form onSubmit={e => handleSubmit(e)}>
+        <div className="text-right position-relative">
+          <i className={pencilVisibility()}></i>
+        </div>
+        <h5 className="card-title">{values.name}</h5>
+        <form onSubmit={e => handleSubmit(e)}>
           <input type="text" placeholder="Enter a title for this card" className={hideTitleEdit()} onKeyUp={e => enterTitle(e)} required></input>
-      </form>
-    </div>
+        </form>
+      </div>
     </div>
   );
 };

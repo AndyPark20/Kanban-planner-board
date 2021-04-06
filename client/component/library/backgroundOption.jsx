@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { render } from 'react-dom';
 
 const Background = ({ status, searchValue, pictures, modalUpdateParent, userSelect }) => {
   const [keyWord, keyWordUpdate] = useState('');
@@ -18,10 +17,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
 
   const highlight = index => {
     const picture = pictures.map((values, index) => {
-
     });
-
-    // return 'wallPaperStyle';
     return picture;
   };
 
@@ -51,6 +47,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
             </div>
           </form>
         </div>
+
           <div className="row">
             {renderPictures()}
           </div>
