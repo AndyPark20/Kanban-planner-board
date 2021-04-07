@@ -124,14 +124,16 @@ export default class modal extends React.Component {
           <div className="col pt-2 descriptionPadding">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-database"></i>
-                <h3 className="pl-2">Description</h3>
+              <h3 className="pl-2">Description</h3>
               <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p>
             </div>
             <div className="pl-2">
-              <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)} ></textarea>
-              <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
-              <button type="button" className="btn btn-success mt-2" onClick={() => this.saveBtn()}>Save</button>
-              <button type="button" className="btn btn-danger mt-2 ml-1" onClick={() => this.setState({ descriptionStatus: true })}>Cancel</button>
+              <form>
+                <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)} ></textarea>
+                <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
+                <button type="button" className="btn btn-success mt-2" onClick={e => console.log(e.target.value)}>Save</button>
+                <button type="button" className="btn btn-danger mt-2 ml-1" onClick={e => this.setState({ descriptionStatus: true })}>Cancel</button>
+              </form>
             </div>
           </div>
           <div>
