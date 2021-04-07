@@ -4,7 +4,7 @@ import React from 'react';
 export default class modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ value: '', modalStatus: false, modalClose: false, description: '', descriptionStatus: false });
+    this.state = ({ value: '', modalStatus: false, modalClose: false, description: '', descriptionStatus: false, textValue: false });
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.switchModal = this.switchModal.bind(this);
@@ -59,13 +59,13 @@ export default class modal extends React.Component {
   }
 
   descriptionInfo(e) {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || this.state.textValue) {
       this.setState({ description: e.target.value, descriptionStatus: true });
     }
   }
 
-  saveBtn(e) {
-    this.setState({ description: e.target.value, descriptionStatus: true });
+  saveBtn() {
+    this.setState({ textValue: true });
   }
 
   switchCardTitle() {
@@ -130,7 +130,7 @@ export default class modal extends React.Component {
             <div className="pl-2">
               <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)} ></textarea>
               <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
-              <button type="button" className="btn btn-success mt-2" onClick={e => this.descriptionInfo(e)}>Save</button>
+              <button type="button" className="btn btn-success mt-2" onClick={() => this.saveBtn()}>Save</button>
               <button type="button" className="btn btn-danger mt-2 ml-1" onClick={() => this.setState({ descriptionStatus: true })}>Cancel</button>
             </div>
           </div>
