@@ -89,6 +89,7 @@ export default class modal extends React.Component {
       this.props.updateColumnComponent(true);
       const name = e.target.value;
       this.setState({ value: name, modalStatus: false });
+      console.log('hello');
     }
   }
 
