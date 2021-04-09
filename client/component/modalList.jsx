@@ -130,7 +130,7 @@ export default class modal extends React.Component {
             </div>
             <div className="pl-2">
               <form onKeyUp={e => this.descriptionInfo(e)}>
-                <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onKeyUp={e => this.descriptionInfo(e)} ></textarea>
+                <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" ></textarea>
                 <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
                 <button type="button" className="btn btn-success mt-2" onClick={e => console.log(e.target.value)}>Save</button>
                 <button type="button" className="btn btn-danger mt-2 ml-1" onClick={e => this.setState({ descriptionStatus: true })}>Cancel</button>
