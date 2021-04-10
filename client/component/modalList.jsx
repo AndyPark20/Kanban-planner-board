@@ -4,7 +4,7 @@ import React from 'react';
 export default class modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ value: '', modalStatus: false, modalClose: false, description: '', descriptionStatus: false, textValue: false });
+    this.state = ({ value: '', modalStatus: false, modalClose: false, initialDescription: '', finalDescription: '', descriptionStatus: false, textValue: false });
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitTwo = this.handleSubmitTwo.bind(this);
@@ -61,7 +61,9 @@ export default class modal extends React.Component {
 
   descriptionInfo(e) {
     e.preventDefault();
-    this.setState({ description: this.state.description, descriptionStatus: true });
+    if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
+      this.setState({ finalDescription: this.state.initialDescription, descriptionStatus: true });
+    }
   }
 
   saveBtn() {
@@ -133,11 +135,11 @@ export default class modal extends React.Component {
               <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p>
             </div>
             <div className="pl-2">
-              <form onChange={e => this.setState({ description: e.target.value })} >
+              <form onChange={e => this.setState({ initialDescription: e.target.value })} onClick={e => this.descriptionInfo(e)} onKeyUp={e => this.descriptionInfo(e)}>
                 <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2"></textarea>
-                <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
-                <button type="submit" className="btn btn-success mt-2" onClick={e => this.descriptionInfo(e)}>Save</button>
-                <button type="button" className="btn btn-danger mt-2 ml-1" onClick={e => this.setState({ descriptionStatus: true })}>Cancel</button>
+                <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.finalDescription}</p>
+                <button type="submit" className="btn btn-success mt-2">Save</button>
+                <button type="button" className="btn btn-danger mt-2 ml-1" onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button>
               </form>
             </div>
           </div>
