@@ -121,7 +121,7 @@ export default class modal extends React.Component {
     return (
       <div className={this.modalEffect()}>
         <div className="text-right">
-          <button type="button" className="btn btn-light" onClick={() => this.closeModal()}>Close</button>
+          <button type="button" className="btn btn-light closeFont" onClick={() => this.closeModal()}>Close</button>
         </div>
         <div className="row d-flex flex-column">
           <div className=" pt-2 pb-50">
@@ -132,13 +132,13 @@ export default class modal extends React.Component {
               <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
             </div>
           </div>
-          <div className="col pt-2 descriptionPadding">
+          <div className=" pt-2 descriptionPadding">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-database"></i>
               <h3 className="pl-2">Description</h3>
               <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p>
             </div>
-            <div className="pl-2 border border-danger">
+            <div className="pl-2">
               <form onChange={e => this.setState({ initialDescription: e.target.value })} onClick={e => this.descriptionInfo(e)} onKeyUp={e => this.descriptionInfo(e)}>
                 <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="8"></textarea>
                 <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.finalDescription}</p>
@@ -147,7 +147,7 @@ export default class modal extends React.Component {
               </form>
             </div>
           </div>
-          <div className="pl-2">
+          <div className="pl-2 pt-4">
             <Activity />
           </div>
         </div>
