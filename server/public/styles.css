@@ -178,3 +178,7 @@ ul{
 .logoSize{
   font-size:1.0rem;
 }
+
+.descriptionPadding{
+  padding: 0px;
+}
