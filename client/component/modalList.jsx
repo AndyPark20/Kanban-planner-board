@@ -7,7 +7,7 @@ export default class modal extends React.Component {
     this.state = ({ value: '', modalStatus: false, modalClose: false, description: '', descriptionStatus: false, textValue: false });
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlSubmitTwo = this.handlSubmitTwo.bind(this);
+    this.handleSubmitTwo = this.handleSubmitTwo.bind(this);
     this.switchModal = this.switchModal.bind(this);
     this.switchCardTitle = this.switchCardTitle.bind(this);
     this.updateCardTitle = this.updateCardTitle.bind(this);
@@ -60,9 +60,8 @@ export default class modal extends React.Component {
   }
 
   descriptionInfo(e) {
-    if (e.key === 'Enter' || this.state.textValue) {
-      this.setState({ description: e.target.value, descriptionStatus: true });
-    }
+    e.preventDefault();
+    this.setState({ description: this.state.description });
   }
 
   saveBtn() {
@@ -90,7 +89,6 @@ export default class modal extends React.Component {
       this.props.updateColumnComponent(true);
       const name = e.target.value;
       this.setState({ value: name, modalStatus: false });
-      console.log('hello');
     }
   }
 
@@ -99,8 +97,9 @@ export default class modal extends React.Component {
     this.setState({ value: name });
   }
 
-  handlSubmitTwo(e) {
+  handleSubmitTwo(e) {
     e.preventDefault();
+    this.descriptionInfo();
   }
 
   selectedListInfo() {
@@ -134,10 +133,10 @@ export default class modal extends React.Component {
               <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p>
             </div>
             <div className="pl-2">
-              <form onSubmit={this.h}>
-                <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2" onChange={e => this.descriptionInfo(e)} ></textarea>
+              <form onChange={e => this.setState({ value: e.target.value })} >
+                <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2"></textarea>
                 <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
-                <button type="button" className="btn btn-success mt-2" onClick={e => console.log(e.target.value)}>Save</button>
+                <button type="submit" className="btn btn-success mt-2" onClick={e => this.descriptionInfo(e)}>Save</button>
                 <button type="button" className="btn btn-danger mt-2 ml-1" onClick={e => this.setState({ descriptionStatus: true })}>Cancel</button>
               </form>
             </div>
