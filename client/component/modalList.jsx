@@ -61,7 +61,7 @@ export default class modal extends React.Component {
 
   descriptionInfo(e) {
     e.preventDefault();
-    this.setState({ description: this.state.description });
+    this.setState({ description: this.state.description, descriptionStatus: true });
   }
 
   saveBtn() {
@@ -115,7 +115,6 @@ export default class modal extends React.Component {
     const column = this.props.columnNumber;
     const card = this.props.cardNumber;
     const character = this.props.masterCharacter;
-    console.log(this.state.description);
     return (
       <div className={this.modalEffect()}>
         <div className="row d-flex flex-column">
