@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Activity from './activity';
 
 export default class modal extends React.Component {
   constructor(props) {
@@ -47,7 +48,7 @@ export default class modal extends React.Component {
 
   modalEffect() {
     if (!this.state.modalClose) {
-      return 'container centerModal hidden';
+      return 'container centerModal';
     }
     return 'container centerModal ';
   }
@@ -119,8 +120,11 @@ export default class modal extends React.Component {
     const character = this.props.masterCharacter;
     return (
       <div className={this.modalEffect()}>
+        <div className="text-right">
+          <button type="button" className="btn btn-light" onClick={() => this.closeModal()}>Close</button>
+        </div>
         <div className="row d-flex flex-column">
-          <div className=" pt-2 pb-50 h-25">
+          <div className=" pt-2 pb-50">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
               <h3 className={this.switchCardTitle()}>{this.state.value}</h3>
@@ -134,17 +138,17 @@ export default class modal extends React.Component {
               <h3 className="pl-2">Description</h3>
               <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p>
             </div>
-            <div className="pl-2">
+            <div className="pl-2 border border-danger">
               <form onChange={e => this.setState({ initialDescription: e.target.value })} onClick={e => this.descriptionInfo(e)} onKeyUp={e => this.descriptionInfo(e)}>
-                <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2"></textarea>
+                <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="8"></textarea>
                 <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.finalDescription}</p>
                 <button type="submit" className="btn btn-success mt-2">Save</button>
                 <button type="button" className="btn btn-danger mt-2 ml-1" onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button>
               </form>
             </div>
           </div>
-          <div>
-            <button type="button" className="btn btn-light" onClick={() => this.closeModal()}>Close</button>
+          <div className="pl-2">
+            <Activity />
           </div>
         </div>
       </div>
