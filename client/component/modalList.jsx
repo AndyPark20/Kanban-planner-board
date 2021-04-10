@@ -115,6 +115,7 @@ export default class modal extends React.Component {
     const column = this.props.columnNumber;
     const card = this.props.cardNumber;
     const character = this.props.masterCharacter;
+    console.log(this.state.description);
     return (
       <div className={this.modalEffect()}>
         <div className="row d-flex flex-column">
@@ -133,7 +134,7 @@ export default class modal extends React.Component {
               <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p>
             </div>
             <div className="pl-2">
-              <form onChange={e => this.setState({ value: e.target.value })} >
+              <form onChange={e => this.setState({ description: e.target.value })} >
                 <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2"></textarea>
                 <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
                 <button type="submit" className="btn btn-success mt-2" onClick={e => this.descriptionInfo(e)}>Save</button>
