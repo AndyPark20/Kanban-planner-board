@@ -28,9 +28,8 @@ const Activity = () => {
 
   const userSave =(e)=>{
     e.preventDefault()
-    if(e.key ==='Enter'){
-      userLogSubmit(userLogSubmit.push(userLog))
-    }
+    console.log(userLog)
+      updateUserLogSubmit(userLogSubmit.concat(userLog))
   }
 
   return (
