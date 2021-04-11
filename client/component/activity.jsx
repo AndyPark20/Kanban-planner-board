@@ -6,8 +6,8 @@ const Activity = () => {
 
   const userActivity = e => {
     e.preventDefault();
-    userLog.push(1)
-    updateUserLog(userLog);
+    console.log(userLog.concat(e.target.value))
+    // updateUserLog(userLog.concat(e.target.value));
   };
 
   useEffect(()=>{
@@ -33,7 +33,7 @@ const Activity = () => {
         <h3 className="pl-2">Activity</h3>
       </div>
       <div>
-        {renderLog()}
+        {/* {renderLog()} */}
       </div>
       <form onChange={e => userActivity(e)}>
         <textarea className="form-control w-75" rows="1"></textarea>
