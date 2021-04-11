@@ -2,9 +2,22 @@ import React, { useState } from 'react';
 
 const Activity = () => {
 
-  const userAtivity = e => {
+  const [userLog, updateUserLog] = useState([]);
+
+  const userActivity = e => {
     e.preventDefault();
-    console.log(e.target.value);
+    updateUserLog(userLog.push(1));
+  };
+
+  const renderLog = () => {
+    const data = userLog.map((values, index) => {
+      return (
+        <div key={index}>
+          {console.log(values)}
+        </div>
+      );
+    });
+    return data;
   };
 
   return (
@@ -13,7 +26,10 @@ const Activity = () => {
         <i className="fas fa-chart-line"></i>
         <h3 className="pl-2">Activity</h3>
       </div>
-      <form onChange={e => userAtivity(e)}>
+      <div>
+        {renderLog()}
+      </div>
+      <form onChange={e => userActivity(e)}>
         <textarea className="form-control w-75" rows="1"></textarea>
         <button type="submit" className="btn btn-success mt-2">Save</button>
       </form>
