@@ -182,3 +182,7 @@ ul{
 .descriptionPadding{
   padding: 0px;
 }
+
+.closeFont{
+  font-weight:bold;
+}

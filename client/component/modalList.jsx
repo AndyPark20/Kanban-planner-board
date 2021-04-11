@@ -1,10 +1,11 @@
 
 import React from 'react';
+import Activity from './activity';
 
 export default class modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ value: '', modalStatus: false, modalClose: false, description: '', descriptionStatus: false, textValue: false });
+    this.state = ({ value: '', modalStatus: false, modalClose: false, initialDescription: '', finalDescription: '', descriptionStatus: false, textValue: false });
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitTwo = this.handleSubmitTwo.bind(this);
@@ -47,7 +48,7 @@ export default class modal extends React.Component {
 
   modalEffect() {
     if (!this.state.modalClose) {
-      return 'container centerModal hidden';
+      return 'container centerModal';
     }
     return 'container centerModal ';
   }
@@ -61,7 +62,9 @@ export default class modal extends React.Component {
 
   descriptionInfo(e) {
     e.preventDefault();
-    this.setState({ description: this.state.description, descriptionStatus: true });
+    if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
+      this.setState({ finalDescription: this.state.initialDescription, descriptionStatus: true });
+    }
   }
 
   saveBtn() {
@@ -117,8 +120,11 @@ export default class modal extends React.Component {
     const character = this.props.masterCharacter;
     return (
       <div className={this.modalEffect()}>
+        <div className="text-right">
+          <button type="button" className="btn btn-light closeFont" onClick={() => this.closeModal()}>Close</button>
+        </div>
         <div className="row d-flex flex-column">
-          <div className=" pt-2 pb-50 h-25">
+          <div className=" pt-2 pb-50">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-tasks logoSize"></i>
               <h3 className={this.switchCardTitle()}>{this.state.value}</h3>
@@ -126,23 +132,23 @@ export default class modal extends React.Component {
               <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
             </div>
           </div>
-          <div className="col pt-2 descriptionPadding">
+          <div className=" pt-2 descriptionPadding">
             <div className="d-flex align-items-center pl-2">
               <i className="fas fa-database"></i>
               <h3 className="pl-2">Description</h3>
               <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p>
             </div>
             <div className="pl-2">
-              <form onChange={e => this.setState({ description: e.target.value })} >
-                <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="2"></textarea>
-                <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.description}</p>
-                <button type="submit" className="btn btn-success mt-2" onClick={e => this.descriptionInfo(e)}>Save</button>
-                <button type="button" className="btn btn-danger mt-2 ml-1" onClick={e => this.setState({ descriptionStatus: true })}>Cancel</button>
+              <form onChange={e => this.setState({ initialDescription: e.target.value })} onClick={e => this.descriptionInfo(e)} onKeyUp={e => this.descriptionInfo(e)}>
+                <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="8"></textarea>
+                <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.finalDescription}</p>
+                <button type="submit" className="btn btn-success mt-2">Save</button>
+                <button type="button" className="btn btn-danger mt-2 ml-1" onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button>
               </form>
             </div>
           </div>
-          <div>
-            <button type="button" className="btn btn-light" onClick={() => this.closeModal()}>Close</button>
+          <div className="pl-2 pt-4">
+            <Activity />
           </div>
         </div>
       </div>
