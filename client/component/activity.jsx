@@ -22,7 +22,6 @@ const Activity = () => {
         </div>
       );
     });
-    console.log(data)
     return data;
   };
 
