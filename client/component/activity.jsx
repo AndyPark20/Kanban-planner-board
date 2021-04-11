@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Activity = () => {
 
@@ -6,18 +6,24 @@ const Activity = () => {
 
   const userActivity = e => {
     e.preventDefault();
-    updateUserLog(userLog.push(1));
+    userLog.push(1)
+    updateUserLog(userLog);
   };
 
+  useEffect(()=>{
+    console.log(userLog)
+  },[userLog])
+
   const renderLog = () => {
-    const data = userLog.map((values, index) => {
-      return (
-        <div key={index}>
-          {console.log(values)}
-        </div>
-      );
-    });
-    return data;
+    console.log(userLog)
+    // const data = userLog.map((values, index) => {
+    //   return (
+    //     <div key={index}>
+    //       {console.log(values)}
+    //     </div>
+    //   );
+    // });
+    // return data;
   };
 
   return (
