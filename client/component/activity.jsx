@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 const Activity = () => {
 
-  const [userLog, updateUserLog] = useState([]);
+  const [userLog, updateUserLog] = useState('');
+  const [userLogSubmit, updateUserLogSubmit]= useState([])
 
   const userActivity = e => {
     e.preventDefault();
-    console.log(userLog.concat(e.target.value))
-    // updateUserLog(userLog.concat(e.target.value));
+    updateUserLog(e.target.value)
   };
 
   useEffect(()=>{
-    console.log(userLog)
-  },[userLog])
+    console.log(userLogSubmit)
+  },[userLogSubmit])
 
   const renderLog = () => {
     console.log(userLog)
@@ -26,6 +26,13 @@ const Activity = () => {
     // return data;
   };
 
+  const userSave =(e)=>{
+    e.preventDefault()
+    if(e.key ==='Enter'){
+      userLogSubmit(userLogSubmit.push(userLog))
+    }
+  }
+
   return (
     <div>
       <div className="d-flex align-items-center pl-2">
@@ -37,7 +44,7 @@ const Activity = () => {
       </div>
       <form onChange={e => userActivity(e)}>
         <textarea className="form-control w-75" rows="1"></textarea>
-        <button type="submit" className="btn btn-success mt-2">Save</button>
+        <button type="submit" className="btn btn-success mt-2" onClick={(e)=>userSave(e)}>Save</button>
       </form>
     </div>
   );
