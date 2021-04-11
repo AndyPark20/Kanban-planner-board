@@ -15,21 +15,19 @@ const Activity = () => {
   },[userLogSubmit])
 
   const renderLog = () => {
-    console.log(userLog)
-    // const data = userLog.map((values, index) => {
-    //   return (
-    //     <div key={index}>
-    //       {console.log(values)}
-    //     </div>
-    //   );
-    // });
-    // return data;
+    const data = userLogSubmit.map((values, index) => {
+      return (
+        <div key={index}>
+         <p>{values}</p>
+        </div>
+      );
+    });
+    return data;
   };
 
   const userSave =(e)=>{
     e.preventDefault()
-    console.log(userLog)
-      updateUserLogSubmit(userLogSubmit.concat(userLog))
+    updateUserLogSubmit(userLogSubmit.concat(userLog))
   }
 
   return (
@@ -39,7 +37,7 @@ const Activity = () => {
         <h3 className="pl-2">Activity</h3>
       </div>
       <div>
-        {/* {renderLog()} */}
+        {renderLog()}
       </div>
       <form onChange={e => userActivity(e)}>
         <textarea className="form-control w-75" rows="1"></textarea>
