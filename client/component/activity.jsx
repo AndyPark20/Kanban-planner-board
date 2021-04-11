@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Moment  from 'react-moment';
 
 const Activity = () => {
 
@@ -7,7 +8,7 @@ const Activity = () => {
 
   const userActivity = e => {
     e.preventDefault();
-    updateUserLog(e.target.value)
+    updateUserLog({info:e.target.value, time: Date.now()})
   };
 
   useEffect(()=>{
@@ -19,7 +20,8 @@ const Activity = () => {
       return (
         <div key={index} className="d-flex align-items-center">
         <i className="far fa-comment-dots"></i>
-         <h6 className="pl-2">{values}</h6>
+      <h6 className="pl-2">{values.info}</h6>
+          <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
         </div>
       );
     });
