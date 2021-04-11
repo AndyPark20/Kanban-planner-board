@@ -17,8 +17,9 @@ const Activity = () => {
   const renderLog = () => {
     const data = userLogSubmit.map((values, index) => {
       return (
-        <div key={index}>
-         <p>{values}</p>
+        <div key={index} className="d-flex align-items-center">
+        <i className="far fa-comment-dots"></i>
+         <h6 className="pl-2">{values}</h6>
         </div>
       );
     });
@@ -36,7 +37,7 @@ const Activity = () => {
         <i className="fas fa-chart-line"></i>
         <h3 className="pl-2">Activity</h3>
       </div>
-      <div>
+      <div className="pl-4">
         {renderLog()}
       </div>
       <form onChange={e => userActivity(e)}>
