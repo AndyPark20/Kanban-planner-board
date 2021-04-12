@@ -34,6 +34,7 @@ const Activity = () => {
   const userSave = e => {
     e.preventDefault();
     updateUserLogSubmit(userLogSubmit.concat(userLog));
+    updateValueLog('');
   };
 
   const handleChange = e => {
@@ -41,7 +42,11 @@ const Activity = () => {
   };
 
   const textValue = e => {
-
+    if (activityIndex === null) {
+      return valueLog;
+    }
+    const array = userLogSubmit[activityIndex].info;
+    return array;
   };
 
   return (
