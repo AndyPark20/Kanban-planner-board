@@ -5,12 +5,16 @@ const Activity = () => {
 
   const [userLog, updateUserLog] = useState('');
   const [userLogSubmit, updateUserLogSubmit] = useState([]);
+  const [activityIndex, updateActivityIndex] = useState(null);
 
   const userActivity = e => {
     e.preventDefault();
     updateUserLog({ info: e.target.value, time: Date.now() });
   };
 
+  useEffect(() => {
+    console.log(activityIndex);
+  }, [activityIndex]);
 
   const renderLog = () => {
     const data = userLogSubmit.map((values, index) => {
@@ -19,7 +23,7 @@ const Activity = () => {
         <i className="far fa-comment-dots"></i>
       <h5 className="pl-2">{values.info}</h5>
           <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
-          <h6 className="pl-2 editActivity" onClick={() => }>Edit</h6>
+          <h6 className="pl-2 editActivity" onClick={() => updateActivityIndex(index)}>Edit</h6>
         </div>
       );
     });
