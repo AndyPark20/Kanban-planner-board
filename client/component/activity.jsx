@@ -4,6 +4,7 @@ import Moment from 'react-moment';
 const Activity = () => {
 
   const [userLog, updateUserLog] = useState('');
+  const [valueLog, updateValueLog] = useState('');
   const [userLogSubmit, updateUserLogSubmit] = useState([]);
   const [activityIndex, updateActivityIndex] = useState(null);
 
@@ -13,7 +14,7 @@ const Activity = () => {
   };
 
   useEffect(() => {
-    console.log(activityIndex);
+    console.log(userLogSubmit[activityIndex]);
   }, [activityIndex]);
 
   const renderLog = () => {
@@ -35,6 +36,14 @@ const Activity = () => {
     updateUserLogSubmit(userLogSubmit.concat(userLog));
   };
 
+  const handleChange = e => {
+    updateValueLog(e.target.value);
+  };
+
+  const textValue = e => {
+
+  };
+
   return (
     <div>
       <div className="d-flex align-items-center pl-2">
@@ -45,7 +54,7 @@ const Activity = () => {
         {renderLog()}
       </div>
       <form onChange={e => userActivity(e)}>
-        <textarea className="form-control w-75" rows="1"></textarea>
+        <textarea className="form-control w-75" rows="1" value={textValue()} onChange={e => handleChange(e)}></textarea>
         <button type="submit" className="btn btn-success mt-2" onClick={e => userSave(e)}>Save</button>
       </form>
     </div>
