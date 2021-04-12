@@ -186,3 +186,7 @@ ul{
 .closeFont{
   font-weight:bold;
 }
+
+.timeFontSize{
+  font-size: .6rem;
+}
