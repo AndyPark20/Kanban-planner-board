@@ -14,10 +14,10 @@ const Activity = () => {
     if (!userEdit) {
       updateUserLog({ info: e.target.value, time: Date.now() });
     } else {
+      console.log('onChange')
       const editArray = {}
       userLogSubmit.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() })
       updateUserLogSubmit(userLogSubmit);
-      updateUserEdit(false)
     }
   };
 
@@ -43,8 +43,13 @@ const Activity = () => {
 
   const userSave = e => {
     e.preventDefault();
-    updateUserLogSubmit(userLogSubmit.concat(userLog));
-    updateValueLog('');
+    if(!userEdit){
+      updateUserLogSubmit(userLogSubmit.concat(userLog));
+      updateValueLog('');
+    }else{
+      updateUserLogSubmit(userLogSubmit);
+      updateUserEdit(false)
+    }
   };
 
   const handleChange = e => {
