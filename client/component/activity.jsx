@@ -41,7 +41,7 @@ const Activity = () => {
     updateValueLog(e.target.value);
   };
 
-  const textValue = e => {
+  const textValue = () => {
     if (activityIndex === null) {
       return valueLog;
     }
@@ -55,13 +55,13 @@ const Activity = () => {
         <i className="fas fa-chart-line"></i>
         <h3 className="pl-2">Activity</h3>
       </div>
+      <form onChange={e => userActivity(e)} className="d-flex">
+        <textarea className="form-control w-75" rows="1" value={textValue()} onChange={e => handleChange(e)}></textarea>
+        <button type="submit" className="btn btn-success mt-2 ml-2" onClick={e => userSave(e)}>Save</button>
+      </form>
       <div className="pl-4">
         {renderLog()}
       </div>
-      <form onChange={e => userActivity(e)}>
-        <textarea className="form-control w-75" rows="1" value={textValue()} onChange={e => handleChange(e)}></textarea>
-        <button type="submit" className="btn btn-success mt-2" onClick={e => userSave(e)}>Save</button>
-      </form>
     </div>
   );
 };
