@@ -11,12 +11,17 @@ const Activity = () => {
 
   const userActivity = e => {
     e.preventDefault();
-    if(!userEdit){
+    if (!userEdit) {
       updateUserLog({ info: e.target.value, time: Date.now() });
+    } else {
+      const editArray = {}
+      userLogSubmit.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() })
+      updateUserLogSubmit(userLogSubmit);
+      updateUserEdit(false)
     }
   };
 
-  const userEditActivity =(index)=>{
+  const userEditActivity = (index) => {
     updateUserEdit(true);
     updateEditIndexNumber(index)
     updateValueLog(userLogSubmit[index])
@@ -26,8 +31,8 @@ const Activity = () => {
     const data = userLogSubmit.map((values, index) => {
       return (
         <div key={index} className="d-flex align-items-center">
-        <i className="far fa-comment-dots"></i>
-      <h5 className="pl-2">{values.info}</h5>
+          <i className="far fa-comment-dots"></i>
+          <h5 className="pl-2">{values.info}</h5>
           <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
           <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
         </div>
@@ -46,9 +51,9 @@ const Activity = () => {
     updateValueLog(e.target.value);
   };
 
-  useEffect(()=>{
-    console.log(valueLog)
-  },[valueLog])
+  useEffect(() => {
+    console.log(userLogSubmit)
+  }, [valueLog])
 
   return (
     <div>
