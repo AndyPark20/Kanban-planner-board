@@ -6,12 +6,21 @@ const Activity = () => {
   const [userLog, updateUserLog] = useState('');
   const [valueLog, updateValueLog] = useState('');
   const [userLogSubmit, updateUserLogSubmit] = useState([]);
+  const [userEdit, updateUserEdit] = useState(false);
+  const [editIndexNumber, updateEditIndexNumber] = useState(null);
 
   const userActivity = e => {
     e.preventDefault();
-    updateUserLog({ info: e.target.value, time: Date.now() });
+    if(!userEdit){
+      updateUserLog({ info: e.target.value, time: Date.now() });
+    }
   };
 
+  const userEditActivity =(index)=>{
+    updateUserEdit(true);
+    updateEditIndexNumber(index)
+    updateValueLog(userLogSubmit[index])
+  }
 
   const renderLog = () => {
     const data = userLogSubmit.map((values, index) => {
@@ -20,7 +29,7 @@ const Activity = () => {
         <i className="far fa-comment-dots"></i>
       <h5 className="pl-2">{values.info}</h5>
           <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
-          <h6 className="pl-2 editActivity" onClick={() => updateValueLog(userLogSubmit[index])}>Edit</h6>
+          <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
         </div>
       );
     });
