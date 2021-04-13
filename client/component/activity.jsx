@@ -19,6 +19,11 @@ const Activity = () => {
       userLogSubmit.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() })
       updateUserLogSubmit(userLogSubmit);
     }
+    if(e.target.value !==''){
+      updateSaveButton(true);
+    }else{
+      updateSaveButton(false)
+    }
   };
 
   const userEditActivity = (index) => {
@@ -28,7 +33,6 @@ const Activity = () => {
   }
 
   const renderLog = () => {
-
       const data = userLogSubmit.map((values, index) => {
         return (
           <div key={index} className="d-flex align-items-center">
@@ -56,9 +60,12 @@ const Activity = () => {
     updateValueLog(e.target.value);
   };
 
-  useEffect(() => {
-    console.log(userLogSubmit)
-  }, [valueLog])
+  const saveButtonRender =()=>{
+    if(saveButton){
+      return 'btn btn-success mt-2 ml-2'
+    }
+    return 'hidden'
+  }
 
   return (
     <div>
@@ -68,7 +75,7 @@ const Activity = () => {
       </div>
       <form onChange={e => userActivity(e)} className="d-flex" required>
         <textarea className="form-control w-75" rows="1" value={valueLog.info} onChange={e => handleChange(e)} required></textarea>
-        <button type="submit" className="btn btn-success mt-2 ml-2" onClick={e => userSave(e)}>Save</button>
+        <button type="submit" className={saveButtonRender()}onClick={e => userSave(e)}>Save</button>
       </form>
       <div className="pl-4">
         {renderLog()}
