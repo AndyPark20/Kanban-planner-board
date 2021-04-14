@@ -7,7 +7,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   // const [testInput, updateTestInput] = useState({input1: '', input2: ''})
   const [openModal, updateOpenModal] = useState(false);
 
-  const handleUpdateInput = (event) => updateInput(event.target.value);
+  const handleUpdateInput = event => updateInput(event.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -24,7 +24,6 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   };
 
   const openModalComponent = () => {
-    debugger
     if (openModal) {
       updateModal(true);
     }
@@ -46,8 +45,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   //   input2: ''
   // }
 
-
-  //this is if you want to reuse input updating for multiple fields
+  // this is if you want to reuse input updating for multiple fields
   // const handleUpdateInputTest = (fieldName) => (event) => updateTestInput({...testInput, [fieldName]: event.target.value});
 
   return (

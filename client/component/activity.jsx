@@ -8,49 +8,49 @@ const Activity = () => {
   const [userLogSubmit, updateUserLogSubmit] = useState([]);
   const [userEdit, updateUserEdit] = useState(false);
   const [editIndexNumber, updateEditIndexNumber] = useState(null);
-  const [saveButton, updateSaveButton] = useState(false)
+  const [saveButton, updateSaveButton] = useState(false);
 
   const userActivity = e => {
     e.preventDefault();
     if (!userEdit) {
       updateUserLog({ info: e.target.value, time: Date.now() });
     } else {
-      const editArray = {}
-      userLogSubmit.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() })
+      const editArray = {};
+      userLogSubmit.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() });
       updateUserLogSubmit(userLogSubmit);
     }
-    if(e.target.value !==''){
+    if (e.target.value !== '') {
       updateSaveButton(true);
-    }else{
-      updateSaveButton(false)
+    } else {
+      updateSaveButton(false);
     }
   };
 
-  const userEditActivity = (index) => {
+  const userEditActivity = index => {
     updateUserEdit(true);
-    updateEditIndexNumber(index)
-    updateValueLog(userLogSubmit[index])
-  }
+    updateEditIndexNumber(index);
+    updateValueLog(userLogSubmit[index]);
+  };
 
   const renderLog = () => {
-      const data = userLogSubmit.map((values, index) => {
-        return (
+    const data = userLogSubmit.map((values, index) => {
+      return (
           <div key={index} className="d-flex align-items-center">
             <i className="far fa-comment-dots"></i>
             <h5 className="pl-2">{values.info}</h5>
             <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
             <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
           </div>
-        );
-      });
-      return data;
+      );
+    });
+    return data;
   };
 
   const userSave = e => {
     e.preventDefault();
-    if(!userEdit){
+    if (!userEdit) {
       updateUserLogSubmit(userLogSubmit.concat(userLog));
-    }else{
+    } else {
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
     }
@@ -60,12 +60,12 @@ const Activity = () => {
     updateValueLog(e.target.value);
   };
 
-  const saveButtonRender =()=>{
-    if(saveButton){
-      return 'btn btn-success mt-2 ml-2'
+  const saveButtonRender = () => {
+    if (saveButton) {
+      return 'btn btn-success mt-2 ml-2';
     }
-    return 'hidden'
-  }
+    return 'hidden';
+  };
 
   return (
     <div>
