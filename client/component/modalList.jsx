@@ -5,7 +5,16 @@ import Activity from './activity';
 export default class modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ value: '', modalStatus: false, modalClose: false, initialDescription: '', finalDescription: '', descriptionStatus: false, textValue: false, button:false });
+    this.state = (
+      { value: '',
+      modalStatus: false,
+      modalClose: false,
+      initialDescription: '',
+      finalDescription: '',
+      descriptionStatus: false,
+      textValue: false,
+      button:false
+    });
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitTwo = this.handleSubmitTwo.bind(this);
@@ -49,6 +58,7 @@ export default class modal extends React.Component {
   }
 
   modalEffect() {
+    console.log(this.state.modalClose)
     if (!this.state.modalClose) {
       return 'container centerModal hidden';
     }
