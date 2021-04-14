@@ -5,7 +5,16 @@ import Activity from './activity';
 export default class modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ value: '', modalStatus: false, modalClose: false, initialDescription: '', finalDescription: '', descriptionStatus: false, textValue: false });
+    this.state = (
+      { value: '',
+      modalStatus: false,
+      modalClose: false,
+      initialDescription: '',
+      finalDescription: '',
+      descriptionStatus: false,
+      textValue: false,
+      button:false
+    });
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitTwo = this.handleSubmitTwo.bind(this);
@@ -17,6 +26,8 @@ export default class modal extends React.Component {
     this.descriptionStatus = this.descriptionStatus.bind(this);
     this.infoDescription = this.infoDescription.bind(this);
     this.saveBtn = this.saveBtn.bind(this);
+    this.saveControlBtn = this.saveControlBtn.bind(this);
+    this.cancelControlBtn= this.cancelControlBtn.bind(this);
   }
 
   componentDidUpdate(prev) {
@@ -47,8 +58,9 @@ export default class modal extends React.Component {
   }
 
   modalEffect() {
+    console.log(this.state.modalClose)
     if (!this.state.modalClose) {
-      return 'container centerModal';
+      return 'container centerModal hidden';
     }
     return 'container centerModal ';
   }
@@ -65,6 +77,11 @@ export default class modal extends React.Component {
     if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
       this.setState({ finalDescription: this.state.initialDescription, descriptionStatus: true });
     }
+    if(e.target.value){
+      this.setState({button: true})
+    }else{
+      this.setState({button:false})
+    }
   }
 
   saveBtn() {
@@ -80,6 +97,20 @@ export default class modal extends React.Component {
 
   closeModal() {
     this.setState({ modalClose: false });
+  }
+
+  saveControlBtn(){
+    if(!this.state.button){
+      return 'hidden';
+    }
+    return 'btn btn-success mt-2';
+  }
+
+  cancelControlBtn(){
+    if(!this.state.button){
+      return 'hidden';
+    }
+    return 'btn btn-danger mt-2 ml-1';
   }
 
   updateCardTitle(e) {
@@ -142,8 +173,8 @@ export default class modal extends React.Component {
               <form onChange={e => this.setState({ initialDescription: e.target.value })} onClick={e => this.descriptionInfo(e)} onKeyUp={e => this.descriptionInfo(e)}>
                 <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="4"></textarea>
                 <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.finalDescription}</p>
-                <button type="submit" className="btn btn-success mt-2">Save</button>
-                <button type="button" className="btn btn-danger mt-2 ml-1" onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button>
+                <button type="submit" className={this.saveControlBtn()}>Save</button>
+                <button type="button" className={this.cancelControlBtn()} onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button>
               </form>
             </div>
           </div>

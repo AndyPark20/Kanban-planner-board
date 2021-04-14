@@ -37,11 +37,14 @@ const App = () => {
   };
 
   const modalChange = () => {
-    if (!modalStatus) {
-      modalStatusUpdate(true);
-    } else {
-      modalStatusUpdate(false);
-    }
+    //this does the same thing but much cleaner
+    modalStatusUpdate(!modalStatus)
+
+    // if (!modalStatus) {
+    //   modalStatusUpdate(true);
+    // } else {
+    //   modalStatusUpdate(false);
+    // }
   };
 
   const modalCancelFunction = () => {
@@ -59,7 +62,7 @@ const App = () => {
   };
 
   const userSearch = (e, keyWord) => {
-    if (e.target.className === 'btn btn-primary btnSize mr-1') {
+    if (e.key === "Enter") {
       fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`)
         .then(res => res.json())
         .then(result => {

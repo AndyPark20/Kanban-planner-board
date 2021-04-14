@@ -1,10 +1,13 @@
-import e from 'cors';
 import React, { useState } from 'react';
 
 const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean, updateModal, masterCharacterUpdate }) => {
 
   const [pencil, updatePencil] = useState(false);
+  const [input, updateInput] = useState('');
+  // const [testInput, updateTestInput] = useState({input1: '', input2: ''})
   const [openModal, updateOpenModal] = useState(false);
+
+  const handleUpdateInput = (event) => updateInput(event.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -21,42 +24,41 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   };
 
   const openModalComponent = () => {
+    debugger
     if (openModal) {
       updateModal(true);
     }
   };
 
-  const hideTitleEdit = () => {
-    if (values.name !== '') {
-      return 'hidden';
-    }
-    return 'titleEnter';
-  };
+  const editPencil = () => updatePencil(true);
 
-  const editPencil = () => {
-    updatePencil(true);
-  };
-
-  const hidePencil = () => {
-    updatePencil(false);
-  };
+  const hidePencil = () => updatePencil(false);
 
   const pencilVisibility = () => {
     if (pencil) {
-      return 'fas fa-pencil-alt position-absolute  top-0 start-0';
+      return 'fas fa-pencil-alt position-absolute top-0 start-0';
     }
     return 'hidden';
   };
 
+  // const test = {
+  //   input1 : '',
+  //   input2: ''
+  // }
+
+
+  //this is if you want to reuse input updating for multiple fields
+  // const handleUpdateInputTest = (fieldName) => (event) => updateTestInput({...testInput, [fieldName]: event.target.value});
+
   return (
-    <div className="card spacing" draggable onMouseEnter={() => editPencil()} onMouseLeave={() => hidePencil()} onClick={() => openModalComponent()}>
+    <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} onClick={openModalComponent}>
       <div className="card-body">
         <div className="text-right position-relative">
-          <i className={pencilVisibility()}></i>
+          <i className={pencilVisibility}></i>
         </div>
         <h5 className="card-title">{values.name}</h5>
-        <form onSubmit={e => handleSubmit(e)}>
-          <input type="text" placeholder="Enter a title for this card" className={hideTitleEdit()} onKeyUp={e => enterTitle(e)} required></input>
+        <form onSubmit={handleSubmit}>
+          <input type="text" placeholder="Enter a title for this card" className={values.name ? 'hidden' : 'titleEnter'} onKeyUp={enterTitle} onChange={handleUpdateInput} required></input>
         </form>
       </div>
     </div>
