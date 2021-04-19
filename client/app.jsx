@@ -37,8 +37,8 @@ const App = () => {
   };
 
   const modalChange = () => {
-    //this does the same thing but much cleaner
-    modalStatusUpdate(!modalStatus)
+    // this does the same thing but much cleaner
+    modalStatusUpdate(!modalStatus);
 
     // if (!modalStatus) {
     //   modalStatusUpdate(true);
@@ -62,7 +62,7 @@ const App = () => {
   };
 
   const userSearch = (e, keyWord) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`)
         .then(res => res.json())
         .then(result => {
