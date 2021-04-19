@@ -32,7 +32,6 @@ export default class modal extends React.Component {
   }
 
   componentDidUpdate(prev, ps) {
-    console.log(this.props.modal);
     const column = this.props.columnNumber;
     const card = this.props.cardNumber;
     if (prev.masterCharacter !== this.props.masterCharacter) {
@@ -40,10 +39,10 @@ export default class modal extends React.Component {
       this.setState({ value: updatedtitle });
     }
 
-    if (ps.modalClose !== this.props.modal) {
-      this.setState({ modalClose: this.props.modal });
+    if (ps.modalClose !== this.state.modalClose) {
+      this.setState({ modalClose: false });
     }
-    console.log('ps modalClose', ps.modalClose);
+
   }
 
   infoDescription() {
