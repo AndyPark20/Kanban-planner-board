@@ -63,7 +63,9 @@ export default class modal extends React.Component {
     if (this.props.modal) {
       return 'container centerModal';
     }
-    return 'container centerModal hidden';
+    if (!this.state.modalClose) {
+      return 'container centerModal hidden';
+    }
   }
 
   switchModal() {
