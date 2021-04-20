@@ -99,7 +99,7 @@ export default class modal extends React.Component {
   }
 
   closeModal() {
-    this.setState({ modalClose: true });
+    this.setState({ modalClose: false });
   }
 
   saveControlBtn() {
