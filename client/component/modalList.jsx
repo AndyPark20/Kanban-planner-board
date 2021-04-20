@@ -39,8 +39,8 @@ export default class modal extends React.Component {
       this.setState({ value: updatedtitle });
     }
 
-    if (ps.modalClose !== this.state.modalClose) {
-      this.setState({ modalClose: false });
+    if (ps.modalClose !== this.props.modal) {
+      this.setState({ modalClose: this.props.modal });
     }
 
   }
@@ -60,7 +60,7 @@ export default class modal extends React.Component {
   }
 
   modalEffect() {
-    if (this.props.modal) {
+    if (this.state.modalClose) {
       return 'container centerModal';
     }
     if (!this.state.modalClose) {
@@ -99,7 +99,7 @@ export default class modal extends React.Component {
   }
 
   closeModal() {
-    this.setState({ modalClose: false });
+    this.setState({ modalClose: true });
   }
 
   saveControlBtn() {
