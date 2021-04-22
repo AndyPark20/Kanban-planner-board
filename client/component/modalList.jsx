@@ -6,15 +6,16 @@ export default class modal extends React.Component {
   constructor(props) {
     super(props);
     this.state = (
-      { value: '',
-      modalStatus: false,
-      modalClose: false,
-      initialDescription: '',
-      finalDescription: '',
-      descriptionStatus: false,
-      textValue: false,
-      button:false
-    });
+      {
+        value: '',
+        modalStatus: false,
+        modalClose: false,
+        initialDescription: '',
+        finalDescription: '',
+        descriptionStatus: false,
+        textValue: false,
+        button: false
+      });
     this.modalEffect = this.modalEffect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitTwo = this.handleSubmitTwo.bind(this);
@@ -27,10 +28,10 @@ export default class modal extends React.Component {
     this.infoDescription = this.infoDescription.bind(this);
     this.saveBtn = this.saveBtn.bind(this);
     this.saveControlBtn = this.saveControlBtn.bind(this);
-    this.cancelControlBtn= this.cancelControlBtn.bind(this);
+    this.cancelControlBtn = this.cancelControlBtn.bind(this);
   }
 
-  componentDidUpdate(prev) {
+  componentDidUpdate(prev, ps) {
     const column = this.props.columnNumber;
     const card = this.props.cardNumber;
     if (prev.masterCharacter !== this.props.masterCharacter) {
@@ -38,9 +39,10 @@ export default class modal extends React.Component {
       this.setState({ value: updatedtitle });
     }
 
-    if (prev.modal !== this.props.modal) {
+    if (ps.modalClose !== this.props.modal) {
       this.setState({ modalClose: this.props.modal });
     }
+
   }
 
   infoDescription() {
@@ -58,11 +60,12 @@ export default class modal extends React.Component {
   }
 
   modalEffect() {
-    console.log(this.state.modalClose)
+    if (this.state.modalClose) {
+      return 'container centerModal';
+    }
     if (!this.state.modalClose) {
       return 'container centerModal hidden';
     }
-    return 'container centerModal ';
   }
 
   switchModal() {
@@ -77,10 +80,10 @@ export default class modal extends React.Component {
     if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
       this.setState({ finalDescription: this.state.initialDescription, descriptionStatus: true });
     }
-    if(e.target.value){
-      this.setState({button: true})
-    }else{
-      this.setState({button:false})
+    if (e.target.value) {
+      this.setState({ button: true });
+    } else {
+      this.setState({ button: false });
     }
   }
 
@@ -99,15 +102,15 @@ export default class modal extends React.Component {
     this.setState({ modalClose: false });
   }
 
-  saveControlBtn(){
-    if(!this.state.button){
+  saveControlBtn() {
+    if (!this.state.button) {
       return 'hidden';
     }
     return 'btn btn-success mt-2';
   }
 
-  cancelControlBtn(){
-    if(!this.state.button){
+  cancelControlBtn() {
+    if (!this.state.button) {
       return 'hidden';
     }
     return 'btn btn-danger mt-2 ml-1';
