@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ column, card, character }) => {
+const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent }) => {
   const [values, updateValue] = useState('');
+  const [modalClose, updateModdalClose] = useState(false);
 
   function infoDescription() {
     if (this.state.descriptionStatus) {
@@ -16,15 +17,6 @@ const Modal = ({ column, card, character }) => {
       return 'hidden';
     }
     return 'form-control w-75';
-  }
-
-  function modalEffect() {
-    if (this.state.modalClose) {
-      return 'container centerModal';
-    }
-    if (!this.state.modalClose) {
-      return 'container centerModal hidden';
-    }
   }
 
   function descriptionInfo(e) {
@@ -100,16 +92,9 @@ const Modal = ({ column, card, character }) => {
     }
   }
 
-  const clickUpdate = () => {
-    console.log('column', column);
-    console.log('card', card);
-    console.log('character', character);
-  };
-
   // this.setState({ value: character[column].list[card].name, modalStatus: true })
   return (
-    // <div className={this.modalEffect()}>
-    <div>
+    <div className={modalClose ? 'hidden' : 'form-control w-75'}>
       <div className="text-right">
         <button type="button" className="btn btn-light closeFont" onClick={() => this.closeModal()}>Close</button>
       </div>
@@ -126,14 +111,14 @@ const Modal = ({ column, card, character }) => {
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-database"></i>
             <h3 className="pl-2">Description</h3>
-            <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p>
+            {/* <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p> */}
           </div>
           <div className="pl-2">
             <form onChange={e => this.setState({ initialDescription: e.target.value })} onClick={e => this.descriptionInfo(e)} onKeyUp={e => this.descriptionInfo(e)}>
-              <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="4"></textarea>
-              <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.finalDescription}</p>
-              <button type="submit" className={this.saveControlBtn()}>Save</button>
-              <button type="button" className={this.cancelControlBtn()} onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button>
+              {/* <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="4"></textarea> */}
+              {/* <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.finalDescription}</p> */}
+              {/* <button type="submit" className={this.saveControlBtn()}>Save</button> */}
+              {/* <button type="button" className={this.cancelControlBtn()} onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button> */}
             </form>
           </div>
         </div>
