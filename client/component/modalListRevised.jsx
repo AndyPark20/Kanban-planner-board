@@ -10,6 +10,10 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(false);
 
+  useEffect(() => {
+    updateModalClose(modal);
+  });
+
   function infoDescription() {
     if (this.state.descriptionStatus) {
       return 'pl-4';
@@ -92,11 +96,14 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateDescription;
   };
 
+  const test = () => console.log(modalClose);
+
   return (
-    <div className={modalClose ? 'hidden' : 'form-control w-75'}>
+    <div className={!modalClose ? 'hidden' : 'form-control w-75'}>
       <div className="text-right">
         <button type="button" className="btn btn-light closeFont" onClick={closeModal}>Close</button>
       </div>
+      {test()}
       <div className="row d-flex flex-column">
         <div className=" pt-2 pb-50">
           <div className="d-flex align-items-center pl-2">
