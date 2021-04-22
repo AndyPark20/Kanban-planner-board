@@ -7,7 +7,8 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [modalStatus, updateModalStatus] = useState(false);
   const [descriptionStatus, updateDescriptionStatus] = useState(false);
   const [initialDescription, updateInitialDescription] = useState('');
-  const [finalDescription, updateFinalDescription] = useState('')
+  const [finalDescription, updateFinalDescription] = useState('');
+  const [button, updateButton] = useState(false);
 
   function infoDescription() {
     if (this.state.descriptionStatus) {
@@ -16,22 +17,16 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     return 'hidden';
   }
 
-  function descriptionStatus() {
-    if (this.state.descriptionStatus) {
-      return 'hidden';
-    }
-    return 'form-control w-75';
-  }
-
   function descriptionInfo(e) {
     e.preventDefault();
     if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
-      this.setState({ finalDescription: this.state.initialDescription, descriptionStatus: true });
+      updateFinalDescription(initialDescription);
+      updateDescriptionStatus(true);
     }
     if (e.target.value) {
-      this.setState({ button: true });
+      updateButton(true);
     } else {
-      this.setState({ button: false });
+      updateButton(false);
     }
   }
 
@@ -39,30 +34,16 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     this.setState({ textValue: true });
   }
 
-  function switchCardTitle() {
-    if (this.state.modalStatus) {
-      return 'hidden';
-    }
-    return 'pl-2';
-  }
-
   function closeModal() {
     updateModalClose(false);
   }
 
-  function saveControlBtn() {
-    if (!this.state.button) {
-      return 'hidden';
-    }
-    return 'btn btn-success mt-2';
-  }
-
-  function cancelControlBtn() {
-    if (!this.state.button) {
-      return 'hidden';
-    }
-    return 'btn btn-danger mt-2 ml-1';
-  }
+  // function cancelControlBtn() {
+  //   if (!this.state.button) {
+  //     return 'hidden';
+  //   }
+  //   return 'btn btn-danger mt-2 ml-1';
+  // }
 
   function updateCardTitle(e) {
     if (e.key === 'Enter') {
@@ -86,7 +67,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   function handleSubmitTwo(e) {
     e.preventDefault();
-    this.descriptionInfo();
+    descriptionInfo();
   }
 
   function selectedListInfo() {
@@ -103,12 +84,16 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateModalStatus(true);
   };
 
-  const clickUpdateDescription = ()=> updateDescriptionStatus(false);
-  const updateDescription = (e) => updateInitialDescription(e.target.value);
-  const updateDescriptionInput = () => updateDescriptionStatus(false)
+  const clickUpdateDescription = () => updateDescriptionStatus(false);
+  const updateDescription = e => updateInitialDescription(e.target.value);
+  const updateDescriptionInput = () => updateDescriptionStatus(false);
+  const upddateCancelButton = () => {
+    updateDescriptionStatus(true);
+    updateDescription;
+  };
 
   return (
-    <div className={modalClose ? 'form-control w-75' : 'hidden'}>
+    <div className={modalClose ? 'hidden' : 'form-control w-75'}>
       <div className="text-right">
         <button type="button" className="btn btn-light closeFont" onClick={closeModal}>Close</button>
       </div>
@@ -128,11 +113,11 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
             <p className={modalStatus ? 'pl-2' : 'hidden'} onClick={clickUpdateDescription}>Edit</p>
           </div>
           <div className="pl-2">
-            <form onChange={e=>updateDescription(e)} onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)}>
-              <textarea className={descriptionStatus ? 'hidden' :'form-control w-75'} id="exampleFormControlTextarea1" rows="4"></textarea>
+            <form onChange={e => updateDescription(e)} onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)}>
+              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} id="exampleFormControlTextarea1" rows="4"></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{finalDescription}</p>
-              {/* <button type="submit" className={this.saveControlBtn()}>Save</button> */}
-              {/* <button type="button" className={this.cancelControlBtn()} onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button> */}
+              <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'}>Save</button>
+              {/* <button type="button" className={button ? 'btn btn-danger mt-2 ml-1': 'hidden'} onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button> */}
             </form>
           </div>
         </div>
