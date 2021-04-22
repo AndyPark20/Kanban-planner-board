@@ -5,6 +5,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [values, updateValues] = useState('');
   const [modalClose, updateModalClose] = useState(true);
   const [modalStatus, updateModalStatus] = useState(false);
+  const [descriptionStatus, updateDescriptionStatus] = useState(false);
+  const [initialDescription, updateInitialDescription] = useState('');
+  const [finalDescription, updateFinalDescription] = useState('')
 
   function infoDescription() {
     if (this.state.descriptionStatus) {
@@ -67,10 +70,12 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
       const card = this.props.cardNumber;
       const character = this.props.masterCharacter;
       character[column].list[card].name = e.target.value;
-      this.props.updateMasterCharacter(character);
-      this.props.updateColumnComponent(true);
+      masterCharacter[columnNumber].list[cardNumber].name = e.target.value;
+      updateMasterCharacter(masterCharacter);
+      updateColumnComponent(true);
       const name = e.target.value;
-      this.setState({ value: name, modalStatus: false });
+      updateValues(name);
+      updateModalStatus(false);
     }
   }
 
@@ -96,10 +101,12 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const clickUpdate = () => {
     updateValues(masterCharacter[columnNumber].list[cardNumber].name);
     updateModalStatus(true);
-
   };
 
-  // this.setState({ value: character[column].list[card].name, modalStatus: true })
+  const clickUpdateDescription = ()=> updateDescriptionStatus(false);
+  const updateDescription = (e) => updateInitialDescription(e.target.value);
+  const updateDescriptionInput = () => updateDescriptionStatus(false)
+
   return (
     <div className={modalClose ? 'form-control w-75' : 'hidden'}>
       <div className="text-right">
@@ -111,19 +118,19 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
             <i className="fas fa-tasks logoSize"></i>
             <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{values}</h3>
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdate}>Edit</p>
-            <input text="type" className={modalStatus ? 'hidden' : 'pl-2'} value={values} onChange={() => handleSubmit(e)} onKeyUp={e => this.updateCardTitle(e)}></input>
+            <input text="type" className={modalStatus ? 'hidden' : 'pl-2'} value={values} onChange={e => handleSubmit(e)} onKeyUp={e => updateCardTitle(e)}></input>
           </div>
         </div>
         <div className=" pt-2 descriptionPadding">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-database"></i>
             <h3 className="pl-2">Description</h3>
-            {/* <p className={this.switchCardTitle()} onClick={() => this.setState({ descriptionStatus: false })}>Edit</p> */}
+            <p className={modalStatus ? 'pl-2' : 'hidden'} onClick={clickUpdateDescription}>Edit</p>
           </div>
           <div className="pl-2">
-            <form onChange={e => this.setState({ initialDescription: e.target.value })} onClick={e => this.descriptionInfo(e)} onKeyUp={e => this.descriptionInfo(e)}>
-              {/* <textarea className={this.descriptionStatus()} id="exampleFormControlTextarea1" rows="4"></textarea> */}
-              {/* <p className={this.infoDescription()} onClick={() => this.setState({ descriptionStatus: false })}>{this.state.finalDescription}</p> */}
+            <form onChange={e=>updateDescription(e)} onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)}>
+              <textarea className={descriptionStatus ? 'hidden' :'form-control w-75'} id="exampleFormControlTextarea1" rows="4"></textarea>
+              <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{finalDescription}</p>
               {/* <button type="submit" className={this.saveControlBtn()}>Save</button> */}
               {/* <button type="button" className={this.cancelControlBtn()} onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button> */}
             </form>
