@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
 const Modal = () => {
-
+  const [values, updateValue] = useState('');
   function infoDescription() {
     if (this.state.descriptionStatus) {
       return 'pl-4';
