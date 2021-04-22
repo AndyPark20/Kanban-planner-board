@@ -3,6 +3,7 @@ import Column from './component/column';
 import Navigation from './options';
 import Background from './component/library/backgroundOption';
 import Modal from './component/modalList';
+import ModalRevised from './component/modalListRevised';
 
 const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
@@ -98,6 +99,7 @@ const App = () => {
         </div>
         <Column updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter ={masterCharacter}/>
       </div>
+
     </div>
   );
 };
