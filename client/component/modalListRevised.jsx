@@ -3,7 +3,7 @@ import Activity from './activity';
 
 const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent }) => {
   const [values, updateValue] = useState('');
-  const [modalClose, updateModdalClose] = useState(false);
+  const [modalClose, updateModalClose] = useState(true);
 
   function infoDescription() {
     if (this.state.descriptionStatus) {
@@ -43,7 +43,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   }
 
   function closeModal() {
-    this.setState({ modalClose: false });
+    updateModalClose(false);
   }
 
   function saveControlBtn() {
@@ -94,9 +94,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   // this.setState({ value: character[column].list[card].name, modalStatus: true })
   return (
-    <div className={modalClose ? 'hidden' : 'form-control w-75'}>
+    <div className={modalClose ? 'form-control w-75' : 'hidden'}>
       <div className="text-right">
-        <button type="button" className="btn btn-light closeFont" onClick={() => this.closeModal()}>Close</button>
+        <button type="button" className="btn btn-light closeFont" onClick={closeModal}>Close</button>
       </div>
       <div className="row d-flex flex-column">
         <div className=" pt-2 pb-50">
