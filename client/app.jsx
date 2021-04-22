@@ -99,7 +99,9 @@ const App = () => {
         </div>
         <Column updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter ={masterCharacter}/>
       </div>
-
+      <div>
+        <ModalRevised />
+      </div>
     </div>
   );
 };

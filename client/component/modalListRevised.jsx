@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = () => {
+const Modal = ({ column, card, character }) => {
   const [values, updateValue] = useState('');
+
   function infoDescription() {
     if (this.state.descriptionStatus) {
       return 'pl-4';
@@ -98,8 +99,17 @@ const Modal = () => {
       return character[column].list[card].name;
     }
   }
+
+  const clickUpdate = () => {
+    console.log('column', column);
+    console.log('card', card);
+    console.log('character', character);
+  };
+
+  // this.setState({ value: character[column].list[card].name, modalStatus: true })
   return (
-    <div className={this.modalEffect()}>
+    // <div className={this.modalEffect()}>
+    <div>
       <div className="text-right">
         <button type="button" className="btn btn-light closeFont" onClick={() => this.closeModal()}>Close</button>
       </div>
@@ -107,9 +117,9 @@ const Modal = () => {
         <div className=" pt-2 pb-50">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-tasks logoSize"></i>
-            <h3 className={this.switchCardTitle()}>{this.state.value}</h3>
-            <p className={this.switchCardTitle()} onClick={() => this.setState({ value: character[column].list[card].name, modalStatus: true })}>Edit</p>
-            <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input>
+            {/* <h3 className={this.switchCardTitle()}>{this.state.value}</h3> */}
+            {/* <p className={this.switchCardTitle()} onClick={() => clickUpdate()}>Edit</p> */}
+            {/* <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input> */}
           </div>
         </div>
         <div className=" pt-2 descriptionPadding">
