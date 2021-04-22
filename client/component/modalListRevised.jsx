@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
 const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent }) => {
-  const [values, updateValue] = useState('');
+  const [values, updateValues] = useState('');
   const [modalClose, updateModalClose] = useState(true);
+  const [modalStatus, updateModalStatus] = useState(false);
 
   function infoDescription() {
     if (this.state.descriptionStatus) {
@@ -92,6 +93,12 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     }
   }
 
+  const clickUpdate = () => {
+    updateValues(masterCharacter[columnNumber].list[cardNumber].name);
+    updateModalStatus(true);
+
+  };
+
   // this.setState({ value: character[column].list[card].name, modalStatus: true })
   return (
     <div className={modalClose ? 'form-control w-75' : 'hidden'}>
@@ -102,9 +109,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
         <div className=" pt-2 pb-50">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-tasks logoSize"></i>
-            {/* <h3 className={this.switchCardTitle()}>{this.state.value}</h3> */}
-            {/* <p className={this.switchCardTitle()} onClick={() => clickUpdate()}>Edit</p> */}
-            {/* <input text="type" className={this.switchModal()} value={this.state.value} onChange={this.handleSubmit} onKeyUp={e => this.updateCardTitle(e)}></input> */}
+            <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{values}</h3>
+            <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdate}>Edit</p>
+            <input text="type" className={modalStatus ? 'hidden' : 'pl-2'} value={values} onChange={() => handleSubmit(e)} onKeyUp={e => this.updateCardTitle(e)}></input>
           </div>
         </div>
         <div className=" pt-2 descriptionPadding">
