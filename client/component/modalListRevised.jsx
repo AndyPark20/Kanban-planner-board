@@ -3,16 +3,16 @@ import Activity from './activity';
 
 const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent }) => {
   const [values, updateValues] = useState('');
-  const [modalClose, updateModalClose] = useState(true);
+  const [modalClose, updateModalClose] = useState(modal);
   const [modalStatus, updateModalStatus] = useState(false);
   const [descriptionStatus, updateDescriptionStatus] = useState(false);
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(false);
 
-  useEffect(() => {
-    updateModalClose(modal);
-  });
+  // useEffect(() => {
+  //   updateModalClose(modal);
+  // });
 
   function descriptionInfo(e) {
     e.preventDefault();
