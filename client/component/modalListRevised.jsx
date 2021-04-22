@@ -14,13 +14,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateModalClose(modal);
   });
 
-  function infoDescription() {
-    if (this.state.descriptionStatus) {
-      return 'pl-4';
-    }
-    return 'hidden';
-  }
-
   function descriptionInfo(e) {
     e.preventDefault();
     if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
@@ -92,8 +85,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const updateDescription = e => updateInitialDescription(e.target.value);
   const updateDescriptionInput = () => updateDescriptionStatus(false);
   const upddateCancelButton = () => {
-    updateDescriptionStatus(true);
-    updateDescription;
+    updateModalClose(true);
   };
 
   const test = () => console.log(modalClose);
@@ -124,7 +116,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
               <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} id="exampleFormControlTextarea1" rows="4"></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{finalDescription}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'}>Save</button>
-              {/* <button type="button" className={button ? 'btn btn-danger mt-2 ml-1': 'hidden'} onClick={e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })}>Cancel</button> */}
+              <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={upddateCancelButton}>Cancel</button>
             </form>
           </div>
         </div>
@@ -133,7 +125,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
         </div>
       </div>
     </div>
-
+  // e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })
   );
 };
 
