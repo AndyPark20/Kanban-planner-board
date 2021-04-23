@@ -12,12 +12,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [button, updateButton] = useState(false);
 
   useEffect(() => {
-    if (modal) {
-      updateModalClose(true);
-    }
-    if (!clickClose) {
-      testing();
-    }
+    testing();
   });
 
   function descriptionInfo(e) {
@@ -97,15 +92,15 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   const testing = () => {
 
-    if (modalClose && clickClose === null) {
+    if (modal && clickClose === null) {
       return 'form-control w-75';
     }
-    if ((modalClose === null && clickClose === null) || (modalClose && !clickClose)) {
+    if ((modal && !clickClose) || (!modal && !clickClose)) {
       return 'hidden';
     }
   };
 
-  const test = () => { console.log('clickClose', clickClose); };
+  const test = () => { console.log('modal', modal), console.log('clickClose', clickClose); };
 
   return (
     <div className={testing()}>
