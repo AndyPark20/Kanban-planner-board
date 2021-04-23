@@ -89,7 +89,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const updateDescription = e => updateInitialDescription(e.target.value);
   const updateDescriptionInput = () => updateDescriptionStatus(false);
   const upddateCancelButton = () => {
-    updateCli(true);
+    updateClickClose(true);
   };
 
   const test = () => console.log('modal', modalClose);
