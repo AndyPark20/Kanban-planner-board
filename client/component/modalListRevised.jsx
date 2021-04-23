@@ -12,14 +12,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [button, updateButton] = useState(false);
 
   useEffect(() => {
-    if (modalClose === null) {
-      updateModalClose(modal);
+    if (modal) {
+      updateModalClose(true);
     }
-
-    if (!modalClose) {
-      updateModalClose(modal);
-    }
-
   });
 
   function descriptionInfo(e) {
@@ -40,7 +35,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   }
 
   function closeModal() {
-    // updateModalClose(false);
+    updateModalClose(false);
   }
 
   // function cancelControlBtn() {
@@ -96,12 +91,20 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateClickClose(false);
   };
 
+  const testing = () => {
+    console.log('testing', modalClose);
+    if (modalClose && clickClose === null) {
+      return 'form-control w-75';
+    }
+    return 'hidden';
+  };
+
   const test = () => console.log('modal', modalClose);
 
   return (
-    <div className={!modalClose ? 'hidden' : 'form-control w-75'}>
+    <div className={testing}>
       <div className="text-right">
-        <button type="button" className="btn btn-light closeFont" onClick={updateModalClose(false)}>Close</button>
+        <button type="button" className="btn btn-light closeFont" onClick={closeModal}>Close</button>
       </div>
       {test()}
       <div className="row d-flex flex-column">
