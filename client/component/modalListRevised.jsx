@@ -101,12 +101,11 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
       return 'form-control w-75';
     }
     if ((modalClose === null && clickClose === null) || (modalClose && !clickClose)) {
-      console.log('hidden');
       return 'hidden';
     }
   };
 
-  const test = () => { console.log('modal', modalClose), console.log('clickClose', clickClose); };
+  const test = () => { console.log('clickClose', clickClose); };
 
   return (
     <div className={testing()}>
