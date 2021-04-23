@@ -3,16 +3,20 @@ import Activity from './activity';
 
 const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent }) => {
   const [values, updateValues] = useState('');
-  const [modalClose, updateModalClose] = useState(modal);
+  const [modalClose, updateModalClose] = useState(null);
+  const [clickClose, updateClickClose] = useState(null);
   const [modalStatus, updateModalStatus] = useState(false);
   const [descriptionStatus, updateDescriptionStatus] = useState(false);
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(false);
 
-  // useEffect(() => {
-  //   updateModalClose(modal);
-  // });
+  useEffect(() => {
+    updateModalClose(modal);
+    if (modalClose) {
+
+    }
+  });
 
   function descriptionInfo(e) {
     e.preventDefault();
@@ -85,10 +89,10 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const updateDescription = e => updateInitialDescription(e.target.value);
   const updateDescriptionInput = () => updateDescriptionStatus(false);
   const upddateCancelButton = () => {
-    updateModalClose(true);
+    updateCli(true);
   };
 
-  const test = () => console.log(modalClose);
+  const test = () => console.log('modal', modalClose);
 
   return (
     <div className={!modalClose ? 'hidden' : 'form-control w-75'}>
