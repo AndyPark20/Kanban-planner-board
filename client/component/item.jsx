@@ -12,6 +12,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   };
 
   const enterTitle = e => {
+
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       update(masterCharacter);
@@ -22,8 +23,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   };
 
   const openModalComponent = () => {
-    const cardTitleName = masterCharacter[columnNumber].list[cardSequence].name;
-    if (cardTitleName) {
+    if (openModal) {
       updateModal(true);
     }
   };
