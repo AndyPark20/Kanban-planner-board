@@ -14,6 +14,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   };
 
   const enterTitle = e => {
+
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       update(masterCharacter);
@@ -49,7 +50,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   // const handleUpdateInputTest = (fieldName) => (event) => updateTestInput({...testInput, [fieldName]: event.target.value});
 
   return (
-    <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} onClick={openModalComponent}>
+    <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} onClick={openModalComponent} >
       <div className="card-body">
         <div className="text-right position-relative">
           <i className={pencilVisibility}></i>
