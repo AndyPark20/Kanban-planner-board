@@ -25,7 +25,8 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   const openModalComponent = () => {
     if (openModal || selectedOpenItem) {
       updateModal(true);
-      updateOpenModalColumn(false);
+      updateOpenModal(false);
+      // updateOpenModalColumn(false);
     }
   };
 
