@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterCharacter, update, values, titleBoolean, updateModal, masterCharacterUpdate }) => {
 
@@ -25,6 +25,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   };
 
   const openModalComponent = () => {
+    console.log('hello');
     if (openModal) {
       updateModal(true);
     }
