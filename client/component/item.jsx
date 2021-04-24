@@ -23,10 +23,9 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
     }
   };
 
-  const openModalClick = () => console.log('hello');
-
   const openModalComponent = () => {
     if (openModal) {
+      console.log('OPEN!');
       updateModal(true);
     }
   };

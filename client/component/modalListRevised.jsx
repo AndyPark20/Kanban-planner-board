@@ -3,16 +3,16 @@ import Activity from './activity';
 
 const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent }) => {
   const [values, updateValues] = useState('');
-  const [modalClose, updateModalClose] = useState(null);
-  const [clickClose, updateClickClose] = useState(null);
+  const [modalClose, updateModalClose] = useState(modal);
   const [modalStatus, updateModalStatus] = useState(false);
   const [descriptionStatus, updateDescriptionStatus] = useState(false);
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(false);
 
-  useEffect(() => {
-    testing();
+  useState(() => {
+    console.log('modal', modal);
+    console.log('modalClose', modalClose);
   });
 
   function descriptionInfo(e) {
@@ -33,7 +33,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   }
 
   function closeModal() {
-    console.log('hello');
+    console.log('close!');
     updateModalClose(false);
   }
 
@@ -91,23 +91,19 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   };
 
   const testing = () => {
-
-    if (modal && clickClose === null) {
+    if (modalClose) {
       return 'form-control w-75';
     }
-    if ((modal && !clickClose) || (!modal && !clickClose)) {
+    if (!modalClose) {
       return 'hidden';
     }
   };
 
-  const test = () => { console.log('modal', modal), console.log('clickClose', clickClose); };
-
   return (
     <div className={testing()}>
       <div className="text-right">
-        <button type="button" className="btn btn-light closeFont" onClick={upddateCancelButton}>Closed</button>
+        <button type="button" className="btn btn-light closeFont" onClick={closeModal}>Closed</button>
       </div>
-      {test()}
       <div className="row d-flex flex-column">
         <div className=" pt-2 pb-50">
           <div className="d-flex align-items-center pl-2">
