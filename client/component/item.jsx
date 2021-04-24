@@ -21,15 +21,14 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
       masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
+      updateModal(true);
     }
   };
 
   const openModalComponent = () => {
     if (openModal) {
-      console.log('OPEN!');
       updateModal(true);
       updateOpenModal(false);
-
     }
   };
 

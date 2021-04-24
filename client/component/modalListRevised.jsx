@@ -33,6 +33,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   }
 
   function closeModal() {
+    updateModal(false);
     updateModalClose(false);
   }
 
