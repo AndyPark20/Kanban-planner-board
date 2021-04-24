@@ -20,6 +20,7 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
 
   const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
+  const [openModal, updateOpenModalColumn] = useState(false);
   const [cardNumber, updateCardNumber] = useState(0);
   const [cardTitle, updateCardTitle] = useState('');
   const [titleBoolean, updateTitleBoolean] = useState(false);
@@ -115,7 +116,9 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
-    console.log(character[index].list[indexItem].name);
+    if (character[index].list[indexItem].name) {
+      updateOpenModalColumn(true);
+    }
   };
 
   const columnStyle = () => {
@@ -142,8 +145,8 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
 
-                  <Item updateModal={updateModal} values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character}
-                    cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}
+                  <Item selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn }updateModal={updateModal} values={values} cardSequence={cardNumber}
+                  columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}
                     masterCharacterUpdate={updateMasterCharacter} />
                 </div>
               );
