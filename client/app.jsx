@@ -22,6 +22,10 @@ const App = () => {
     wallpaperUpdate(retrieveWallpaper);
   }, []);
 
+  useEffect(() => {
+    console.log('APP modal status', modal);
+  });
+
   const change = e => {
     if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
