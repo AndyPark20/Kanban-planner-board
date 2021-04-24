@@ -12,7 +12,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   useEffect(() => {
     updateModalClose(modal);
-    console.log('modal', modalClose);
   });
 
   function descriptionInfo(e) {
@@ -90,7 +89,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateClickClose(false);
   };
 
-  const testing = () => {
+  const hideModal = () => {
     if (modalClose) {
       return 'form-control w-75';
     }
@@ -98,7 +97,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   };
 
   return (
-    <div className={testing()}>
+    <div className={hideModal()}>
       <div className="text-right">
         <button type="button" className="btn btn-light closeFont" onClick={closeModal}>Closed</button>
       </div>
