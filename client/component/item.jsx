@@ -8,6 +8,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
 
   useEffect(() => {
     updateOpenModal(selectedOpenItem);
+    console.log('hello');
   });
 
   const handleUpdateInput = event => updateInput(event.target.value);
@@ -27,11 +28,10 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   };
 
   const openModalComponent = () => {
-    console.log('OPEN MODAL', openModal);
     if (openModal) {
-      updateModal(true);
       updateOpenModal(false);
       updateOpenModalColumn(false);
+      updateModal(true);
     }
   };
 

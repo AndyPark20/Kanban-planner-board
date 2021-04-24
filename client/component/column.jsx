@@ -26,13 +26,13 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
   const [titleBoolean, updateTitleBoolean] = useState(false);
 
   useEffect(() => {
-    console.log('open modal', openModal);
-  });
-
-  useEffect(() => {
     renderIt();
     updateTitleBoolean(false);
   }, [titleBoolean]);
+
+  useEffect(() => {
+    console.log('openModal;', openModal);
+  });
 
   useEffect(() => {
     if (updatedCharacter.length !== 0) {
@@ -122,8 +122,6 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
     updateCardNumber(indexItem);
     if (character[index].list[indexItem].name !== '') {
       updateOpenModalColumn(true);
-    } else {
-      updateOpenModalColumn(false);
     }
   };
 
@@ -151,7 +149,7 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
 
-                  <Item selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn }updateModal={updateModal} values={values} cardSequence={cardNumber}
+                  <Item selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn}updateModal={updateModal} values={values} cardSequence={cardNumber}
                   columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}
                     masterCharacterUpdate={updateMasterCharacter} />
                 </div>
