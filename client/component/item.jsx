@@ -6,27 +6,32 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   const [input, updateInput] = useState('');
   const [openModal, updateOpenModal] = useState(false);
 
+  useEffect(() => {
+    updateOpenModal(selectedOpenItem);
+  });
+
   const handleUpdateInput = event => updateInput(event.target.value);
   const handleSubmit = e => {
     e.preventDefault();
   };
 
   const enterTitle = e => {
-
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       update(masterCharacter);
       masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
+      updateOpenModalColumn(true);
     }
   };
 
   const openModalComponent = () => {
-    if (openModal || selectedOpenItem) {
+    console.log('OPEN MODAL', openModal);
+    if (openModal) {
       updateModal(true);
       updateOpenModal(false);
-      // updateOpenModalColumn(false);
+      updateOpenModalColumn(false);
     }
   };
 

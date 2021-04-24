@@ -26,6 +26,10 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
   const [titleBoolean, updateTitleBoolean] = useState(false);
 
   useEffect(() => {
+    console.log('open modal', openModal);
+  });
+
+  useEffect(() => {
     renderIt();
     updateTitleBoolean(false);
   }, [titleBoolean]);
@@ -116,8 +120,10 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
-    if (character[index].list[indexItem].name) {
+    if (character[index].list[indexItem].name !== '') {
       updateOpenModalColumn(true);
+    } else {
+      updateOpenModalColumn(false);
     }
   };
 
