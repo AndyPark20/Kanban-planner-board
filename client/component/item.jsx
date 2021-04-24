@@ -14,6 +14,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   };
 
   const enterTitle = e => {
+
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       update(masterCharacter);
@@ -27,6 +28,8 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
     if (openModal) {
       console.log('OPEN!');
       updateModal(true);
+      updateOpenModal(false);
+
     }
   };
 

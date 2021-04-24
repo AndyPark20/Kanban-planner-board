@@ -22,10 +22,6 @@ const App = () => {
     wallpaperUpdate(retrieveWallpaper);
   }, []);
 
-  useEffect(() => {
-    console.log('APP modal status', modal);
-  });
-
   const change = e => {
     if (!hamburger && e.target.className === 'fas fa-bars') {
       hamburgerUpdate(true);
@@ -96,7 +92,7 @@ const App = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper}/>
         </div>
         <div>
-          <ModalRevised modal={modal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent}/>
+          <ModalRevised modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent}/>
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />

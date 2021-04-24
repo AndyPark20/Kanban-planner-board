@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent }) => {
+const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
-  const [modalClose, updateModalClose] = useState(modal);
+  const [modalClose, updateModalClose] = useState(null);
   const [modalStatus, updateModalStatus] = useState(false);
   const [descriptionStatus, updateDescriptionStatus] = useState(false);
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(false);
 
-  useState(() => {
-    console.log('modal', modal);
-    console.log('modalClose', modalClose);
+  useEffect(() => {
+    updateModalClose(modal);
+    console.log('modal', modalClose);
   });
 
   function descriptionInfo(e) {
@@ -33,7 +33,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   }
 
   function closeModal() {
-    console.log('close!');
     updateModalClose(false);
   }
 
@@ -94,9 +93,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     if (modalClose) {
       return 'form-control w-75';
     }
-    if (!modalClose) {
-      return 'hidden';
-    }
+    return 'hidden';
   };
 
   return (
