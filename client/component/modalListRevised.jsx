@@ -91,13 +91,13 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   const hideModal = () => {
     if (modalClose) {
-      return 'form-control w-75';
+      return 'container centerModal';
     }
     return 'hidden';
   };
 
   return (
-    <div className={hideModal()}>
+    <div className={modalClose ? 'container centerModal' : 'hidden'}>
       <div className="text-right">
         <button type="button" className="btn btn-light closeFont" onClick={closeModal}>Closed</button>
       </div>

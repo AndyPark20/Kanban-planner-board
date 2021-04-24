@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Column from './component/column';
 import Navigation from './options';
 import Background from './component/library/backgroundOption';
-import Modal from './component/modalList';
+// import Modal from './component/modalList';
 import ModalRevised from './component/modalListRevised';
 
 const App = () => {
