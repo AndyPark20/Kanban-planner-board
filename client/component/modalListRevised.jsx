@@ -28,6 +28,11 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     }
   };
 
+  function temporaryDescription(e) {
+    masterCharacter[columnNumber].list[cardNumber].desc = e.target.value;
+    updateFinalDescription(masterCharacter);
+  }
+
   function descriptionInfo(e) {
     e.preventDefault();
 
@@ -62,6 +67,10 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
       updateColumnComponent(true);
       updateModalStatus(false);
     }
+  }
+
+  function descriptionValue() {
+    return masterCharacter[columnNumber].list[cardNumber].desc;
   }
 
   function handleSubmit(e) {
@@ -108,8 +117,8 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdateDescription}>Edit</p>
           </div>
           <div className="pl-2">
-            <form onChange={e => updateDescription(e)} onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)}>
-              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} id="exampleFormControlTextarea1" rows="4"></textarea>
+            <form onChange={e => updateDescription(e)} onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)} onChange={e => temporaryDescription(e)}>
+              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} id="exampleFormControlTextarea1" rows="4" value={descriptionValue}></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'}>Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={upddateCancelButton}>Cancel</button>
