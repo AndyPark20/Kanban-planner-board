@@ -113,13 +113,15 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
   };
 
   const changeTitle = (indexItem, index) => {
-    const selectCard = character[index].list[indexItem].name;
+    const cardTitle = character[index].list[indexItem].name;
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
-    if (selectCard !== '') {
-      updatedSelectedCard(selectCard);
+    if (cardTitle !== '') {
+      console.log(cardTitle);
+      updatedSelectedCard(character[index].list[indexItem].name);
     }
+
   };
 
   const columnStyle = () => {
