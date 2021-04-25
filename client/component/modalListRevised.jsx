@@ -12,6 +12,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [button, updateButton] = useState(false);
 
   useEffect(() => {
+    if (masterCharacter.length !== 0) {
+      updateFinalValues(masterCharacter[columnNumber].list[cardNumber].name);
+    }
     updateModalClose(modal);
   });
 
