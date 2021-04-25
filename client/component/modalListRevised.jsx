@@ -18,6 +18,10 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateModalClose(modal);
   });
 
+  useEffect(() => {
+    console.log(initialDescription);
+  });
+
   const renderDescription = () => {
     if (masterCharacter.length !== 0) {
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
@@ -76,7 +80,10 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   const clickUpdateDescription = () => {
     const description = masterCharacter[columnNumber].list[cardNumber].desc;
-    if (desscription !== '') { updateDescriptionStatus(false); }
+    if (description !== '') {
+      updateInitialDescription(description);
+      updateDescriptionStatus(false);
+    }
   };
 
   const updateDescription = e => {
@@ -89,6 +96,17 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   const upddateCancelButton = () => {
     updateDescriptionStatus(true);
+  };
+
+  const textAreaOpen = () => {
+    if (masterCharacter.length !== 0) {
+      const description = masterCharacter[columnNumber].list[cardNumber].desc;
+      if (description === '') {
+        return 'form-control w-75';
+      }
+      console.log(description);
+      return 'hidden';
+    }
   };
 
   return (
@@ -112,8 +130,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdateDescription}>Edit</p>
           </div>
           <div className="pl-2">
-            <form onChange={e => updateDescription(e)} onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)}>
-              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} id="exampleFormControlTextarea1" rows="4" value={initialDescription}></textarea>
+            <form onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)}>
+              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} onChange={e => updateDescription(e)}
+              id="exampleFormControlTextarea1" rows="4" value={initialDescription}></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'}>Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={upddateCancelButton}>Cancel</button>
