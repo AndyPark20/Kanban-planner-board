@@ -19,17 +19,21 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   });
 
   const renderDescription = () => {
-    const description = masterCharacter[columnNumber].list[cardNumber].desc;
-    console.log(description);
+    if (masterCharacter.length !== 0) {
+      const description = masterCharacter[columnNumber].list[cardNumber].desc;
+      if (description !== undefined) {
+        return description;
+      }
 
-    return 'Hello';
+    }
   };
 
   function descriptionInfo(e) {
     e.preventDefault();
-    const cardDesc = masterCharacter[columnNumber].list[cardNumber].desc;
 
     if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
+      masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
+      updateMasterCharacter(masterCharacter);
       updateFinalDescription(initialDescription);
       updateDescriptionStatus(true);
     }
@@ -101,12 +105,12 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-database"></i>
             <h3 className="pl-2">Description</h3>
-            <p className={modalStatus ? 'pl-2' : 'hidden'} onClick={clickUpdateDescription}>Edit</p>
+            <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdateDescription}>Edit</p>
           </div>
           <div className="pl-2">
             <form onChange={e => updateDescription(e)} onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)}>
               <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} id="exampleFormControlTextarea1" rows="4"></textarea>
-              <p className={descriptionStatus ? 'pl-4' : 'pl-4'} onClick={updateDescriptionInput}>{renderDescription}</p>
+              <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'}>Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={upddateCancelButton}>Cancel</button>
             </form>
