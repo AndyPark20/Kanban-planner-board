@@ -74,13 +74,17 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateModalStatus(true);
   };
 
-  const clickUpdateDescription = () => updateDescriptionStatus(false);
+  const clickUpdateDescription = () => {
+    const description = masterCharacter[columnNumber].list[cardNumber].desc;
+    if (desscription !== '') { updateDescriptionStatus(false); }
+  };
 
   const updateDescription = e => {
     masterCharacter[columnNumber].list[cardNumber].desc = e.target.value;
     updateInitialDescription(e.target.value);
     updateMasterCharacter(masterCharacter);
   };
+
   const updateDescriptionInput = () => updateDescriptionStatus(false);
 
   const upddateCancelButton = () => {
