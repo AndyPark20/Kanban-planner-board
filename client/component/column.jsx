@@ -31,10 +31,6 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
   }, [titleBoolean]);
 
   useEffect(() => {
-    console.log('openModal;', openModal);
-  });
-
-  useEffect(() => {
     if (updatedCharacter.length !== 0) {
       updateCharacters(updatedCharacter);
       updateColumnComponent(false);
@@ -120,9 +116,6 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
-    if (character[index].list[indexItem].name !== '') {
-      updateOpenModalColumn(true);
-    }
   };
 
   const columnStyle = () => {

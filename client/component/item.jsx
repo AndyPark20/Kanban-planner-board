@@ -5,16 +5,16 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   const [pencil, updatePencil] = useState(false);
   const [input, updateInput] = useState('');
   const [openModal, updateOpenModal] = useState(false);
-
-  useEffect(() => {
-    updateOpenModal(selectedOpenItem);
-    console.log('hello');
-  });
+  const [test, updateTest] = useState('');
 
   const handleUpdateInput = event => updateInput(event.target.value);
   const handleSubmit = e => {
     e.preventDefault();
   };
+
+  // useEffect(() => {
+  //   updateOpenModal(selectedOpenItem);
+  // });
 
   const enterTitle = e => {
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
@@ -23,19 +23,28 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
       masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
-      updateOpenModalColumn(true);
     }
   };
 
   const openModalComponent = () => {
-    if (openModal) {
+    updateTest(masterCharacter[columnNumber].list[cardSequence].name);
+    console.log(test);
+    if (test === '') {
       updateOpenModal(false);
-      updateOpenModalColumn(false);
+    } else {
+      updateOpenModal(true);
       updateModal(true);
     }
+    // console.log(openModal);
+    // if (openModal) {
+    //   updateModal(true);
+    //   updateOpenModal(false);
+    // }
   };
 
-  const editPencil = () => updatePencil(true);
+  const editPencil = () => {
+    updatePencil(true);
+  };
 
   const hidePencil = () => updatePencil(false);
 
