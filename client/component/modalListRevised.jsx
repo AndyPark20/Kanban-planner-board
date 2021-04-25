@@ -21,7 +21,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   function descriptionInfo(e) {
     e.preventDefault();
     if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
-      updateFinalDescription(initialDescription);
+      masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
+      const cardDesc = masterCharacter[columnNumber].list[cardNumber].desc;
+      updateFinalDescription(cardDesc);
       updateDescriptionStatus(true);
     }
     if (e.target.value) {
@@ -71,7 +73,8 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const updateDescriptionInput = () => updateDescriptionStatus(false);
 
   const upddateCancelButton = () => {
-    // updateClickClose(false);
+    updateDescriptionStatus(true);
+
   };
 
   return (
