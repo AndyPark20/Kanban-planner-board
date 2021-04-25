@@ -118,8 +118,8 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
     if (cardTitle !== '') {
-      console.log(cardTitle);
       updatedSelectedCard(character[index].list[indexItem].name);
+      updateModal(true);
     }
 
   };

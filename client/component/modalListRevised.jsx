@@ -3,7 +3,8 @@ import Activity from './activity';
 
 const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
-  const [modalClose, updateModalClose] = useState(null);
+  const [finalValues, updateFinalValues] = useState('');
+  const [modalClose, updateModalClose] = useState(false);
   const [modalStatus, updateModalStatus] = useState(false);
   const [descriptionStatus, updateDescriptionStatus] = useState(false);
   const [initialDescription, updateInitialDescription] = useState('');
@@ -33,48 +34,23 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   function closeModal() {
     updateModal(false);
-    updateModalClose(false);
   }
 
-  // function cancelControlBtn() {
-  //   if (!this.state.button) {
-  //     return 'hidden';
-  //   }
-  //   return 'btn btn-danger mt-2 ml-1';
-  // }
-
   function updateCardTitle(e) {
+    updateValues(e.target.value);
     if (e.key === 'Enter') {
-      const column = this.props.columnNumber;
-      const card = this.props.cardNumber;
-      const character = this.props.masterCharacter;
-      character[column].list[card].name = e.target.value;
-      masterCharacter[columnNumber].list[cardNumber].name = e.target.value;
+      masterCharacter[columnNumber].list[cardNumber].name = values;
+      const modalCardTitle = masterCharacter[columnNumber].list[cardNumber].name;
+      updateFinalValues(modalCardTitle);
       updateMasterCharacter(masterCharacter);
       updateColumnComponent(true);
-      const name = e.target.value;
-      updateValues(name);
       updateModalStatus(false);
     }
   }
 
   function handleSubmit(e) {
-    const name = e.target.value;
-    this.setState({ value: name });
-  }
-
-  function handleSubmitTwo(e) {
+    updateValues(e.target.value);
     e.preventDefault();
-    descriptionInfo();
-  }
-
-  function selectedListInfo() {
-    const column = this.props.columnNumber;
-    const card = this.props.cardNumber;
-    const character = this.props.masterCharacter;
-    if (character.length !== 0) {
-      return character[column].list[card].name;
-    }
   }
 
   const clickUpdate = () => {
@@ -85,29 +61,23 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const clickUpdateDescription = () => updateDescriptionStatus(false);
   const updateDescription = e => updateInitialDescription(e.target.value);
   const updateDescriptionInput = () => updateDescriptionStatus(false);
-  const upddateCancelButton = () => {
-    updateClickClose(false);
-  };
 
-  const hideModal = () => {
-    if (modalClose) {
-      return 'container centerModal';
-    }
-    return 'hidden';
+  const upddateCancelButton = () => {
+    // updateClickClose(false);
   };
 
   return (
     <div className={modalClose ? 'container centerModal' : 'hidden'}>
       <div className="text-right">
-        <button type="button" className="btn btn-light closeFont" onClick={closeModal}>Closed</button>
+        <button type="button" className="btn btn-light closeFont" onClick={closeModal}>Close</button>
       </div>
       <div className="row d-flex flex-column">
         <div className=" pt-2 pb-50">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-tasks logoSize"></i>
-            <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{values}</h3>
+            <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{finalValues}</h3>
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdate}>Edit</p>
-            <input text="type" className={modalStatus ? 'hidden' : 'pl-2'} value={values} onChange={e => handleSubmit(e)} onKeyUp={e => updateCardTitle(e)}></input>
+            <input text="type" className={modalStatus ? 'pl-2' : 'hidden'} value={values} onChange={e => handleSubmit(e)} onKeyUp={e => updateCardTitle(e)}></input>
           </div>
         </div>
         <div className=" pt-2 descriptionPadding">
@@ -130,7 +100,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
         </div>
       </div>
     </div>
-  // e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })
+    // e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })
   );
 };
 
