@@ -26,21 +26,6 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
     }
   };
 
-  const openModalComponent = () => {
-    console.log(selectedCard);
-    // if (selectedCard === '' || !openModal) {
-    //   updateOpenModal(false);
-    // } else {
-    //   updateOpenModal(true);
-    //   updateModal(true);
-    // }
-    // console.log(openModal);
-    // if (openModal) {
-    //   updateModal(true);
-    //   updateOpenModal(false);
-    // }
-  };
-
   const editPencil = () => {
     updatePencil(true);
   };
@@ -63,7 +48,7 @@ const Item = ({ cardName, userCardTitle, cardSequence, columnNumber, masterChara
   // const handleUpdateInputTest = (fieldName) => (event) => updateTestInput({...testInput, [fieldName]: event.target.value});
 
   return (
-    <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} onClick={openModalComponent} >
+    <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} >
       <div className="card-body">
         <div className="text-right position-relative">
           <i className={pencilVisibility}></i>
