@@ -98,14 +98,15 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateDescriptionStatus(true);
   };
 
-  const descInfo = () => {
-    const description = masterCharacter[columnNumber].list[cardNumber].desc;
-    if (description !== undefined) {
-      updateInitialDescription(description);
-      return initialDescription;
-    }
+  // const descInfo = () => {
+  //   const description = masterCharacter[columnNumber].list[cardNumber].desc;
+  //   if(initialDescription !==''){
 
-  };
+  //   }
+  //     updateInitialDescription(description);
+  //     return initialDescription;
+
+  // };
 
   return (
     <div className={modalClose ? 'container centerModal' : 'hidden'}>
