@@ -20,12 +20,13 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
 
   const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
+  const [openModal, updateOpenModalColumn] = useState(false);
   const [cardNumber, updateCardNumber] = useState(0);
   const [cardTitle, updateCardTitle] = useState('');
   const [titleBoolean, updateTitleBoolean] = useState(false);
+  const [selectedCard, updatedSelectedCard] = useState('');
 
   useEffect(() => {
-    renderIt();
     updateTitleBoolean(false);
   }, [titleBoolean]);
 
@@ -112,9 +113,14 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
   };
 
   const changeTitle = (indexItem, index) => {
+    const cardTitle = character[index].list[indexItem].name;
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
+    if (cardTitle !== '') {
+      updatedSelectedCard(character[index].list[indexItem].name);
+      updateModal(true);
+    }
 
   };
 
@@ -130,21 +136,26 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
   const renderIt = () => {
     const loop = character.map((info, index) => {
       return (
-          <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)}>
-            <div className="d-flex align-items-end justify-content-around w-100">
-              <h2 className="fontColor">{info.id}</h2>
-              <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
-            </div>
-            <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
-              {info.list.map((values, indexItem) => {
-                return (
-                  <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)} onClick={() => changeTitle(indexItem, index)}>
-                    <Item updateModal={updateModal} values={values} cardSequence={cardNumber} columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean} masterCharacterUpdate={updateMasterCharacter}/>
-                  </div>
-                );
-              })}
-            </div>
+        <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)}
+          onDrop={e => dropIt(e, info, index)}>
+          <div className="d-flex align-items-end justify-content-around w-100">
+            <h2 className="fontColor">{info.id}</h2>
+            <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
           </div>
+          <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
+            {info.list.map((values, indexItem) => {
+              return (
+                <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
+                  onClick={() => changeTitle(indexItem, index)}>
+
+                  <Item selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn}updateModal={updateModal} values={values} cardSequence={cardNumber}
+                  columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}
+                    masterCharacterUpdate={updateMasterCharacter} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
       );
     });
     return loop;
