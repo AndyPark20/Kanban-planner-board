@@ -20,6 +20,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
       }
     }
     updateModalClose(modal);
+    console.log(masterCharacter[columnNumber].list[cardNumber].desc);
   });
 
   const renderDescription = () => {
@@ -34,11 +35,12 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   function descriptionInfo(e) {
     e.preventDefault();
-
     if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
       masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
+      console.log('line 41', initialDescription);
       updateMasterCharacter(masterCharacter);
       updateFinalDescription(initialDescription);
+      // updateInitialDescription(finalDescription);
       updateDescriptionStatus(true);
     }
     if (e.target.value) {
@@ -88,7 +90,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   const updateDescription = e => {
     masterCharacter[columnNumber].list[cardNumber].desc = e.target.value;
-    updateInitialDescription(e.target.value);
+    updateInitialDescription(masterCharacter[columnNumber].list[cardNumber].desc);
     updateMasterCharacter(masterCharacter);
   };
 
@@ -98,15 +100,15 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateDescriptionStatus(true);
   };
 
-  // const descInfo = () => {
-  //   const description = masterCharacter[columnNumber].list[cardNumber].desc;
-  //   if(initialDescription !==''){
+  const descInfo = () => {
+    // const description = masterCharacter[columnNumber].list[cardNumber].desc;
+    // if (initialDescription !== '') {
 
-  //   }
-  //     updateInitialDescription(description);
-  //     return initialDescription;
+    // }
+    // updateInitialDescription(description);
+    // return initialDescription;
 
-  // };
+  };
 
   return (
     <div className={modalClose ? 'container centerModal' : 'hidden'}>
