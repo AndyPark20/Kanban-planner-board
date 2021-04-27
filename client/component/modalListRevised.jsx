@@ -9,17 +9,12 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [descriptionStatus, updateDescriptionStatus] = useState(false);
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
-  const [button, updateButton] = useState(false);
+  const [button, updateButton] = useState(true);
 
   useEffect(() => {
     if (masterCharacter.length !== 0) {
       updateFinalValues(masterCharacter[columnNumber].list[cardNumber].name);
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
-      if (description === undefined) {
-        updateDescriptionStatus(false);
-        updateButton(true);
-      }
-
     }
     updateModalClose(modal);
   });
@@ -92,8 +87,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   const updateDescriptionInput = () => updateDescriptionStatus(false);
 
-  const upddateCancelButton = () => {
+  const updateCancelButton = () => {
     updateDescriptionStatus(true);
+    updateButton(false);
   };
 
   const descInfo = () => {
@@ -132,7 +128,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
                 id="exampleFormControlTextarea1" rows="4" value={descInfo()}></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'}>Save</button>
-              <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={upddateCancelButton}>Cancel</button>
+              <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
             </form>
           </div>
         </div>
