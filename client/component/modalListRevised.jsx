@@ -12,10 +12,16 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
+
     if (masterCharacter.length !== 0) {
       updateFinalValues(masterCharacter[columnNumber].list[cardNumber].name);
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
+      if (description === undefined) {
+        updateButton(true);
+        updateDescriptionStatus(false);
+      }
     }
+
     updateModalClose(modal);
   });
 
