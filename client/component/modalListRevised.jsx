@@ -12,8 +12,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
-    console.log('initialDescription', initialDescription);
-    console.log('finalDescription', finalDescription);
     if (masterCharacter.length !== 0) {
       updateFinalValues(masterCharacter[columnNumber].list[cardNumber].name);
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
