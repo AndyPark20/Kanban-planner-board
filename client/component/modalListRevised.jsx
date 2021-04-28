@@ -35,15 +35,12 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   function descriptionInfo(e) {
     e.preventDefault();
-    if (e.key === 'Enter' || e.target.className === 'btn btn-success mt-2') {
-      console.log('hello');
-      if (e.target.value !== '') {
-        masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
-        updateMasterCharacter(masterCharacter);
-        updateFinalDescription(initialDescription);
-        updateDescriptionStatus(true);
-        updateButton(false);
-      }
+    if ((initialDescription === '' && e.key === 'Enter') || (initialDescription !== '' && e.target.className === 'btn btn-success mt-2')) {
+      masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
+      updateMasterCharacter(masterCharacter);
+      updateFinalDescription(initialDescription);
+      updateDescriptionStatus(true);
+      updateButton(false);
     }
   }
 
