@@ -94,16 +94,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     return preDescription;
   };
 
-  const saveBtn = e => {
-    updateButton(true);
-    // if (masterCharacter.length !== 0) {
-    //   const description = masterCharacter[columnNumber].list[cardNumber].desc;
-    //   if (e.target.value === '') {
-    //     console.log('hello');
-    //     updateButton(true);
-    //   }
-    // }
-  };
+  const saveBtn = () => updateButton(true);
 
   return (
     <div className={modalClose ? 'container centerModal' : 'hidden'}>
