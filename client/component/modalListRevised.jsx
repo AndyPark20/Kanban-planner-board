@@ -8,7 +8,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [modalStatus, updateModalStatus] = useState(false);
   const [descriptionStatus, updateDescriptionStatus] = useState(false);
   const [initialDescription, updateInitialDescription] = useState('');
-  const [preDescription, updatePreDescription] = useState('');
+  const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
@@ -16,8 +16,10 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
       updateFinalValues(masterCharacter[columnNumber].list[cardNumber].name);
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
       if (description === undefined) {
+        masterCharacter[columnNumber].list[cardNumber].desc = '';
         updateButton(true);
         updateDescriptionStatus(false);
+        updateMasterCharacter(masterCharacter);
       }
     }
 
@@ -36,9 +38,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   function descriptionInfo(e) {
     e.preventDefault();
     if ((initialDescription === '' && e.key === 'Enter') || (initialDescription !== '' && e.target.className === 'btn btn-success mt-2')) {
-      masterCharacter[columnNumber].list[cardNumber].desc = preDescription;
+      masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
       updateMasterCharacter(masterCharacter);
-      updateInitialDescription(masterCharacter[columnNumber].list[cardNumber].desc);
+      updateFinalDescription(initialDescription);
       updateDescriptionStatus(true);
       updateButton(false);
     }
@@ -80,21 +82,36 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   };
 
   const updateDescription = e => {
-    updatePreDescription(e.target.value);
+    masterCharacter[columnNumber].list[cardNumber].desc = e.target.value;
+    updateInitialDescription(masterCharacter[columnNumber].list[cardNumber].desc);
+    updateMasterCharacter(masterCharacter);
   };
 
   const updateDescriptionInput = () => updateDescriptionStatus(false);
 
   const updateCancelButton = () => {
+    masterCharacter[columnNumber].list[cardNumber].desc = finalDescription;
     updateDescriptionStatus(true);
     updateButton(false);
   };
 
   const descInfo = () => {
-    return preDescription;
+    if (masterCharacter.length !== 0) {
+      const description = masterCharacter[columnNumber].list[cardNumber].desc;
+      return description;
+    }
   };
 
-  const saveBtn = () => updateButton(true);
+  const saveBtn = e => {
+    updateButton(true);
+    // if (masterCharacter.length !== 0) {
+    //   const description = masterCharacter[columnNumber].list[cardNumber].desc;
+    //   if (e.target.value === '') {
+    //     console.log('hello');
+    //     updateButton(true);
+    //   }
+    // }
+  };
 
   return (
     <div className={modalClose ? 'container centerModal' : 'hidden'}>
