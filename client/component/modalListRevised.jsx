@@ -136,7 +136,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
           <div className="pl-2">
             <form onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)}>
               <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} onChange={e => updateDescription(e)}
-                id="exampleFormControlTextarea1" rows="4" value={descInfo()} required></textarea>
+                id="exampleFormControlTextarea1" rows="4" value={descInfo()}></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
               <button type="click" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveBtn(e)}>Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
