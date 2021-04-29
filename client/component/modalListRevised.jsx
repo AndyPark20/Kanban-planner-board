@@ -12,7 +12,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
-    updateInitialDescription(undefined);
     if (masterCharacter.length !== 0) {
       updateFinalValues(masterCharacter[columnNumber].list[cardNumber].name);
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
@@ -106,7 +105,15 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   };
 
   const descInfo = () => {
-    return initialDescription;
+    if (masterCharacter.length !== 0) {
+      const description = masterCharacter[columnNumber].list[cardNumber].desc;
+      console.log(description);
+      if (description !== undefined) {
+        return description;
+      } else {
+        return undefined;
+      }
+    }
   };
 
   const saveBtn = e => {
