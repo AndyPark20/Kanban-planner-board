@@ -20,6 +20,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
         updateButton(true);
         updateDescriptionStatus(false);
         updateMasterCharacter(masterCharacter);
+      } else {
+        console.log(masterCharacter[columnNumber].list[cardNumber].desc);
+        updateFinalDescription(null);
       }
     }
 
@@ -41,6 +44,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
       masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
       updateMasterCharacter(masterCharacter);
       updateFinalDescription(initialDescription);
+      updateInitialDescription(finalDescription);
       updateDescriptionStatus(true);
       updateButton(false);
     }
@@ -82,9 +86,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   };
 
   const updateDescription = e => {
-    masterCharacter[columnNumber].list[cardNumber].desc = e.target.value;
-    updateInitialDescription(masterCharacter[columnNumber].list[cardNumber].desc);
+    updateInitialDescription(e.target.value);
     updateMasterCharacter(masterCharacter);
+    e.preventDefault();
   };
 
   const updateDescriptionInput = () => updateDescriptionStatus(false);
@@ -134,9 +138,10 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdateDescription}>Edit</p>
           </div>
           <div className="pl-2">
-            <form onClick={e => descriptionInfo(e)} onKeyUp={e => descriptionInfo(e)}>
-              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} onChange={e => updateDescription(e)}
-                id="exampleFormControlTextarea1" rows="4" value={descInfo()}></textarea>
+            <form onClick={e => descriptionInfo(e)} onChange={e => descriptionInfo(e)}>
+
+              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} onKeyUp={e => updateDescription(event)}
+                id="exampleFormControlTextarea1" rows="4" values={descInfo}></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
               <button type="click" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveBtn(e)}>Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
