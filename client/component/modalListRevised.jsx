@@ -30,6 +30,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
       // }
 
     }
+    descInfo();
     updateModalClose(modal);
   });
 
@@ -103,7 +104,12 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   };
 
   const descInfo = () => {
-    return finalDescription;
+    if (masterCharacter.length !== 0) {
+      const description = masterCharacter[columnNumber].list[cardNumber].desc;
+      if (description !== undefined) {
+        return description;
+      }
+    }
   };
 
   const saveBtn = e => {
@@ -139,7 +145,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
           </div>
           <div className="pl-2">
             <form onClick={e => descriptionInfo(e)} onChange={e => descriptionInfo(e)}>
-              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} onKeyUp={e => updateDescription(e)} rows="4" value={finalDescription}></textarea>
+              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} onKeyUp={e => updateDescription(e)} rows="4" value={descInfo()}></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
               <button type="click" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveBtn(e)}>Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
