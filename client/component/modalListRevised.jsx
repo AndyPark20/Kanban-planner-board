@@ -28,13 +28,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   function descriptionInfo(e) {
     e.preventDefault();
-    if ((initialDescription === '' && e.key === 'Enter') || (initialDescription !== '' && e.target.className === 'btn btn-success mt-2')) {
-      masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
-      updateMasterCharacter(masterCharacter);
-      updateFinalDescription(initialDescription);
-      updateDescriptionStatus(true);
-      updateButton(false);
-    }
+    updateInitialDescription(e.target.value);
   }
 
   function closeModal() {
@@ -72,11 +66,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateButton(true);
   };
 
-  const updateDescription = e => {
-    updateInitialDescription(e.target.value);
-    e.preventDefault();
-  };
-
   const updateDescriptionInput = () => updateDescriptionStatus(false);
 
   const updateCancelButton = () => {
@@ -89,16 +78,14 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     return initialDescription;
   };
 
-  const saveBtn = e => {
+  const saveButton = e => {
+    e.preventDefault();
+    masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
     updateDescriptionStatus(true);
     updateButton(true);
-    // if (masterCharacter.length !== 0) {
-    //   const description = masterCharacter[columnNumber].list[cardNumber].desc;
-    //   if (e.target.value === '') {
-    //     console.log('hello');
-    //     updateButton(true);
-    //   }
-    // }
+    updateMasterCharacter(masterCharacter);
+    updateDescriptionStatus(true);
+    updateButton(false);
   };
 
   return (
@@ -122,10 +109,10 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdateDescription}>Edit</p>
           </div>
           <div className="pl-2">
-            <form onClick={e => descriptionInfo(e)} onChange={e => descriptionInfo(e)}>
-              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} onKeyUp={e => updateDescription(e)} rows="4" ></textarea>
+            <form onChange={e => descriptionInfo(e)}>
+              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} rows="4" ></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
-              <button type="click" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveBtn(e)}>Save</button>
+              <button type="click" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveButton(e)} >Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
             </form>
           </div>
