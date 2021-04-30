@@ -16,7 +16,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
       updateFinalValues(masterCharacter[columnNumber].list[cardNumber].name);
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
       if (description === undefined) {
-        updateDescriptionStatus(true);
         updateInitialDescription(undefined);
       }
     }
@@ -24,12 +23,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   });
 
   const renderDescription = () => {
-    if (masterCharacter.length !== 0) {
-      const description = masterCharacter[columnNumber].list[cardNumber].desc;
-      if (description !== undefined) {
-        return description;
-      }
-    }
+
   };
 
   function descriptionInfo(e) {
@@ -96,6 +90,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   };
 
   const saveBtn = e => {
+    updateDescriptionStatus(true);
     updateButton(true);
     // if (masterCharacter.length !== 0) {
     //   const description = masterCharacter[columnNumber].list[cardNumber].desc;
@@ -128,7 +123,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
           </div>
           <div className="pl-2">
             <form onClick={e => descriptionInfo(e)} onChange={e => descriptionInfo(e)}>
-              <textarea className={descriptionStatus ? 'form-control w-75' : 'hidden'} onKeyUp={e => updateDescription(e)} value={descInfo()} rows="4" ></textarea>
+              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} onKeyUp={e => updateDescription(e)} rows="4" ></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
               <button type="click" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveBtn(e)}>Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
