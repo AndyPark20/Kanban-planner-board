@@ -14,14 +14,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   useEffect(() => {
 
-    if (masterCharacter[columnNumber] !== undefined) {
-      console.log('Hello');
-      const description = masterCharacter[columnNumber].list[cardNumber].desc;
-      if (description !== undefined) {
-        updateInitialDescription(description);
-      }
-
-    }
     updateModalClose(modal);
   });
 
