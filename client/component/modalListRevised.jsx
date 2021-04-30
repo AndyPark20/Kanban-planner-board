@@ -15,22 +15,11 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     if (masterCharacter.length !== 0) {
       updateFinalValues(masterCharacter[columnNumber].list[cardNumber].name);
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
-      updateFinalDescription(description);
-
-      // const description = masterCharacter[columnNumber].list[cardNumber].desc;
-      // if (description === undefined) {
-      //   masterCharacter[columnNumber].list[cardNumber].desc = undefined;
-      //   updateFin
-      // alDescription(masterCharacter[columnNumber].list[cardNumber].desc);
-      //   updateButton(true);
-      //   updateDescriptionStatus(false);
-      //   updateMasterCharacter(masterCharacter);
-      // } else {
-      //   updateFinalDescription(masterCharacter[columnNumber].list[cardNumber].desc);
-      // }
-
+      if (description === undefined) {
+        updateDescriptionStatus(true);
+        updateInitialDescription(undefined);
+      }
     }
-    descInfo();
     updateModalClose(modal);
   });
 
@@ -49,7 +38,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
       masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
       updateMasterCharacter(masterCharacter);
       updateFinalDescription(initialDescription);
-      updateInitialDescription(undefined);
       updateDescriptionStatus(true);
       updateButton(false);
     }
@@ -104,12 +92,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   };
 
   const descInfo = () => {
-    if (masterCharacter.length !== 0) {
-      const description = masterCharacter[columnNumber].list[cardNumber].desc;
-      if (description !== undefined) {
-        return description;
-      }
-    }
+    return initialDescription;
   };
 
   const saveBtn = e => {
@@ -145,7 +128,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
           </div>
           <div className="pl-2">
             <form onClick={e => descriptionInfo(e)} onChange={e => descriptionInfo(e)}>
-              <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} onKeyUp={e => updateDescription(e)} rows="4" value={descInfo()}></textarea>
+              <textarea className={descriptionStatus ? 'form-control w-75' : 'hidden'} onKeyUp={e => updateDescription(e)} value={descInfo()} rows="4" ></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderDescription()}</p>
               <button type="click" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveBtn(e)}>Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
