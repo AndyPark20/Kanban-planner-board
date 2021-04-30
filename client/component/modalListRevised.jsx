@@ -13,13 +13,15 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
-    console.log(initialDescription);
-    // if (masterCharacter.length !== 0) {
-    //   if (masterCharacter[columnNumber].list[cardNumber].desc !== undefined) {
-    //     const description = masterCharacter[columnNumber].list[cardNumber].desc;
-    //     updateInitialDescription(description);
-    //   }
-    // }
+
+    if (masterCharacter[columnNumber] !== undefined) {
+      console.log('Hello');
+      const description = masterCharacter[columnNumber].list[cardNumber].desc;
+      if (description !== undefined) {
+        updateInitialDescription(description);
+      }
+
+    }
     updateModalClose(modal);
   });
 
