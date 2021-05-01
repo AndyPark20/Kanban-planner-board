@@ -14,8 +14,9 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   useEffect(() => {
     if (masterCharacter.length !== 0) {
-      const description = masterCharacter[columnNumber].list[cardNumber].desc;
-      updateFinalDescription(description);
+      const description = masterCharacter;
+      console.log(description);
+      // updateFinalDescription(description);
     }
 
     updateModalClose(modal);
@@ -105,7 +106,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
             <form onChange={e => descriptionInfo(e)}>
               <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} rows="4" value={initialDescription}></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{initialDescription}</p>
-              <button type="click" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveButton(e)} >Save</button>
+              <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveButton(e)} >Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
             </form>
           </div>
