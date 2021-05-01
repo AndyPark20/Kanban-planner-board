@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
+const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
   const characters = [
     {
       id: 'Todo',
@@ -37,6 +37,10 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
     }
   }, [columnUpdate]);
 
+  useEffect(() => {
+    console.log(masterCharacter);
+  });
+
   const dropIt = (e, info, position) => {
     // the column index number
     e.preventDefault();
@@ -46,7 +50,8 @@ const Column = ({ updateModal, updateCardNumberMaster, updateColumnNumberMaster,
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     if (character.id !== originId && !columnMover) {
       if (e.target.nodeName === 'DIV') {
-        character[position].list.push({ img: imgs, name: identity });
+
+        character[position].list.push({ img: imgs, name: identity, desc: '' });
         const returnedObjects = character.concat();
         updateCharacters(returnedObjects);
         character[columnStartIndex].list.forEach((values, location) => {

@@ -15,7 +15,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   useEffect(() => {
     if (masterCharacter.length !== 0) {
       const description = masterCharacter;
-      console.log(description);
       // updateFinalDescription(description);
     }
 
