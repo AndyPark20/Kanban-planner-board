@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Item = ({ cardName, update, userCardTitle, cardSequence, columnNumber, masterCharacter, values, titleBoolean, updateModal, masterCharacterUpdate, selectedCard }) => {
+const Item = ({ updateDescription, cardName, update, userCardTitle, cardSequence, columnNumber, masterCharacter, values, titleBoolean, updateModal, masterCharacterUpdate, selectedCard }) => {
 
   const [pencil, updatePencil] = useState(false);
   const [input, updateInput] = useState('');
@@ -24,6 +24,7 @@ const Item = ({ cardName, update, userCardTitle, cardSequence, columnNumber, mas
       masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
+      updateDescription(true);
     }
   };
 

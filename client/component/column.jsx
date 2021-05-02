@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
+const Column = ({ updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
 
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
@@ -133,7 +133,7 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
 
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
-                  <Item selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
+                  <Item updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
                   columnNumber={index} masterCharacter={masterCharacter} cardName={updateCardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
                     masterCharacterUpdate={updateMasterCharacter} />
                 </div>
