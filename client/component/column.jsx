@@ -1,24 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
-  const characters = [
-    {
-      id: 'Todo',
-      list: []
+const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent}) => {
 
-    },
-    {
-      id: 'Doing',
-      list: []
-    },
-    {
-      id: 'Done',
-      list: []
-    }
-  ];
 
-  const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
   const [cardNumber, updateCardNumber] = useState(0);
@@ -26,18 +11,23 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
 
+  useEffect(()=>{
+    console.log('masterCharacter',masterCharacter)
+  })
+
   useEffect(() => {
     updateTitleBoolean(false);
   }, [titleBoolean]);
 
   useEffect(() => {
     if (updatedCharacter.length !== 0) {
-      updateCharacters(updatedCharacter);
+      updateMasterCharacter(updatedCharacter);
       updateColumnComponent(false);
     }
   }, [columnUpdate]);
 
   const dropIt = (e, info, position) => {
+    console.log(position)
     // the column index number
     e.preventDefault();
     const identity = e.dataTransfer.getData('name');
@@ -46,10 +36,8 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     if (character.id !== originId && !columnMover) {
       if (e.target.nodeName === 'DIV') {
-
         character[position].list.push({ img: imgs, name: identity, desc: '' });
         const returnedObjects = character.concat();
-        updateCharacters(returnedObjects);
         updateMasterCharacter(returnedObjects);
         character[columnStartIndex].list.forEach((values, location) => {
           if (values.name === identity) {
@@ -65,7 +53,7 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
           character[position] = character[value];
           character[value] = swap;
           const swappedResult = character.concat();
-          updateCharacters(swappedResult);
+          updateMasterCharacter(swappedResult);
         }
       });
     }
@@ -80,7 +68,7 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
     const [reordered] = character[index].list.splice(startIndex, 1);
     character[index].list.splice(finishedIndex, 0, reordered);
     const copyCharacter = character.concat();
-    updateCharacters(copyCharacter);
+    updateMasterCharacter(copyCharacter);
 
   };
 
@@ -97,9 +85,9 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   };
 
   const makeNewItem = (e, info, index) => {
-    character[index].list.push({ name: '' });
-    const addedCardObject = character.concat();
-    updateCharacters(addedCardObject);
+    masterCharacter[index].list.push({ name: '' });
+    const addedCardObject = masterCharacter.concat();
+    updateMasterCharacter(addedCardObject);
   };
 
   // functions to move columns around
@@ -115,19 +103,19 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   };
 
   const changeTitle = (indexItem, index) => {
-    const cardTitle = character[index].list[indexItem].name;
+    const cardTitle = masterCharacter[index].list[indexItem].name;
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
     if (cardTitle !== '') {
-      updatedSelectedCard(character[index].list[indexItem].name);
+      updatedSelectedCard(masterCharacter[index].list[indexItem].name);
       updateModal(true);
     }
 
   };
 
   const columnStyle = () => {
-    character.forEach((info, index) => {
+    masterCharacter.forEach((info, index) => {
       if (info.list.length > 1) {
         return 'scroll col-4 d-flex text-center flex-column justify-content-around w-100 select';
       }
@@ -136,7 +124,7 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   };
 
   const renderIt = () => {
-    const loop = character.map((info, index) => {
+    const loop = masterCharacter.map((info, index) => {
       return (
         <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)}
           onDrop={e => dropIt(e, info, index)}>
@@ -150,8 +138,8 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
 
-                  <Item selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn}updateModal={updateModal} values={values} cardSequence={cardNumber}
-                  columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}
+                  <Item selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
+                  columnNumber={index} masterCharacter={masterCharacter} cardName={updateCardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
                     masterCharacterUpdate={updateMasterCharacter} />
                 </div>
               );
