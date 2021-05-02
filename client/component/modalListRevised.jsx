@@ -13,8 +13,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
-    console.log(masterCharacter);
-
     updateModalClose(modal);
   });
 
@@ -70,7 +68,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   const saveButton = e => {
     e.preventDefault();
-    masterCharacter[columnNumber].list[cardNumber].desc = 'initialDescription;';
+    masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
     updateDescriptionStatus(true);
     updateButton(true);
     updateMasterCharacter(masterCharacter);

@@ -17,6 +17,26 @@ const App = () => {
   const [masterCharacter, updateMasterCharacter] = useState([]);
   const [columnUpdate, updateColumnComponent] = useState(false);
 
+  const characters = [
+    {
+      id: 'Todo',
+      list: []
+
+    },
+    {
+      id: 'Doing',
+      list: []
+    },
+    {
+      id: 'Done',
+      list: []
+    }
+  ];
+
+  useEffect(()=>{
+    updateMasterCharacter(characters)
+  },[])
+
   useEffect(() => {
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
     wallpaperUpdate(retrieveWallpaper);
