@@ -13,7 +13,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
-    console.log(masterCharacter)
     updateModalClose(modal);
   });
 

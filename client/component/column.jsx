@@ -3,7 +3,6 @@ import Item from './item';
 
 const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent}) => {
 
-  const [localCharacter,updateLocalCharacter] = useState(masterCharacter.list)
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
   const [cardNumber, updateCardNumber] = useState(0);
@@ -11,9 +10,6 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
 
-  useEffect(()=>{
-    console.log(masterCharacter.list)
-  },[localCharacter])
 
   useEffect(() => {
     updateTitleBoolean(false);
@@ -27,16 +23,16 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   }, [columnUpdate]);
 
   const dropIt = (e, info, position) => {
-
     // the column index number
     e.preventDefault();
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
+    const description  = e.dataTransfer.getData('description');
     if (masterCharacter.id !== originId && !columnMover) {
       if (e.target.nodeName === 'DIV') {
-        masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
+        masterCharacter[position].list.push({ img: imgs, name: identity, desc:description });
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
         masterCharacter[columnStartIndex].list.forEach((values, location) => {
@@ -81,6 +77,7 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
     e.dataTransfer.setData('name', values.name);
     e.dataTransfer.setData('img', values.img);
     e.dataTransfer.setData('startIndex', indexItem);
+    e.dataTransfer.setData('description', values.desc);
   };
 
   const makeNewItem = (e, info, index) => {
