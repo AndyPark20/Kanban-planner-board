@@ -37,10 +37,6 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
     }
   }, [columnUpdate]);
 
-  useEffect(() => {
-    console.log(masterCharacter);
-  });
-
   const dropIt = (e, info, position) => {
     // the column index number
     e.preventDefault();
@@ -54,6 +50,7 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
         character[position].list.push({ img: imgs, name: identity, desc: '' });
         const returnedObjects = character.concat();
         updateCharacters(returnedObjects);
+        updateMasterCharacter(returnedObjects);
         character[columnStartIndex].list.forEach((values, location) => {
           if (values.name === identity) {
             character[columnStartIndex].list.splice(location, 1);
