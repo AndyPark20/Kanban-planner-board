@@ -7,12 +7,21 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
   const [modalStatus, updateModalStatus] = useState(false);
-  const [descriptionStatus, updateDescriptionStatus] = useState(false);
+  const [descriptionStatus, updateDescriptionStatus] = useState(true);
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(true);
+  const [test, updateTest] = useState(false);
 
   useEffect(() => {
+    if (masterCharacter.length !== 0) {
+      const selectedColumn = masterCharacter[columnNumber].list;
+      if (selectedColumn.length !== 0 && test) {
+        const selectedCardDescription = selectedColumn.desc;
+        updateInitialDescription(selectedCardDescription);
+      }
+
+    }
     updateModalClose(modal);
   });
 
@@ -51,10 +60,8 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   const clickUpdateDescription = () => {
     const description = masterCharacter[columnNumber].list[cardNumber].desc;
-    if (description !== '') {
-      updateInitialDescription(description);
-      updateDescriptionStatus(false);
-    }
+    updateInitialDescription(description);
+    updateDescriptionStatus(false);
     updateButton(true);
   };
 
@@ -74,6 +81,8 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateMasterCharacter(masterCharacter);
     updateDescriptionStatus(true);
     updateButton(false);
+    console.log(initialDescription);
+    updateInitialDescription(initialDescription);
   };
 
   return (

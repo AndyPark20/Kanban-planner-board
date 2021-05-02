@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent}) => {
+const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
 
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
@@ -9,7 +9,6 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   const [cardTitle, updateCardTitle] = useState('');
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
-
 
   useEffect(() => {
     updateTitleBoolean(false);
@@ -29,10 +28,10 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
-    const description  = e.dataTransfer.getData('description');
+    const description = e.dataTransfer.getData('description');
     if (masterCharacter.id !== originId && !columnMover) {
       if (e.target.nodeName === 'DIV') {
-        masterCharacter[position].list.push({ img: imgs, name: identity, desc:description });
+        masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
         masterCharacter[columnStartIndex].list.forEach((values, location) => {
@@ -61,9 +60,9 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
     e.preventDefault();
     const startIndex = e.dataTransfer.getData('startIndex');
     const finishedIndex = indexItem;
-    const [reordered] = character[index].list.splice(startIndex, 1);
-    MasterCharacter[index].list.splice(finishedIndex, 0, reordered);
-    const copyCharacter = character.concat();
+    const [reordered] = masterCharacter[index].list.splice(startIndex, 1);
+    masterCharacter[index].list.splice(finishedIndex, 0, reordered);
+    const copyCharacter = masterCharacter.concat();
     updateMasterCharacter(copyCharacter);
 
   };

@@ -33,9 +33,9 @@ const App = () => {
     }
   ];
 
-  useEffect(()=>{
-    updateMasterCharacter(characters)
-  },[])
+  useEffect(() => {
+    updateMasterCharacter(characters);
+  }, []);
 
   useEffect(() => {
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
