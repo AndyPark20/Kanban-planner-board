@@ -13,7 +13,7 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
-
+    console.log(cardNumber);
     if (masterCharacter.length !== 0) {
       const selectedColumn = masterCharacter[columnNumber].list;
       if (selectedColumn.length !== 0) {

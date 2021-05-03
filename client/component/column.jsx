@@ -42,12 +42,12 @@ const Column = ({ description, updateDescription, masterCharacter, updateModal, 
       }
     } else {
       const originCol = e.dataTransfer.getData('columnStartIndex');
-      character.forEach((description, value) => {
-        if (description.id === character[originCol].id) {
-          const swap = character[position];
-          character[position] = character[value];
-          character[value] = swap;
-          const swappedResult = character.concat();
+      masterCharacter.forEach((description, value) => {
+        if (masterCharacter.id === masterCharacter[originCol].id) {
+          const swap = masterCharacter[position];
+          masterCharacter[position] = masterCharacter[value];
+          masterCharacter[value] = swap;
+          const swappedResult = masterCharacter.concat();
           updateMasterCharacter(swappedResult);
         }
       });
