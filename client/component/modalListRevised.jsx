@@ -2,7 +2,7 @@ import e from 'cors';
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -11,14 +11,14 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(true);
-  const [test, updateTest] = useState(false);
 
   useEffect(() => {
     if (masterCharacter.length !== 0) {
       const selectedColumn = masterCharacter[columnNumber].list;
-      if (selectedColumn.length !== 0 && test) {
+      if (selectedColumn.length !== 0) {
         const selectedCardDescription = selectedColumn.desc;
-        updateInitialDescription(selectedCardDescription);
+        console.log(selectedCardDescription);
+        // updateInitialDescription(selectedCardDescription);
       }
 
     }
@@ -81,7 +81,6 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateMasterCharacter(masterCharacter);
     updateDescriptionStatus(true);
     updateButton(false);
-    console.log(initialDescription);
     updateInitialDescription(initialDescription);
   };
 

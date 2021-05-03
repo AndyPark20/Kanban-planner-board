@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Item = ({ updateDescription, cardName, update, userCardTitle, cardSequence, columnNumber, masterCharacter, values, titleBoolean, updateModal, masterCharacterUpdate, selectedCard }) => {
+const Item = ({ description, cardName, update, userCardTitle, cardSequence, columnNumber, masterCharacter, values, titleBoolean, updateModal, masterCharacterUpdate, selectedCard }) => {
 
   const [pencil, updatePencil] = useState(false);
   const [input, updateInput] = useState('');
@@ -19,12 +19,11 @@ const Item = ({ updateDescription, cardName, update, userCardTitle, cardSequence
   const enterTitle = e => {
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
-      masterCharacter[columnNumber].list[cardSequence].desc = '';
+      masterCharacter[columnNumber].list[cardSequence].desc = description;
       update(masterCharacter);
       masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
-      updateDescription(true);
     }
   };
 
