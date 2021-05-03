@@ -13,6 +13,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
   };
 
   useEffect(() => {
+    console.log('description', description);
     updatedSelectedItem(selectedCard);
   });
 

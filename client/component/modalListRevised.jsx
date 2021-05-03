@@ -1,4 +1,4 @@
-import e from 'cors';
+
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
@@ -13,14 +13,13 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
+
     if (masterCharacter.length !== 0) {
       const selectedColumn = masterCharacter[columnNumber].list;
       if (selectedColumn.length !== 0) {
-        const selectedCardDescription = selectedColumn.desc;
-        console.log(selectedCardDescription);
-        // updateInitialDescription(selectedCardDescription);
+        const selectedCardDescription = selectedColumn[cardNumber].desc;
+        updateFinalDescription(selectedCardDescription);
       }
-
     }
     updateModalClose(modal);
   });
@@ -33,6 +32,7 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
   function closeModal(e) {
     e.preventDefault();
     updateInitialDescription('');
+    updateDescription('');
     updateModal(false);
   }
 
@@ -81,6 +81,7 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
     updateMasterCharacter(masterCharacter);
     updateDescriptionStatus(true);
     updateButton(false);
+    updateDescription(initialDescription);
     updateInitialDescription(initialDescription);
   };
 
@@ -107,7 +108,7 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
           <div className="pl-2">
             <form onChange={e => descriptionInfo(e)}>
               <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} rows="4" value={initialDescription}></textarea>
-              <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{initialDescription}</p>
+              <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{finalDescription}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveButton(e)} >Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
             </form>

@@ -16,7 +16,7 @@ const App = () => {
   const [cardNumberMaster, updateCardNumberMaster] = useState(0);
   const [masterCharacter, updateMasterCharacter] = useState([]);
   const [columnUpdate, updateColumnComponent] = useState(false);
-  const [description, updateDescription] = useState(false);
+  const [description, updateDescription] = useState('');
 
   const characters = [
     {
