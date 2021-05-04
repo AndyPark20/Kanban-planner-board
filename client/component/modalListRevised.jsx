@@ -13,13 +13,11 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
-    console.log('cardNumber,cardNumber);
-    console.log('columnNumber', columnNumber)
     if (masterCharacter.length !== 0) {
       const selectedColumn = masterCharacter[columnNumber].list;
-      if (selectedColumn.length !== 0) {
-        // const selectedCardDescription = selectedColumn[cardNumber].desc;
-        // updateFinalDescription(selectedCardDescription);
+      if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined) {
+        const selectedCardDescription = selectedColumn[cardNumber].desc;
+        updateFinalDescription(selectedCardDescription);
       }
     }
     updateModalClose(modal);
