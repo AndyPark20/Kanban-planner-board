@@ -1,18 +1,26 @@
-import e from 'cors';
+
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
   const [modalStatus, updateModalStatus] = useState(false);
-  const [descriptionStatus, updateDescriptionStatus] = useState(false);
+  const [descriptionStatus, updateDescriptionStatus] = useState(true);
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
+    console.log(cardNumber);
+    if (masterCharacter.length !== 0) {
+      const selectedColumn = masterCharacter[columnNumber].list;
+      if (selectedColumn.length !== 0) {
+        const selectedCardDescription = selectedColumn[cardNumber].desc;
+        updateFinalDescription(selectedCardDescription);
+      }
+    }
     updateModalClose(modal);
   });
 
@@ -24,6 +32,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
   function closeModal(e) {
     e.preventDefault();
     updateInitialDescription('');
+    updateDescription('');
     updateModal(false);
   }
 
@@ -51,10 +60,8 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
 
   const clickUpdateDescription = () => {
     const description = masterCharacter[columnNumber].list[cardNumber].desc;
-    if (description !== '') {
-      updateInitialDescription(description);
-      updateDescriptionStatus(false);
-    }
+    updateInitialDescription(description);
+    updateDescriptionStatus(false);
     updateButton(true);
   };
 
@@ -74,6 +81,8 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
     updateMasterCharacter(masterCharacter);
     updateDescriptionStatus(true);
     updateButton(false);
+    updateDescription(initialDescription);
+    updateInitialDescription(initialDescription);
   };
 
   return (
@@ -99,7 +108,7 @@ const Modal = ({ modal, columnNumber, cardNumber, masterCharacter, updateMasterC
           <div className="pl-2">
             <form onChange={e => descriptionInfo(e)}>
               <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} rows="4" value={initialDescription}></textarea>
-              <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{initialDescription}</p>
+              <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{finalDescription}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveButton(e)} >Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
             </form>
