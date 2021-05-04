@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
+
 const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
@@ -15,11 +16,14 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
   useEffect(() => {
     if (masterCharacter.length !== 0) {
       const selectedColumn = masterCharacter[columnNumber].list;
-      if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined) {
+      if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined ) {
+        const cardTitle = selectedColumn[cardNumber].name;
         const selectedCardDescription = selectedColumn[cardNumber].desc;
         updateFinalDescription(selectedCardDescription);
+        updateFinalValues(cardTitle)
       }
     }
+
     updateModalClose(modal);
   });
 
