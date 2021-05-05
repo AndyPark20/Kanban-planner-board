@@ -42,11 +42,15 @@ useEffect(()=>{
         masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
-        masterCharacter[columnStartIndex].list.forEach((values, location) => {
-          if (values.name === identity) {
-            masterCharacter[columnStartIndex].list.splice(location, 1);
-          }
-        });
+        masterCharacter[columnStartIndex].list.splice(originId,1)
+        // masterCharacter[columnStartIndex].list.forEach((values, location) => {
+        //   if (values.name === identity) {
+
+        //     masterCharacter[columnStartIndex].list.splice(originId, 1);
+
+
+        //   }
+        // });
       }
     } else {
       const originCol = e.dataTransfer.getData('columnStartIndex');
