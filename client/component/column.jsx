@@ -44,9 +44,7 @@ useEffect(()=>{
         updateMasterCharacter(returnedObjects);
         masterCharacter[columnStartIndex].list.forEach((values, location) => {
           if (values.name === identity) {
-            console.log(masterCharacter[columnStartIndex])
             masterCharacter[columnStartIndex].list.splice(location, 1);
-
           }
         });
       }
