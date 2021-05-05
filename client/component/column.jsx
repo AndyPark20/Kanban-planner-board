@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
+import { render } from 'react-dom';
 
-const Column = ({ description, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
+const Column = ({initialCharacter, description, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, columnUpdate, updateColumnComponent }) => {
 
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
@@ -10,13 +11,20 @@ const Column = ({ description, updateDescription, masterCharacter, updateModal, 
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
 
+
+
+useEffect(()=>{
+    updateMasterCharacter(initialCharacter)
+},[])
+
   useEffect(() => {
+    renderIt()
     updateTitleBoolean(false);
   }, [titleBoolean]);
 
   useEffect(() => {
-    if (updatedCharacter.length !== 0) {
-      updateMasterCharacter(updatedCharacter);
+    if (masterCharacter.length !== 0) {
+      updateMasterCharacter(masterCharacter);
       updateColumnComponent(false);
     }
   }, [columnUpdate]);
@@ -43,7 +51,7 @@ const Column = ({ description, updateDescription, masterCharacter, updateModal, 
     } else {
       const originCol = e.dataTransfer.getData('columnStartIndex');
       masterCharacter.forEach((description, value) => {
-        if (masterCharacter.id === masterCharacter[originCol].id) {
+        if (description.id === masterCharacter[originCol].id) {
           const swap = masterCharacter[position];
           masterCharacter[position] = masterCharacter[value];
           masterCharacter[value] = swap;
@@ -87,7 +95,7 @@ const Column = ({ description, updateDescription, masterCharacter, updateModal, 
 
   // function to move columns around
   const moveColumn = (e, info, value) => {
-    console.log(e.target.className)
+
     if (e.target.nodeName === 'DIV' && e.target.className === 'card spacing') {
       updateColumnMover(false);
       e.dataTransfer.setData('columnStartIndex', value);
