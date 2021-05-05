@@ -85,8 +85,9 @@ const Column = ({ description, updateDescription, masterCharacter, updateModal, 
     updateMasterCharacter(addedCardObject);
   };
 
-  // functions to move columns around
+  // function to move columns around
   const moveColumn = (e, info, value) => {
+    console.log(e.target.className)
     if (e.target.nodeName === 'DIV' && e.target.className === 'card spacing') {
       updateColumnMover(false);
       e.dataTransfer.setData('columnStartIndex', value);
