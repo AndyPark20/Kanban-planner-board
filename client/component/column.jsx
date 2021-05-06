@@ -67,9 +67,14 @@ useEffect(()=>{
 
   };
 
-  /** **the column part */
+  // /** **the column part */
   const lastIndex = (e, info, indexItem, index) => {
     e.preventDefault();
+    console.log('hello')
+    console.log(e.target.className);
+    console.log('info', info);
+    console.log('indexItem', indexItem);
+    console.log('index', index);
     const startIndex = e.dataTransfer.getData('startIndex');
     const finishedIndex = indexItem;
     const [reordered] = masterCharacter[index].list.splice(startIndex, 1);
