@@ -39,6 +39,7 @@ useEffect(()=>{
     const description = e.dataTransfer.getData('description');
     if (masterCharacter.id !== originId && !columnMover) {
       if (e.target.nodeName === 'DIV') {
+        console.log('part 2')
         masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
@@ -68,21 +69,17 @@ useEffect(()=>{
   };
 
   // /** **the column part */
-  const lastIndex = (e, info, indexItem, index) => {
-    e.preventDefault();
-    console.log('hello')
-    console.log(e.target.className);
-    console.log('info', info);
-    console.log('indexItem', indexItem);
-    console.log('index', index);
-    const startIndex = e.dataTransfer.getData('startIndex');
-    const finishedIndex = indexItem;
-    const [reordered] = masterCharacter[index].list.splice(startIndex, 1);
-    masterCharacter[index].list.splice(finishedIndex, 0, reordered);
-    const copyCharacter = masterCharacter.concat();
-    updateMasterCharacter(copyCharacter);
+  // const lastIndex = (e, info, indexItem, index) => {
+  //   e.preventDefault();
+  //   const startIndex = e.dataTransfer.getData('startIndex');
+  //   const finishedIndex = indexItem;
+  //   const reordered = masterCharacter[index].list.splice(startIndex, 1);
+  //   console.log('deleted', reordered)
+  //   masterCharacter[index].list.splice(finishedIndex, 0, reordered);
+  //   const copyCharacter = masterCharacter.concat();
+  //   updateMasterCharacter(copyCharacter);
 
-  };
+  // };
 
   const allowDrop = e => {
     e.preventDefault();
@@ -148,7 +145,8 @@ useEffect(()=>{
           <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
             {info.list.map((values, indexItem) => {
               return (
-                <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
+                <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)}
+                  // onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
                   <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
                   columnNumber={index} masterCharacter={masterCharacter} cardName={updateCardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
