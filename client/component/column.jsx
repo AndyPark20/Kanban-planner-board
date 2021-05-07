@@ -40,12 +40,13 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   const dropIt = (e, info, position) => {
     // the column index number
     e.preventDefault();
+    console.log(e.target.nodeName)
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     if (character.id !== originId && !columnMover) {
-      if (e.target.nodeName !== 'DIV') {
+      if (e.target.nodeName === 'H5') {
         character[position].list.push({ img: imgs, name: identity, desc: '' });
         const returnedObjects = character.concat();
         updateCharacters(returnedObjects);
