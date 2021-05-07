@@ -32,14 +32,15 @@ useEffect(()=>{
   const dropIt = (e, info, position) => {
     // the column index number
     e.preventDefault();
+    console.log(e.target.nodeName)
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     const description = e.dataTransfer.getData('description');
     if (masterCharacter.id !== originId && !columnMover) {
-      if (e.target.nodeName === 'DIV') {
-        console.log('part 2')
+      if (e.target.nodeName === 'DIV' || e.target.nodeName ==='H5') {
+        console.log(originId)
         masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
