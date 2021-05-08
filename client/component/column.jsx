@@ -46,13 +46,14 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     if (character.id !== originId && !columnMover) {
-      if (e.target.nodeName === 'H5') {
+      if (e.target.nodeName === 'DIV') {
         character[position].list.push({ img: imgs, name: identity, desc: '' });
         const returnedObjects = character.concat();
         updateCharacters(returnedObjects);
         updateMasterCharacter(returnedObjects);
         character[columnStartIndex].list.forEach((values, location) => {
           if (values.name === identity) {
+            console.log(location)
             character[columnStartIndex].list.splice(location, 1);
           }
         });
