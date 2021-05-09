@@ -9,6 +9,7 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
   const [cardTitle, updateCardTitle] = useState('');
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
+  const [destination, updateDestination] = useState(null);
 
   useEffect(() => {
     updateMasterCharacter(initialCharacter)
@@ -19,7 +20,7 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
   }, [titleBoolean]);
 
   useEffect(() => {
-    if (updatedCharacter.length !== 0) {
+    if (updatedCharacter.length !== 0){
       updateMasterCharacter(updatedCharacter);
       updateColumnComponent(false);
     }
@@ -38,7 +39,9 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
         masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
-        masterCharacter[columnStartIndex].list.splice(originId,1);
+        // masterCharacter[columnStartIndex].list.splice(originId,1);
+        // [masterCharacter[columnStartIndex].list[originId], masterCharacter[columnStartIndex].list[]]
+
         // updateMasterCharacter(masterCharacter)
         // masterCharacter[columnStartIndex].list.forEach((values, location) => {
         //   if (values.name === identity) {
@@ -51,7 +54,6 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
         // });
       }
     } else {
-      console.log('else')
       const originCol = e.dataTransfer.getData('columnStartIndex');
       const desintationColumn = masterCharacter[position];
       [masterCharacter[originCol], masterCharacter[position]] =[masterCharacter[position], masterCharacter[originCol]];
@@ -65,8 +67,9 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
     e.preventDefault();
       const startIndex = e.dataTransfer.getData('startIndex');
       const finishedIndex = indexItem;
+      updateDestination(finishedIndex)
       [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
-      // const [reordered] = masterCharacter[index].list.splice(startIndex, 1);
+      masterCharacter[index].list.splice(startIndex, 1);
       // masterCharacter[index].list.splice(finishedIndex, 0, reordered);
       const copyCharacter = masterCharacter.concat();
       updateMasterCharacter(copyCharacter);
@@ -133,7 +136,6 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
           <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
             {info.list.map((values, indexItem) => {
               return (
-
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
                   <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
