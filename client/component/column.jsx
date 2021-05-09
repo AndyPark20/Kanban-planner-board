@@ -35,17 +35,20 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
     const description = e.dataTransfer.getData('description');
     if (masterCharacter.id !== originId && !columnMover) {
       if (e.target.nodeName === 'DIV') {
-        console.log('div')
         masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
-        masterCharacter[columnStartIndex].list.forEach((values, location) => {
-          if (values.name === identity) {
-            console.log('position', position)
-            [masterCharacter[columnStartIndex].list[originId]]
-            masterCharacter[columnStartIndex].list.splice(location, 1);
-          }
-        });
+        masterCharacter[columnStartIndex].list.splice(originId,1);
+        // updateMasterCharacter(masterCharacter)
+        // masterCharacter[columnStartIndex].list.forEach((values, location) => {
+        //   if (values.name === identity) {
+        //     [masterCharacter[columnStartIndex].list[originId]]
+        //     console.log('values.name', values.name)
+        //     console.log('identity', identity)
+        //     console.log('location', location)
+        //     // masterCharacter[columnStartIndex].list.splice(location, 1);
+        //   }
+        // });
       }
     } else {
       console.log('else')
