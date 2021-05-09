@@ -40,7 +40,9 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
         updateMasterCharacter(returnedObjects);
         masterCharacter[columnStartIndex].list.forEach((values, location) => {
           if (values.name === identity) {
-            masterCharacter[columnStartIndex].list.splice(location, 1);
+            console.log('values.name',values.name);
+            console.log('identity', identity);
+            // masterCharacter[columnStartIndex].list.splice(location, 1);
           }
         });
       }
@@ -51,16 +53,17 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
       const finalResult = masterCharacter.concat();
       updateMasterCharacter(finalResult);
     }
-
   };
 
   /*the column part */
   const lastIndex = (e, info, indexItem, index) => {
     e.preventDefault();
+
     const startIndex = e.dataTransfer.getData('startIndex');
     const finishedIndex = indexItem;
-    const [reordered] = masterCharacter[index].list.splice(startIndex, 1);
-    masterCharacter[index].list.splice(finishedIndex, 0, reordered);
+    [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]]= [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
+    // const [reordered] = masterCharacter[index].list.splice(startIndex, 1);
+    // masterCharacter[index].list.splice(finishedIndex, 0, reordered);
     const copyCharacter = masterCharacter.concat();
     updateMasterCharacter(copyCharacter);
 
@@ -93,7 +96,6 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
       updateColumnMover(true);
       e.dataTransfer.setData('columnStartIndex', value);
     }
-
   };
 
   const changeTitle = (indexItem, index) => {
@@ -105,7 +107,6 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
       updatedSelectedCard(masterCharacter[index].list[indexItem].name);
       updateModal(true);
     }
-
   };
 
   const columnStyle = () => {
