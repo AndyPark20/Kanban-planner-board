@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ description, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
+const Column = ({ description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
 
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
@@ -10,6 +10,9 @@ const Column = ({ description, updateDescription, masterCharacter, updateModal, 
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
 
+  useEffect(() => {
+    updateMasterCharacter(initialCharacter)
+  }, [])
 
   useEffect(() => {
     updateTitleBoolean(false);
@@ -43,20 +46,15 @@ const Column = ({ description, updateDescription, masterCharacter, updateModal, 
       }
     } else {
       const originCol = e.dataTransfer.getData('columnStartIndex');
-      masterCharacter.forEach((description, value) => {
-        if (masterCharacter.id === masterCharacter[originCol].id) {
-          const swap = masterCharacter[position];
-          masterCharacter[position] = masterCharacter[value];
-          masterCharacter[value] = swap;
-          const swappedResult = masterCharacter.concat();
-          updateMasterCharacter(swappedResult);
-        }
-      });
+      const desintationColumn = masterCharacter[position];
+      [masterCharacter[originCol], masterCharacter[position]] =[masterCharacter[position], masterCharacter[originCol]];
+      const finalResult = masterCharacter.concat();
+      updateMasterCharacter(finalResult);
     }
 
   };
 
-  /** **the column part */
+  /*the column part */
   const lastIndex = (e, info, indexItem, index) => {
     e.preventDefault();
     const startIndex = e.dataTransfer.getData('startIndex');
