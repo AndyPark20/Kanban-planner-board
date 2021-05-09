@@ -1,24 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
-  const characters = [
-    {
-      id: 'Todo',
-      list: []
+const Column = ({ description, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
 
-    },
-    {
-      id: 'Doing',
-      list: []
-    },
-    {
-      id: 'Done',
-      list: []
-    }
-  ];
-
-  const [character, updateCharacters] = useState(characters);
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
   const [cardNumber, updateCardNumber] = useState(0);
@@ -26,13 +10,14 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
 
+
   useEffect(() => {
     updateTitleBoolean(false);
   }, [titleBoolean]);
 
   useEffect(() => {
     if (updatedCharacter.length !== 0) {
-      updateCharacters(updatedCharacter);
+      updateMasterCharacter(updatedCharacter);
       updateColumnComponent(false);
     }
   }, [columnUpdate]);
@@ -40,32 +25,31 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   const dropIt = (e, info, position) => {
     // the column index number
     e.preventDefault();
-    console.log(e.target.nodeName)
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
-    if (character.id !== originId && !columnMover) {
-      if (e.target.nodeName === 'H5') {
-        character[position].list.push({ img: imgs, name: identity, desc: '' });
-        const returnedObjects = character.concat();
-        updateCharacters(returnedObjects);
+    const description = e.dataTransfer.getData('description');
+    if (masterCharacter.id !== originId && !columnMover) {
+      if (e.target.nodeName === 'DIV') {
+        masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
+        const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
-        character[columnStartIndex].list.forEach((values, location) => {
+        masterCharacter[columnStartIndex].list.forEach((values, location) => {
           if (values.name === identity) {
-            character[columnStartIndex].list.splice(location, 1);
+            masterCharacter[columnStartIndex].list.splice(location, 1);
           }
         });
       }
     } else {
       const originCol = e.dataTransfer.getData('columnStartIndex');
-      character.forEach((description, value) => {
-        if (description.id === character[originCol].id) {
-          const swap = character[position];
-          character[position] = character[value];
-          character[value] = swap;
-          const swappedResult = character.concat();
-          updateCharacters(swappedResult);
+      masterCharacter.forEach((description, value) => {
+        if (masterCharacter.id === masterCharacter[originCol].id) {
+          const swap = masterCharacter[position];
+          masterCharacter[position] = masterCharacter[value];
+          masterCharacter[value] = swap;
+          const swappedResult = masterCharacter.concat();
+          updateMasterCharacter(swappedResult);
         }
       });
     }
@@ -77,10 +61,10 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
     e.preventDefault();
     const startIndex = e.dataTransfer.getData('startIndex');
     const finishedIndex = indexItem;
-    const [reordered] = character[index].list.splice(startIndex, 1);
-    character[index].list.splice(finishedIndex, 0, reordered);
-    const copyCharacter = character.concat();
-    updateCharacters(copyCharacter);
+    const [reordered] = masterCharacter[index].list.splice(startIndex, 1);
+    masterCharacter[index].list.splice(finishedIndex, 0, reordered);
+    const copyCharacter = masterCharacter.concat();
+    updateMasterCharacter(copyCharacter);
 
   };
 
@@ -93,13 +77,13 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
     e.dataTransfer.setData('name', values.name);
     e.dataTransfer.setData('img', values.img);
     e.dataTransfer.setData('startIndex', indexItem);
-
+    e.dataTransfer.setData('description', values.desc);
   };
 
   const makeNewItem = (e, info, index) => {
-    character[index].list.push({ name: '' });
-    const addedCardObject = character.concat();
-    updateCharacters(addedCardObject);
+    masterCharacter[index].list.push({ name: '' });
+    const addedCardObject = masterCharacter.concat();
+    updateMasterCharacter(addedCardObject);
   };
 
   // functions to move columns around
@@ -115,19 +99,19 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   };
 
   const changeTitle = (indexItem, index) => {
-    const cardTitle = character[index].list[indexItem].name;
+    const cardTitle = masterCharacter[index].list[indexItem].name;
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
     if (cardTitle !== '') {
-      updatedSelectedCard(character[index].list[indexItem].name);
+      updatedSelectedCard(masterCharacter[index].list[indexItem].name);
       updateModal(true);
     }
 
   };
 
   const columnStyle = () => {
-    character.forEach((info, index) => {
+    masterCharacter.forEach((info, index) => {
       if (info.list.length > 1) {
         return 'scroll col-4 d-flex text-center flex-column justify-content-around w-100 select';
       }
@@ -136,7 +120,7 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
   };
 
   const renderIt = () => {
-    const loop = character.map((info, index) => {
+    const loop = masterCharacter.map((info, index) => {
       return (
         <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)}
           onDrop={e => dropIt(e, info, index)}>
@@ -147,11 +131,11 @@ const Column = ({ masterCharacter, updateModal, updateCardNumberMaster, updateCo
           <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
             {info.list.map((values, indexItem) => {
               return (
+
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
-
-                  <Item selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
-                    columnNumber={index} masterCharacter={character} cardName={updateCardTitle} cardHeading={cardTitle} update={updateCharacters} titleBoolean={updateTitleBoolean}
+                  <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
+                    columnNumber={index} masterCharacter={masterCharacter} cardName={updateCardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
                     masterCharacterUpdate={updateMasterCharacter} />
                 </div>
               );
