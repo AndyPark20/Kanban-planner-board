@@ -36,11 +36,11 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
     const description = e.dataTransfer.getData('description');
     if (masterCharacter.id !== originId && !columnMover) {
       if (e.target.nodeName === 'DIV') {
+        masterCharacter[columnStartIndex].list.splice(originId, 1);
         masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
-        // masterCharacter[columnStartIndex].list.splice(originId,1);
-        // [masterCharacter[columnStartIndex].list[originId], masterCharacter[columnStartIndex].list[]]
+       // [masterCharacter[columnStartIndex].list[originId], masterCharacter[columnStartIndex].list[]]
 
         // updateMasterCharacter(masterCharacter)
         // masterCharacter[columnStartIndex].list.forEach((values, location) => {
@@ -64,12 +64,12 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
 
   // /*the column part */
   const lastIndex = (e, info, indexItem, index) => {
+    console.log('hello')
     e.preventDefault();
       const startIndex = e.dataTransfer.getData('startIndex');
       const finishedIndex = indexItem;
-      updateDestination(finishedIndex)
-      [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
-      masterCharacter[index].list.splice(startIndex, 1);
+      // [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
+      // masterCharacter[index].list.splice(startIndex, 1);
       // masterCharacter[index].list.splice(finishedIndex, 0, reordered);
       const copyCharacter = masterCharacter.concat();
       updateMasterCharacter(copyCharacter);
