@@ -20,7 +20,7 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
   }, [titleBoolean]);
 
   useEffect(() => {
-    if (updatedCharacter.length !== 0){
+    if (updatedCharacter.length !== 0) {
       updateMasterCharacter(updatedCharacter);
       updateColumnComponent(false);
     }
@@ -34,42 +34,42 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     const description = e.dataTransfer.getData('description');
-    masterCharacter[position].list.push(masterCharacter[columnStartIndex].list[originId])
-    masterCharacter[columnStartIndex].list.splice(originId, 1)
-
-        // masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
-        const returnedObjects = masterCharacter.concat();
-        updateMasterCharacter(returnedObjects);
-
-        // updateMasterCharacter(masterCharacter)
-        // masterCharacter[columnStartIndex].list.forEach((values, location) => {
-        //   if (values.name === identity) {
-        //     [masterCharacter[columnStartIndex].list[originId]]
-        //     console.log('values.name', values.name)
-        //     console.log('identity', identity)
-        //     console.log('location', location)
-        //     // masterCharacter[columnStartIndex].list.splice(location, 1);
-        //   }
-        // });
-
-    // } else {
-    //   const originCol = e.dataTransfer.getData('columnStartIndex');
-    //   const desintationColumn = masterCharacter[position];
-    //   [masterCharacter[originCol], masterCharacter[position]] =[masterCharacter[position], masterCharacter[originCol]];
-    //   const finalResult = masterCharacter.concat();
-    //   updateMasterCharacter(finalResult);
-    // }
+    updateDestination(position)
+    if (e.target.nodeName === 'DIV' || e.target.nodeName ==='H5') {
+      masterCharacter[position].list.push(masterCharacter[columnStartIndex].list[originId])
+      masterCharacter[columnStartIndex].list.splice(originId, 1)
+      const returnedObjects = masterCharacter.concat();
+      updateMasterCharacter(returnedObjects);
+      // updateMasterCharacter(masterCharacter)
+      // masterCharacter[columnStartIndex].list.forEach((values, location) => {
+      //   if (values.name === identity) {
+      //     [masterCharacter[columnStartIndex].list[originId]]
+      //     console.log('values.name', values.name)
+      //     console.log('identity', identity)
+      //     console.log('location', location)
+      //     // masterCharacter[columnStartIndex].list.splice(location, 1);
+      //   }
+      // });
+    }
+  //   // } else {
+  //   //   const originCol = e.dataTransfer.getData('columnStartIndex');
+  //   //   const desintationColumn = masterCharacter[position];
+  //   //   [masterCharacter[originCol], masterCharacter[position]] =[masterCharacter[position], masterCharacter[originCol]];
+  //   //   const finalResult = masterCharacter.concat();
+  //   //   updateMasterCharacter(finalResult);
+  //   // }
   };
 
   // /*the column part */
   const lastIndex = (e, info, indexItem, index) => {
     e.preventDefault();
-    // console.log('indexItem', indexItem);
-      const startIndex = e.dataTransfer.getData('startIndex');
-      const finishedIndex = indexItem;
-      [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
-      const copyCharacter = masterCharacter.concat();
-      updateMasterCharacter(copyCharacter);
+    console.log(destination)
+    console.log('indexItem', indexItem);
+    const startIndex = e.dataTransfer.getData('startIndex');
+    const finishedIndex = indexItem;
+    [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
+    const copyCharacter = masterCharacter.concat();
+    updateMasterCharacter(copyCharacter);
   };
 
   const allowDrop = e => {
