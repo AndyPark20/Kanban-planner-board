@@ -34,8 +34,7 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     const description = e.dataTransfer.getData('description');
-    if (masterCharacter.id !== originId && !columnMover) {
-      if (e.target.nodeName === 'DIV') {
+    console.log(originId)
         masterCharacter[columnStartIndex].list.splice(originId, 1);
         masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
         const returnedObjects = masterCharacter.concat();
@@ -52,25 +51,23 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
         //     // masterCharacter[columnStartIndex].list.splice(location, 1);
         //   }
         // });
-      }
-    } else {
-      const originCol = e.dataTransfer.getData('columnStartIndex');
-      const desintationColumn = masterCharacter[position];
-      [masterCharacter[originCol], masterCharacter[position]] =[masterCharacter[position], masterCharacter[originCol]];
-      const finalResult = masterCharacter.concat();
-      updateMasterCharacter(finalResult);
-    }
+
+    // } else {
+    //   const originCol = e.dataTransfer.getData('columnStartIndex');
+    //   const desintationColumn = masterCharacter[position];
+    //   [masterCharacter[originCol], masterCharacter[position]] =[masterCharacter[position], masterCharacter[originCol]];
+    //   const finalResult = masterCharacter.concat();
+    //   updateMasterCharacter(finalResult);
+    // }
   };
 
   // /*the column part */
   const lastIndex = (e, info, indexItem, index) => {
-    console.log('hello')
     e.preventDefault();
+    // console.log('indexItem', indexItem);
       const startIndex = e.dataTransfer.getData('startIndex');
       const finishedIndex = indexItem;
-      // [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
-      // masterCharacter[index].list.splice(startIndex, 1);
-      // masterCharacter[index].list.splice(finishedIndex, 0, reordered);
+      [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
       const copyCharacter = masterCharacter.concat();
       updateMasterCharacter(copyCharacter);
   };
