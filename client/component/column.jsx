@@ -34,12 +34,12 @@ const Column = ({ description, initialCharacter, updateDescription, masterCharac
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     const description = e.dataTransfer.getData('description');
-    console.log(originId)
-        masterCharacter[columnStartIndex].list.splice(originId, 1);
-        masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
+    masterCharacter[position].list.push(masterCharacter[columnStartIndex].list[originId])
+    masterCharacter[columnStartIndex].list.splice(originId, 1)
+
+        // masterCharacter[position].list.push({ img: imgs, name: identity, desc: description });
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
-       // [masterCharacter[columnStartIndex].list[originId], masterCharacter[columnStartIndex].list[]]
 
         // updateMasterCharacter(masterCharacter)
         // masterCharacter[columnStartIndex].list.forEach((values, location) => {
