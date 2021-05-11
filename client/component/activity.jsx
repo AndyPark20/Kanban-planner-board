@@ -11,10 +11,10 @@ const Activity = ({updateMasterCharacter, masterCharacter, cardNumber, columnNum
   const [saveButton, updateSaveButton] = useState(false);
 
 useEffect(()=>{
-  console.log('masterCharacter', masterCharacter);
-  console.log('columnNumber', columnNumber);
-  console.log('cardNumber', cardNumber);
-  console.log('updateValueLog', updateValueLog)
+  if(masterCharacter.length !==0){
+    console.log('masterCharacter', masterCharacter[columnNumber].list[cardNumber]);
+  }
+
 })
 
   const userActivity = e => {
@@ -41,22 +41,26 @@ useEffect(()=>{
   };
 
   const renderLog = () => {
-    const data = userLogSubmit.map((values, index) => {
-      return (
+    if(masterCharacter.length !==0){
+      const data = masterCharacter[columnNumber].list[cardNumber].map((values, index) => {
+        return (
           <div key={index} className="d-flex align-items-center">
             <i className="far fa-comment-dots"></i>
-            <h5 className="pl-2">{values.info}</h5>
-            <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
+            <h5 className="pl-2">{console.log(values)}</h5>
+            <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{e}</Moment>
             <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
           </div>
-      );
-    });
-    return data;
+        );
+      });
+      return data;
+    }
+
   };
 
   const userSave = e => {
     e.preventDefault();
     if (!userEdit) {
+      masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog)
       updateUserLogSubmit(userLogSubmit.concat(userLog));
     } else {
       updateUserLogSubmit(userLogSubmit);
