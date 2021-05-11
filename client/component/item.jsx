@@ -20,6 +20,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       masterCharacter[columnNumber].list[cardSequence].desc = description;
+      masterCharacter[columnNumber].list[cardSequence].activity =[];
       update(masterCharacter);
       masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
