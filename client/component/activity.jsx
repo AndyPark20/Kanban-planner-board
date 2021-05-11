@@ -12,8 +12,9 @@ const Activity = ({updateMasterCharacter, masterCharacter, cardNumber, columnNum
 
 useEffect(()=>{
   if(masterCharacter.length !==0){
-    console.log('masterCharacter', masterCharacter)
+    console.log('masterCharacter', masterCharacter[columnNumber].list[cardNumber])
   }
+
 })
 
   const userActivity = e => {
@@ -40,22 +41,22 @@ useEffect(()=>{
   };
 
   const renderLog = () => {
-    if(masterCharacter.length !==0){
-      if(masterCharacter[columnNumber].list[cardNumber].activity !==undefined){
-        const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
-          return (
-            <div key={index} className="d-flex align-items-center">
-              <i className="far fa-comment-dots"></i>
-              <h5 className="pl-2">{console.log(values)}</h5>
-              <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{}</Moment>
-              <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
-            </div>
-          );
-        });
-        return data;
-      }
+    // if(masterCharacter.length !==0){
+    //   if(masterCharacter[columnNumber].list[cardNumber] !==undefined){
+    //     const data = userLogSubmit.map((values, index) => {
+    //       return (
+    //         <div key={index} className="d-flex align-items-center">
+    //           <i className="far fa-comment-dots"></i>
+    //           <h5 className="pl-2">{values.info}</h5>
+    //           <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
+    //           <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
+    //         </div>
+    //       );
+    //     });
+    //     return data;
 
-    }
+    //   }
+    // }
   };
 
   const userSave = e => {
