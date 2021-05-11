@@ -118,7 +118,7 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity />
+          <Activity  updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber}/>
         </div>
       </div>
     </div>

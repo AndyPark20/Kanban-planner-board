@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 
-const Activity = () => {
+const Activity = ({updateMasterCharacter, masterCharacter, cardNumber, columnNumber}) => {
 
   const [userLog, updateUserLog] = useState('');
   const [valueLog, updateValueLog] = useState('');
@@ -9,6 +9,13 @@ const Activity = () => {
   const [userEdit, updateUserEdit] = useState(false);
   const [editIndexNumber, updateEditIndexNumber] = useState(null);
   const [saveButton, updateSaveButton] = useState(false);
+
+useEffect(()=>{
+  console.log('masterCharacter', masterCharacter);
+  console.log('columnNumber', columnNumber);
+  console.log('cardNumber', cardNumber);
+  console.log('updateValueLog', updateValueLog)
+})
 
   const userActivity = e => {
     e.preventDefault();
@@ -27,10 +34,10 @@ const Activity = () => {
   };
 
   const userEditActivity = index => {
-    console.log(index)
     updateUserEdit(true);
     updateEditIndexNumber(index);
     updateValueLog(userLogSubmit[index]);
+
   };
 
   const renderLog = () => {
