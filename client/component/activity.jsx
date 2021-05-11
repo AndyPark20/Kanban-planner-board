@@ -27,6 +27,7 @@ const Activity = () => {
   };
 
   const userEditActivity = index => {
+    console.log(index)
     updateUserEdit(true);
     updateEditIndexNumber(index);
     updateValueLog(userLogSubmit[index]);

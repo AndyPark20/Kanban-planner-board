@@ -60,11 +60,6 @@ const App = () => {
     // this does the same thing but much cleaner
     modalStatusUpdate(!modalStatus);
 
-    // if (!modalStatus) {
-    //   modalStatusUpdate(true);
-    // } else {
-    //   modalStatusUpdate(false);
-    // }
   };
 
   const modalCancelFunction = () => {
