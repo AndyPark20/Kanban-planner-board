@@ -17,9 +17,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   })
 
-  useEffect(() => {
-    console.log(userLogSubmit)
-  }, [userLogSubmit])
+
 
   const userActivity = e => {
     e.preventDefault();
@@ -65,16 +63,16 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     e.preventDefault();
     if (!userEdit) {
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog)
-      updateUserLogSubmit(userLogSubmit.concat(userLog));
+      updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
+      updateMasterCharacter(masterCharacter)
+      updateUserLog({info:''})
     } else {
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
+
     }
   };
 
-  const handleChange = e => {
-    updateValueLog(e.target.value);
-  };
 
   const saveButtonRender = () => {
     if (saveButton) {
@@ -90,7 +88,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         <h3 className="pl-2">Activity</h3>
       </div>
       <form onChange={e => userActivity(e)} className="d-flex" required>
-        <textarea className="form-control w-75" rows="1" value={valueLog.info} onChange={e => handleChange(e)} required></textarea>
+        <textarea className="form-control w-75" rows="1" value={userLog.info} required></textarea>
         <button type="submit" className={saveButtonRender()} onClick={e => userSave(e)}>Save</button>
       </form>
       <div className="pl-4">
