@@ -17,6 +17,11 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   })
 
+  useEffect(()=>{
+    if(userEdit){
+      updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber])
+    }
+  },[userEdit])
 
 
   const userActivity = e => {
@@ -24,9 +29,9 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     if (!userEdit) {
       updateUserLog({ info: e.target.value, time: Date.now() });
     } else {
-      const editArray = {};
       userLogSubmit.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() });
       updateUserLogSubmit(userLogSubmit);
+
     }
     if (e.target.value !== '') {
       updateSaveButton(true);
@@ -66,6 +71,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateMasterCharacter(masterCharacter)
       updateUserLog({info:''})
+      updateUserEdit(false)
     } else {
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
@@ -80,7 +86,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
     return 'hidden';
   };
-
   return (
     <div>
       <div className="d-flex align-items-center pl-2">
