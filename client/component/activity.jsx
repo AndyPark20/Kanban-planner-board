@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 
-const Activity = ({updateMasterCharacter, masterCharacter, cardNumber, columnNumber}) => {
+const Activity = ({renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber}) => {
 
   const [userLog, updateUserLog] = useState('');
   const [valueLog, updateValueLog] = useState('');
@@ -11,10 +11,10 @@ const Activity = ({updateMasterCharacter, masterCharacter, cardNumber, columnNum
   const [saveButton, updateSaveButton] = useState(false);
 
 useEffect(()=>{
-  if(masterCharacter.length !==0){
-    console.log('masterCharacter', masterCharacter[columnNumber].list[cardNumber])
+  if(renderActivity){
+    const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
+    updateUserLogSubmit(activityArray);
   }
-
 })
 
   const userActivity = e => {

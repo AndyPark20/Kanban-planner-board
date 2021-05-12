@@ -14,10 +14,6 @@ const Modal = ({renderActivity, updateDescription, modal, columnNumber, cardNumb
   const [button, updateButton] = useState(true);
 
 
-  useEffect(()=>{
-    console.log(renderActivity);
-  })
-
   useEffect(() => {
     if (masterCharacter.length !== 0) {
       const selectedColumn = masterCharacter[columnNumber].list;
@@ -123,7 +119,7 @@ const Modal = ({renderActivity, updateDescription, modal, columnNumber, cardNumb
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity  updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber}/>
+          <Activity renderActivity={renderActivity}  updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber}/>
         </div>
       </div>
     </div>
