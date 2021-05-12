@@ -41,13 +41,6 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
     return 'hidden';
   };
 
-  // const test = {
-  //   input1 : '',
-  //   input2: ''
-  // }
-
-  // this is if you want to reuse input updating for multiple fields
-  // const handleUpdateInputTest = (fieldName) => (event) => updateTestInput({...testInput, [fieldName]: event.target.value});
 
   return (
     <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} >
