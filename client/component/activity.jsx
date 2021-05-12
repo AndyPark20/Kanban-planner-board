@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 
-const Activity = ({renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber}) => {
+const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
 
   const [userLog, updateUserLog] = useState('');
   const [valueLog, updateValueLog] = useState('');
@@ -10,12 +10,16 @@ const Activity = ({renderActivity, updateMasterCharacter, masterCharacter, cardN
   const [editIndexNumber, updateEditIndexNumber] = useState(null);
   const [saveButton, updateSaveButton] = useState(false);
 
-useEffect(()=>{
-  if(renderActivity){
-    const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
-    updateUserLogSubmit(activityArray);
-  }
-})
+  useEffect(() => {
+    if (renderActivity) {
+      const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
+      updateUserLogSubmit(activityArray);
+    }
+  })
+
+  useEffect(() => {
+    console.log(userLogSubmit)
+  }, [userLogSubmit])
 
   const userActivity = e => {
     e.preventDefault();
@@ -41,23 +45,21 @@ useEffect(()=>{
   };
 
   const renderLog = () => {
-    // if(masterCharacter.length !==0){
-    //   if(masterCharacter[columnNumber].list[cardNumber] !==undefined){
-    //     const data = userLogSubmit.map((values, index) => {
-    //       return (
-    //         <div key={index} className="d-flex align-items-center">
-    //           <i className="far fa-comment-dots"></i>
-    //           <h5 className="pl-2">{values.info}</h5>
-    //           <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
-    //           <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
-    //         </div>
-    //       );
-    //     });
-    //     return data;
+    if (userLogSubmit !== undefined) {
+      const data = userLogSubmit.map((values, index) => {
+        return (
+          <div key={index} className="d-flex align-items-center">
+            <i className="far fa-comment-dots"></i>
+            <h5 className="pl-2">{values.info}</h5>
+            <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
+            <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
+          </div>
+        );
+      });
+      return data;
+    }
 
-    //   }
-    // }
-  };
+  }
 
   const userSave = e => {
     e.preventDefault();
@@ -89,7 +91,7 @@ useEffect(()=>{
       </div>
       <form onChange={e => userActivity(e)} className="d-flex" required>
         <textarea className="form-control w-75" rows="1" value={valueLog.info} onChange={e => handleChange(e)} required></textarea>
-        <button type="submit" className={saveButtonRender()}onClick={e => userSave(e)}>Save</button>
+        <button type="submit" className={saveButtonRender()} onClick={e => userSave(e)}>Save</button>
       </form>
       <div className="pl-4">
         {renderLog()}
