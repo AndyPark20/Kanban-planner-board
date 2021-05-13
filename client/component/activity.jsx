@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
+import { render } from 'react-dom';
 
 const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
 
@@ -16,11 +17,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
       updateUserLogSubmit(activityArray);
     }
-  })
-
-  useEffect(()=>{
-    console.log(userEdit)
-    console.log(masterCharacter)
   })
 
   useEffect(() => {

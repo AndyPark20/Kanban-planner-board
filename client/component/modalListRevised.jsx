@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
 
-const Modal = ({renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({updateRenderActivity,renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -38,6 +38,7 @@ const Modal = ({renderActivity, updateDescription, modal, columnNumber, cardNumb
     updateInitialDescription('');
     updateDescription('');
     updateModal(false);
+    updateRenderActivity(false)
   }
 
   function updateCardTitle(e) {
