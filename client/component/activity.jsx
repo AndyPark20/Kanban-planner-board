@@ -19,6 +19,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   })
 
   useEffect(()=>{
+    console.log(userEdit)
     console.log(masterCharacter)
   })
 
@@ -34,9 +35,10 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     if (!userEdit) {
       updateUserLog({ info: e.target.value, time: Date.now() });
     } else {
-      const selected = masterCharacter[columnNumber].list[cardNumber].activity
-      selected.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() });
-      updateUserLog(selected);
+
+      masterCharacter[columnNumber].list[cardNumber].activity.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() });
+      updateUserLog({ info: e.target.value, time: Date.now() });
+      // updateMasterCharacter(masterCharacter)
       // Need to update the master character
       // updateMasterCharacter(selected);
       // updateUserLog(selected)
@@ -73,7 +75,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   }
 
-
   const userSave = e => {
     e.preventDefault();
     if (!userEdit) {
@@ -90,7 +91,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
 
     }
   };
-
 
   const saveButtonRender = () => {
     if (saveButton) {
