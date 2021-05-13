@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
 
-const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({updateRenderActivity,renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -12,6 +12,7 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(true);
+
 
   useEffect(() => {
     if (masterCharacter.length !== 0) {
@@ -37,6 +38,7 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
     updateInitialDescription('');
     updateDescription('');
     updateModal(false);
+    updateRenderActivity(false)
   }
 
   function updateCardTitle(e) {
@@ -118,7 +120,7 @@ const Modal = ({ updateDescription, modal, columnNumber, cardNumber, masterChara
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity />
+          <Activity renderActivity={renderActivity}  updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber}/>
         </div>
       </div>
     </div>

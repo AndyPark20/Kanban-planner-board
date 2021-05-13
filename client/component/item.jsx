@@ -20,6 +20,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       masterCharacter[columnNumber].list[cardSequence].desc = description;
+      masterCharacter[columnNumber].list[cardSequence].activity =[];
       update(masterCharacter);
       masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
@@ -40,13 +41,6 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
     return 'hidden';
   };
 
-  // const test = {
-  //   input1 : '',
-  //   input2: ''
-  // }
-
-  // this is if you want to reuse input updating for multiple fields
-  // const handleUpdateInputTest = (fieldName) => (event) => updateTestInput({...testInput, [fieldName]: event.target.value});
 
   return (
     <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} >
