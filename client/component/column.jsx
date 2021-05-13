@@ -63,6 +63,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
 
   const allowDrop = e => {
     e.preventDefault();
+    updateRenderActivity(false)
   };
 
   const controlDragStart = (e, values, info, indexItem) => {
