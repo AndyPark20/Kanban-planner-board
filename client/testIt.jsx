@@ -6,9 +6,8 @@ import { render } from 'react-dom';
 const HomeEntry = () =>{
 
   return(
-
     <div>
-      <input type="text"></input>
+      <input type="button"></input>
     </div>
   )
 }
