@@ -41,7 +41,7 @@ const App = () => {
   useEffect(() => {
     window.addEventListener('hashchange',()=>{
       const changedHash = window.location.hash;
-      const parsed = parseRoute(changedHash);
+      const parsed = ParseRoute(changedHash);
       console.log(parsed)
     })
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
