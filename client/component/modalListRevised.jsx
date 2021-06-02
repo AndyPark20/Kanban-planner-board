@@ -15,6 +15,7 @@ const Modal = ({updateRenderActivity,renderActivity, updateDescription, modal, c
 
 
   useEffect(() => {
+
     if (masterCharacter.length !== 0) {
       const selectedColumn = masterCharacter[columnNumber].list;
       if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined ) {
