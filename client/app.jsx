@@ -19,6 +19,7 @@ const App = () => {
   const [columnUpdate, updateColumnComponent] = useState(false);
   const [description, updateDescription] = useState('');
   const [renderActivity, updateRenderActivity] = useState(false);
+  const [currentUrl, updateCurrenUrl] = useState('');
 
   const characters = [
     {
@@ -42,11 +43,12 @@ const App = () => {
     window.addEventListener('hashchange',()=>{
       const changedHash = window.location.hash;
       const parsed = ParseRoute(changedHash);
-      console.log(parsed)
+      updateCurrenUrl(parsed);
     })
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
     wallpaperUpdate(retrieveWallpaper);
   }, []);
+
 
 
 
