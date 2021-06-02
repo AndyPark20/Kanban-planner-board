@@ -40,6 +40,7 @@ const Home = () => {
 
 
   useEffect(() => {
+    location.hash = 'Home';
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
     wallpaperUpdate(retrieveWallpaper);
   }, []);
@@ -119,7 +120,6 @@ const Home = () => {
         </div>
         <Column updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
       </div>
-      <TestIt />
     </div>
   );
 };
