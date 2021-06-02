@@ -4,6 +4,7 @@ import Navigation from './options';
 import Background from './component/library/backgroundOption';
 // import Modal from './component/modalList';
 import ModalRevised from './component/modalListRevised';
+import ParseRoute from '../client/component/library/parse-route';
 
 const App = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
@@ -38,9 +39,16 @@ const App = () => {
 
 
   useEffect(() => {
+    window.addEventListener('hashchange',()=>{
+      const changedHash = window.location.hash;
+      const parsed = parseRoute(changedHash);
+      console.log(parsed)
+    })
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
     wallpaperUpdate(retrieveWallpaper);
   }, []);
+
+
 
   const change = e => {
     if (!hamburger && e.target.className === 'fas fa-bars') {
