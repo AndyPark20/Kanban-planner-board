@@ -18,7 +18,7 @@ const App = () => {
     if (currentUrl === 'Home') {
       return <Home />;
     }
-    if (currentUrl === 'Login') {
+    if (currentUrl === '') {
       return <TestIt />;
     }
   };

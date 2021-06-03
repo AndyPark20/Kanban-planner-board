@@ -5,7 +5,7 @@ const HomeEntry = () => {
 
   const next = () => {
     console.log('next Triggered');
-    window.hash = 'Home';
+    location.hash = 'Home';
   };
 
   return (
