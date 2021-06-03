@@ -1,21 +1,19 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 
+const HomeEntry = () => {
 
+  const next = () => {
+    console.log('next Triggered');
+    window.hash = 'Home';
+  };
 
-const HomeEntry = () =>{
-
-  useEffect(()=>{
-    window.hash='Login'
-  })
-
-
-  return(
+  return (
     <div>
       <h1>Hello</h1>
-      <input type="button"></input>
+      <input className="test" type="button" onClick={next}></input>
     </div>
-  )
-}
+  );
+};
 
 export default HomeEntry;
