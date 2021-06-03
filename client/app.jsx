@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Home from './home';
 import ParseRoute from '../client/component/library/parse-route';
-import TestIt from './testIt';
+import LogIn from './login';
 
 const App = () => {
   const [currentUrl, updateCurrentUrl] = useState('');
@@ -19,7 +19,7 @@ const App = () => {
       return <Home />;
     }
     if (currentUrl === '') {
-      return <TestIt />;
+      return <LogIn />;
     }
   };
 
