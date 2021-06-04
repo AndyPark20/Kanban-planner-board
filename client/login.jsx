@@ -18,6 +18,9 @@ const HomeEntry = () => {
           <label className="title-margin">Password:</label>
           <input name="password" className="input-width" type="password"></input>
         </div>
+        <div>
+          <input type='submit'>Login</input>
+        </div>
         </form>
       </div>
     </div>
