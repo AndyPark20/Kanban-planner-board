@@ -24,8 +24,9 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
     .then(data => {
       res.status(201).json(data);
     });
-
 });
+
+console.log(process.env.PORT);
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

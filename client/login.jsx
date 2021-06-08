@@ -21,7 +21,7 @@ const HomeEntry = () => {
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
         <div className="type-column d-flex flex-column ">
-          <form>
+          <form onChange ={e => handleSubmit(e)}>
             <label className="title-margin">UserName:</label>
             <input name="username" className="input-width" type="text" values={userName} onChange={e => handleSubmit(e)}></input>
             <div className="pt-2">
@@ -29,7 +29,7 @@ const HomeEntry = () => {
               <input name="password" className="input-width" type="password" values={passWord} onChange={e => handleSubmit(e)}></input>
             </div>
             <div className="text-right mt-5">
-              <button type="submit" className="btn btn-primary margin">Submit</button>
+              <button type="submit" className="btn btn-primary margin" onClick={logIn}>Submit</button>
             </div>
           </form>
         </div>
