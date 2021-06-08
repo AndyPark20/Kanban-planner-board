@@ -26,7 +26,14 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
     });
 });
 
-console.log(process.env.PORT);
+// TESTING LOG IN
+app.get('/logIn', (req, res, next) => {
+  try {
+    console.log('hello');
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

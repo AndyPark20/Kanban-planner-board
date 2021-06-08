@@ -7,9 +7,14 @@ const HomeEntry = () => {
   const [userName, updateUserName] = useState('');
   const [passWord, updatePassWord] = useState('');
 
-  useEffect(() => {
-    console.log('username', userName);
-  });
+  const logIn = e => {
+    e.preventDefault();
+
+    fetch('/logIn')
+      .then(res => {
+        return res.json();
+      });
+  };
 
   const handleSubmit = e => {
     updateUserName(e.target.value);
@@ -29,7 +34,7 @@ const HomeEntry = () => {
               <input name="password" className="input-width" type="password" values={passWord} onChange={e => handleSubmit(e)}></input>
             </div>
             <div className="text-right mt-5">
-              <button type="submit" className="btn btn-primary margin" onClick={logIn}>Submit</button>
+              <button type="submit" className="btn btn-primary margin" onClick={e => logIn(e)}>Submit</button>
             </div>
           </form>
         </div>
