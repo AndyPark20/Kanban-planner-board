@@ -8,16 +8,21 @@ const HomeEntry = () => {
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
-        <div className="type-column d-flex flex-column">
+        <div className="type-column d-flex flex-column border border-danger">
           <form>
             <label className="title-margin">UserName:</label>
             <input name="username" className="input-width" type="text"></input>
-            <label className="title-margin">Password:</label>
-            <input name="password" className="input-width" type="password"></input>
+            <div className="pt-2">
+              <label className="title-margin">Password:</label>
+              <input name="password" className="input-width" type="password"></input>
+            </div>
+            <div className="text-right">
+              <button type="submit">Submit</button>
+            </div>
           </form>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
