@@ -7,15 +7,21 @@ const HomeEntry = () => {
   const [userName, updateUserName] = useState('');
   const [passWord, updatePassWord] = useState('');
 
+  useEffect(() => {
+    console.log(userName);
+    console.log('password', passWord);
+  });
+
   const logIn = async e => {
     e.preventDefault();
     const result = await fetch('localhost:3000/logIn', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'Application/json'
+        Accept: 'application/json'
       },
       body: JSON.stringify()
+
     });
 
   };
