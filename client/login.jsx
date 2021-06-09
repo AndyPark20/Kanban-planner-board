@@ -7,13 +7,17 @@ const HomeEntry = () => {
   const [userName, updateUserName] = useState('');
   const [passWord, updatePassWord] = useState('');
 
-  const logIn = e => {
+  const logIn = async e => {
     e.preventDefault();
+    const result = await fetch('localhost:3000/logIn', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'Application/json'
+      },
+      body: JSON.stringify()
+    });
 
-    fetch('/logIn')
-      .then(res => {
-        return res.json();
-      });
   };
 
   const handleSubmit = e => {
