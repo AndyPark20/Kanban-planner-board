@@ -27,12 +27,8 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
 });
 
 // TESTING LOG IN
-app.get('/logIn', (req, res, next) => {
-  try {
-    console.log('hello');
-  } catch (err) {
-    console.log(err);
-  }
+app.post('/logIn', (req, res, next) => {
+  console.log('hello');
 });
 
 app.listen(process.env.PORT, () => {
