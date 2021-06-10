@@ -26,6 +26,10 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
     });
 });
 
+appp.get('/test', (req, res, next) => {
+  console.log('hello good sir');
+});
+
 // TESTING LOG IN
 app.post('/logIn', (req, res, next) => {
   console.log('hello');

@@ -10,16 +10,20 @@ const HomeEntry = () => {
   const logIn = async e => {
     const credentials = { username: userName, password: passWord };
     e.preventDefault();
-    const result = await fetch('/logIn', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    });
-    // another promise
-    const response = await result.json();
-    console.log(response);
+    try {
+      const result = await fetch('/logIn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+      });
+      // another promise
+      const response = await result.json();
+      console.log('result', response);
+    } catch (err) {
+      console.log(err);
+    }
 
   };
 
