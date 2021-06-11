@@ -3,9 +3,11 @@ const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const fetch = require('node-fetch');
 const cors = require('cors');
+const json = express.json();
 
 const app = express();
 
+app.use(json);
 app.use(cors());
 app.use(staticMiddleware);
 
