@@ -10,12 +10,13 @@ app.use(cors());
 app.use(staticMiddleware);
 
 app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
-  fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
-    }
+  console.log('picture time');
+  // fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-type': 'application/json',
+  //     Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
+  //   }
   })
 
     .then(res => {
@@ -26,13 +27,14 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
     });
 });
 
-appp.get('/test', (req, res, next) => {
-  console.log('hello good sir');
-});
+// app.get('/test', (req, res, next) => {
+//   console.log('hello good sir');
+// });
 
 // TESTING LOG IN
-app.post('/logIn', (req, res, next) => {
+app.get('/logIn', (req, res, next) => {
   console.log('hello');
+
 });
 
 app.listen(process.env.PORT, () => {
