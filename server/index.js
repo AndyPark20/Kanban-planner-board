@@ -11,6 +11,12 @@ app.use(json);
 app.use(cors());
 app.use(staticMiddleware);
 
+app.get('/test', (req, res, next) => {
+  console.log(array);
+  const array = [];
+  res.json(array);
+});
+
 app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
   fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
     method: 'GET',
