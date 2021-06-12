@@ -20,10 +20,10 @@ const signUp = () => {
           <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
             <label htmlFor="firstname">Firstname:</label>
             <input type="text" name="firstname" value={firstName} onChange={handleChange}></input>
-            <label>Lastname:</label>
-            <input htmlFor="lastname" type="text" name="lastname" value={lastName} onChange={handleChange}></input>
-            <div className="mt-2 text-right">
-            <button name="lastname" type="submit" className="btn btn-success margin" onClick={e => logIn(e)}>Submit</button>
+              <label className="mt-2">Lastname:</label>
+              <input htmlFor="lastname" type="text" name="lastname" value={lastName} onChange={handleChange}></input>
+            <div className="mt-2 d-flex justify-content-end custom-margin">
+              <button name="lastname" type="submit" className="btn btn-success" onClick={e => logIn(e)}>Submit</button>
             </div>
           </form>
         </div>
