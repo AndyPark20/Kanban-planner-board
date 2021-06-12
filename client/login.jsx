@@ -5,28 +5,30 @@ const HomeEntry = () => {
 
   const [userName, updateUserName] = useState('');
   const [passWord, updatePassWord] = useState('');
-  const [errorLogin, updateErrorLogIn] = useState('Error');
+  const [errorLogin, updateErrorLogIn] = useState('');
 
   const logIn = async e => {
     const credentials = { username: userName, password: passWord };
-    e.preventDefault();
-    try {
-      const result = await fetch('/api/logIn', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-      });
-      // another promise
-      const response = await result.json();
-      console.log('result', response);
-      if (response === 'Welcome') {
-        location.hash = 'Home';
-      }
-    } catch (err) {
-      console.log(err);
+    if (!userName) {
+      updateErrorLogIn('Username empty!');
     }
+    // try {
+    //   const result = await fetch('/api/logIn', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(credentials)
+    //   });
+    //   // another promise
+    //   const response = await result.json();
+    //   console.log('result', response);
+    //   if (response === 'Welcome') {
+    //     location.hash = 'Home';
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
   };
 
@@ -42,6 +44,12 @@ const HomeEntry = () => {
     e.preventDefault();
   };
 
+  const errorBorder = () => {
+    if (errorLogin === 'Username empty!') {
+      return 'input-width';
+    }
+  };
+
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
@@ -49,10 +57,10 @@ const HomeEntry = () => {
         <div className="type-column d-flex flex-column ">
           <form onSubmit={handleSubmit}>
             <label className="title-margin">UserName:</label>
-            <input name="username" className="input-width" type="text" value={userName} onChange={e => handleSubmituserName(e)} required></input>
+            <input name="username" className={errorBorder} type="text" value={userName} onChange={e => handleSubmituserName(e)} required></input>
             <div className="pt-2">
               <label className="title-margin">Password:</label>
-              <input name="password" className="input-width" type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
+              <input name="password" className="input-width" type="password" value={passWord} onChange={e => handleSubmitPassWord(e)} required></input>
             </div>
             <div className="text-right mt-5">
               <button type="button" className="btn btn-primary mr-2">sign-up</button>
