@@ -36,7 +36,7 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
 app.post('/api/logIn', async (req, res, next) => {
   try {
     const hash = await argon2.hash(req.body.username);
-    res.status(201).json(hash);
+    res.status(201).json('Welcome');
   } catch (err) {
     console.log('ERR' + err);
   }
