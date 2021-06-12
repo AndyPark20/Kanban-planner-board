@@ -12,12 +12,17 @@ const HomeEntry = () => {
 
   const logIn = async e => {
     const credentials = { username: userName, password: passWord };
-    if (!userName) {
+    if (!userName && passWord) {
       updateErrorStatus(true);
       updateuserNameLogIn('Username Empty!');
-    } else if (!passWord) {
+    } else if (userName && !passWord) {
       updatePasswordError(true);
       updateErrorPassword('Password Empty!');
+    } else if (!userName && !passWord) {
+      updatePasswordError(true);
+      updateErrorPassword('Password Empty!');
+      updateErrorStatus(true);
+      updateuserNameLogIn('Username Empty!');
     } else {
       try {
         const result = await fetch('/api/logIn', {
