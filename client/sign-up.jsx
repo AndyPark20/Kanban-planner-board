@@ -1,18 +1,13 @@
-import { sign } from 'jsonwebtoken';
+
 import React, { useState, useEffect } from 'react';
 
 const signUp = () => {
-  const [firstName, updateFirstName] = useState('');
-  const [lastName, updateLastName] = useState('');
-  const [username, updateUserName] = useState('');
-  const [password, updatePassword] = useState('');
-  const [confirmPassword, updateConfirmPassword] = useState('');
-
-  let signUpObject = {};
-
-  // useEffect(() => {
-  //   console.log(signUpObject);
-  // });
+  const [userInfo, updateUserInfo] = useState({});
+  const [firstname, updateFirstName] = useState('Firstname:');
+  const [lastName, updateLastName] = useState('Lastname:');
+  const [userName, updateUserName] = useState('Username:');
+  const [password, updatePassword] = useState('Password:');
+  const [confirmPassword, updateConfirmPassword] = useState('Confirm Password:');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -21,9 +16,8 @@ const signUp = () => {
   function handleChange(e) {
     const name = e.target.name;
     const input = e.target.value;
-    const newObject = { [name]: input };
-    signUpObject = { ...newObject };
-    console.log(signUpObject);
+    userInfo[name] = input;
+    updateUserInfo(userInfo);
   }
 
   return (
@@ -32,22 +26,22 @@ const signUp = () => {
         <div className="type-column d-flex flex-column align-items-center">
           <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
             {/* Firstname */}
-            <label htmlFor="firstname">Firstname:</label>
-            <input type="text" name="firstname" value={signUpObject.firstName} onChange={handleChange}></input>
+            <label htmlFor="firstname">{firstname}</label>
+            <input type="text" name="firstname" value={userInfo.firstName} onChange={handleChange}></input>
             {/* lastname */}
-            <label htmlFor="lastname" className="mt-2">Lastname:</label>
-            <input name="lastname" type="text" value={signUpObject.firstName} onChange={handleChange}></input>
+            <label htmlFor="lastname" className="mt-2">{lastName}</label>
+            <input name="lastname" type="text" value={userInfo.lastName} onChange={handleChange}></input>
             {/* Username */}
-            <label htmlFor="userName" className="mt-2">Username:</label>
-            <input name="userName" type="text" value={username} onChange={handleChange}></input>
+            <label htmlFor="userName" className="mt-2">{userName}</label>
+            <input name="userName" type="text" value={userInfo.userName} onChange={handleChange}></input>
             {/* Password */}
-            <label htmlFor="password" className="mt-2">Password:</label>
-            <input name="password" type="password" value={password} onChange={handleChange}></input>
+            <label htmlFor="password" className="mt-2">{password}</label>
+            <input name="password" type="password" value={userInfo.password} onChange={handleChange}></input>
             {/* re-enter password */}
-            <label htmlFor="password" className="mt-2">Confirm Password:</label>
-            <input name="password" type="password" value={confirmPassword} onChange={handleChange}></input>
+            <label htmlFor="confirmPassword" className="mt-2">{confirmPassword}</label>
+            <input name="confirmPassword" type="password" value={userInfo.confirmPassword} onChange={handleChange}></input>
             <div name="userName" className="mt-2 d-flex justify-content-end custom-margin">
-              <button name="lastname" type="submit" className="btn btn-success" >Submit</button>
+              <button name="lastname" type="submit" className="btn btn-success" onClick={submitForm}>Submit</button>
             </div>
           </form>
         </div>
