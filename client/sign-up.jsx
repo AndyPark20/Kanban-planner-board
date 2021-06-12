@@ -24,19 +24,19 @@ const signUp = () => {
           <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
             {/* Firstname */}
             <label htmlFor="firstname">Firstname:</label>
-            <input type="text" name="firstname" value={firstName} onChange={handleChange}></input>
+            <input type="text" name="firstname" value={firstName} onChange={e => updateFirstName(e.target.value)}></input>
             {/* lastname */}
             <label htmlFor="lastname" className="mt-2">Lastname:</label>
-            <input name="lastname" type="text" value={lastName} onChange={handleChange}></input>
+            <input name="lastname" type="text" value={lastName} onChange={e => updateLastName(e.target.value)}></input>
             {/* Username */}
             <label htmlFor="userName" className="mt-2">Username:</label>
-            <input name="userName" type="text"></input>
+            <input name="userName" type="text" onChange={e => updateUserName(e.target.value)}></input>
             {/* Password */}
             <label htmlFor="password" className="mt-2">Password:</label>
-            <input name="password" type="password"></input>
+            <input name="password" type="password" onChange={e => updatePassword(e.target.value)}></input>
             {/* re-enter password */}
             <label htmlFor="password" className="mt-2">Confirm Password:</label>
-            <input name="password" type="password"></input>
+            <input name="password" type="password" onChange={e => updateConfirmPassword(e.target.value)}></input>
             <div name="userName" className="mt-2 d-flex justify-content-end custom-margin">
               <button name="lastname" type="submit" className="btn btn-success" onClick={e => logIn(e)}>Submit</button>
             </div>
