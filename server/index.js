@@ -4,6 +4,7 @@ const staticMiddleware = require('./static-middleware');
 const fetch = require('node-fetch');
 const cors = require('cors');
 const json = express.json();
+const argon2 = require('argon2');
 
 const app = express();
 
@@ -32,8 +33,13 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
 // });
 
 // TESTING LOG IN
-app.post('/api/logIn', (req, res, next) => {
-  console.log(req.body);
+app.post('/api/logIn', async (req, res, next) => {
+  try {
+    const hash = await argon2.hash(req.body.username);
+    res.status(201).json(hash);
+  } catch (err) {
+    console.log('ERR' + err);
+  }
 
 });
 
