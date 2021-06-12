@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 const signUp = () => {
   const [userInfo, updateUserInfo] = useState({});
   const [firstname, updateFirstName] = useState('Firstname:');
+  const [firstnameStatus, updateFirstNameStatus] = useState(false);
   const [lastName, updateLastName] = useState('Lastname:');
   const [userName, updateUserName] = useState('Username:');
   const [password, updatePassword] = useState('Password:');
@@ -18,7 +19,26 @@ const signUp = () => {
     const input = e.target.value;
     userInfo[name] = input;
     updateUserInfo(userInfo);
+    if (firstname !== 'Firstname:') {
+      updateFirstName('Firstname:');
+      updateFirstNameStatus(false);
+    }
   }
+
+  const submitForm = () => {
+    if (firstname === 'Firstname:') {
+      updateFirstName('Firstname Empty!');
+      updateFirstNameStatus(true);
+    }
+  };
+
+  const redBox = () => {
+    return 'mt-2 border-error';
+  };
+
+  const redFont = () => {
+    return 'font-error';
+  };
 
   return (
     <div className="container">
@@ -26,8 +46,8 @@ const signUp = () => {
         <div className="type-column d-flex flex-column align-items-center">
           <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
             {/* Firstname */}
-            <label htmlFor="firstname">{firstname}</label>
-            <input type="text" name="firstname" value={userInfo.firstName} onChange={handleChange}></input>
+            <label htmlFor="firstname" className={firstnameStatus ? redFont() : ''}>{firstname}</label>
+            <input type="text" className={firstnameStatus ? redBox() : 'mt-2' } name="firstname" value={userInfo.firstName} onChange={handleChange}></input>
             {/* lastname */}
             <label htmlFor="lastname" className="mt-2">{lastName}</label>
             <input name="lastname" type="text" value={userInfo.lastName} onChange={handleChange}></input>
