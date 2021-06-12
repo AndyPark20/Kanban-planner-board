@@ -14,18 +14,22 @@ const signUp = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>FirstName:
-      <input type="text" value={firstName} onChange={handleChange}></input>
-        </label>
-        <label>
-          <input type="text" value={lastName} onChange={handleChange}></input>
-        </label>
-      </form>
+    <div className="container">
+      <div className="row d-flex flex-column justify-content-center">
+        <div className="type-column d-flex flex-column align-items-center">
+          <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
+            <label htmlFor="firstname">Firstname:</label>
+            <input type="text" name="firstname" value={firstName} onChange={handleChange}></input>
+            <label>Lastname:</label>
+            <input htmlFor="lastname" type="text" name="lastname" value={lastName} onChange={handleChange}></input>
+            <div className="mt-2 text-right">
+            <button name="lastname" type="submit" className="btn btn-success margin" onClick={e => logIn(e)}>Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
-
 };
 
 export default signUp;

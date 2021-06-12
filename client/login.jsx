@@ -104,10 +104,10 @@ const HomeEntry = () => {
       <div className="row d-flex flex-column justify-content-center">
         <div className="type-column d-flex flex-column ">
           <form onSubmit={handleSubmit}>
-            <label className={errorCredentialRed()}>{erroruserNameLogin}</label>
+            <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
             <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
             <div className="pt-2">
-              <label className={errorPassWordRed()}>{errorPassword}</label>
+              <label htmlFor="password" className={errorPassWordRed()}>{errorPassword}</label>
               <input name="password" className={errorPassWordBorder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
             </div>
             <div className="text-right mt-5">
