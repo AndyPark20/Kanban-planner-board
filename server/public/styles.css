@@ -213,6 +213,18 @@ ul{
   text-align:center;
 }
 
+/**border for error handling in login page **/
 .border-error{
   border:3px solid red;
+}
+
+/*Red Font color */
+.font-error{
+  color:red;
+  font-weight:bold;
+}
+
+/*Remove border focus */
+input:focus{
+  outline:none !important;
 }

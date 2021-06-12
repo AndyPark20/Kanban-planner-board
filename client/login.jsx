@@ -5,12 +5,17 @@ const HomeEntry = () => {
 
   const [userName, updateUserName] = useState('');
   const [passWord, updatePassWord] = useState('');
-  const [errorLogin, updateErrorLogIn] = useState('');
+  const [erroruserNameLogin, updateuserNameLogIn] = useState('Username:');
+  const [errorPassword, updateErrorPassword] = useState('Password:');
+  const [errorStatus, updateErrorStatus] = useState(false);
 
   const logIn = async e => {
     const credentials = { username: userName, password: passWord };
     if (!userName) {
-      updateErrorLogIn('Username empty!');
+      updateErrorStatus(true);
+      updateuserNameLogIn('Username Empty!');
+      updateErrorPassword(true);
+      updateErrorPassword('Password Empty!');
     }
     // try {
     //   const result = await fetch('/api/logIn', {
@@ -34,33 +39,50 @@ const HomeEntry = () => {
 
   const handleSubmituserName = e => {
     updateUserName(e.target.value);
+    if (e.target.value) {
+      updateuserNameLogIn('Username:');
+      updateErrorStatus(false);
+    }
   };
 
   const handleSubmitPassWord = e => {
     updatePassWord(e.target.value);
+    if (e.target.value) {
+      updateErrorPassword('Password:');
+      updateErrorStatus(false);
+    }
   };
 
   const handleSubmit = e => {
     e.preventDefault();
   };
 
-  const errorBorder = () => {
-    if (errorLogin === 'Username empty!') {
-      return 'input-width';
+  // Error Red border for user name
+  const errorUserNameborder = () => {
+    if (erroruserNameLogin && errorStatus) {
+      return 'input-width border-error';
     }
+    return 'input-width';
+  };
+
+  // Red font color for user name
+  const errorCredentialRed = () => {
+    if (erroruserNameLogin && errorStatus) {
+      return 'title-margin font-error';
+    }
+    return 'title-margin';
   };
 
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
-        <h3 className="text-center">{errorLogin}</h3>
         <div className="type-column d-flex flex-column ">
           <form onSubmit={handleSubmit}>
-            <label className="title-margin">UserName:</label>
-            <input name="username" className={errorBorder} type="text" value={userName} onChange={e => handleSubmituserName(e)} required></input>
+            <label className={errorCredentialRed()}>{erroruserNameLogin}</label>
+            <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)} required></input>
             <div className="pt-2">
-              <label className="title-margin">Password:</label>
-              <input name="password" className="input-width" type="password" value={passWord} onChange={e => handleSubmitPassWord(e)} required></input>
+              <label className={errorCredentialRed()}>{errorPassword}</label>
+              <input name="password" className={errorUserNameborder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)} required></input>
             </div>
             <div className="text-right mt-5">
               <button type="button" className="btn btn-primary mr-2">sign-up</button>
