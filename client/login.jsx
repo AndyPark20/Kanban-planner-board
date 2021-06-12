@@ -8,13 +8,15 @@ const HomeEntry = () => {
   const [erroruserNameLogin, updateuserNameLogIn] = useState('Username:');
   const [errorPassword, updateErrorPassword] = useState('Password:');
   const [errorStatus, updateErrorStatus] = useState(false);
+  const [passwordError, updatePasswordError] = useState(false);
 
   const logIn = async e => {
     const credentials = { username: userName, password: passWord };
     if (!userName) {
       updateErrorStatus(true);
       updateuserNameLogIn('Username Empty!');
-      updateErrorPassword(true);
+    } else if (!passWord) {
+      updatePasswordError(true);
       updateErrorPassword('Password Empty!');
     } else {
       try {
@@ -48,7 +50,7 @@ const HomeEntry = () => {
     updatePassWord(e.target.value);
     if (e.target.value) {
       updateErrorPassword('Password:');
-      updateErrorStatus(false);
+      updatePasswordError(false);
     }
   };
 
@@ -64,9 +66,25 @@ const HomeEntry = () => {
     return 'input-width';
   };
 
+  // Error Red border for password
+  const errorPassWordBorder = () => {
+    if (errorPassword && passwordError) {
+      return 'input-width border-error';
+    }
+    return 'input-width';
+  };
+
   // Red font color for user name
   const errorCredentialRed = () => {
     if (erroruserNameLogin && errorStatus) {
+      return 'title-margin font-error';
+    }
+    return 'title-margin';
+  };
+
+  // Red font color for password
+  const errorPassWordRed = () => {
+    if (errorPassword && passwordError) {
       return 'title-margin font-error';
     }
     return 'title-margin';
@@ -84,8 +102,8 @@ const HomeEntry = () => {
             <label className={errorCredentialRed()}>{erroruserNameLogin}</label>
             <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
             <div className="pt-2">
-              <label className={errorCredentialRed()}>{errorPassword}</label>
-              <input name="password" className={errorUserNameborder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
+              <label className={errorPassWordRed()}>{errorPassword}</label>
+              <input name="password" className={errorPassWordBorder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
             </div>
             <div className="text-right mt-5">
               <button type="button" className="btn btn-primary mr-2" onClick={signUp}>sign-up</button>
