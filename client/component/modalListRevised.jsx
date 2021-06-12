@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-
-const Modal = ({updateRenderActivity,renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -13,16 +12,14 @@ const Modal = ({updateRenderActivity,renderActivity, updateDescription, modal, c
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(true);
 
-
   useEffect(() => {
-
     if (masterCharacter.length !== 0) {
       const selectedColumn = masterCharacter[columnNumber].list;
-      if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined ) {
+      if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined) {
         const cardTitle = selectedColumn[cardNumber].name;
         const selectedCardDescription = selectedColumn[cardNumber].desc;
         updateFinalDescription(selectedCardDescription);
-        updateFinalValues(cardTitle)
+        updateFinalValues(cardTitle);
       }
     }
 
@@ -39,7 +36,7 @@ const Modal = ({updateRenderActivity,renderActivity, updateDescription, modal, c
     updateInitialDescription('');
     updateDescription('');
     updateModal(false);
-    updateRenderActivity(false)
+    updateRenderActivity(false);
   }
 
   function updateCardTitle(e) {
@@ -121,7 +118,7 @@ const Modal = ({updateRenderActivity,renderActivity, updateDescription, modal, c
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity renderActivity={renderActivity}  updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber}/>
+          <Activity renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber}/>
         </div>
       </div>
     </div>

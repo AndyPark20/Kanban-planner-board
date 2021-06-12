@@ -20,7 +20,6 @@ const Home = () => {
   const [description, updateDescription] = useState('');
   const [renderActivity, updateRenderActivity] = useState(false);
 
-
   const characters = [
     {
       id: 'Todo',
@@ -37,16 +36,11 @@ const Home = () => {
     }
   ];
 
-
-
   useEffect(() => {
     location.hash = 'Home';
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
     wallpaperUpdate(retrieveWallpaper);
   }, []);
-
-
-
 
   const change = e => {
     if (!hamburger && e.target.className === 'fas fa-bars') {

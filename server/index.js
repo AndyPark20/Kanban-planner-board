@@ -3,9 +3,11 @@ const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const fetch = require('node-fetch');
 const cors = require('cors');
+const json = express.json();
 
 const app = express();
 
+app.use(json);
 app.use(cors());
 app.use(staticMiddleware);
 
@@ -17,13 +19,21 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
       Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
     }
   })
-
     .then(res => {
       return res.json();
     })
     .then(data => {
       res.status(201).json(data);
     });
+});
+
+// app.get('/test', (req, res, next) => {
+//   console.log('hello good sir');
+// });
+
+// TESTING LOG IN
+app.post('/api/logIn', (req, res, next) => {
+  console.log(req.body);
 
 });
 

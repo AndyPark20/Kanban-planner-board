@@ -195,3 +195,16 @@ ul{
   font-size:.8rem;
 
 }
+
+.input-width{
+  width:50%;
+ margin-left:25%;
+}
+
+.title-margin{
+  margin-left:25%;
+}
+
+.margin{
+  margin-right: 25%;
+}
