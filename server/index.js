@@ -11,12 +11,6 @@ app.use(json);
 app.use(cors());
 app.use(staticMiddleware);
 
-app.get('/test', (req, res, next) => {
-  console.log(array);
-  const array = [];
-  res.json(array);
-});
-
 app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
   fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
     method: 'GET',
@@ -25,7 +19,6 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
       Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
     }
   })
-
     .then(res => {
       return res.json();
     })
@@ -39,8 +32,8 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
 // });
 
 // TESTING LOG IN
-app.post('/submit', (req, res, next) => {
-  console.log('working');
+app.post('/api/logIn', (req, res, next) => {
+  console.log(req.body);
 
 });
 
