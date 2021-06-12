@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from 'react';
 
 const signUp = () => {
-  const [userInfo, updateUserInfo] = useState({});
+  const [userInfo, updateUserInfo] = useState({ firstname: '', lastname: '', userName: '', password: '', confirmPassword: '' });
   const [firstname, updateFirstName] = useState('Firstname:');
-  const [firstnameStatus, updateFirstNameStatus] = useState(false);
   const [lastName, updateLastName] = useState('Lastname:');
   const [userName, updateUserName] = useState('Username:');
   const [password, updatePassword] = useState('Password:');
@@ -19,16 +18,15 @@ const signUp = () => {
     const input = e.target.value;
     userInfo[name] = input;
     updateUserInfo(userInfo);
-    if (firstname !== 'Firstname:') {
-      updateFirstName('Firstname:');
-      updateFirstNameStatus(false);
-    }
+
   }
 
   const submitForm = () => {
     if (firstname === 'Firstname:') {
       updateFirstName('Firstname Empty!');
-      updateFirstNameStatus(true);
+    }
+    if (lastName === 'Lastname:') {
+      updateLastName('Lastname Empty!');
     }
   };
 
@@ -37,7 +35,7 @@ const signUp = () => {
   };
 
   const redFont = () => {
-    return 'font-error';
+    return 'mt-2 font-error';
   };
 
   return (
@@ -46,11 +44,11 @@ const signUp = () => {
         <div className="type-column d-flex flex-column align-items-center">
           <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
             {/* Firstname */}
-            <label htmlFor="firstname" className={firstnameStatus ? redFont() : ''}>{firstname}</label>
-            <input type="text" className={firstnameStatus ? redBox() : 'mt-2' } name="firstname" value={userInfo.firstName} onChange={handleChange}></input>
+            <label htmlFor="firstname" className={(firstname !== 'Firstname:') ? redFont() : 'mt-2'}>{firstname}</label>
+            <input type="text" className={(firstname !== 'Firstname:') ? redBox() : '' } name="firstname" value={userInfo.firstName} onChange={handleChange}></input>
             {/* lastname */}
-            <label htmlFor="lastname" className="mt-2">{lastName}</label>
-            <input name="lastname" type="text" value={userInfo.lastName} onChange={handleChange}></input>
+            <label htmlFor="lastname" className={(lastName !== 'Lastname:') ? redFont() : 'mt-2'}>{lastName}</label>
+            <input name="lastname" className={(lastName !== 'Lastname:') ? redBox() : ''} type="text" value={userInfo.lastName} onChange={handleChange}></input>
             {/* Username */}
             <label htmlFor="userName" className="mt-2">{userName}</label>
             <input name="userName" type="text" value={userInfo.userName} onChange={handleChange}></input>
@@ -60,7 +58,7 @@ const signUp = () => {
             {/* re-enter password */}
             <label htmlFor="confirmPassword" className="mt-2">{confirmPassword}</label>
             <input name="confirmPassword" type="password" value={userInfo.confirmPassword} onChange={handleChange}></input>
-            <div name="userName" className="mt-2 d-flex justify-content-end custom-margin">
+            <div className="mt-2 d-flex justify-content-end custom-margin">
               <button name="lastname" type="submit" className="btn btn-success" onClick={submitForm}>Submit</button>
             </div>
           </form>
