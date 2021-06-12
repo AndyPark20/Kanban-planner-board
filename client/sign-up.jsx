@@ -4,12 +4,16 @@ const signUp = () => {
 
   const [firstName, updateFirstName] = useState('');
   const [lastName, updateLastName] = useState('');
+  const [username, updateUserName] = useState('');
+  const [password, updatePassword] = useState('');
+  const [confirmPassword, updateConfirmPassword] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
   };
 
   function handleChange(e) {
+    console.log(e.target.name);
     updateFirstName(e.target.value);
   }
 
