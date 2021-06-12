@@ -16,25 +16,24 @@ const HomeEntry = () => {
       updateuserNameLogIn('Username Empty!');
       updateErrorPassword(true);
       updateErrorPassword('Password Empty!');
+    } else {
+      try {
+        const result = await fetch('/api/logIn', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
+        });
+        // another promise
+        const response = await result.json();
+        if (response === 'Welcome') {
+          location.hash = 'Home';
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
-    // try {
-    //   const result = await fetch('/api/logIn', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(credentials)
-    //   });
-    //   // another promise
-    //   const response = await result.json();
-    //   console.log('result', response);
-    //   if (response === 'Welcome') {
-    //     location.hash = 'Home';
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
   };
 
   const handleSubmituserName = e => {
@@ -73,19 +72,23 @@ const HomeEntry = () => {
     return 'title-margin';
   };
 
+  const signUp = () => {
+    location.hash = 'signup';
+  };
+
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
         <div className="type-column d-flex flex-column ">
           <form onSubmit={handleSubmit}>
             <label className={errorCredentialRed()}>{erroruserNameLogin}</label>
-            <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)} required></input>
+            <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
             <div className="pt-2">
               <label className={errorCredentialRed()}>{errorPassword}</label>
-              <input name="password" className={errorUserNameborder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)} required></input>
+              <input name="password" className={errorUserNameborder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
             </div>
             <div className="text-right mt-5">
-              <button type="button" className="btn btn-primary mr-2">sign-up</button>
+              <button type="button" className="btn btn-primary mr-2" onClick={signUp}>sign-up</button>
               <button type="submit" className="btn btn-success margin" onClick={e => logIn(e)}>Submit</button>
             </div>
           </form>

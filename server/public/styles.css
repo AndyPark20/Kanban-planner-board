@@ -215,13 +215,13 @@ ul{
 
 /**border for error handling in login page **/
 .border-error{
-  border:3px solid red;
+  border:2px solid red;
 }
 
 /*Red Font color */
 .font-error{
   color:red;
-  font-weight:bold;
+  font-weight:700;
 }
 
 /*Remove border focus */
