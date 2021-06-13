@@ -21,8 +21,8 @@ const App = () => {
       return <Home />;
     }
     if (currentUrl === '') {
-      // return <LogIn />;
-      return <SignUp />;
+      return <LogIn />;
+
     }
     if (currentUrl === 'signup') {
       return <SignUp />;

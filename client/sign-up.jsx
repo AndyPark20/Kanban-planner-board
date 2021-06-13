@@ -110,6 +110,7 @@ const signUp = () => {
             <label htmlFor="confirmPassword" className={confirmPasswordStatus ? redFont() : 'mt-2'}>{confirmPassword}</label>
             <input name="confirmPassword" type="password" className={confirmPasswordStatus ? redBox() : ''} value={userInfo.confirmPassword} onChange={handleChange}></input>
             <div className="mt-2 d-flex justify-content-end custom-margin">
+              <button name="lastname" type="submit" className="btn btn-danger mr-2" >Cancel</button>
               <button name="lastname" type="submit" className="btn btn-success" onClick={submitForm}>Submit</button>
             </div>
           </form>
