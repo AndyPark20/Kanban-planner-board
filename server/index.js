@@ -29,8 +29,8 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
 });
 
 // POST method for sign up credentials
-app.post('/test', (req, res, next) => {
-  console.log('hello good sir');
+app.post('/api/signup', (req, res, next) => {
+  console.log(req.body);
 });
 
 // POST METHOD for sign in credentials

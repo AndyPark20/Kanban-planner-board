@@ -83,8 +83,16 @@ const signUp = () => {
     }
 
     if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password === userInfo.confirmPassword)) {
-      try{
-        const sendSignUp = await()
+      try {
+        const sendSignUp = await fetch('/api/signup', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(userInfo)
+        });
+      } catch (err) {
+        console.log('ERR' + err);
       }
     } else if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password !== userInfo.confirmPassword)) {
       updateTitleStatus(true);
