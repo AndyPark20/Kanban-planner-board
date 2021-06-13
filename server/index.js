@@ -28,11 +28,12 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
     });
 });
 
-// app.get('/test', (req, res, next) => {
-//   console.log('hello good sir');
-// });
+// POST method for sign up credentials
+app.post('/test', (req, res, next) => {
+  console.log('hello good sir');
+});
 
-// TESTING LOG IN
+// POST METHOD for sign in credentials
 app.post('/api/logIn', async (req, res, next) => {
   try {
     const hash = await argon2.hash(req.body.username);

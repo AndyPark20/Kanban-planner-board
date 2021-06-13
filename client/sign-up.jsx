@@ -23,11 +23,6 @@ const signUp = () => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    console.log(userInfo.password);
-    console.log(userInfo.confirmPassword);
-  });
-
   function handleChange(e) {
     const name = e.target.name;
     const input = e.target.value;
@@ -65,7 +60,7 @@ const signUp = () => {
 
   }
 
-  const submitForm = () => {
+  const submitForm = async () => {
     if (!userInfo.firstname) {
       updateFirstName('Firstname Empty!');
       updateFirstNameStatus(true);
@@ -88,7 +83,9 @@ const signUp = () => {
     }
 
     if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password === userInfo.confirmPassword)) {
-      updateStatusCheck('Account has been successfully created!');
+      try{
+        const sendSignUp = await()
+      }
     } else if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password !== userInfo.confirmPassword)) {
       updateTitleStatus(true);
       updateStatusCheck('Password and confirm-password doesn\'t Match!');
