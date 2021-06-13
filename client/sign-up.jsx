@@ -27,6 +27,10 @@ const signUp = () => {
     e.preventDefault();
   };
 
+  useEffect(() => {
+
+  });
+
   function handleChange(e) {
     const name = e.target.name;
     const input = e.target.value;
@@ -34,31 +38,32 @@ const signUp = () => {
     updateUserInfo(userInfo);
 
     // Values for the input
-    if (name === 'firstname' && userInfo[name]) {
+    if (name === 'firstname') {
+      console.log('true');
       updateFirstNameStatus(false);
       updateFirstName('Firstname:');
       updateFirstNameValue(input);
     }
 
-    if (name === 'lastname' && userInfo[name]) {
+    if (name === 'lastname') {
       updateLastNameStatus(false);
       updateLastName('Lastname:');
       updateLastNameValue(input);
     }
 
-    if (name === 'userName' && userInfo[name]) {
+    if (name === 'userName') {
       updateUserNameStatus(false);
-      updateUserName('Username:');
-      updateUserNameStatus(input);
+      updateUserName('Username Empty!');
+      updateUserNameValue(input);
     }
 
-    if (name === 'password' && userInfo[name]) {
+    if (name === 'password') {
       updatePassWordStatus(false);
-      updatePassword('password:');
+      updatePassword('Password:');
       updatePasswordValue(input);
     }
 
-    if (name === 'confirmPassword' && userInfo[name]) {
+    if (name === 'confirmPassword') {
       updateConfirmPasswordStatus(false);
       updateConfirmPassword('Confirm Password:');
       updateConfirmPasswordValue(input);
@@ -76,7 +81,7 @@ const signUp = () => {
       updateLastNameStatus(true);
     }
     if (!userInfo.userName) {
-      updateLastName('Username Empty!');
+      updateUserName('Username Empty!');
       updateUserNameStatus(true);
     }
     if (!userInfo.password) {
@@ -104,7 +109,7 @@ const signUp = () => {
           <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
             {/* Firstname */}
             <label htmlFor="firstname" className={firstNameStatus ? redFont() : 'mt-2'}>{firstname}</label>
-            <input type="text" className={firstNameStatus ? redBox() : ''} name="firstname" value={firstNameValue} onChange={handleChange}></input>
+            <input type="text" className={firstNameStatus ? redBox() : ''} name="firstname" value={userInfo.firstname} onChange={handleChange}></input>
             {/* lastname */}
             <label htmlFor="lastname" className={lastNameStatus ? redFont() : 'mt-2'}>{lastName}</label>
             <input name="lastname" className={lastNameStatus ? redBox() : ''} type="text" value={userInfo.lastname} onChange={handleChange}></input>
