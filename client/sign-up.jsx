@@ -2,12 +2,23 @@
 import React, { useState, useEffect } from 'react';
 
 const signUp = () => {
+  /* For the input Titles */
   const [userInfo, updateUserInfo] = useState({ firstname: '', lastname: '', userName: '', password: '', confirmPassword: '' });
   const [firstname, updateFirstName] = useState('Firstname:');
   const [lastName, updateLastName] = useState('Lastname:');
   const [userName, updateUserName] = useState('Username:');
   const [password, updatePassword] = useState('Password:');
+
+  /* For input value control */
+  const [inputFirstName, updateInputFirstName] = useState('');
+
+  /** For Red box and font control**/
   const [confirmPassword, updateConfirmPassword] = useState('Confirm Password:');
+  const [firstNameStatus, updateFirstNameStatus] = useState(false);
+  const [lastNameStatus, updateLastNameStatus] = useState(false);
+  const [usernameStatus, updateUserNameStatus] = useState(false);
+  const [passwordStatus, updatePassWordStatus] = useState(false);
+  const [confirmPasswordStatus, updateConfirmPasswordStatus] = useState(false);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -18,15 +29,53 @@ const signUp = () => {
     const input = e.target.value;
     userInfo[name] = input;
     updateUserInfo(userInfo);
+    if (name === 'firstname' && userInfo[name]) {
+      updateFirstNameStatus(false);
+      updateFirstName('Firstname:');
+    }
+
+    if (name === 'lastname' && userInfo[name]) {
+      updateLastNameStatus(false);
+      updateLastName('Lastname:');
+    }
+
+    if (name === 'userName' && userInfo[name]) {
+      updateUserNameStatus(false);
+      updateUserName('Username:');
+    }
+
+    if (name === 'password' && userInfo[name]) {
+      updatePassWordStatus(false);
+      updatePassword('password:');
+    }
+
+    if (name === 'confirmPassword' && userInfo[name]) {
+      updateConfirmPasswordStatus(false);
+      updateConfirmPassword('Confirm Password:');
+    }
 
   }
 
   const submitForm = () => {
-    if (firstname === 'Firstname:') {
+    if (!userInfo.firstname) {
       updateFirstName('Firstname Empty!');
+      updateFirstNameStatus(true);
     }
-    if (lastName === 'Lastname:') {
+    if (!userInfo.lastname) {
       updateLastName('Lastname Empty!');
+      updateLastNameStatus(true);
+    }
+    if (!userInfo.userName) {
+      updateLastName('Username Empty!');
+      updateUserNameStatus(true);
+    }
+    if (!userInfo.password) {
+      updatePassword('Password Empty!');
+      updatePassWordStatus(true);
+    }
+    if (!userInfo.confirmPassword) {
+      updateConfirmPassword('Password Empty!');
+      updateConfirmPasswordStatus(true);
     }
   };
 
@@ -44,20 +93,20 @@ const signUp = () => {
         <div className="type-column d-flex flex-column align-items-center">
           <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
             {/* Firstname */}
-            <label htmlFor="firstname" className={(firstname !== 'Firstname:') ? redFont() : 'mt-2'}>{firstname}</label>
-            <input type="text" className={(firstname !== 'Firstname:') ? redBox() : '' } name="firstname" value={userInfo.firstName} onChange={handleChange}></input>
+            <label htmlFor="firstname" className={firstNameStatus ? redFont() : 'mt-2'}>{firstname}</label>
+            <input type="text" className={firstNameStatus ? redBox() : ''} name="firstname" value={inputFirstName} onChange={handleChange}></input>
             {/* lastname */}
-            <label htmlFor="lastname" className={(lastName !== 'Lastname:') ? redFont() : 'mt-2'}>{lastName}</label>
-            <input name="lastname" className={(lastName !== 'Lastname:') ? redBox() : ''} type="text" value={userInfo.lastName} onChange={handleChange}></input>
+            <label htmlFor="lastname" className={lastNameStatus ? redFont() : 'mt-2'}>{lastName}</label>
+            <input name="lastname" className={lastNameStatus ? redBox() : ''} type="text" value={userInfo.lastname} onChange={handleChange}></input>
             {/* Username */}
-            <label htmlFor="userName" className="mt-2">{userName}</label>
-            <input name="userName" type="text" value={userInfo.userName} onChange={handleChange}></input>
+            <label htmlFor="userName" className={usernameStatus ? redFont() : 'mt-2'}>{userName}</label>
+            <input name="userName" type="text" className={usernameStatus ? redBox() : ''} value={userInfo.userName} onChange={handleChange}></input>
             {/* Password */}
-            <label htmlFor="password" className="mt-2">{password}</label>
-            <input name="password" type="password" value={userInfo.password} onChange={handleChange}></input>
+            <label htmlFor="password" className={passwordStatus ? redFont() : 'mt-2'}>{password}</label>
+            <input name="password" type="password" className={passwordStatus ? redBox() : ''} value={userInfo.password} onChange={handleChange}></input>
             {/* re-enter password */}
-            <label htmlFor="confirmPassword" className="mt-2">{confirmPassword}</label>
-            <input name="confirmPassword" type="password" value={userInfo.confirmPassword} onChange={handleChange}></input>
+            <label htmlFor="confirmPassword" className={confirmPasswordStatus ? redFont() : 'mt-2'}>{confirmPassword}</label>
+            <input name="confirmPassword" type="password" className={confirmPasswordStatus ? redBox() : ''} value={userInfo.confirmPassword} onChange={handleChange}></input>
             <div className="mt-2 d-flex justify-content-end custom-margin">
               <button name="lastname" type="submit" className="btn btn-success" onClick={submitForm}>Submit</button>
             </div>
