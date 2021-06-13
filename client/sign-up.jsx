@@ -2,17 +2,20 @@
 import React, { useState, useEffect } from 'react';
 
 const signUp = () => {
-  /* For the input Titles */
+  // For the input Titles
   const [userInfo, updateUserInfo] = useState({ firstname: '', lastname: '', userName: '', password: '', confirmPassword: '' });
   const [firstname, updateFirstName] = useState('Firstname:');
   const [lastName, updateLastName] = useState('Lastname:');
   const [userName, updateUserName] = useState('Username:');
   const [password, updatePassword] = useState('Password:');
 
-  /* For input value control */
-  const [inputFirstName, updateInputFirstName] = useState('');
-
-  /** For Red box and font control**/
+  // For input value control
+  const [firstNameValue, updateFirstNameValue] = useState('');
+  const [lastNameValue, updateLastNameValue] = useState('');
+  const [userNameValue, updateUserNameValue] = useState('');
+  const [passwordValue, updatePasswordValue] = useState('');
+  const [confirmPasswordValue, updateConfirmPasswordValue] = useState('');
+  // For Red box and font control
   const [confirmPassword, updateConfirmPassword] = useState('Confirm Password:');
   const [firstNameStatus, updateFirstNameStatus] = useState(false);
   const [lastNameStatus, updateLastNameStatus] = useState(false);
@@ -29,29 +32,36 @@ const signUp = () => {
     const input = e.target.value;
     userInfo[name] = input;
     updateUserInfo(userInfo);
+
+    // Values for the input
     if (name === 'firstname' && userInfo[name]) {
       updateFirstNameStatus(false);
       updateFirstName('Firstname:');
+      updateFirstNameValue(input);
     }
 
     if (name === 'lastname' && userInfo[name]) {
       updateLastNameStatus(false);
       updateLastName('Lastname:');
+      updateLastNameValue(input);
     }
 
     if (name === 'userName' && userInfo[name]) {
       updateUserNameStatus(false);
       updateUserName('Username:');
+      updateUserNameStatus(input);
     }
 
     if (name === 'password' && userInfo[name]) {
       updatePassWordStatus(false);
       updatePassword('password:');
+      updatePasswordValue(input);
     }
 
     if (name === 'confirmPassword' && userInfo[name]) {
       updateConfirmPasswordStatus(false);
       updateConfirmPassword('Confirm Password:');
+      updateConfirmPasswordValue(input);
     }
 
   }
@@ -94,7 +104,7 @@ const signUp = () => {
           <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
             {/* Firstname */}
             <label htmlFor="firstname" className={firstNameStatus ? redFont() : 'mt-2'}>{firstname}</label>
-            <input type="text" className={firstNameStatus ? redBox() : ''} name="firstname" value={inputFirstName} onChange={handleChange}></input>
+            <input type="text" className={firstNameStatus ? redBox() : ''} name="firstname" value={firstNameValue} onChange={handleChange}></input>
             {/* lastname */}
             <label htmlFor="lastname" className={lastNameStatus ? redFont() : 'mt-2'}>{lastName}</label>
             <input name="lastname" className={lastNameStatus ? redBox() : ''} type="text" value={userInfo.lastname} onChange={handleChange}></input>
