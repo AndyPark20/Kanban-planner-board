@@ -9,12 +9,6 @@ const signUp = () => {
   const [userName, updateUserName] = useState('Username:');
   const [password, updatePassword] = useState('Password:');
 
-  // For input value control
-  const [firstNameValue, updateFirstNameValue] = useState('');
-  const [lastNameValue, updateLastNameValue] = useState('');
-  const [userNameValue, updateUserNameValue] = useState('');
-  const [passwordValue, updatePasswordValue] = useState('');
-  const [confirmPasswordValue, updateConfirmPasswordValue] = useState('');
   // For Red box and font control
   const [confirmPassword, updateConfirmPassword] = useState('Confirm Password:');
   const [firstNameStatus, updateFirstNameStatus] = useState(false);
@@ -28,45 +22,38 @@ const signUp = () => {
   };
 
   useEffect(() => {
-
+    console.log(userInfo);
   });
 
   function handleChange(e) {
     const name = e.target.name;
     const input = e.target.value;
-    userInfo[name] = input;
-    updateUserInfo(userInfo);
+    updateUserInfo({ ...userInfo, [name]: input });
 
     // Values for the input
     if (name === 'firstname') {
-      console.log('true');
       updateFirstNameStatus(false);
       updateFirstName('Firstname:');
-      updateFirstNameValue(input);
     }
 
     if (name === 'lastname') {
       updateLastNameStatus(false);
       updateLastName('Lastname:');
-      updateLastNameValue(input);
     }
 
     if (name === 'userName') {
       updateUserNameStatus(false);
-      updateUserName('Username Empty!');
-      updateUserNameValue(input);
+      updateUserName('Username:');
     }
 
     if (name === 'password') {
       updatePassWordStatus(false);
       updatePassword('Password:');
-      updatePasswordValue(input);
     }
 
     if (name === 'confirmPassword') {
       updateConfirmPasswordStatus(false);
       updateConfirmPassword('Confirm Password:');
-      updateConfirmPasswordValue(input);
     }
 
   }
