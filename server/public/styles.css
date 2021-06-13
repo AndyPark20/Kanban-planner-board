@@ -228,3 +228,8 @@ ul{
 input:focus{
   outline:none !important;
 }
+
+.green{
+  color: green;
+  font-weight:700;
+}

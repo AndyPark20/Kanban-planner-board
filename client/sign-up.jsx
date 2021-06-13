@@ -8,6 +8,7 @@ const signUp = () => {
   const [lastName, updateLastName] = useState('Lastname:');
   const [userName, updateUserName] = useState('Username:');
   const [password, updatePassword] = useState('Password:');
+  const [statusCheck, updateStatusCheck] = useState('');
 
   // For Red box and font control
   const [confirmPassword, updateConfirmPassword] = useState('Confirm Password:');
@@ -16,13 +17,15 @@ const signUp = () => {
   const [usernameStatus, updateUserNameStatus] = useState(false);
   const [passwordStatus, updatePassWordStatus] = useState(false);
   const [confirmPasswordStatus, updateConfirmPasswordStatus] = useState(false);
+  const [titleStatus, updateTitleStatus] = useState(false);
 
   const handleSubmit = e => {
     e.preventDefault();
   };
 
   useEffect(() => {
-    console.log(userInfo);
+    console.log(userInfo.password);
+    console.log(userInfo.confirmPassword);
   });
 
   function handleChange(e) {
@@ -47,11 +50,15 @@ const signUp = () => {
     }
 
     if (name === 'password') {
+      updateStatusCheck('');
+      updateTitleStatus(false);
       updatePassWordStatus(false);
       updatePassword('Password:');
     }
 
     if (name === 'confirmPassword') {
+      updateStatusCheck('');
+      updateTitleStatus(false);
       updateConfirmPasswordStatus(false);
       updateConfirmPassword('Confirm Password:');
     }
@@ -79,6 +86,22 @@ const signUp = () => {
       updateConfirmPassword('Password Empty!');
       updateConfirmPasswordStatus(true);
     }
+
+    if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password === userInfo.confirmPassword)) {
+      updateStatusCheck('Account has been successfully created!');
+    } else if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password !== userInfo.confirmPassword)) {
+      updateTitleStatus(true);
+      updateStatusCheck('Password and confirm-password doesn\'t Match!');
+    }
+
+  };
+
+  const status = () => {
+    if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password === userInfo.confirmPassword) && !titleStatus) {
+      return 'green';
+    } else if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password !== userInfo.confirmPassword) && titleStatus) {
+      return 'font-error';
+    }
   };
 
   const redBox = () => {
@@ -92,6 +115,9 @@ const signUp = () => {
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
+        <div className="text-center">
+          <h4 className={status()}>{statusCheck}</h4>
+        </div>
         <div className="type-column d-flex flex-column align-items-center">
           <form onSubmit={handleSubmit} className="d-flex flex-column w-50">
             {/* Firstname */}
