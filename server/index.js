@@ -5,12 +5,20 @@ const fetch = require('node-fetch');
 const cors = require('cors');
 const json = express.json();
 const argon2 = require('argon2');
+const pg = require('pg');
 
 const app = express();
 
 app.use(json);
 app.use(cors());
 app.use(staticMiddleware);
+
+const db = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
   fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
