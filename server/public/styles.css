@@ -208,3 +208,28 @@ ul{
 .margin{
   margin-right: 25%;
 }
+
+.text-center{
+  text-align:center;
+}
+
+/**border for error handling in login page **/
+.border-error{
+  border:2px solid red;
+}
+
+/*Red Font color */
+.font-error{
+  color:red;
+  font-weight:700;
+}
+
+/*Remove border focus */
+input:focus{
+  outline:none !important;
+}
+
+.green{
+  color: green;
+  font-weight:700;
+}
