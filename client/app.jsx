@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Home from './home';
 import ParseRoute from '../client/component/library/parse-route';
 import LogIn from './login';
+import SignUp from './sign-up';
 
 const App = () => {
   const [currentUrl, updateCurrentUrl] = useState('');
@@ -10,6 +11,7 @@ const App = () => {
     window.addEventListener('hashchange', () => {
       const changedHash = window.location.hash;
       const parsed = ParseRoute(changedHash);
+      console.log(parsed);
       updateCurrentUrl(parsed.path);
     });
   });
@@ -19,7 +21,11 @@ const App = () => {
       return <Home />;
     }
     if (currentUrl === '') {
-      return <LogIn />;
+      // return <LogIn />;
+      return <SignUp />;
+    }
+    if (currentUrl === 'signup') {
+      return <SignUp />;
     }
   };
 
