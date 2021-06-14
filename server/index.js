@@ -29,8 +29,13 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
 });
 
 // POST method for sign up credentials
-app.post('/api/signup', (req, res, next) => {
-  console.log(req.body);
+app.post('/api/signup', async (req, res, next) => {
+  try {
+    const hash = await argon2.hash(req.body.password);
+    res.status(201).json(hash);
+  } catch (err) {
+    console.log('ERR' + err);
+  }
 });
 
 // POST METHOD for sign in credentials
