@@ -58,14 +58,31 @@ app.post('/api/signup', async (req, res, next) => {
   } catch (err) {
     console.error('ERR' + err);
   }
-
 });
 
 // POST METHOD for sign in credentials
 app.post('/api/logIn', async (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
   try {
-    const hash = await argon2.hash(req.body.username);
-    res.status(201).json('Welcome');
+    const sql = `
+    select "password"
+    from "users"
+    where "userName" =$1;
+    `;
+    const params = [username];
+    const result = await db.query(sql, params);
+    if (result.rows[0]) {
+      const checkPassword = result.rows[0].password;
+      const argon2Verify = await argon2.verify(checkPassword, password);
+      if (argon2Verify) {
+        res.status(201).json('Welcome!');
+      } else {
+        res.status(404).json('Password Invalid X_x');
+      }
+    } else {
+      res.status(404).json('Sorry that Username is not found!');
+    }
   } catch (err) {
     console.error('ERR' + err);
   }

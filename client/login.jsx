@@ -9,6 +9,7 @@ const HomeEntry = () => {
   const [errorPassword, updateErrorPassword] = useState('Password:');
   const [errorStatus, updateErrorStatus] = useState(false);
   const [passwordError, updatePasswordError] = useState(false);
+  const [status, updateStatus] = useState('');
 
   const logIn = async e => {
     const credentials = { username: userName, password: passWord };
@@ -34,8 +35,10 @@ const HomeEntry = () => {
         });
         // another promise
         const response = await result.json();
-        if (response === 'Welcome') {
+        if (response === 'Welcome!') {
           location.hash = 'Home';
+        } else {
+          updateStatus(response);
         }
       } catch (err) {
         console.error(err);
@@ -102,6 +105,7 @@ const HomeEntry = () => {
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
+        <h4 className="text-center">{status}</h4>
         <div className="type-column d-flex flex-column ">
           <form onSubmit={handleSubmit}>
             <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
