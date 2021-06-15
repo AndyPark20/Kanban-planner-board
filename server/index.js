@@ -41,10 +41,13 @@ app.post('/api/signup', async (req, res, next) => {
   const firstname = req.body.firstname;
   const lastname = req.body.lastname;
   const username = req.body.userName;
-  let password = '';
   try {
     const hash = await argon2.hash(req.body.password);
-    password = hash;
+    if (hash) {
+      res.status(201).json('Success!');
+    } else {
+      res.status(400).json('Something went wrong, please try again');
+    }
   } catch (err) {
     console.error('ERR' + err);
   }
@@ -54,7 +57,7 @@ app.post('/api/signup', async (req, res, next) => {
   values ($1,$2,$3, $4)
   returning *
   `;
-  const params = [firstname, lastname, username, password];
+  const params = [firstname, lastname, username, hash];
   db.query(sql, params);
 });
 
