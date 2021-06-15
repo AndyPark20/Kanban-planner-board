@@ -105,7 +105,7 @@ const HomeEntry = () => {
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
-        <h4 className="text-center">{status}</h4>
+        <h4 className={status ? 'text-center font-error' : 'text-center'}>{status}</h4>
         <div className="type-column d-flex flex-column ">
           <form onSubmit={handleSubmit}>
             <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
