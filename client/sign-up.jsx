@@ -92,7 +92,11 @@ const signUp = () => {
           body: JSON.stringify(userInfo)
         });
         const result = await sendSignUp.json();
-        console.log(result);
+        if (result) {
+          updateStatusCheck(result);
+        } else {
+          updateStatusCheck('System Error....Please try again X_x');
+        }
       } catch (err) {
         console.error('ERR' + err);
       }
