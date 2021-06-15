@@ -43,7 +43,14 @@ app.post('/api/signup', async (req, res, next) => {
   const username = req.body.userName;
   try {
     const hash = await argon2.hash(req.body.password);
-    if (hash) {
+    const sql = `
+  insert into "users"( "firstName", "lastName", "userName","password")
+  values ($1,$2,$3, $4)
+  returning *
+  `;
+    const params = [firstname, lastname, username, hash];
+    const result = await db.query(sql, params);
+    if (result.rows[0].password) {
       res.status(201).json('Success!');
     } else {
       res.status(400).json('Something went wrong, please try again');
@@ -52,13 +59,6 @@ app.post('/api/signup', async (req, res, next) => {
     console.error('ERR' + err);
   }
 
-  const sql = `
-  insert into "users"( "firstName", "lastName", "userName","password")
-  values ($1,$2,$3, $4)
-  returning *
-  `;
-  const params = [firstname, lastname, username, hash];
-  db.query(sql, params);
 });
 
 // POST METHOD for sign in credentials

@@ -91,8 +91,9 @@ const signUp = () => {
           },
           body: JSON.stringify(userInfo)
         });
+        console.log(sendSignUp);
       } catch (err) {
-        console.log('ERR' + err);
+        console.error('ERR' + err);
       }
     } else if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password !== userInfo.confirmPassword)) {
       updateTitleStatus(true);
