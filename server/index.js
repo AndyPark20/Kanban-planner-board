@@ -51,7 +51,7 @@ app.post('/api/signup', async (req, res, next) => {
     const params = [firstname, lastname, username, hash];
     const result = await db.query(sql, params);
     if (result.rows[0].password) {
-      res.status(201).json('Success!');
+      res.status(201).json('Account has been created!');
     } else {
       res.status(400).json('Something went wrong, please try again');
     }

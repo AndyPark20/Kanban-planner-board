@@ -91,7 +91,8 @@ const signUp = () => {
           },
           body: JSON.stringify(userInfo)
         });
-        console.log(sendSignUp);
+        const result = await sendSignUp.json();
+        console.log(result);
       } catch (err) {
         console.error('ERR' + err);
       }
