@@ -38,21 +38,24 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
 
 // POST method for sign up credentials
 app.post('/api/signup', async (req, res, next) => {
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
   const username = req.body.userName;
   let password = '';
   try {
     const hash = await argon2.hash(req.body.password);
     password = hash;
   } catch (err) {
-    console.log('ERR' + err);
+    console.error('ERR' + err);
   }
 
   const sql = `
-  insert into "users"("userId", "userName","password")
-  values ($1,$2,$3)
+  insert into "users"( "firstName", "lastName", "userName","password")
+  values ($1,$2,$3, $4)
   returning *
   `;
-  const params = ['1', username, password];
+  const params = [firstname, lastname, username, password];
+  db.query(sql, params);
 });
 
 // POST METHOD for sign in credentials
@@ -61,7 +64,7 @@ app.post('/api/logIn', async (req, res, next) => {
     const hash = await argon2.hash(req.body.username);
     res.status(201).json('Welcome');
   } catch (err) {
-    console.log('ERR' + err);
+    console.error('ERR' + err);
   }
 
 });
