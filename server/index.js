@@ -91,7 +91,11 @@ app.post('/api/logIn', async (req, res, next) => {
 
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
-  console.log(req.body);
+  console.log('first Id', req.body[0].id);
+  req.body[0].list.map((values, index) => {
+    console.log(values);
+  });
+  // console.log('first id list', req.body[0].list);
 });
 
 app.listen(process.env.PORT, () => {
