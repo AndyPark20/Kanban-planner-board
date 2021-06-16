@@ -141,7 +141,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
               return (
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
-                  <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
+                  <Item index={index} description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
                     columnNumber={index} masterCharacter={masterCharacter} cardName={updateCardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
                     masterCharacterUpdate={updateMasterCharacter} />
                 </div>

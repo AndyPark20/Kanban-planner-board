@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Item = ({ description, cardName, update, userCardTitle, cardSequence, columnNumber, masterCharacter, values, titleBoolean, updateModal, masterCharacterUpdate, selectedCard }) => {
+const Item = ({ description, cardName, update, userCardTitle, cardSequence, columnNumber, masterCharacter, values, titleBoolean, updateModal, masterCharacterUpdate, selectedCard, index }) => {
 
   const [pencil, updatePencil] = useState(false);
   const [input, updateInput] = useState('');
@@ -25,6 +25,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
       masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
+      const indexData = { ...masterCharacter, indexValue: index };
       try {
         // POST on the back end
         const addedCard = await fetch('/api/addCard', {
@@ -32,7 +33,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(masterCharacter)
+          body: JSON.stringify(indexData)
         });
       } catch (err) {
         console.error(err);

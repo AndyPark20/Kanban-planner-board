@@ -91,8 +91,8 @@ app.post('/api/logIn', async (req, res, next) => {
 
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
-  // console.log(req.body);
-  const listName = req.body[0].id;
+  const listName = req.body[0].list;
+  console.log(req.body);
   try {
     const sql = `
     insert into "todos" ("userId","name")
@@ -101,7 +101,6 @@ app.post('/api/addCard', async (req, res, next) => {
     `;
     const params = [1, listName];
     const result = await db.query(sql, params);
-    console.log(result);
   } catch (err) {
     console.error(err);
   }
@@ -116,8 +115,6 @@ app.get('/api/download', async (req, res, next) => {
     from "todos"
   `;
     const result = await db.query(sql);
-
-    console.log(result.rows[0]);
   } catch (err) {
     console.error(err);
   }
