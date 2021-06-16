@@ -16,15 +16,27 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
     updatedSelectedItem(selectedCard);
   });
 
-  const enterTitle = e => {
+  const enterTitle = async e => {
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       masterCharacter[columnNumber].list[cardSequence].desc = description;
-      masterCharacter[columnNumber].list[cardSequence].activity =[];
+      masterCharacter[columnNumber].list[cardSequence].activity = [];
       update(masterCharacter);
       masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
+      try {
+        // POST on the back end
+        const addedCard = await fetch('/api/addCard', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(masterCharacter)
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -40,7 +52,6 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
     }
     return 'hidden';
   };
-
 
   return (
     <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} >
