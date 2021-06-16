@@ -19,11 +19,10 @@ CREATE TABLE "users" (
 );
 
 
-
 CREATE TABLE "todos" (
 	"todoId" serial NOT NULL,
 	"name" TEXT NOT NULL,
-	"userId" integer NOT NULL,
+	"userId" serial NOT NULL,
 	CONSTRAINT "todos_pk" PRIMARY KEY ("todoId")
 ) WITH (
   OIDS=FALSE

@@ -91,14 +91,29 @@ app.post('/api/logIn', async (req, res, next) => {
 
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
-  console.log('first Id', req.body[0].id);
-  req.body[0].list.map((values, index) => {
-    console.log(values);
-  });
-  // console.log('first id list', req.body[0].list);
+  const listName = req.body[0].id;
+  try {
+    const sql = `
+    insert into "todos" ("name")
+    values ($1)
+    returning *
+    `;
+    const params = [listName];
+    const result = await db.query(sql, params);
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+
 });
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
 });
+
+// const looped = req.body[0].list.map((values, index) => {
+//   return values.name;
+// });
+// console.log('first id LIST', looped);
+// console.log('first id list', req.body[0].list);
