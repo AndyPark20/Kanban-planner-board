@@ -107,6 +107,21 @@ app.post('/api/addCard', async (req, res, next) => {
 
 });
 
+// APP GET to retrieve Data
+app.get('/api/download', async (req, res, next) => {
+  try {
+    const sql = `
+    select *
+    from "todos"
+  `;
+    const result = await db.query(sql);
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);

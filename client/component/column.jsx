@@ -26,7 +26,14 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
     }
   }, [columnUpdate]);
 
-  useEffect(() => {
+  useEffect(async () => {
+    try {
+      const dbData = await fetch('/api/download');
+      const result = await dbData.json();
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
 
   }, []);
 
