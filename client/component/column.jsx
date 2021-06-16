@@ -11,6 +11,10 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
 
+  // useEffect(() => {
+  //   updateMasterCharacter(initialCharacter);
+  // }, []);  //
+
   useEffect(() => {
     updateMasterCharacter(initialCharacter);
   }, []);

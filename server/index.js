@@ -91,6 +91,7 @@ app.post('/api/logIn', async (req, res, next) => {
 
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
+  // console.log(req.body);
   const listName = req.body[0].id;
   try {
     const sql = `
@@ -115,7 +116,8 @@ app.get('/api/download', async (req, res, next) => {
     from "todos"
   `;
     const result = await db.query(sql);
-    console.log(result);
+
+    console.log(result.rows[0]);
   } catch (err) {
     console.error(err);
   }
