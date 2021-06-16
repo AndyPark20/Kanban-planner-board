@@ -12,15 +12,15 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   const [destination, updateDestination] = useState(null);
 
   useEffect(() => {
-    updateMasterCharacter(initialCharacter)
-  }, [])
+    updateMasterCharacter(initialCharacter);
+  }, []);
 
   useEffect(() => {
     updateTitleBoolean(false);
   }, [titleBoolean]);
 
   useEffect(() => {
-    if (updatedCharacter.length !== 0){
+    if (updatedCharacter.length !== 0) {
       updateMasterCharacter(updatedCharacter);
       updateColumnComponent(false);
     }
@@ -35,16 +35,16 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     const description = e.dataTransfer.getData('description');
     if (masterCharacter.id !== originId && !columnMover) {
-      if (e.target.nodeName === 'DIV' || e.target.nodeName ==='H5') {
-        masterCharacter[position].list.push(masterCharacter[columnStartIndex].list[originId])
-        masterCharacter[columnStartIndex].list.splice(originId, 1)
+      if (e.target.nodeName === 'DIV' || e.target.nodeName === 'H5') {
+        masterCharacter[position].list.push(masterCharacter[columnStartIndex].list[originId]);
+        masterCharacter[columnStartIndex].list.splice(originId, 1);
         const returnedObjects = masterCharacter.concat();
         updateMasterCharacter(returnedObjects);
       }
     } else {
       const originCol = e.dataTransfer.getData('columnStartIndex');
       const desintationColumn = masterCharacter[position];
-      [masterCharacter[originCol], masterCharacter[position]] =[masterCharacter[position], masterCharacter[originCol]];
+      [masterCharacter[originCol], masterCharacter[position]] = [masterCharacter[position], masterCharacter[originCol]];
       const finalResult = masterCharacter.concat();
       updateMasterCharacter(finalResult);
     }
@@ -54,16 +54,16 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   const lastIndex = (e, info, indexItem, index) => {
     e.preventDefault();
     console.log('indexItem', indexItem);
-      const startIndex = e.dataTransfer.getData('startIndex');
-      const finishedIndex = indexItem;
-      [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
-      const copyCharacter = masterCharacter.concat();
-      updateMasterCharacter(copyCharacter);
+    const startIndex = e.dataTransfer.getData('startIndex');
+    const finishedIndex = indexItem;
+    [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
+    const copyCharacter = masterCharacter.concat();
+    updateMasterCharacter(copyCharacter);
   };
 
   const allowDrop = e => {
     e.preventDefault();
-    updateRenderActivity(false)
+    updateRenderActivity(false);
   };
 
   const controlDragStart = (e, values, info, indexItem) => {
@@ -74,10 +74,18 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
     e.dataTransfer.setData('description', values.desc);
   };
 
-  const makeNewItem = (e, info, index) => {
+  const makeNewItem = async (e, info, index) => {
     masterCharacter[index].list.push({ name: '' });
     const addedCardObject = masterCharacter.concat();
+    console.log(addedCardObject);
     updateMasterCharacter(addedCardObject);
+    const addedCard = await fetch('/api/addCard', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(addedCardObject)
+    });
   };
 
   // functions to move columns around
@@ -92,7 +100,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   };
 
   const changeTitle = (indexItem, index) => {
-    updateRenderActivity(true)
+    updateRenderActivity(true);
     const cardTitle = masterCharacter[index].list[indexItem].name;
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);

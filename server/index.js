@@ -89,6 +89,11 @@ app.post('/api/logIn', async (req, res, next) => {
 
 });
 
+// POST METHOD for adding card
+app.post('/api/addCard', async (req, res, next) => {
+  console.log(req.body);
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
