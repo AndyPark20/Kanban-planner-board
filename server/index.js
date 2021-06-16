@@ -94,11 +94,11 @@ app.post('/api/addCard', async (req, res, next) => {
   const listName = req.body[0].id;
   try {
     const sql = `
-    insert into "todos" ("name")
-    values ($1)
-    returning *
+    insert into "todos" ("userId","name")
+    values ($1,$2)
+    returning *;
     `;
-    const params = [listName];
+    const params = [1, listName];
     const result = await db.query(sql, params);
     console.log(result);
   } catch (err) {
