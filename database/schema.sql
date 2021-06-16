@@ -8,9 +8,11 @@ create schema "public";
 
 CREATE TABLE "users" (
 	"userId" serial NOT NULL,
-	"userName" serial NOT NULL,
+  "firstName" TEXT NOT NULL,
+  "lastName" TEXT NOT NULL,
+	"userName" TEXT NOT NULL,
 	"password" TEXT NOT NULL,
- "createdAt" timestamp NOT NULL default now(),
+	"createdAt" timestamp NOT NULL default now(),
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
@@ -43,7 +45,7 @@ CREATE TABLE "details" (
 CREATE TABLE "activities" (
 	"activityId" serial NOT NULL,
 	"activity" VARCHAR(255) NOT NULL,
- "createdAt" timestamp NOT NULL default now(),
+	  "createdAt" timestamp NOT NULL default now(),
 	"createdBy" integer NOT NULL,
 	CONSTRAINT "activities_pk" PRIMARY KEY ("activityId")
 ) WITH (
