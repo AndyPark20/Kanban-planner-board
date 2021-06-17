@@ -94,8 +94,12 @@ app.post('/api/addCard', async (req, res, next) => {
   const listName = req.body[0].list;
   const cardIndex = req.body.indexValue;
   const cardIndexString = cardIndex.toString();
-  console.log(req.body);
-  console.log(req.body[cardIndexString]);
+  const id = req.body[cardIndexString].id;
+  let revisedId = '';
+  if (id === 'Todo') {
+    revisedId = id + 's';
+  }
+
   try {
     const sql = `
     insert into "todos" ("userId","name")
