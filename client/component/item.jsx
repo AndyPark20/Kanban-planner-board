@@ -26,6 +26,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
       titleBoolean(true);
       updateOpenModal(true);
       const indexData = { ...masterCharacter, indexValue: index };
+
       try {
         // POST on the back end
         const addedCard = await fetch('/api/addCard', {

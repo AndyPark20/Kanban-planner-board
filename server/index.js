@@ -92,7 +92,7 @@ app.post('/api/logIn', async (req, res, next) => {
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
   const listName = req.body[0].list;
-  console.log(req.body[0]);
+  const cardIndex = req.body.indexValue;
   try {
     const sql = `
     insert into "todos" ("userId","name")
