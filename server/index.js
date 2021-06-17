@@ -94,19 +94,18 @@ app.post('/api/addCard', async (req, res, next) => {
   const listName = req.body[0].list;
   const cardIndex = req.body.indexValue;
   const cardIndexString = cardIndex.toString();
-  const id = req.body[cardIndexString].id;
-  let revisedId = '';
-  if (id === 'Todo') {
-    revisedId = id + 's';
-  }
-
+  const id = req.body[cardIndexString].list;
+  let cardName = '';
+  id.forEach((value, index) => {
+    cardName = value.name;
+  });
   try {
     const sql = `
     insert into "todos" ("userId","name")
     values ($1,$2)
     returning *;
     `;
-    const params = [1, listName];
+    const params = [1, cardName];
     const result = await db.query(sql, params);
   } catch (err) {
     console.error(err);
