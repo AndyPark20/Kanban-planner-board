@@ -6,13 +6,12 @@ const cors = require('cors');
 const json = express.json();
 const argon2 = require('argon2');
 const pg = require('pg');
-
 const app = express();
 
 app.use(json);
 app.use(cors());
 app.use(staticMiddleware);
-
+let userIdCurrent;
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -66,12 +65,15 @@ app.post('/api/logIn', async (req, res, next) => {
   const password = req.body.password;
   try {
     const sql = `
-    select "password"
+    select "password",
+           "userId"
     from "users"
     where "userName" =$1;
     `;
     const params = [username];
     const result = await db.query(sql, params);
+    const userId = result.rows[0].userId;
+    userIdCurrent = userId;
     if (result.rows[0]) {
       const checkPassword = result.rows[0].password;
       const argon2Verify = await argon2.verify(checkPassword, password);
@@ -91,6 +93,7 @@ app.post('/api/logIn', async (req, res, next) => {
 
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
+  console.log(userIdCurrent);
   const listName = req.body[0].list;
   const cardIndex = req.body.indexValue;
   const cardIndexString = cardIndex.toString();
