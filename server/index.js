@@ -93,7 +93,6 @@ app.post('/api/logIn', async (req, res, next) => {
 
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
-  console.log(userIdCurrent);
   const listName = req.body[0].list;
   const cardIndex = req.body.indexValue;
   const cardIndexString = cardIndex.toString();
@@ -108,8 +107,9 @@ app.post('/api/addCard', async (req, res, next) => {
     values ($1,$2)
     returning *;
     `;
-    const params = [1, cardName];
+    const params = [userIdCurrent, cardName];
     const result = await db.query(sql, params);
+    console.log(result);
   } catch (err) {
     console.error(err);
   }
