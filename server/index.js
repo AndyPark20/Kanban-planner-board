@@ -93,6 +93,9 @@ app.post('/api/logIn', async (req, res, next) => {
 app.post('/api/addCard', async (req, res, next) => {
   const listName = req.body[0].list;
   const cardIndex = req.body.indexValue;
+  const cardIndexString = cardIndex.toString();
+  console.log(req.body);
+  console.log(req.body[cardIndexString]);
   try {
     const sql = `
     insert into "todos" ("userId","name")
