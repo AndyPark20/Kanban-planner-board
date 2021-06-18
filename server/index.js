@@ -109,6 +109,7 @@ app.post('/api/addCard', async (req, res, next) => {
     `;
     const params = [userIdCurrent, cardName];
     const result = await db.query(sql, params);
+    console.log(result);
   } catch (err) {
     console.error(err);
   }
@@ -133,9 +134,3 @@ app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
 });
-
-// const looped = req.body[0].list.map((values, index) => {
-//   return values.name;
-// });
-// console.log('first id LIST', looped);
-// console.log('first id list', req.body[0].list);
