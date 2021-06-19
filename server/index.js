@@ -109,7 +109,7 @@ app.post('/api/addCard', async (req, res, next) => {
     `;
     const params = [userIdCurrent, cardName];
     const result = await db.query(sql, params);
-    console.log(result);
+    // console.log(result);
   } catch (err) {
     console.error(err);
   }
