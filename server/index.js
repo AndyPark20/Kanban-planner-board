@@ -6,13 +6,12 @@ const cors = require('cors');
 const json = express.json();
 const argon2 = require('argon2');
 const pg = require('pg');
-
 const app = express();
 
 app.use(json);
 app.use(cors());
 app.use(staticMiddleware);
-
+let userIdCurrent;
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -38,34 +37,95 @@ app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
 
 // POST method for sign up credentials
 app.post('/api/signup', async (req, res, next) => {
-  console.log(req.body);
   const firstname = req.body.firstname;
   const lastname = req.body.lastname;
   const username = req.body.userName;
-  let password = '';
   try {
     const hash = await argon2.hash(req.body.password);
-    password = hash;
     const sql = `
-  insert into "users"("firstName", "lastName", "userName","password")
-  values ($1,$2,$3,$4)
+  insert into "users"( "firstName", "lastName", "userName","password")
+  values ($1,$2,$3, $4)
   returning *
   `;
-    const params = [firstname, lastname, username, password];
-    const dbQuery = await db.query(sql, params);
+    const params = [firstname, lastname, username, hash];
+    const result = await db.query(sql, params);
+    if (result.rows[0].password) {
+      res.status(201).json('Account has been created!');
+    } else {
+      res.status(400).json('Something went wrong, please try again');
+    }
   } catch (err) {
-    console.log('ERR' + err);
+    console.error('ERR' + err);
   }
-
 });
 
 // POST METHOD for sign in credentials
 app.post('/api/logIn', async (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
   try {
-    const hash = await argon2.hash(req.body.username);
-    res.status(201).json('Welcome');
+    const sql = `
+    select "password",
+           "userId"
+    from "users"
+    where "userName" =$1;
+    `;
+    const params = [username];
+    const result = await db.query(sql, params);
+    const userId = result.rows[0].userId;
+    userIdCurrent = userId;
+    if (result.rows[0]) {
+      const checkPassword = result.rows[0].password;
+      const argon2Verify = await argon2.verify(checkPassword, password);
+      if (argon2Verify) {
+        res.status(201).json('Welcome!');
+      } else {
+        res.status(404).json('Password Invalid X_x');
+      }
+    } else {
+      res.status(404).json('Sorry that Username is not found!');
+    }
   } catch (err) {
-    console.log('ERR' + err);
+    console.error('ERR' + err);
+  }
+
+});
+
+// POST METHOD for adding card
+app.post('/api/addCard', async (req, res, next) => {
+  const listName = req.body[0].list;
+  const cardIndex = req.body.indexValue;
+  const cardIndexString = cardIndex.toString();
+  const id = req.body[cardIndexString].list;
+  let cardName = '';
+  id.forEach((value, index) => {
+    cardName = value.name;
+  });
+  try {
+    const sql = `
+    insert into "todos" ("userId","name")
+    values ($1,$2)
+    returning *;
+    `;
+    const params = [userIdCurrent, cardName];
+    const result = await db.query(sql, params);
+    // console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+
+});
+
+// APP GET to retrieve Data
+app.get('/api/download', async (req, res, next) => {
+  try {
+    const sql = `
+    select *
+    from "todos"
+  `;
+    const result = await db.query(sql);
+  } catch (err) {
+    console.error(err);
   }
 
 });
