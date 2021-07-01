@@ -22,7 +22,7 @@ const App = () => {
     }
     if (currentUrl === '') {
       // return <LogIn />;
-      return <SignUp />;
+      return <Home />;
     }
     if (currentUrl === 'signup') {
       return <SignUp />;
