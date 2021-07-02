@@ -22,7 +22,7 @@ CREATE TABLE "Doing" (
 	"userId" serial NOT NULL,
 	"cards" TEXT NOT NULL,
 	"cardID" serial NOT NULL,
-	CONSTRAINT "doing_pk" PRIMARY KEY ("userId")
+	CONSTRAINT "Doing_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
 );
@@ -33,7 +33,7 @@ CREATE TABLE "Todo" (
 	"userId" serial NOT NULL,
 	"cards" TEXT NOT NULL,
 	"cardID" serial NOT NULL,
-	CONSTRAINT "todos_pk" PRIMARY KEY ("userId")
+	CONSTRAINT "Todo_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
 );
@@ -52,8 +52,8 @@ CREATE TABLE "Done" (
 
 
 
-ALTER TABLE "doing" ADD CONSTRAINT "doing_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+ALTER TABLE "Doing" ADD CONSTRAINT "Doing_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 
-ALTER TABLE "todos" ADD CONSTRAINT "todos_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+ALTER TABLE "Todo" ADD CONSTRAINT "Todo_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 
 ALTER TABLE "Done" ADD CONSTRAINT "Done_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");

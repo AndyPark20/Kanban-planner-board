@@ -94,6 +94,7 @@ app.post('/api/logIn', async (req, res, next) => {
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
   const cardDescription = req.body[1].name;
+  console.log(cardDescription);
   let cardId = 1;
   if (cardColumnName === 'Todo') {
     try {
@@ -102,7 +103,7 @@ app.post('/api/addCard', async (req, res, next) => {
       values ($1,$2)
       returning *;
       `;
-      const params = [cardDescription cardId];
+      const params = [cardDescription, cardId];
       const result = await db.query(sql, params);
       cardId++;
       console.log(result);
