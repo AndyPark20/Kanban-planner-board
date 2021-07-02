@@ -92,7 +92,8 @@ app.post('/api/logIn', async (req, res, next) => {
 });
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
-  console.log(req.body);
+  console.log(req.body[0]);
+  // console.log(req.body[1]);
   const listName = req.body[0].list;
   const cardIndex = req.body.indexValue;
   const cardIndexString = cardIndex.toString();
