@@ -99,11 +99,11 @@ app.post('/api/addCard', async (req, res, next) => {
   if (cardColumnName === 'Todo') {
     try {
       const sql = `
-      insert into "Todo" ("cards","cardID")
+      insert into "Todo" ("card","cardId")
       values ($1,$2)
       returning *;
       `;
-      const params = [cardDescription, cardId];
+      const params = [cardDescription, 1];
       const result = await db.query(sql, params);
       cardId++;
       console.log(result);

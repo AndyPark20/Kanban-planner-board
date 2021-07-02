@@ -6,9 +6,10 @@ drop schema "public" cascade;
 
 create schema "public";
 
+
 CREATE TABLE "users" (
 	"userId" serial NOT NULL,
-	"userName" TEXT NOT NULL,
+	"userName" serial NOT NULL,
 	"password" TEXT NOT NULL,
 	"createdAt" timestamp NOT NULL default now(),
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
@@ -18,22 +19,22 @@ CREATE TABLE "users" (
 
 
 
-CREATE TABLE "Doing" (
+CREATE TABLE "Todo" (
 	"userId" serial NOT NULL,
-	"cards" TEXT NOT NULL,
-	"cardID" serial NOT NULL,
-	CONSTRAINT "Doing_pk" PRIMARY KEY ("userId")
+	"card" TEXT NOT NULL,
+	"cardId" integer NOT NULL,
+	CONSTRAINT "Todo_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
 );
 
 
 
-CREATE TABLE "Todo" (
+CREATE TABLE "Doing" (
 	"userId" serial NOT NULL,
-	"cards" TEXT NOT NULL,
-	"cardID" serial NOT NULL,
-	CONSTRAINT "Todo_pk" PRIMARY KEY ("userId")
+	"card" TEXT NOT NULL,
+	"cardId" integer NOT NULL,
+	CONSTRAINT "Doing_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
 );
@@ -42,8 +43,8 @@ CREATE TABLE "Todo" (
 
 CREATE TABLE "Done" (
 	"userId" serial NOT NULL,
-	"cards" TEXT NOT NULL,
-	"cardID" serial NOT NULL,
+	"card" TEXT NOT NULL,
+	"cardId" integer NOT NULL,
 	CONSTRAINT "Done_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
@@ -52,8 +53,8 @@ CREATE TABLE "Done" (
 
 
 
-ALTER TABLE "Doing" ADD CONSTRAINT "Doing_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-
 ALTER TABLE "Todo" ADD CONSTRAINT "Todo_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+
+ALTER TABLE "Doing" ADD CONSTRAINT "Doing_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 
 ALTER TABLE "Done" ADD CONSTRAINT "Done_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
