@@ -102,10 +102,10 @@ app.post('/api/addCard', async (req, res, next) => {
       values ($1,$2, $3)
       returning *;
       `;
-      let cardId = 1;
-      const params = [cardId, cardDescription, 1];
-      const result = await db.query(sql, params);
+      let cardId = 0;
       cardId++;
+      const params = [1, cardDescription, 1];
+      const result = await db.query(sql, params);
     } catch (err) {
       console.error(err);
     }

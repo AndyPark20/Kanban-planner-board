@@ -22,9 +22,9 @@ CREATE TABLE "users" (
 
 
 CREATE TABLE "Todo" (
-	"userId" serial NOT NULL,
+	"userId" integer NOT NULL,
 	"card" text NOT NULL,
-	"cardId" integer NOT NULL,
+	"cardId" serial NOT NULL,
 	CONSTRAINT "Todo_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
@@ -35,7 +35,7 @@ CREATE TABLE "Todo" (
 CREATE TABLE "Doing" (
 	"userId" integer NOT NULL,
 	"card" text NOT NULL,
-	"cardId" integer NOT NULL,
+	"cardId" serial NOT NULL,
 	CONSTRAINT "Doing_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
@@ -46,7 +46,7 @@ CREATE TABLE "Doing" (
 CREATE TABLE "Done" (
 	"userId" integer NOT NULL,
 	"card" text NOT NULL,
-	"cardId" integer NOT NULL,
+	"cardId" serial NOT NULL,
 	CONSTRAINT "Done_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
