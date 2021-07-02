@@ -8,7 +8,9 @@ create schema "public";
 
 
 CREATE TABLE "users" (
-	"userId" serial NOT NULL,
+	"userId" integer NOT NULL,
+	"firstName" TEXT NOT NULL,
+	"lastName" TEXT NOT NULL,
 	"userName" serial NOT NULL,
 	"password" TEXT NOT NULL,
 	"createdAt" timestamp NOT NULL default now(),
@@ -20,7 +22,7 @@ CREATE TABLE "users" (
 
 
 CREATE TABLE "Todo" (
-	"userId" serial NOT NULL,
+	"userId" integer NOT NULL,
 	"card" TEXT NOT NULL,
 	"cardId" integer NOT NULL,
 	CONSTRAINT "Todo_pk" PRIMARY KEY ("userId")
@@ -31,7 +33,7 @@ CREATE TABLE "Todo" (
 
 
 CREATE TABLE "Doing" (
-	"userId" serial NOT NULL,
+	"userId" integer NOT NULL,
 	"card" TEXT NOT NULL,
 	"cardId" integer NOT NULL,
 	CONSTRAINT "Doing_pk" PRIMARY KEY ("userId")
@@ -42,7 +44,7 @@ CREATE TABLE "Doing" (
 
 
 CREATE TABLE "Done" (
-	"userId" serial NOT NULL,
+	"userId" integer NOT NULL,
 	"card" TEXT NOT NULL,
 	"cardId" integer NOT NULL,
 	CONSTRAINT "Done_pk" PRIMARY KEY ("userId")
