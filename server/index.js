@@ -92,16 +92,9 @@ app.post('/api/logIn', async (req, res, next) => {
 });
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
-  console.log(req.body[0]);
-  // console.log(req.body[1]);
-  const listName = req.body[0].list;
-  const cardIndex = req.body.indexValue;
-  const cardIndexString = cardIndex.toString();
-  const id = req.body[cardIndexString].list;
-  let cardName = '';
-  id.forEach((value, index) => {
-    cardName = value.name;
-  });
+  const cardColumnName = req.body[0];
+  const cardDescription = req.body[1];
+
   try {
     const sql = `
     insert into "todos" ("userId","name")
