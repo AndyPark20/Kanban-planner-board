@@ -11,7 +11,6 @@ const App = () => {
     window.addEventListener('hashchange', () => {
       const changedHash = window.location.hash;
       const parsed = ParseRoute(changedHash);
-      console.log(parsed);
       updateCurrentUrl(parsed.path);
     });
   });
