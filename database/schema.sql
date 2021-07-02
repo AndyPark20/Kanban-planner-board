@@ -18,7 +18,7 @@ CREATE TABLE "users" (
 
 
 
-CREATE TABLE "doing" (
+CREATE TABLE "Doing" (
 	"userId" serial NOT NULL,
 	"cards" TEXT NOT NULL,
 	"cardID" serial NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE "doing" (
 
 
 
-CREATE TABLE "todos" (
+CREATE TABLE "Todo" (
 	"userId" serial NOT NULL,
 	"cards" TEXT NOT NULL,
 	"cardID" serial NOT NULL,
