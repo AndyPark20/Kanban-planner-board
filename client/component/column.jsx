@@ -78,17 +78,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
     masterCharacter[index].list.push({ name: '' });
     const addedCardObject = masterCharacter.concat();
     updateMasterCharacter(addedCardObject);
-    try {
-      const result = await fetch('/api/addCard', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(masterCharacter)
-      });
-    } catch (err) {
-      console.error('ERR' + err);
-    }
+
   };
 
   // functions to move columns around
