@@ -93,19 +93,22 @@ app.post('/api/logIn', async (req, res, next) => {
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
-  const cardDescription = req.body[1];
-
-  try {
-    const sql = `
-    insert into "todos" ("userId","name")
-    values ($1,$2)
-    returning *;
-    `;
-    const params = [userIdCurrent, cardName];
-    const result = await db.query(sql, params);
-    // console.log(result);
-  } catch (err) {
-    console.error(err);
+  const cardDescription = req.body[1].name;
+  let cardId = 1;
+  if (cardColumnName === 'Todo') {
+    try {
+      const sql = `
+      insert into "Todo" ("cards","cardID")
+      values ($1,$2)
+      returning *;
+      `;
+      const params = [cardDescription cardId];
+      const result = await db.query(sql, params);
+      cardId++;
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
 });
