@@ -97,6 +97,7 @@ app.post('/api/logIn', async (req, res, next) => {
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
   const cardDescription = req.body[1].name;
+  console.log(userIdNumber);
   if (cardColumnName === 'Todo') {
     try {
       console.log('FROM ADDING CARD USER ID', userIdNumber);
