@@ -11,7 +11,6 @@ const app = express();
 app.use(json);
 app.use(cors());
 app.use(staticMiddleware);
-let userIdCurrent;
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
