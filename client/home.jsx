@@ -43,7 +43,8 @@ const Home = () => {
       try {
         const data = await fetch('/api/retrieve');
         const result = await data.json();
-        console.log(result.rows);
+        // push it to characters array of objects.
+        characters[0].list.push(result.rows);
       } catch (err) {
         console.error(err);
       }
