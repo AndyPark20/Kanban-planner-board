@@ -14,9 +14,7 @@ CREATE TABLE "users" (
 	"userName" text NOT NULL,
 	"password" text NOT NULL,
 	"createdAt" timestamp NOT NULL default now(),
-	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
-) WITH (
-  OIDS=FALSE
+	 primary key ("userId")
 );
 
 
@@ -25,9 +23,7 @@ CREATE TABLE "Todo" (
 	"userId" integer NOT NULL,
 	"card" text NOT NULL,
 	"cardId" serial NOT NULL,
-	CONSTRAINT "Todo_pk" PRIMARY KEY ("userId")
-) WITH (
-  OIDS=FALSE
+	primary key ("cardId")
 );
 
 
@@ -36,9 +32,7 @@ CREATE TABLE "Doing" (
 	"userId" integer NOT NULL,
 	"card" text NOT NULL,
 	"cardId" serial NOT NULL,
-	CONSTRAINT "Doing_pk" PRIMARY KEY ("userId")
-) WITH (
-  OIDS=FALSE
+	primary key ("cardId")
 );
 
 
@@ -47,9 +41,7 @@ CREATE TABLE "Done" (
 	"userId" integer NOT NULL,
 	"card" text NOT NULL,
 	"cardId" serial NOT NULL,
-	CONSTRAINT "Done_pk" PRIMARY KEY ("userId")
-) WITH (
-  OIDS=FALSE
+	primary key ("cardId")
 );
 
 
