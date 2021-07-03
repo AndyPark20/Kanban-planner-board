@@ -6,14 +6,49 @@ drop schema "public" cascade;
 
 create schema "public";
 
+
 CREATE TABLE "users" (
 	"userId" serial NOT NULL,
-  "firstName" TEXT NOT NULL,
-  "lastName" TEXT NOT NULL,
-	"userName" TEXT NOT NULL,
-	"password" TEXT NOT NULL,
+	"firstName"text NOT NULL,
+	"lastName" text NOT NULL,
+	"userName" text NOT NULL,
+	"password" text NOT NULL,
 	"createdAt" timestamp NOT NULL default now(),
-	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
-) WITH (
-  OIDS=FALSE
+	 primary key ("userId")
 );
+
+
+
+CREATE TABLE "Todo" (
+	"userId" integer NOT NULL,
+	"card" text NOT NULL,
+	"cardId" serial NOT NULL,
+	primary key ("cardId")
+);
+
+
+
+CREATE TABLE "Doing" (
+	"userId" integer NOT NULL,
+	"card" text NOT NULL,
+	"cardId" serial NOT NULL,
+	primary key ("cardId")
+);
+
+
+
+CREATE TABLE "Done" (
+	"userId" integer NOT NULL,
+	"card" text NOT NULL,
+	"cardId" serial NOT NULL,
+	primary key ("cardId")
+);
+
+
+
+
+ALTER TABLE "Todo" ADD CONSTRAINT "Todo_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+
+ALTER TABLE "Doing" ADD CONSTRAINT "Doing_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+
+ALTER TABLE "Done" ADD CONSTRAINT "Done_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");

@@ -19,6 +19,9 @@ const db = new pg.Pool({
   }
 });
 
+// userId login
+let userIdNumber = null;
+
 app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
   fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
     method: 'GET',
@@ -73,7 +76,7 @@ app.post('/api/logIn', async (req, res, next) => {
     const params = [username];
     const result = await db.query(sql, params);
     const userId = result.rows[0].userId;
-    userIdCurrent = userId;
+    userIdNumber = userId;
     if (result.rows[0]) {
       const checkPassword = result.rows[0].password;
       const argon2Verify = await argon2.verify(checkPassword, password);
@@ -90,28 +93,22 @@ app.post('/api/logIn', async (req, res, next) => {
   }
 
 });
-
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
-  const listName = req.body[0].list;
-  const cardIndex = req.body.indexValue;
-  const cardIndexString = cardIndex.toString();
-  const id = req.body[cardIndexString].list;
-  let cardName = '';
-  id.forEach((value, index) => {
-    cardName = value.name;
-  });
-  try {
-    const sql = `
-    insert into "todos" ("userId","name")
-    values ($1,$2)
-    returning *;
-    `;
-    const params = [userIdCurrent, cardName];
-    const result = await db.query(sql, params);
-    // console.log(result);
-  } catch (err) {
-    console.error(err);
+  const cardColumnName = req.body[0];
+  const cardDescription = req.body[1].name;
+  if (cardColumnName === 'Todo') {
+    try {
+      const sql = `
+      insert into "Todo" ("userId","card")
+      values ($1, $2)
+      returning *;
+      `;
+      const params = [userIdNumber, cardDescription];
+      const result = await db.query(sql, params);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
 });

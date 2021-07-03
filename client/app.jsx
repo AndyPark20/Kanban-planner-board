@@ -11,7 +11,6 @@ const App = () => {
     window.addEventListener('hashchange', () => {
       const changedHash = window.location.hash;
       const parsed = ParseRoute(changedHash);
-      console.log(parsed);
       updateCurrentUrl(parsed.path);
     });
   });
@@ -21,8 +20,8 @@ const App = () => {
       return <Home />;
     }
     if (currentUrl === '') {
-      // return <LogIn />;
-      return <SignUp />;
+      // return <Home />;
+      return <LogIn />;
     }
     if (currentUrl === 'signup') {
       return <SignUp />;
