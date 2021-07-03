@@ -50,6 +50,7 @@ const Home = () => {
       }
     };
     retrieveData();
+    console.log(characters);
   }, []);
 
   // Wallpapeer
