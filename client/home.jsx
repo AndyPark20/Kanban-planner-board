@@ -36,6 +36,21 @@ const Home = () => {
     }
   ];
 
+  // Retrieve card and info data when user signs in
+  useEffect(() => {
+
+    const retrieveData = async () => {
+      try {
+        const data = await fetch('/api/retrieve');
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    retrieveData();
+  }, []);
+
+  // Wallpapeer
   useEffect(() => {
     location.hash = 'Home';
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));

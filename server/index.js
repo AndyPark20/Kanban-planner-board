@@ -113,11 +113,11 @@ app.post('/api/addCard', async (req, res, next) => {
 });
 
 // APP GET to retrieve Data
-app.get('/api/download', async (req, res, next) => {
+app.get('/api/retrieve', async (req, res, next) => {
   try {
     const sql = `
     select *
-    from "todos"
+    from "Todo"
   `;
     const result = await db.query(sql);
   } catch (err) {
