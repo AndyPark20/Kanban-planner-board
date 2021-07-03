@@ -120,6 +120,7 @@ app.get('/api/retrieve', async (req, res, next) => {
     from "Todo"
   `;
     const result = await db.query(sql);
+    res.status(201).json(result);
   } catch (err) {
     console.error(err);
   }

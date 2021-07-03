@@ -42,7 +42,8 @@ const Home = () => {
     const retrieveData = async () => {
       try {
         const data = await fetch('/api/retrieve');
-        console.log(data);
+        const result = await data.json();
+        console.log(result.rows);
       } catch (err) {
         console.error(err);
       }
