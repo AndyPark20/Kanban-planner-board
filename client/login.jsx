@@ -34,7 +34,7 @@ const HomeEntry = () => {
         });
         // another promise
         const response = await result.json();
-        if (response === 'Welcome') {
+        if (response === 'Welcome!') {
           location.hash = 'Home';
         }
       } catch (err) {

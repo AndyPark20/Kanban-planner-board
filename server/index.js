@@ -52,7 +52,6 @@ app.post('/api/signup', async (req, res, next) => {
   `;
     const params = [firstname, lastname, username, hash];
     const result = await db.query(sql, params);
-    userIdNumber = result.rows[0].userId;
     if (result.rows[0].password) {
       res.status(201).json('Account has been created!');
     } else {
@@ -77,7 +76,7 @@ app.post('/api/logIn', async (req, res, next) => {
     const params = [username];
     const result = await db.query(sql, params);
     const userId = result.rows[0].userId;
-    userIdCurrent = userId;
+    userIdNumber = userId;
     if (result.rows[0]) {
       const checkPassword = result.rows[0].password;
       const argon2Verify = await argon2.verify(checkPassword, password);
@@ -98,9 +97,9 @@ app.post('/api/logIn', async (req, res, next) => {
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
   const cardDescription = req.body[1].name;
-  console.log(userIdNumber);
   if (cardColumnName === 'Todo') {
     try {
+      console.log('FROM ADDING CARD USER ID', userIdNumber);
       const sql = `
       insert into "Todo" ("card")
       values ($1)
