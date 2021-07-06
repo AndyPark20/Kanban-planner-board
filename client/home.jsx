@@ -38,18 +38,16 @@ const Home = () => {
 
   // Retrieve card and info data when user signs in
   useEffect(() => {
-
     const retrieveData = async () => {
       try {
         const data = await fetch('/api/retrieve');
         const result = await data.json();
         // push it to characters array of objects.
         result.rows.forEach((value, index) => {
-          characters[0].list.push({ name: value });
+          characters[0].list.push({ name: value.card });
         });
-        // characters[0].list.push(result.rows);
 
-        // updateMasterCharacter(characters);
+        updateMasterCharacter(characters);
       } catch (err) {
         console.error(err);
       }
