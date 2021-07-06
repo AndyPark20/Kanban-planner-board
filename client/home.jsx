@@ -44,10 +44,12 @@ const Home = () => {
         const data = await fetch('/api/retrieve');
         const result = await data.json();
         // push it to characters array of objects.
-        characters[0].list.push(result.rows);
-        console.log('characters', characters);
-        updateMasterCharacter(characters);
-        console.log('mastercharacter', masterCharacter);
+        result.rows.forEach((value, index) => {
+          console.log(value);
+        });
+        // characters[0].list.push(result.rows);
+
+        // updateMasterCharacter(characters);
       } catch (err) {
         console.error(err);
       }
