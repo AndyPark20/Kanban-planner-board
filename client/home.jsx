@@ -45,7 +45,7 @@ const Home = () => {
         const result = await data.json();
         // push it to characters array of objects.
         result.rows.forEach((value, index) => {
-          console.log(value);
+          characters[0].list.push({ name: value });
         });
         // characters[0].list.push(result.rows);
 
