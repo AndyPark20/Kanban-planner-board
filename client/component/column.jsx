@@ -77,6 +77,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   const makeNewItem = async (e, info, index) => {
     masterCharacter[index].list.push({ name: '' });
     const addedCardObject = masterCharacter.concat();
+    console.log(addedCardObject);
     updateMasterCharacter(addedCardObject);
 
   };

@@ -45,12 +45,14 @@ const Home = () => {
         const result = await data.json();
         // push it to characters array of objects.
         characters[0].list.push(result.rows);
+        console.log('characters', characters);
+        updateMasterCharacter(characters);
+        console.log('mastercharacter', masterCharacter);
       } catch (err) {
         console.error(err);
       }
     };
     retrieveData();
-    console.log(characters);
   }, []);
 
   // Wallpapeer
