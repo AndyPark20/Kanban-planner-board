@@ -46,7 +46,6 @@ const Home = () => {
         result.rows.forEach((value, index) => {
           characters[0].list.push({ name: value.card });
         });
-
         updateMasterCharacter(characters);
       } catch (err) {
         console.error(err);
