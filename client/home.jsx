@@ -43,17 +43,17 @@ const Home = () => {
         const data = await fetch('/api/retrieve');
         const result = await data.json();
         // push it to characters array of objects.
+        const copiedObject = characters.concat();
         result.rows.forEach((value, index) => {
-          characters[0].list.push({ name: value.card });
+          copiedObject[0].list.push({ name: value.card });
         });
-        console.log(characters);
-        updateMasterCharacter(characters);
+        updateMasterCharacter(copiedObject);
       } catch (err) {
         console.error(err);
       }
+
     };
     retrieveData();
-
   }, []);
 
   // Wallpapeer
