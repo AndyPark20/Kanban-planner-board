@@ -42,6 +42,7 @@ const Home = () => {
       try {
         const data = await fetch('/api/retrieve');
         const result = await data.json();
+        console.log('front end result', result.rows[0]);
         // push it to characters array of objects.
         const copiedObject = characters.concat();
         result.rows.forEach((value, index) => {

@@ -105,6 +105,8 @@ app.post('/api/addCard', async (req, res, next) => {
       `;
       const params = [userIdNumber, cardDescription];
       const result = await db.query(sql, params);
+      console.log(result.rows);
+      res.status(201).json(result);
     } catch (err) {
       console.error(err);
     }
@@ -118,8 +120,10 @@ app.get('/api/retrieve', async (req, res, next) => {
     const sql = `
     select *
     from "Todo"
+    where "userId" = $1;
   `;
-    const result = await db.query(sql);
+    const params = [userIdNumber];
+    const result = await db.query(sql, params);
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
