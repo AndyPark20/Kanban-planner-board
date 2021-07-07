@@ -110,20 +110,30 @@ app.post('/api/addCard', async (req, res, next) => {
     } catch (err) {
       console.error(err);
     }
-  // } else if (cardColumnName === 'Doing') {
-  //   try {
-  //     const sql = `
-  //     insert into "Doing" ("userId","card")
-  //     values($1,$2)
-  //     returning*;
-  //     `;
-  //     const params = [userIdNumber, cardDescription];
-  //     const result = await db.query(sql, params);
-  //     res.status(201).json(result);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
+  } else if (cardColumnName === 'Doing') {
+    try {
+      const sql = `
+      insert into "Doing" ("userId","card")
+      values($1,$2)
+      returning*;
+      `;
+      const params = [userIdNumber, cardDescription];
+      const result = await db.query(sql, params);
+      res.status(201).json(result);
+    } catch (err) {
+      console.error(err);
+    }
+  } else if (cardColumnName === 'Done') {
+    try {
+      const sql = `
+      insert into "Done" ("userId", "card")
+      values($1,$2)
+      returning *;
+      `;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
 });
 
