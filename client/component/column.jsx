@@ -53,7 +53,6 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   // /*the column part */
   const lastIndex = (e, info, indexItem, index) => {
     e.preventDefault();
-    console.log('indexItem', indexItem);
     const startIndex = e.dataTransfer.getData('startIndex');
     const finishedIndex = indexItem;
     [masterCharacter[index].list[startIndex], masterCharacter[index].list[finishedIndex]] = [masterCharacter[index].list[finishedIndex], masterCharacter[index].list[startIndex]];
@@ -77,7 +76,6 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   const makeNewItem = async (e, info, index) => {
     masterCharacter[index].list.push({ name: '' });
     const addedCardObject = masterCharacter.concat();
-    console.log(addedCardObject);
     updateMasterCharacter(addedCardObject);
 
   };
