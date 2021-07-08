@@ -151,7 +151,7 @@ app.get('/api/retrieve', async (req, res, next) => {
   `;
     const params = [userIdNumber];
     const result = await db.query(sql, params);
-    console.log(result);
+    console.log(result.rows);
   } catch (err) {
     console.error(err);
   }
