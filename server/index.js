@@ -146,7 +146,7 @@ app.get('/api/retrieve', async (req, res, next) => {
     const sql = `
     select *
     from "Todo"
-    join "Done" using("userId")
+    join "Done" using("userId") join "Doing" using("userId")
     where "userId" = $1
   `;
     const params = [userIdNumber];
