@@ -147,11 +147,11 @@ app.get('/api/retrieve', async (req, res, next) => {
     select *
     from "Todo"
     join "Done" using("userId") join "Doing" using("userId")
-    where "userId" = $1
+    where "userId"= $1;
   `;
     const params = [userIdNumber];
     const result = await db.query(sql, params);
-    console.log(result.rows);
+    console.log(result);
   } catch (err) {
     console.error(err);
   }
