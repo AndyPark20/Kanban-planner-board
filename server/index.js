@@ -144,14 +144,16 @@ app.post('/api/addCard', async (req, res, next) => {
 app.get('/api/retrieve', async (req, res, next) => {
   try {
     const sql = `
-    select *
-    from "Todo"
-    join "Done" using("userId") join "Doing" using("userId")
+    select "T"."card" as "T-card",
+            "D".card as "D-card",
+            "DO".card as "DO-card"
+    from "Todo" as "T"
+    join "Done" as "D" using("userId") join "Doing" as "DO" using("userId")
     where "userId"= $1;
   `;
     const params = [userIdNumber];
     const result = await db.query(sql, params);
-    console.log(result);
+    console.log(result.rows);
   } catch (err) {
     console.error(err);
   }
