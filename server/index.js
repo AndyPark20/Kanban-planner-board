@@ -145,8 +145,7 @@ app.get('/api/retrieve', async (req, res, next) => {
   try {
     const sql = `
     select "T"."card" as "T-card",
-            "D".card as "D-card",
-            "DO".card as "DO-card"
+            "D".card as "D-card"
     from "Todo" as "T"
     join "Done" as "D" using("userId") join "Doing" as "DO" using("userId")
     where "userId"= $1;
