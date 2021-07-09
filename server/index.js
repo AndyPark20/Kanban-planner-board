@@ -144,8 +144,7 @@ app.post('/api/addCard', async (req, res, next) => {
 app.get('/api/retrieve', async (req, res, next) => {
   try {
     const sql = `
-    select "T"."card" as "T-card",
-            "D".card as "D-card"
+    select "T"."card" as "T-card"
     from "Todo" as "T"
     join "Done" as "D" using("userId") join "Doing" as "DO" using("userId")
     where "userId"= $1;
