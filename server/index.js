@@ -146,16 +146,15 @@ app.get('/api/retrieve', async (req, res, next) => {
     const sql = `
     select "T"."card" as "T-card",
             "D".card as "D-card",
-            "DO".card as "DO-card",
-            count(*) as CNT
+            "DO".card as "DO-card"
     from "Todo" as "T"
     join "Done" as "D" using("userId") join "Doing" as "DO" using("userId")
     where "userId"= $1
-    having count(*) >1;
+    group by "T-card","D-card","DO-card";
   `;
     const params = [userIdNumber];
     const result = await db.query(sql, params);
-    console.log(result.rows);
+    console.log(result.rows[0]);
   } catch (err) {
     console.error(err);
   }
