@@ -144,10 +144,14 @@ app.post('/api/addCard', async (req, res, next) => {
 app.get('/api/retrieve', async (req, res, next) => {
   try {
     const sql = `
-    select "T"."card" as "T-card"
+    select "T"."card" as "T-card",
+            "D".card as "D-card",
+            "DO".card as "DO-card",
+            count(*) as CNT
     from "Todo" as "T"
     join "Done" as "D" using("userId") join "Doing" as "DO" using("userId")
-    where "userId"= $1;
+    where "userId"= $1
+    having count(*) >1;
   `;
     const params = [userIdNumber];
     const result = await db.query(sql, params);
