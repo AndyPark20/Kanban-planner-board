@@ -142,6 +142,7 @@ app.post('/api/addCard', async (req, res, next) => {
 
 // APP GET to retrieve Data
 app.get('/api/retrieve', async (req, res, next) => {
+  console.log('hello');
   try {
     const sql = `
     select "T"."card" as "T-card",
