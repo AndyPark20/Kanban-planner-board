@@ -21,6 +21,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "activities" (
 	"userId" integer NOT NULL,
+	"column" text NOT NULL,
 	"card" text NOT NULL,
 	"cardId" serial NOT NULL,
 	primary key ("cardId")
