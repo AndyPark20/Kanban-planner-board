@@ -122,7 +122,7 @@ app.get('/api/retrieve', async (req, res, next) => {
   `;
     const params = [userIdNumber];
     const result = await db.query(sql, params);
-    console.log(result);
+    res.status(201).json(result);
   } catch (err) {
     console.error(err);
   }
