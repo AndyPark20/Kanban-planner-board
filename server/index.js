@@ -11,7 +11,6 @@ const app = express();
 app.use(json);
 app.use(cors());
 app.use(staticMiddleware);
-let userIdCurrent;
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -106,6 +105,34 @@ app.post('/api/addCard', async (req, res, next) => {
       `;
       const params = [userIdNumber, cardDescription];
       const result = await db.query(sql, params);
+
+      res.status(201).json(result);
+    } catch (err) {
+      console.error(err);
+    }
+  } else if (cardColumnName === 'Doing') {
+    try {
+      const sql = `
+      insert into "Doing" ("userId","card")
+      values($1,$2)
+      returning*;
+      `;
+      const params = [userIdNumber, cardDescription];
+      const result = await db.query(sql, params);
+      res.status(201).json(result);
+    } catch (err) {
+      console.error(err);
+    }
+  } else if (cardColumnName === 'Done') {
+    try {
+      const sql = `
+      insert into "Done" ("userId", "card")
+      values($1,$2)
+      returning *;
+      `;
+      const params = [userIdNumber, cardDescription];
+      const result = await db.query(sql, params);
+      res.status(201).json(result);
     } catch (err) {
       console.error(err);
     }
@@ -114,13 +141,20 @@ app.post('/api/addCard', async (req, res, next) => {
 });
 
 // APP GET to retrieve Data
-app.get('/api/download', async (req, res, next) => {
+app.get('/api/retrieve', async (req, res, next) => {
+  console.log('hello');
   try {
     const sql = `
-    select *
-    from "todos"
+    select "T"."card" as "T-card",
+            "D".card as "D-card",
+            "DO".card as "DO-card"
+    from "Todo" as "T"
+    join "Done" as "D" using("userId") join "Doing" as "DO" using("userId")
+    where "userId"= $1;
   `;
-    const result = await db.query(sql);
+    const params = [userIdNumber];
+    const result = await db.query(sql, params);
+    console.log(result.rows);
   } catch (err) {
     console.error(err);
   }
