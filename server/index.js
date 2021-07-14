@@ -96,48 +96,20 @@ app.post('/api/logIn', async (req, res, next) => {
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
   const cardDescription = req.body[1].name;
-  if (cardColumnName === 'Todo') {
-    try {
-      const sql = `
+  console.log(cardColumnName);
+  try {
+    const sql = `
       insert into "activities" ("userId","card")
       values ($1, $2)
       returning *;
       `;
-      const params = [userIdNumber, cardDescription];
-      const result = await db.query(sql, params);
+    const params = [userIdNumber, cardDescription];
+    const result = await db.query(sql, params);
 
-      res.status(201).json(result);
-    } catch (err) {
-      console.error(err);
-    }
-  } else if (cardColumnName === 'Doing') {
-    try {
-      const sql = `
-      insert into "Doing" ("userId","card")
-      values($1,$2)
-      returning*;
-      `;
-      const params = [userIdNumber, cardDescription];
-      const result = await db.query(sql, params);
-      res.status(201).json(result);
-    } catch (err) {
-      console.error(err);
-    }
-  } else if (cardColumnName === 'Done') {
-    try {
-      const sql = `
-      insert into "Done" ("userId", "card")
-      values($1,$2)
-      returning *;
-      `;
-      const params = [userIdNumber, cardDescription];
-      const result = await db.query(sql, params);
-      res.status(201).json(result);
-    } catch (err) {
-      console.error(err);
-    }
+    res.status(201).json(result);
+  } catch (err) {
+    console.error(err);
   }
-
 });
 
 // APP GET to retrieve Data
