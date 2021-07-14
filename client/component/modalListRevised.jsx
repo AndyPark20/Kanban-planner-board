@@ -57,6 +57,8 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
             },
             body: JSON.stringify(masterCharacter[columnNumber].list[cardNumber])
           });
+          const response = await send.json();
+          console.log('response', response);
         } catch (err) {
           console.error(err);
         }

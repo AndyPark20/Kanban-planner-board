@@ -130,8 +130,8 @@ app.get('/api/retrieve', async (req, res, next) => {
 });
 
 // Update Card Title
-app.get('api/update', async (req, res) => {
-  console.log(req.body);
+app.get('/api/update', async (req, res, next) => {
+  console.log('hello');
 });
 
 app.listen(process.env.PORT, () => {
