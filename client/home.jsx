@@ -46,11 +46,11 @@ const Home = () => {
         const copiedObject = characters.concat();
         result.rows.forEach((value, index) => {
           if (value.column === 'Todo') {
-            copiedObject[0].list.push({ name: value.card });
+            copiedObject[0].list.push({ name: value.card, cardId: value.cardId });
           } else if (value.column === 'Doing') {
-            copiedObject[1].list.push({ name: value.card });
+            copiedObject[1].list.push({ name: value.card, cardId: value.cardId });
           } else if (value.column === 'Done') {
-            copiedObject[2].list.push({ name: value.card });
+            copiedObject[2].list.push({ name: value.card, cardId: value.cardId });
           }
           // copiedObject[0].list.push({ name: value.card });
         });

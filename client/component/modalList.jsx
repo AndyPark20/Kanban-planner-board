@@ -31,7 +31,6 @@ export default class modal extends React.Component {
     this.cancelControlBtn = this.cancelControlBtn.bind(this);
   }
 
-
   componentDidUpdate(prev, ps) {
     const column = this.props.columnNumber;
     const card = this.props.cardNumber;
