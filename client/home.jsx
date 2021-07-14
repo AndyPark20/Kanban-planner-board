@@ -50,7 +50,7 @@ const Home = () => {
           } else if (value.column === 'Doing') {
             copiedObject[1].list.push({ name: value.card });
           } else if (value.column === 'Done') {
-            copiedObject[1].list.push({ name: value.card });
+            copiedObject[2].list.push({ name: value.card });
           }
           // copiedObject[0].list.push({ name: value.card });
         });

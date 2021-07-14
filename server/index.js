@@ -96,7 +96,6 @@ app.post('/api/logIn', async (req, res, next) => {
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
   const cardDescription = req.body[1].name;
-  console.log(cardColumnName);
   try {
     const sql = `
       insert into "activities" ("userId","column","card")
@@ -122,6 +121,7 @@ app.get('/api/retrieve', async (req, res, next) => {
   `;
     const params = [userIdNumber];
     const result = await db.query(sql, params);
+    console.log(result);
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
