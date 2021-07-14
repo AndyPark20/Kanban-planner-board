@@ -129,6 +129,11 @@ app.get('/api/retrieve', async (req, res, next) => {
 
 });
 
+// Update Card Title
+app.get('api/update', async (req, res) => {
+  console.log(req.body);
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
