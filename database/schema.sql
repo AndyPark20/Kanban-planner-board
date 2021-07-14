@@ -7,8 +7,8 @@ drop schema "public" cascade;
 create schema "public";
 
 
-CREATE TABLE "users" (
-	"userId" serial NOT NULL,
+CREATE TABLE "public.users" (
+"userId" serial NOT NULL,
 	"firstName"text NOT NULL,
 	"lastName" text NOT NULL,
 	"userName" text NOT NULL,
@@ -19,36 +19,13 @@ CREATE TABLE "users" (
 
 
 
-CREATE TABLE "Todo" (
+CREATE TABLE "public.Task" (
 	"userId" integer NOT NULL,
-	"card" text NOT NULL,
-	"cardId" serial NOT NULL,
-	primary key ("cardId")
-);
-
-
-
-CREATE TABLE "Doing" (
-	"userId" integer NOT NULL,
-	"card" text NOT NULL,
-	"cardId" serial NOT NULL,
-	primary key ("cardId")
-);
-
-
-
-CREATE TABLE "Done" (
-	"userId" integer NOT NULL,
-	"card" text NOT NULL,
-	"cardId" serial NOT NULL,
-	primary key ("cardId")
+	"activities" TEXT NOT NULL,
+	"cardId" serial NOT NULL
 );
 
 
 
 
-ALTER TABLE "Todo" ADD CONSTRAINT "Todo_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-
-ALTER TABLE "Doing" ADD CONSTRAINT "Doing_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-
-ALTER TABLE "Done" ADD CONSTRAINT "Done_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+ALTER TABLE "Task" ADD CONSTRAINT "Task_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
