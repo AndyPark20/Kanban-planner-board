@@ -130,7 +130,7 @@ app.get('/api/retrieve', async (req, res, next) => {
 });
 
 // Update Card Title
-app.get('/api/update', async (req, res, next) => {
+app.post('/api/update', async (req, res) => {
   console.log('hello');
 });
 
