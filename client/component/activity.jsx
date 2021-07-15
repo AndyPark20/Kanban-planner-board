@@ -17,14 +17,13 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
       updateUserLogSubmit(activityArray);
     }
-  })
+  });
 
   useEffect(() => {
     if (userEdit) {
-      updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber])
+      updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber]);
     }
-  }, [userEdit])
-
+  }, [userEdit]);
 
   const userActivity = e => {
     e.preventDefault();
@@ -69,21 +68,21 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         return data;
       }
     }
-  }
+  };
 
   const userSave = e => {
     e.preventDefault();
     if (!userEdit) {
-      masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog)
+      masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
-      updateMasterCharacter(masterCharacter)
-      updateUserLog({ info: '' })
+      updateMasterCharacter(masterCharacter);
+      updateUserLog({ info: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
     } else {
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
-      updateUserLog({ info: '' })
+      updateUserLog({ info: '' });
 
     }
   };
