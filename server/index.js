@@ -138,7 +138,7 @@ app.post('/api/update', async (req, res, next) => {
     set "card" = $1
     where "cardId" = $2;
     `;
-    const params = [id, name];
+    const params = [name, id];
     const result = await db.query(sql, params);
     console.log(result);
   } catch (err) {
