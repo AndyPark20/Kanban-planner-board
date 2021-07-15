@@ -12,12 +12,14 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const [saveButton, updateSaveButton] = useState(false);
   const [renderActivityItem, updateRenderActivity] = useState(false);
 
-  useEffect(() => {
-    if (renderActivity) {
-      const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
-      updateUserLogSubmit(activityArray);
-    }
-  });
+  // useEffect(() => {
+  //   console.log(userLogSubmit);
+  //   if (renderActivity) {
+  //     const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
+  //     console.log(activityArray);
+  //     updateUserLogSubmit(activityArray);
+  //   }
+  // });
 
   useEffect(() => {
     if (userEdit) {
@@ -30,7 +32,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     if (!userEdit) {
       updateUserLog({ info: e.target.value, time: Date.now() });
     } else {
-
       masterCharacter[columnNumber].list[cardNumber].activity.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() });
       updateUserLog({ info: e.target.value, time: Date.now() });
       // updateMasterCharacter(masterCharacter)
@@ -73,6 +74,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const userSave = e => {
     e.preventDefault();
     if (!userEdit) {
+      console.log(userLog);
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateMasterCharacter(masterCharacter);
