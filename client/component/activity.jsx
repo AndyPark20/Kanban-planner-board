@@ -22,6 +22,10 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   // });
 
   useEffect(() => {
+    console.log(masterCharacter);
+  });
+
+  useEffect(() => {
     if (userEdit) {
       updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber]);
     }
@@ -59,8 +63,8 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
           return (
             <div key={index} className="d-flex align-items-center">
-              <i className="far fa-comment-dots"></i>
-              <h5 className="pl-2">{values.info}</h5>
+              <i className="far fa-comment-dots icon"></i>
+              <h5 className="pl-2 activity-info">{values.info}</h5>
               <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
               <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
             </div>
