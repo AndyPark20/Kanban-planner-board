@@ -121,7 +121,6 @@ app.get('/api/retrieve', async (req, res, next) => {
   `;
     const params = [1];
     const result = await db.query(sql, params);
-    console.log(result);
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -131,7 +130,7 @@ app.get('/api/retrieve', async (req, res, next) => {
 
 // Update Card Title
 app.post('/api/update', async (req, res) => {
-  console.log('hello');
+  console.log(req.body);
 });
 
 app.listen(process.env.PORT, () => {
