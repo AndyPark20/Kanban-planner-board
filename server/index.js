@@ -129,8 +129,21 @@ app.get('/api/retrieve', async (req, res, next) => {
 });
 
 // Update Card Title
-app.post('/api/update', async (req, res) => {
-  console.log(req.body);
+app.post('/api/update', async (req, res, next) => {
+  const id = req.body.cardId;
+  const name = req.body.name;
+  try {
+    const sql = `
+    update "activities"
+    set "card" = $1
+    where "cardId" = $2;
+    `;
+    const params = [id, name];
+    const result = await db.query(sql, params);
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 app.listen(process.env.PORT, () => {
