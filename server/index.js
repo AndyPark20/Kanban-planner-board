@@ -149,21 +149,24 @@ app.post('/api/update', async (req, res, next) => {
 // activity Update
 app.post('/api/activity', (req, res, next) => {
   req.body.forEach((values, index) => {
-    values.list.forEach(async (values, listIndex) => {
-      try {
-        const sql = `
-        insert into "public.activities" ("cardId","record", "time")
-        values($1,$2,$3)
-        returning *;
-        `;
-        if (values.activity) {
-          const params = [values.cardId, values.activity, values.activity.time];
-          const result = await db.query(sql, params);
-        }
+    values.list.forEach((values, listIndex) => {
+      values.activity.forEach((values, index) => {
+        console.log(values);
+      });
+      // try {
+      //   const sql = `
+      //   insert into "public.activities" ("cardId","record", "time")
+      //   values($1,$2,$3)
+      //   returning *;
+      //   `;
+      //   if (values.activity) {
+      //     const params = [values.cardId, values.activity, values.activity.time];
+      //     const result = await db.query(sql, params);
+      //   }
 
-      } catch (err) {
-        console.error(err);
-      }
+      // } catch (err) {
+      //   console.error(err);
+      // }
       console.log(values.cardId);
     });
   });
