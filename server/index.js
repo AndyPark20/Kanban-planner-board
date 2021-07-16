@@ -148,7 +148,7 @@ app.post('/api/update', async (req, res, next) => {
 
 // activity Update
 app.post('/api/activity', async (req, res, next) => {
-
+  console.log(req.body);
 });
 
 app.listen(process.env.PORT, () => {

@@ -36,7 +36,6 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
           body: JSON.stringify([idName, cardDescription])
         });
         const response = await result.json();
-        console.log(response);
       } catch (err) {
         console.error('ERR' + err);
       }

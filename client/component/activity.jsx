@@ -71,7 +71,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   };
 
-  const userSave =async e => {
+  const userSave = async e => {
     e.preventDefault();
     if (!userEdit) {
       console.log(userLog);
@@ -81,10 +81,16 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       updateUserLog({ info: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
-      const activityPost =await ()=>{
-        try{
-
-        }
+      try {
+        const activityPost = await fetch('/api/activity', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+          // body:JSON.stringify()
+        });
+      } catch (err) {
+        console.error(err);
       }
     } else {
       updateUserLogSubmit(userLogSubmit);
