@@ -86,8 +86,8 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
-          }
-          // body:JSON.stringify()
+          },
+          body: JSON.stringify(masterCharacter)
         });
       } catch (err) {
         console.error(err);
