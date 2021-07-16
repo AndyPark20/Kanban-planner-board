@@ -148,7 +148,11 @@ app.post('/api/update', async (req, res, next) => {
 
 // activity Update
 app.post('/api/activity', async (req, res, next) => {
-  console.log(req.body);
+  req.body.forEach((values, index) => {
+    values.list.forEach((values, listIndex) => {
+      console.log(listIndex);
+    });
+  });
 });
 
 app.listen(process.env.PORT, () => {

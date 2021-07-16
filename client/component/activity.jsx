@@ -74,7 +74,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const userSave = async e => {
     e.preventDefault();
     if (!userEdit) {
-      console.log(masterCharacter[0].list);
+      console.log(masterCharacter);
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateMasterCharacter(masterCharacter);
