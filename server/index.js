@@ -150,29 +150,38 @@ app.post('/api/update', async (req, res, next) => {
 app.post('/api/activity', (req, res, next) => {
   req.body.forEach((values, index) => {
     values.list.forEach((values, listIndex) => {
-      values.activity.forEach((values, index) => {
-        console.log(values);
-      });
-      // try {
-      //   const sql = `
-      //   insert into "public.activities" ("cardId","record", "time")
-      //   values($1,$2,$3)
-      //   returning *;
-      //   `;
-      //   if (values.activity) {
-      //     const params = [values.cardId, values.activity, values.activity.time];
-      //     const result = await db.query(sql, params);
-      //   }
 
-      // } catch (err) {
-      //   console.error(err);
-      // }
-      console.log(values.cardId);
+      if (values.activity !== undefined) {
+        console.log(values.activity);
+        //   values.activity.forEach((values, index) => {
+        //     console.log(values);
+        //   });
+
+      }
     });
+
   });
+
 });
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
 });
+
+//   try {
+//   const sql = `
+//   insert into "public.activities" ("cardId","record", "time")
+//   values($1,$2,$3)
+//   returning *;
+//   `;
+//   if (values.activity) {
+//     const params = [values.cardId, values.activity, values.activity.time];
+//     const result = await db.query(sql, params);
+//   }
+
+// } catch (err) {
+//   console.error(err);
+// }
+// }
+// });
