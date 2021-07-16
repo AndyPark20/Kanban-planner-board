@@ -22,10 +22,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   // });
 
   useEffect(() => {
-    console.log(masterCharacter);
-  });
-
-  useEffect(() => {
     if (userEdit) {
       updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber]);
     }
@@ -75,7 +71,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   };
 
-  const userSave = e => {
+  const userSave =async e => {
     e.preventDefault();
     if (!userEdit) {
       console.log(userLog);
@@ -85,6 +81,11 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       updateUserLog({ info: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
+      const activityPost =await ()=>{
+        try{
+
+        }
+      }
     } else {
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);

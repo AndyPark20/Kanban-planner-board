@@ -146,6 +146,11 @@ app.post('/api/update', async (req, res, next) => {
   }
 });
 
+// activity Update
+app.post('/api/activity', async (req, res, next) => {
+
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
