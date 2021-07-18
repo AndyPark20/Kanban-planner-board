@@ -155,6 +155,7 @@ app.post('/api/activity', (req, res, next) => {
         values.activity.forEach(async (values, index) => {
           const userActivity = values.info;
           const time = values.time;
+          console.log('cardId', cardId);
           try {
             const sql = `
             insert into "record" ("cardId","record","time")
