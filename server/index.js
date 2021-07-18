@@ -150,7 +150,6 @@ app.post('/api/update', async (req, res, next) => {
 app.post('/api/activity', (req, res, next) => {
   req.body.forEach((values, index) => {
     values.list.forEach((values, listIndex) => {
-
       if (values.activity !== undefined) {
         console.log(values.activity);
         //   values.activity.forEach((values, index) => {

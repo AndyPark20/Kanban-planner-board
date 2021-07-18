@@ -89,6 +89,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           },
           body: JSON.stringify(masterCharacter)
         });
+        activityPost();
       } catch (err) {
         console.error(err);
       }
@@ -96,7 +97,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
       updateUserLog({ info: '' });
-
     }
   };
 
