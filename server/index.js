@@ -155,6 +155,7 @@ app.post('/api/activity', (req, res, next) => {
         values.activity.forEach(async (values, index) => {
           const userActivity = values.info;
           const time = values.time;
+          const timeString = time.toString();
           console.log('cardId', cardId);
           try {
             const sql = `
@@ -162,7 +163,7 @@ app.post('/api/activity', (req, res, next) => {
             values($1,$2,$3)
             returning *;
             `;
-            const params = [cardId, userActivity, 4580];
+            const params = [2, userActivity, timeString];
             const result = await db.query(sql, params);
             console.log('result', result);
           } catch (err) {
