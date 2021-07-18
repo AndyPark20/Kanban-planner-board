@@ -31,7 +31,7 @@ CREATE TABLE "record" (
 	"activityId" serial NOT NULL,
 	"cardId" serial NOT NULL,
 	"record" TEXT NOT NULL,
-	"time" integer NOT NULL,
+	"time" TEXT NOT NULL,
 	primary key ("cardId")
 );
 
