@@ -140,6 +140,7 @@ app.post('/api/update', async (req, res, next) => {
     `;
     const params = [name, id];
     const result = await db.query(sql, params);
+    console.log('result', result);
   } catch (err) {
     console.error(err);
   }

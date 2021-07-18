@@ -27,7 +27,7 @@ CREATE TABLE "activities" (
 	primary key ("cardId")
 );
 
-CREATE TABLE "public.activities" (
+CREATE TABLE "record" (
 	"activityId" serial NOT NULL,
 	"cardId" serial NOT NULL,
 	"record" TEXT NOT NULL,
@@ -37,4 +37,4 @@ CREATE TABLE "public.activities" (
 
 
 ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("cardId") REFERENCES "Task"("cardId");
+ALTER TABLE "record" ADD CONSTRAINT "record_fk0" FOREIGN KEY ("cardId") REFERENCES "activities"("cardId");
