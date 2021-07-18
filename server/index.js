@@ -157,7 +157,7 @@ app.post('/api/activity', (req, res, next) => {
           const time = values.time;
           try {
             const sql = `
-            insert into "public.activities" ("cardId","record","time")
+            insert into "record" ("cardId","record","time")
             values($1,$2,$3)
             returning *;
             `;
