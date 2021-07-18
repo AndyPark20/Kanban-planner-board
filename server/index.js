@@ -156,11 +156,11 @@ app.post('/api/activity', (req, res, next) => {
           const time = values.time;
           try {
             const sql = `
-            insert into "public.activities" ("cardId","record","time");
+            insert into "public.activities" ("cardId","record","time")
             values($1,$2,$3)
             returning *;
             `;
-            const params = [cardId, userActivity, time];
+            const params = [cardId, userActivity, 4580];
             const result = await db.query(sql, params);
             console.log('result', result);
           } catch (err) {
