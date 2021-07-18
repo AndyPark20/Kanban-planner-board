@@ -156,16 +156,22 @@ app.post('/api/activity', (req, res, next) => {
           const userActivity = values.info;
           const time = values.time;
           const timeString = time.toString();
-          console.log('cardId', cardId);
           try {
-            const sql = `
+            // Retrieve record data and compare with the object to see if anything overlaps, if it doesn't over lap then insert the data into data base
+            const sqlGet = `
+              select *
+              from "record";
+            `;
+            const getResult = await db.query(sqlGet);
+            if (getResult.rows[0].cardId !== cardId) {
+              const sql = `
             insert into "record" ("cardId","record","time")
             values($1,$2,$3)
             returning *;
             `;
-            const params = [2, userActivity, timeString];
-            const result = await db.query(sql, params);
-            console.log('result', result);
+              const params = [2, userActivity, timeString];
+              const result = await db.query(sql, params);
+            }
           } catch (err) {
             console.error(err);
           }
