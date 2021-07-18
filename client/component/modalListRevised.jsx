@@ -48,6 +48,22 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
       updateMasterCharacter(masterCharacter);
       updateColumnComponent(true);
       updateModalStatus(false);
+      const updateTitle = async () => {
+        try {
+          const send = await fetch('api/update', {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify(masterCharacter[columnNumber].list[cardNumber])
+          });
+          const response = await send.json();
+          console.log('response', response);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      updateTitle();
     }
   }
 

@@ -96,68 +96,71 @@ app.post('/api/logIn', async (req, res, next) => {
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
   const cardDescription = req.body[1].name;
-  if (cardColumnName === 'Todo') {
-    try {
-      const sql = `
-      insert into "Todo" ("userId","card")
-      values ($1, $2)
+  try {
+    const sql = `
+      insert into "activities" ("userId","column","card")
+      values ($1,$2, $3)
       returning *;
       `;
-      const params = [userIdNumber, cardDescription];
-      const result = await db.query(sql, params);
+    const params = [userIdNumber, cardColumnName, cardDescription];
+    const result = await db.query(sql, params);
 
-      res.status(201).json(result);
-    } catch (err) {
-      console.error(err);
-    }
-  } else if (cardColumnName === 'Doing') {
-    try {
-      const sql = `
-      insert into "Doing" ("userId","card")
-      values($1,$2)
-      returning*;
-      `;
-      const params = [userIdNumber, cardDescription];
-      const result = await db.query(sql, params);
-      res.status(201).json(result);
-    } catch (err) {
-      console.error(err);
-    }
-  } else if (cardColumnName === 'Done') {
-    try {
-      const sql = `
-      insert into "Done" ("userId", "card")
-      values($1,$2)
-      returning *;
-      `;
-      const params = [userIdNumber, cardDescription];
-      const result = await db.query(sql, params);
-      res.status(201).json(result);
-    } catch (err) {
-      console.error(err);
-    }
+    res.status(201).json(result);
+  } catch (err) {
+    console.error(err);
   }
-
 });
 
 // APP GET to retrieve Data
 app.get('/api/retrieve', async (req, res, next) => {
-  console.log('hello');
   try {
     const sql = `
-    select "T"."card" as "T-card",
-            "D".card as "D-card",
-            "DO".card as "DO-card"
-    from "Todo" as "T"
-    join "Done" as "D" using("userId") join "Doing" as "DO" using("userId")
+    select *
+    from "activities"
     where "userId"= $1;
   `;
-    const params = [userIdNumber];
+    const params = [1];
     const result = await db.query(sql, params);
-    console.log(result.rows);
+    res.status(201).json(result);
   } catch (err) {
     console.error(err);
   }
+
+});
+
+// Update Card Title
+app.post('/api/update', async (req, res, next) => {
+  const id = req.body.cardId;
+  const name = req.body.name;
+  try {
+    const sql = `
+    update "activities"
+    set "card" = $1
+    where "cardId" = $2;
+    `;
+    const params = [name, id];
+    const result = await db.query(sql, params);
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+// activity Update
+app.post('/api/activity', (req, res, next) => {
+  req.body.forEach((values, index) => {
+    values.list.forEach((values, listIndex) => {
+
+      if (values.activity !== undefined) {
+        console.log(values.activity);
+        //   values.activity.forEach((values, index) => {
+        //     console.log(values);
+        //   });
+
+      }
+    });
+
+  });
 
 });
 
@@ -165,3 +168,20 @@ app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
 });
+
+//   try {
+//   const sql = `
+//   insert into "public.activities" ("cardId","record", "time")
+//   values($1,$2,$3)
+//   returning *;
+//   `;
+//   if (values.activity) {
+//     const params = [values.cardId, values.activity, values.activity.time];
+//     const result = await db.query(sql, params);
+//   }
+
+// } catch (err) {
+//   console.error(err);
+// }
+// }
+// });

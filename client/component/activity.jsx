@@ -12,26 +12,26 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const [saveButton, updateSaveButton] = useState(false);
   const [renderActivityItem, updateRenderActivity] = useState(false);
 
-  useEffect(() => {
-    if (renderActivity) {
-      const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
-      updateUserLogSubmit(activityArray);
-    }
-  })
+  // useEffect(() => {
+  //   console.log(userLogSubmit);
+  //   if (renderActivity) {
+  //     const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
+  //     console.log(activityArray);
+  //     updateUserLogSubmit(activityArray);
+  //   }
+  // });
 
   useEffect(() => {
     if (userEdit) {
-      updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber])
+      updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber]);
     }
-  }, [userEdit])
-
+  }, [userEdit]);
 
   const userActivity = e => {
     e.preventDefault();
     if (!userEdit) {
       updateUserLog({ info: e.target.value, time: Date.now() });
     } else {
-
       masterCharacter[columnNumber].list[cardNumber].activity.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() });
       updateUserLog({ info: e.target.value, time: Date.now() });
       // updateMasterCharacter(masterCharacter)
@@ -59,8 +59,8 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
           return (
             <div key={index} className="d-flex align-items-center">
-              <i className="far fa-comment-dots"></i>
-              <h5 className="pl-2">{values.info}</h5>
+              <i className="far fa-comment-dots icon"></i>
+              <h5 className="pl-2 activity-info">{values.info}</h5>
               <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{values.time}</Moment>
               <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
             </div>
@@ -69,21 +69,33 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         return data;
       }
     }
-  }
+  };
 
-  const userSave = e => {
+  const userSave = async e => {
     e.preventDefault();
     if (!userEdit) {
-      masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog)
+      console.log(masterCharacter);
+      masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
-      updateMasterCharacter(masterCharacter)
-      updateUserLog({ info: '' })
+      updateMasterCharacter(masterCharacter);
+      updateUserLog({ info: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
+      try {
+        const activityPost = await fetch('/api/activity', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(masterCharacter)
+        });
+      } catch (err) {
+        console.error(err);
+      }
     } else {
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
-      updateUserLog({ info: '' })
+      updateUserLog({ info: '' });
 
     }
   };

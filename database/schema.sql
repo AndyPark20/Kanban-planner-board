@@ -19,36 +19,22 @@ CREATE TABLE "users" (
 
 
 
-CREATE TABLE "Todo" (
+CREATE TABLE "activities" (
 	"userId" integer NOT NULL,
+	"column" text NOT NULL,
 	"card" text NOT NULL,
 	"cardId" serial NOT NULL,
 	primary key ("cardId")
 );
 
-
-
-CREATE TABLE "Doing" (
-	"userId" integer NOT NULL,
-	"card" text NOT NULL,
+CREATE TABLE "public.activities" (
+	"activityId" serial NOT NULL,
 	"cardId" serial NOT NULL,
+	"record" TEXT NOT NULL,
+	"time" integer NOT NULL,
 	primary key ("cardId")
 );
 
 
-
-CREATE TABLE "Done" (
-	"userId" integer NOT NULL,
-	"card" text NOT NULL,
-	"cardId" serial NOT NULL,
-	primary key ("cardId")
-);
-
-
-
-
-ALTER TABLE "Todo" ADD CONSTRAINT "Todo_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-
-ALTER TABLE "Doing" ADD CONSTRAINT "Doing_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-
-ALTER TABLE "Done" ADD CONSTRAINT "Done_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("cardId") REFERENCES "Task"("cardId");
