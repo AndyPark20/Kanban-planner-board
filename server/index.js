@@ -162,7 +162,11 @@ app.post('/api/activity', (req, res, next) => {
               select *
               from "record";
             `;
+
             const getResult = await db.query(sqlGet);
+            getResult.rows.forEach((recordValues, index) => {
+              console.log('RECORRRRDDD', recordValues);
+            });
             if (getResult.rows[0].cardId !== cardId) {
               const sql = `
             insert into "record" ("cardId","record","time")
