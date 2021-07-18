@@ -140,7 +140,6 @@ app.post('/api/update', async (req, res, next) => {
     `;
     const params = [name, id];
     const result = await db.query(sql, params);
-    console.log(result);
   } catch (err) {
     console.error(err);
   }
@@ -151,11 +150,20 @@ app.post('/api/activity', (req, res, next) => {
   req.body.forEach((values, index) => {
     values.list.forEach((values, listIndex) => {
       if (values.activity !== undefined) {
-        console.log(values.activity);
-        //   values.activity.forEach((values, index) => {
-        //     console.log(values);
-        //   });
-
+        const cardId = values.cardId;
+        values.activity.forEach((values, index) => {
+          console.log('values', values);
+          // try {
+          //   const sql = `
+          //   insert into "public.activities" ("cardId","record","time");
+          //   values($1,$2,$3)
+          //   returning *;
+          //   `;
+          //   const params =[cardId,values,]
+          // } catch (err) {
+          //   console.error(err);
+          // }
+        });
       }
     });
 
