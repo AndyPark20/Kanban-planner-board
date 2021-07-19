@@ -23,18 +23,15 @@ CREATE TABLE "activities" (
 	"userId" integer NOT NULL,
 	"column" text NOT NULL,
 	"card" text NOT NULL,
-	"cardId" integer NOT NULL,
-	primary key ("cardId")
+	"cardId" serial NOT NULL
 );
 
 CREATE TABLE "record" (
 	"activityId" serial NOT NULL,
-	"cardId" serial NOT NULL,
+	"cardId" integer NOT NULL,
 	"record" TEXT NOT NULL,
-	"time" TEXT NOT NULL,
-	primary key ("cardId")
+	"time" TEXT NOT NULL
 );
 
 
 ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-ALTER TABLE "record" ADD CONSTRAINT "record_fk0" FOREIGN KEY ("cardId") REFERENCES "activities"("cardId");

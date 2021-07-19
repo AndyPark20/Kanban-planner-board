@@ -119,7 +119,7 @@ app.get('/api/retrieve', async (req, res, next) => {
     from "activities"
     where "userId"= $1;
   `;
-    const params = [1];
+    const params = [userIdNumber];
     const result = await db.query(sql, params);
     res.status(201).json(result);
   } catch (err) {
@@ -165,6 +165,7 @@ app.post('/api/activity', (req, res, next) => {
 
             const getResult = await db.query(sqlGet);
             if (getResult.rows.length === 0) {
+              console.log(cardId);
               const sql = `
             insert into "record" ("cardId","record","time")
             values($1,$2,$3)
