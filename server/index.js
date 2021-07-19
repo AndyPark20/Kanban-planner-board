@@ -148,53 +148,6 @@ app.post('/api/update', async (req, res, next) => {
 
 // activity Update
 app.post('/api/activity', (req, res, next) => {
-  req.body.forEach((values, index) => {
-    values.list.forEach((valuesOne, listIndex) => {
-      if (valuesOne.activity !== undefined) {
-        const cardId = valuesOne.cardId;
-        valuesOne.activity.forEach(async (values, index) => {
-          const userActivity = values.info;
-          const time = values.time;
-          const timeString = time.toString();
-          try {
-            // Retrieve record data and compare with the object to see if anything overlaps, if it doesn't over lap then insert the data into data base
-            const sqlGet = `
-              select *
-              from "record";
-            `;
-
-            const getResult = await db.query(sqlGet);
-            if (getResult.rows.length === 0) {
-              console.log(cardId);
-              const sql = `
-            insert into "record" ("cardId","record","time")
-            values($1,$2,$3)
-            returning *;
-            `;
-              const params = [cardId, userActivity, timeString];
-              const result = await db.query(sql, params);
-            } else {
-              getResult.rows.forEach(async (recordValues, index) => {
-                if (recordValues.time !== time) {
-                  const sql = `
-            insert into "record" ("cardId","record","time")
-            values($1,$2,$3)
-            returning *;
-            `;
-                  console.log('CARDID', cardId);
-                  const params = [cardId, userActivity, timeString];
-                  const result = await db.query(sql, params);
-                }
-              });
-            }
-          } catch (err) {
-            console.error(err);
-          }
-        });
-      }
-    });
-
-  });
 
 });
 

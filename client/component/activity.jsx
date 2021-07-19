@@ -74,8 +74,10 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const userSave = async e => {
     e.preventDefault();
     if (!userEdit) {
-      console.log(masterCharacter);
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
+      // Copy Array;
+      const copiedActivity = masterCharacter[columnNumber].list[cardNumber].activity.concat();
+      console.log(copiedActivity);
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateMasterCharacter(masterCharacter);
       updateUserLog({ info: '' });
