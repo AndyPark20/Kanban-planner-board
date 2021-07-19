@@ -180,6 +180,7 @@ app.post('/api/activity', (req, res, next) => {
             values($1,$2,$3)
             returning *;
             `;
+                  console.log('CARDID', cardId);
                   const params = [cardId, userActivity, timeString];
                   const result = await db.query(sql, params);
                 }

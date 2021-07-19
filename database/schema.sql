@@ -23,7 +23,7 @@ CREATE TABLE "activities" (
 	"userId" integer NOT NULL,
 	"column" text NOT NULL,
 	"card" text NOT NULL,
-	"cardId" serial NOT NULL,
+	"cardId" integer NOT NULL,
 	primary key ("cardId")
 );
 
