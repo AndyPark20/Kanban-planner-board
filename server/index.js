@@ -149,10 +149,10 @@ app.post('/api/update', async (req, res, next) => {
 // activity Update
 app.post('/api/activity', (req, res, next) => {
   req.body.forEach((values, index) => {
-    values.list.forEach((values, listIndex) => {
-      if (values.activity !== undefined) {
-        const cardId = values.cardId;
-        values.activity.forEach(async (values, index) => {
+    values.list.forEach((valuesOne, listIndex) => {
+      if (valuesOne.activity !== undefined) {
+        const cardId = valuesOne.cardId;
+        valuesOne.activity.forEach(async (values, index) => {
           const userActivity = values.info;
           const time = values.time;
           const timeString = time.toString();
@@ -164,17 +164,26 @@ app.post('/api/activity', (req, res, next) => {
             `;
 
             const getResult = await db.query(sqlGet);
-            getResult.rows.forEach((recordValues, index) => {
-              console.log('RECORRRRDDD', recordValues);
-            });
-            if (getResult.rows[0].cardId !== cardId) {
+            if (getResult.rows.length === 0) {
               const sql = `
             insert into "record" ("cardId","record","time")
             values($1,$2,$3)
             returning *;
             `;
-              const params = [2, userActivity, timeString];
+              const params = [cardId, userActivity, timeString];
               const result = await db.query(sql, params);
+            } else {
+              getResult.rows.forEach(async (recordValues, index) => {
+                if (recordValues.time !== time) {
+                  const sql = `
+            insert into "record" ("cardId","record","time")
+            values($1,$2,$3)
+            returning *;
+            `;
+                  const params = [cardId, userActivity, timeString];
+                  const result = await db.query(sql, params);
+                }
+              });
             }
           } catch (err) {
             console.error(err);
