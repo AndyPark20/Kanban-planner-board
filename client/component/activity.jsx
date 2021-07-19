@@ -76,7 +76,8 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     if (!userEdit) {
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       // Copy Array;
-      const copiedActivity = masterCharacter[columnNumber].list[cardNumber].activity.concat();
+      let copiedActivity;
+      copiedActivity = { list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
       console.log(copiedActivity);
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateMasterCharacter(masterCharacter);
@@ -91,6 +92,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           },
           body: JSON.stringify(masterCharacter)
         });
+
         activityPost();
       } catch (err) {
         console.error(err);

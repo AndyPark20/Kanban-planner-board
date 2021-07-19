@@ -148,7 +148,6 @@ app.post('/api/update', async (req, res, next) => {
 
 // activity Update
 app.post('/api/activity', (req, res, next) => {
-
 });
 
 app.listen(process.env.PORT, () => {
