@@ -119,7 +119,7 @@ app.get('/api/retrieve', async (req, res, next) => {
     from "activities"
     where "userId"= $1;
   `;
-    const params = [userIdNumber];
+    const params = [1];
     const result = await db.query(sql, params);
     res.status(201).json(result);
   } catch (err) {
@@ -148,6 +148,7 @@ app.post('/api/update', async (req, res, next) => {
 
 // activity Update
 app.post('/api/activity', (req, res, next) => {
+  console.log('hello back end');
 });
 
 app.listen(process.env.PORT, () => {
