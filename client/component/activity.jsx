@@ -90,7 +90,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(masterCharacter)
+          body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
         console.log(result);
