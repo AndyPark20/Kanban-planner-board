@@ -149,18 +149,24 @@ app.post('/api/update', async (req, res, next) => {
 // activity Update
 app.post('/api/activity', async (req, res, next) => {
   const inputData = req.body;
+  const cardId = req.body.cardNumber;
+  let time = '';
+  let activityValue = '';
   const sql = `
   insert into "record" ("cardId","record","time")
   values ($1,$2,$3)
   returning *;
   `;
-
   try {
     // const params = [sql];
   // loop thru body property of the req object to retrieve values from activity
     inputData.activity.forEach((values, index) => {
-      console.log('values', values);
+      activityValue = values.info;
+      time = values.time;
     });
+    const params = [cardId, activityValue, time];
+    const result = await db.query(sql, params);
+    console.log('result', result);
   } catch (err) {
     console.error(err);
   }
