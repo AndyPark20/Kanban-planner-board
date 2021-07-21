@@ -76,7 +76,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     if (!userEdit && userLog.info) {
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       // Copy Array;
-      console.log('hello before');
       let copiedActivity;
       copiedActivity = { list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
@@ -84,6 +83,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       updateUserLog({ info: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
+      console.log('COPIED ACTIVITY', copiedActivity);
       try {
         const activityPost = await fetch('/api/activity', {
           method: 'POST',
@@ -93,7 +93,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
-        console.log(result);
       } catch (err) {
         console.error(err);
       }

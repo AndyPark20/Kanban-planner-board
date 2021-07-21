@@ -164,9 +164,9 @@ app.post('/api/activity', async (req, res, next) => {
       activityValue = values.info;
       time = values.time;
     });
+    console.log('OUTSIDE', activityValue);
     const params = [cardId, activityValue, time];
     const result = await db.query(sql, params);
-    console.log('result', result);
   } catch (err) {
     console.error(err);
   }
