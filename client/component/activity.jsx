@@ -78,7 +78,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       // Copy Array;
       let copiedActivity;
       copiedActivity = { list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
-      console.log(copiedActivity);
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateMasterCharacter(masterCharacter);
       updateUserLog({ info: '' });
@@ -92,7 +91,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           },
           body: JSON.stringify(masterCharacter)
         });
-
+        console.log('hello');
         activityPost();
       } catch (err) {
         console.error(err);
