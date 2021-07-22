@@ -149,6 +149,7 @@ app.post('/api/update', async (req, res, next) => {
 // activity Update
 app.post('/api/activity', async (req, res, next) => {
   const inputData = req.body;
+  console.log('INPUTDATA', inputData);
   const cardId = req.body.cardNumber;
   let time = '';
   let activityValue = '';
@@ -164,7 +165,6 @@ app.post('/api/activity', async (req, res, next) => {
       activityValue = values.info;
       time = values.time;
     });
-    console.log('OUTSIDE', activityValue);
     const params = [cardId, activityValue, time];
     const result = await db.query(sql, params);
   } catch (err) {
