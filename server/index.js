@@ -149,7 +149,8 @@ app.post('/api/update', async (req, res, next) => {
 // activity Update
 app.post('/api/activity', async (req, res, next) => {
   const inputData = req.body;
-  console.log('INPUTDATA', inputData);
+  const cardName = req.body.list;
+  console.log(cardName);
   const cardId = req.body.cardNumber;
   let time = '';
   let activityValue = '';
