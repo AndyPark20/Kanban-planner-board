@@ -88,10 +88,16 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
 
         const cardInfo = await fetch('/api/cardIdRetrieve');
         const returnedPromisedCardInfo = await cardInfo.json();
-        const cardDataResult = returnedPromisedCardInfo.rows[0];
+        const cardDataResult = returnedPromisedCardInfo.rows;
         // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
-        cardDataResult.map((values, index) => {
-          console.log(values);
+        cardDataResult.forEach((resultValues, index) => {
+          if (resultValues.card === masterCharacter[columnNumber].list[cardNumber].name) {
+            console.log('resultValues', resultValues.cardId);
+            copiedActivity.forEach((activityValue, indexValue) => {
+              console.log(activityValue.activity[indexValue]);
+            });
+          }
+
         });
         // const activityPost = await fetch('/api/activity', {
         //   method: 'POST',
