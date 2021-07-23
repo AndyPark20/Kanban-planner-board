@@ -112,17 +112,19 @@ app.post('/api/addCard', async (req, res, next) => {
 });
 
 // APP get to retrieve cardId
-app.get('/api/cardIdRetrieve',async(req,res,next)=>{
-  try{
-    const sql= `
+app.get('/api/cardIdRetrieve', async (req, res, next) => {
+  try {
+    const sql = `
       select *
       from "activities"
-    `
+    `;
+    const result = await db.query(sql);
+    res.status(201).json(result);
+  } catch (err) {
+    console.error(err);
   }
-  const result = await db.query(sql);
-  console.log(result)
 
-})
+});
 
 // APP GET to retrieve Data
 app.get('/api/retrieve', async (req, res, next) => {
