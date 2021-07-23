@@ -87,8 +87,12 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       try {
 
         const cardInfo = await fetch('/api/cardIdRetrieve');
-        const resultCardInfo = cardInfo.json();
-        console.log(resultCardInfo);
+        const returnedPromisedCardInfo = await cardInfo.json();
+        const cardDataResult = returnedPromisedCardInfo.rows[0];
+        // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
+        cardDataResult.map((values, index) => {
+          console.log(values);
+        });
         // const activityPost = await fetch('/api/activity', {
         //   method: 'POST',
         //   headers: {
