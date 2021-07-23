@@ -77,13 +77,12 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       // Copy Array;
       let copiedActivity;
-      copiedActivity = { list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
+      copiedActivity = { cardName: masterCharacter[columnNumber].list[cardNumber].name, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateMasterCharacter(masterCharacter);
       updateUserLog({ info: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
-      console.log('COPIED ACTIVITY', copiedActivity);
       try {
 
         const cardInfo = await fetch('/api/cardIdRetrieve');
@@ -92,12 +91,11 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
         cardDataResult.forEach((resultValues, index) => {
           if (resultValues.card === masterCharacter[columnNumber].list[cardNumber].name) {
-            console.log('resultValues', resultValues.cardId);
-            copiedActivity.forEach((activityValue, indexValue) => {
-              console.log(activityValue.activity[indexValue]);
+            copiedActivity.activity.forEach((activityValue, indexValue) => {
+              activityValue.mainCardId = resultValues.cardId;
             });
           }
-
+          console.log(copiedActivity);
         });
         // const activityPost = await fetch('/api/activity', {
         //   method: 'POST',
