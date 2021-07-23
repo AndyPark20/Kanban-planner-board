@@ -56,6 +56,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const renderLog = () => {
     if (renderActivity) {
       if (masterCharacter[columnNumber].list[cardNumber].activity !== undefined && renderActivityItem) {
+        console.log(masterCharacter[columnNumber].list[cardNumber].activity);
         const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
           return (
             <div key={index} className="d-flex align-items-center">
@@ -90,7 +91,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         const cardDataResult = returnedPromisedCardInfo.rows;
         // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
         cardDataResult.forEach((resultValues, index) => {
-          if (resultValues.card === masterCharacter[columnNumber].list[cardNumber].name) {
+          if (resultValues.card === copiedActivity.cardName) {
             copiedActivity.activity.forEach((activityValue, indexValue) => {
               activityValue.mainCardId = resultValues.cardId;
             });
