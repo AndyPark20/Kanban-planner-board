@@ -85,14 +85,18 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       updateRenderActivity(true);
       console.log('COPIED ACTIVITY', copiedActivity);
       try {
-        const activityPost = await fetch('/api/activity', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(copiedActivity)
-        });
-        const result = await activityPost.json();
+
+        const cardInfo = await fetch('/api/cardIdRetrieve');
+        const resultCardInfo = cardInfo.json();
+        console.log(resultCardInfo);
+        // const activityPost = await fetch('/api/activity', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify(copiedActivity)
+        // });
+        // const result = await activityPost.json();
       } catch (err) {
         console.error(err);
       }
