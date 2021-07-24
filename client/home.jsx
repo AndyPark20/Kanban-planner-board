@@ -38,6 +38,7 @@ const Home = () => {
 
   // Retrieve card and info data when user signs in
   useEffect(() => {
+
     const retrieveData = async () => {
       try {
         const data = await fetch('/api/retrieve');
@@ -52,14 +53,30 @@ const Home = () => {
        const filterIt = result.rows.filter(({card}, index)=>{
          return !mapIt.includes(card,index+1);
        })
-        updateMasterCharacter(filterIt);
+       console.log(filterIt)
+
+       //reassign data back to copied object called "Copied Object"
+
+       const newArray =copiedObject.map((values,index)=>{
+          filterIt.forEach((filterValues,index)=>{
+            console.log(values)
+
+          })
+
+
+       })
+       console.log(newArray)
+
+
+
+        // updateMasterCharacter(filterIt);
       } catch (err) {
         console.error(err);
       }
 
     };
     retrieveData();
-  }, []);
+  });
 
   // Wallpapeer
   useEffect(() => {
