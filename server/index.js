@@ -132,6 +132,7 @@ app.get('/api/retrieve', async (req, res, next) => {
     const sql = `
     select *
     from "activities"
+    join "record" using ("cardId")
     where "userId"= $1;
   `;
     const params = [userIdNumber];

@@ -42,15 +42,17 @@ const Home = () => {
       try {
         const data = await fetch('/api/retrieve');
         const result = await data.json();
+        console.log('RECEIVE RESULT', result.rows)
         // push it to characters array of objects.
         const copiedObject = characters.concat();
-        result.rows.forEach((value, index) => {
+        console.log(copiedObject)
+        // result.rows.forEach((value, index) => {
           if (value.column === 'Todo') {
-            copiedObject[0].list.push({ name: value.card, cardId: value.cardId });
+            // copiedObject[0].list.push({ name: value.card, cardId: value.cardId });
           } else if (value.column === 'Doing') {
-            copiedObject[1].list.push({ name: value.card, cardId: value.cardId });
+            // copiedObject[1].list.push({ name: value.card, cardId: value.cardId });
           } else if (value.column === 'Done') {
-            copiedObject[2].list.push({ name: value.card, cardId: value.cardId });
+            // copiedObject[2].list.push({ name: value.card, cardId: value.cardId });
           }
           // copiedObject[0].list.push({ name: value.card });
         });
