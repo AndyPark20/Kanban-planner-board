@@ -29,7 +29,7 @@ CREATE TABLE "activities" (
 CREATE TABLE "record" (
 	"activityId" serial NOT NULL,
 	"mainCardId" integer NOT NULL,
-	"cardColumn" integer NOT NULL,
+	"cardId" integer NOT NULL,
 	"cardName" TEXT NOT NULL,
 	"record" TEXT NOT NULL,
 	"time" TEXT NOT NULL
