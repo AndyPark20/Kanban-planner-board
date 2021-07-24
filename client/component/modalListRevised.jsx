@@ -14,13 +14,13 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
 
   useEffect(() => {
     if (masterCharacter.length !== 0) {
-      const selectedColumn = masterCharacter[columnNumber].list;
-      if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined) {
-        const cardTitle = selectedColumn[cardNumber].name;
-        const selectedCardDescription = selectedColumn[cardNumber].desc;
-        updateFinalDescription(selectedCardDescription);
-        updateFinalValues(cardTitle);
-      }
+      // const selectedColumn = masterCharacter[columnNumber].list;
+      // if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined) {
+      //   const cardTitle = selectedColumn[cardNumber].name;
+      //   const selectedCardDescription = selectedColumn[cardNumber].desc;
+      //   updateFinalDescription(selectedCardDescription);
+      //   updateFinalValues(cardTitle);
+      // }
     }
 
     updateModalClose(modal);

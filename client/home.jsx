@@ -52,7 +52,6 @@ const Home = () => {
        const filterIt = result.rows.filter(({card}, index)=>{
          return !mapIt.includes(card,index+1);
        })
-       console.log(filterIt)
         updateMasterCharacter(filterIt);
       } catch (err) {
         console.error(err);
