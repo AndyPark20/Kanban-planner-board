@@ -113,7 +113,8 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   };
 
   const renderIt = () => {
-    const loop = masterCharacter.map((info, index) => {
+
+    const loop = masterCharacter.forEach((info, index) => {
       return (
         <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)}
           onDrop={e => dropIt(e, info, index)}>
@@ -122,6 +123,15 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
             <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
           </div>
           <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
+
+          <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
+                  onClick={() => changeTitle(indexItem, index)}>
+                  <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values} cardSequence={cardNumber}
+                    columnNumber={index} masterCharacter={masterCharacter} cardName={updateCardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
+                    masterCharacterUpdate={updateMasterCharacter} />
+                </div>
+
+
             {info.list.map((values, indexItem) => {
               return (
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
@@ -136,7 +146,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
         </div>
       );
     });
-    return loop;
+
   };
 
   return (
