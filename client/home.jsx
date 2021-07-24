@@ -53,8 +53,7 @@ const Home = () => {
          return !mapIt.includes(card,index+1);
        })
        console.log(filterIt)
-       console.log(copiedObject)
-        updateMasterCharacter(copiedObject);
+        updateMasterCharacter(filterIt);
       } catch (err) {
         console.error(err);
       }
