@@ -165,13 +165,13 @@ app.post('/api/update', async (req, res, next) => {
 app.post('/api/activity', async (req, res, next) => {
   const inputData = req.body;
   const cardName = req.body.list;
-  const cardId = req.body.cardNumber;
+  const cardColumnId = req.body.cardNumber;
   let time = '';
-  const mainCardId = null;
+  let mainCardId = null;
   let activityValue = '';
   const sql = `
-  insert into "record" ("mainCardId","cardId","cardName","record","time")
-  values ($1,$2,$3,$4)
+  insert into "record" ("cardId","columnId","columnName","record","time")
+  values ($1,$2,$3,$4,$5)
   returning *;
   `;
   try {
@@ -181,7 +181,7 @@ app.post('/api/activity', async (req, res, next) => {
       time = values.time;
       mainCardId = values.mainCardId;
     });
-    const params = [cardId, cardName, activityValue, time];
+    const params = [mainCardId, cardColumnId, cardName, activityValue, time];
     const result = await db.query(sql, params);
   } catch (err) {
     console.error(err);
