@@ -44,17 +44,16 @@ const Home = () => {
         const result = await data.json();
         // push it to characters array of objects.
         const copiedObject = characters.concat();
-        result.rows.forEach((value, index) => {
-          if (value.column === 'Todo' && value.card !== value.card) {
-            copiedObject[0].list.push({ name: value.card, cardId: value.cardId });
-          } else if (value.column === 'Doing') {
-            copiedObject[1].list.push({ name: value.card, cardId: value.cardId });
-          } else if (value.column === 'Done') {
-            copiedObject[2].list.push({ name: value.card, cardId: value.cardId });
-          }
-          // copiedObject[0].list.push({ name: value.card });
-        });
-        console.log('COPIED OBJECT', copiedObject)
+        //use map method to return cardName
+        const mapIt = result.rows.map((values)=>{
+          return values.card
+        })
+       //use Filter and include method to to check if the new array returned from mapIt has the same card value
+       const filterIt = result.rows.filter(({card}, index)=>{
+         return !mapIt.includes(card,index+1);
+       })
+       console.log(filterIt)
+       console.log(copiedObject)
         updateMasterCharacter(copiedObject);
       } catch (err) {
         console.error(err);
