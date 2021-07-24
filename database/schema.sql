@@ -21,9 +21,10 @@ CREATE TABLE "users" (
 
 CREATE TABLE "activities" (
 	"userId" integer NOT NULL,
+	"mainCardId" integer NOT NULL,
 	"column" text NOT NULL,
 	"card" text NOT NULL,
-	"cardId" serial NOT NULL
+	"cardColumn" serial NOT NULL
 );
 
 CREATE TABLE "record" (
