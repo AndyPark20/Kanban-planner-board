@@ -48,11 +48,11 @@ const Home = () => {
         result.rows.forEach((value, index) => {
           console.log('VALUE',value)
           if (value.column === 'Todo') {
-            copiedObject[0].list.push({ name: value.card, cardId: value.cardId });
+            copiedObject[0].list.push({log:value.record, time: value.time});
           } else if (value.column === 'Doing') {
-            // copiedObject[1].list.push({ name: value.card, cardId: value.cardId });
+            copiedObject[1].list.push({log:value.record, time: value.time});
           } else if (value.column === 'Done') {
-            // copiedObject[2].list.push({ name: value.card, cardId: value.cardId });
+              copiedObject[2].list.push({log:value.record, time: value.time});
           }
         });
         console.log('COPIED OBJECT', copiedObject)
