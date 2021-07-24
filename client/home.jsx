@@ -53,17 +53,15 @@ const Home = () => {
        const filterIt = result.rows.filter(({card}, index)=>{
          return !mapIt.includes(card,index+1);
        })
-       console.log(filterIt)
 
        //reassign data back to copied object called "Copied Object"
 
        const newArray =copiedObject.map((values,index)=>{
           filterIt.forEach((filterValues,index)=>{
-            console.log(values)
-
+            if(values.id === filterValues.column){
+                console.log(filterValues.card)
+            }
           })
-
-
        })
        console.log(newArray)
 
