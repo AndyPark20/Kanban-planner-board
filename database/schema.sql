@@ -21,15 +21,15 @@ CREATE TABLE "users" (
 
 CREATE TABLE "activities" (
 	"userId" integer NOT NULL,
-	"mainCardId" integer NOT NULL,
 	"column" text NOT NULL,
 	"card" text NOT NULL,
-	"cardColumn" serial NOT NULL
+	"cardId" serial NOT NULL
 );
 
 CREATE TABLE "record" (
 	"activityId" serial NOT NULL,
-	"cardId" integer NOT NULL,
+	"mainCardId" integer NOT NULL,
+	"cardColumn" integer NOT NULL,
 	"cardName" TEXT NOT NULL,
 	"record" TEXT NOT NULL,
 	"time" TEXT NOT NULL
