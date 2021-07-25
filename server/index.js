@@ -132,12 +132,33 @@ app.get('/api/retrieve', async (req, res, next) => {
     const sql = `
     select *
     from "activities"
-    join "record" using ("cardId")
-    where "userId"= $1;
   `;
     const params = [userIdNumber];
-    const result = await db.query(sql, params);
-    res.status(201).json(result);
+    const result = await db.query(sql);
+    if(result){
+      const sqlRecord = `
+      select *
+      from "record"
+      `
+    const recordResult = await db.query(sqlRecord)
+      console.log('RESULT RESULT', result.rows);
+    console.log('RECORDRESULT',recordResult.rows);
+
+    //Create an object with result and record result and send it to the front end
+    const combinedObject = result.rows.map(values=>{
+      recordResult.rows.forEach(recordValues=>{
+        if(values.cardId === recordValues.cardId){
+          values['activity'] = recordValues;
+        }
+      })
+      return values;
+    })
+
+    console.log('Combined Result', combinedObject)
+    res.status(201).send(combinedObject)
+    // res.status(201).send(recordResult.rows)
+    // res.status(201).send(result.rows)
+    }
   } catch (err) {
     console.error(err);
   }
