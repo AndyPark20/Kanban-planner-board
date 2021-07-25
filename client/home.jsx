@@ -53,17 +53,17 @@ const Home = () => {
        const filterIt = result.rows.filter(({card}, index)=>{
          return !mapIt.includes(card,index+1);
        })
-
+       console.log(filterIt)
        //reassign data back to copied object called "Copied Object"
        const newArray =copiedObject.map((values,index)=>{
           filterIt.forEach((filterValues,index)=>{
             if(values.id === filterValues.column){
-                values.list.push({name:filterValues.card, time:filterValues.time, activity:filterValues.record})
+                values.list.push({name:filterValues.card, time:filterValues.time, activity:{activity:filterValues.record}})
             }
           })
             return values
        })
-
+       console.log(newArray)
         updateMasterCharacter(newArray);
       } catch (err) {
         console.error(err);
