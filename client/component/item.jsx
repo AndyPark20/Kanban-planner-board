@@ -18,14 +18,13 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
 
   const enterTitle = async e => {
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
-      // masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
-      // masterCharacter[columnNumber].list[cardSequence].desc = description;
-      // masterCharacter[columnNumber].list[cardSequence].activity = [];
+      masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
       const idName = masterCharacter[columnNumber].id;
-      const cardDescription = masterCharacter[columnNumber].list[cardSequence];
+      const cardDescription = masterCharacter[columnNumber].list[cardSequence].name;
       update(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
+
       try {
         const result = await fetch('/api/addCard', {
           method: 'POST',
@@ -56,9 +55,9 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
 
   return (
     <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} >
-      <div className="card-body">
+      <div className="card-body" >
         <div className="text-right position-relative">
-          <i className={pencilVisibility}></i>
+          <i className={pencilVisibility()}></i>
         </div>
         <h5 className="card-title">{values}</h5>
         <form onSubmit={handleSubmit}>
