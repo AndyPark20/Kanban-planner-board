@@ -53,24 +53,25 @@ const Home = () => {
        const filterIt = result.rows.filter(({card}, index)=>{
          return !mapIt.includes(card,index+1);
        })
+
        //reassign data back to copied object called "Copied Object"
        const newArray =copiedObject.map((values,index)=>{
           filterIt.forEach((filterValues,index)=>{
             if(values.id === filterValues.column){
-                values.list.push({name:filterValues.card, time:filterValues.time, activity:'hello'})
+                values.list.push({name:filterValues.card, time:filterValues.time, activity:filterValues.record})
             }
           })
             return values
        })
-       console.log(newArray)
-        // updateMasterCharacter(filterIt);
+
+        updateMasterCharacter(newArray);
       } catch (err) {
         console.error(err);
       }
 
     };
     retrieveData();
-  });
+  },[]);
 
   // Wallpapeer
   useEffect(() => {
