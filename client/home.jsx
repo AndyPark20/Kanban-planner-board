@@ -45,36 +45,19 @@ const Home = () => {
         const result = await data.json();
         // push it to characters array of objects.
         const copiedObject = characters.concat();
-        //use map method to return cardName
 
-        // let object ={columnName:'',name:'',activity:[]}
-        console.log(result)
+        //received Data from back end
+        const copiedObjectUpdate = result.rows;
+        console.log('copied Object', copiedObjectUpdate)
+        //Use map method to update the object into an array.
+        const updateObject = copiedObject.map(values=>{
+          copiedObjectUpdate.forEach((copyValues)=>{
+            if(values.column === copyValues.id){
 
-      //   const mapIt = result.rows.map((values)=>{
-      //     console.log(values)
-      //     return values.card
-      //   })
+            }
+          })
+        })
 
-      //   //use Filter and include method to combine the same card name
-      //  const filterIt = result.rows.filter(({card}, index)=>{
-      //    if(mapIt.includes(card,index+1)){
-      //      object.name=card;
-      //    }else{
-      //    }
-      //  })
-      //  //use map Method to inser the activity into the object
-      //  const activityInsert = result.rows.map((values,index)=>{
-      //    if(object.name === values.card){
-      //      object.columnName = values.column;
-      //      object.activity.push(values.record)
-      //    }
-      //  })
-      //    copiedObject.forEach((values,index)=>{
-      //        if(values.id ===object.columnName){
-      //          console.log(object)
-      //          values.list.push(object);
-      //        }
-      //      })
 
 
 

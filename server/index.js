@@ -133,7 +133,7 @@ app.get('/api/retrieve', async (req, res, next) => {
     select *
     from "activities"
   `;
-    const params = [userIdNumber];
+    const params = [1];
     const result = await db.query(sql);
     if(result){
       const sqlRecord = `
