@@ -47,7 +47,7 @@ const Home = () => {
         const copiedObject = characters.concat();
         //use map method to return cardName
 
-        let object ={name:'',activity:[]}
+        let object ={columnName:'',.name:'',activity:[]}
 
         const mapIt = result.rows.map((values)=>{
           return values.card
@@ -63,14 +63,14 @@ const Home = () => {
        //use map Method to inser the activity into the object
        const activityInsert = result.rows.map((values,index)=>{
          if(object.name === values.card){
+           object.columnName = values.column;
            object.activity.push(values.activity)
          }
        })
 
 
        //reassign data back to copied object called "Copied Object"
-
-      //  console.log(newArray)
+       console.log(object)
       //   updateMasterCharacter(newArray);
       } catch (err) {
         console.error(err);
