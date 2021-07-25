@@ -47,25 +47,31 @@ const Home = () => {
         const copiedObject = characters.concat();
         //use map method to return cardName
 
+        let object ={name:'',activity:[]}
+
         const mapIt = result.rows.map((values)=>{
           return values.card
         })
-       //use Filter and include method to to check if the new array returned from mapIt has the same card value
+        //use Filter and include method to combine the same card name
        const filterIt = result.rows.filter(({card}, index)=>{
-         return !mapIt.includes(card,index+1);
+         if(mapIt.includes(card,index+1)){
+           object.name=card;
+         };
        })
-       console.log(filterIt)
+
+
+       //use map Method to inser the activity into the object
+       const activityInsert = result.rows.map((values,index)=>{
+         if(object.name === values.card){
+           object.activity.push(values.activity)
+         }
+       })
+
+
        //reassign data back to copied object called "Copied Object"
-       const newArray =copiedObject.map((values,index)=>{
-          filterIt.forEach((filterValues,index)=>{
-            if(values.id === filterValues.column){
-                values.list.push({name:filterValues.card, time:filterValues.time, activity:{activity:filterValues.record}})
-            }
-          })
-            return values
-       })
-       console.log(newArray)
-        updateMasterCharacter(newArray);
+
+      //  console.log(newArray)
+      //   updateMasterCharacter(newArray);
       } catch (err) {
         console.error(err);
       }
