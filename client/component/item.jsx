@@ -18,13 +18,12 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
 
   const enterTitle = async e => {
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
-      masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
-      masterCharacter[columnNumber].list[cardSequence].desc = description;
-      masterCharacter[columnNumber].list[cardSequence].activity = [];
+      // masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
+      // masterCharacter[columnNumber].list[cardSequence].desc = description;
+      // masterCharacter[columnNumber].list[cardSequence].activity = [];
       const idName = masterCharacter[columnNumber].id;
       const cardDescription = masterCharacter[columnNumber].list[cardSequence];
       update(masterCharacter);
-      masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
       try {

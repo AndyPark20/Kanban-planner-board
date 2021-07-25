@@ -123,7 +123,6 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
           </div>
           <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
             {info.list.map((values, indexItem) => {
-              console.log('VALUES IN COLUMN', values.card)
               return (
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
