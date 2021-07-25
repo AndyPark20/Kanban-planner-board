@@ -147,8 +147,9 @@ app.get('/api/retrieve', async (req, res, next) => {
     //Create an object with result and record result and send it to the front end
     const combinedObject = result.rows.map(values=>{
       recordResult.rows.forEach(recordValues=>{
+        let activity = [];
         if(values.cardId === recordValues.cardId){
-          values['activity'] = recordValues;
+          values['activity'] = activity.push(recordValues);
         }
       })
       return values;
