@@ -46,6 +46,7 @@ const Home = () => {
         // push it to characters array of objects.
         const copiedObject = characters.concat();
         //use map method to return cardName
+
         const mapIt = result.rows.map((values)=>{
           return values.card
         })

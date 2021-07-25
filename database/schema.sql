@@ -30,7 +30,6 @@ CREATE TABLE "record" (
 	"activityId" serial NOT NULL,
 	"cardId" integer NOT NULL,
 	"columnId" integer NOT NULL,
-	"columnName" TEXT NOT NULL,
 	"record" TEXT NOT NULL,
 	"time" TEXT NOT NULL
 );
