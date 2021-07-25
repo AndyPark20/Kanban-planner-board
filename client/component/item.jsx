@@ -61,9 +61,9 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
         <div className="text-right position-relative">
           <i className={pencilVisibility}></i>
         </div>
-        <h5 className="card-title">{values.name}</h5>
+        <h5 className="card-title">{values}</h5>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Enter a title for this card" className={values.name ? 'hidden' : 'titleEnter'} onKeyUp={enterTitle} onChange={handleUpdateInput} required></input>
+          <input type="text" placeholder="Enter a title for this card" className={values ? 'hidden' : 'titleEnter'} onKeyUp={enterTitle} onChange={handleUpdateInput} required></input>
         </form>
       </div>
     </div>

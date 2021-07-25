@@ -47,24 +47,20 @@ const Home = () => {
         const copiedObject = characters.concat();
 
         //received Data from back end
-        const copiedObjectUpdate = result.rows;
-        console.log('copied Object', copiedObjectUpdate)
+        const copiedObjectUpdate = result;
         //Use map method to update the object into an array.
         const updateObject = copiedObject.map(values=>{
           copiedObjectUpdate.forEach((copyValues)=>{
-            if(values.column === copyValues.id){
-
+            if(values.id === copyValues.column){
+              values.list.push({card: copyValues.card, activity:copyValues.activity})
             }
           })
+          return values;
         })
 
 
-
-
-
        //reassign data back to copied object called "Copied Object"
-          console.log(copiedObject)
-        updateMasterCharacter(copiedObject);
+        updateMasterCharacter(updateObject);
       } catch (err) {
         console.error(err);
       }
