@@ -95,7 +95,7 @@ app.post('/api/logIn', async (req, res, next) => {
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
-  const cardDescription = req.body[1].name;
+  const cardDescription = req.body[1];
   try {
     const sql = `
       insert into "activities" ("userId","column","card")
@@ -196,6 +196,7 @@ app.post('/api/activity', async (req, res, next) => {
   try {
   // loop thru body property of the req object to retrieve values from activity
     inputData.activity.forEach((values, index) => {
+      console.log('INPUT DATA', values)
       activityValue = values.info;
       time = values.time;
       mainCardId = values.mainCardId;

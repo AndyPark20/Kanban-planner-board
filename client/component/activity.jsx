@@ -12,14 +12,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const [saveButton, updateSaveButton] = useState(false);
   const [renderActivityItem, updateRenderActivity] = useState(false);
 
-  // useEffect(() => {
-  //   console.log(userLogSubmit);
-  //   if (renderActivity) {
-  //     const activityArray = masterCharacter[columnNumber].list[cardNumber].activity;
-  //     console.log(activityArray);
-  //     updateUserLogSubmit(activityArray);
-  //   }
-  // });
 
   useEffect(() => {
     if (userEdit) {
@@ -34,10 +26,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     } else {
       masterCharacter[columnNumber].list[cardNumber].activity.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() });
       updateUserLog({ info: e.target.value, time: Date.now() });
-      // updateMasterCharacter(masterCharacter)
-      // Need to update the master character
-      // updateMasterCharacter(selected);
-      // updateUserLog(selected)
+
     }
     if (e.target.value !== '') {
       updateSaveButton(true);
@@ -59,7 +48,8 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         return (
             <div key={index} className="d-flex align-items-center">
               <i className="far fa-comment-dots icon"></i>
-              <h5 className="pl-2 activity-info">{values.record}</h5>
+              {console.log(values.info)}
+              <h5 className="pl-2 activity-info">{values.info}</h5>
             <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{parseInt(values.time)}</Moment>
               <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
             </div>
@@ -75,7 +65,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       // Copy Array;
       let copiedActivity;
-      copiedActivity = { cardName: masterCharacter[columnNumber].list[cardNumber].name, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
+      copiedActivity = { cardName: masterCharacter[columnNumber].list[cardNumber].card, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateMasterCharacter(masterCharacter);
       updateUserLog({ info: '' });
@@ -87,12 +77,14 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         const cardDataResult = returnedPromisedCardInfo.rows;
         // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
         cardDataResult.forEach((resultValues, index) => {
+          console.log('RESULTVALUES', resultValues)
           if (resultValues.card === copiedActivity.cardName) {
             copiedActivity.activity.forEach((activityValue, indexValue) => {
               activityValue.mainCardId = resultValues.cardId;
             });
           }
         });
+        console.log('COPIED ACTIVITY', copiedActivity)
         const activityPost = await fetch('/api/activity', {
           method: 'POST',
           headers: {

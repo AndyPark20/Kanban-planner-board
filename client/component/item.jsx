@@ -21,7 +21,8 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { card: e.target.value };
       const idName = masterCharacter[columnNumber].id;
-      const cardDescription = masterCharacter[columnNumber].list[cardSequence].name;
+      const cardDescription = masterCharacter[columnNumber].list[cardSequence].card;
+      console.log(cardDescription)
       update(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
