@@ -6,6 +6,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
   const [input, updateInput] = useState('');
   const [openModal, updateOpenModal] = useState(false);
   const [selectedItem, updatedSelectedItem] = useState('');
+  const [closeCard, updateCloseCard] = useState(false)
 
   const handleUpdateInput = event => updateInput(event.target.value);
   const handleSubmit = e => {
@@ -17,8 +18,9 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
   });
 
   const enterTitle = async e => {
+    console.log(e.target.value)
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
-      masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
+      masterCharacter[columnNumber].list[cardSequence] = { card: e.target.value };
       const idName = masterCharacter[columnNumber].id;
       const cardDescription = masterCharacter[columnNumber].list[cardSequence].name;
       update(masterCharacter);
@@ -61,7 +63,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
         </div>
         <h5 className="card-title">{values}</h5>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Enter a title for this card" className={values ? 'hidden' : 'titleEnter'} onKeyUp={enterTitle} onChange={handleUpdateInput} required></input>
+          <input type="text" placeholder="Enter a title for this card" className={values ? 'hidden' : 'titleEnter'} onKeyUp={enterTitle} onChange={handleUpdateInput} required ></input>
         </form>
       </div>
     </div>
