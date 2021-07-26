@@ -95,7 +95,7 @@ app.post('/api/logIn', async (req, res, next) => {
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
-  const cardDescription = req.body[1].name;
+  const cardDescription = req.body[1];
   try {
     const sql = `
       insert into "activities" ("userId","column","card")
@@ -111,17 +111,51 @@ app.post('/api/addCard', async (req, res, next) => {
   }
 });
 
+// APP get to retrieve cardId
+app.get('/api/cardIdRetrieve', async (req, res, next) => {
+  try {
+    const sql = `
+      select *
+      from "activities"
+    `;
+    const result = await db.query(sql);
+    res.status(201).json(result);
+  } catch (err) {
+    console.error(err);
+  }
+
+});
+
 // APP GET to retrieve Data
 app.get('/api/retrieve', async (req, res, next) => {
   try {
     const sql = `
     select *
     from "activities"
-    where "userId"= $1;
   `;
-    const params = [1];
-    const result = await db.query(sql, params);
-    res.status(201).json(result);
+    const params = [userIdNumber];
+    const result = await db.query(sql);
+    if(result){
+      const sqlRecord = `
+      select *
+      from "record"
+      `
+    const recordResult = await db.query(sqlRecord)
+    //Create an object with result and record result and send it to the front end
+    const combinedObject = result.rows.map(values=>{
+          let activity=[];
+      recordResult.rows.forEach(recordValues=>{
+        if(values.cardId === recordValues.cardId){
+          // console.log('RECORD VALUES', recordValues)
+          activity.push(recordValues)
+          values['activity'] = activity;
+        }
+      })
+      return values;
+    })
+
+    res.status(201).send(combinedObject);
+    }
   } catch (err) {
     console.error(err);
   }
@@ -140,27 +174,38 @@ app.post('/api/update', async (req, res, next) => {
     `;
     const params = [name, id];
     const result = await db.query(sql, params);
-    console.log(result);
+    console.log('result', result);
   } catch (err) {
     console.error(err);
   }
 });
 
 // activity Update
-app.post('/api/activity', (req, res, next) => {
-  req.body.forEach((values, index) => {
-    values.list.forEach((values, listIndex) => {
-
-      if (values.activity !== undefined) {
-        console.log(values.activity);
-        //   values.activity.forEach((values, index) => {
-        //     console.log(values);
-        //   });
-
-      }
+app.post('/api/activity', async (req, res, next) => {
+  const inputData = req.body;
+  const cardName = req.body.list;
+  const cardColumnId = req.body.cardNumber;
+  let time = '';
+  let mainCardId = null;
+  let activityValue = '';
+  const sql = `
+  insert into "record" ("cardId","columnId","record","time")
+  values ($1,$2,$3,$4)
+  returning *;
+  `;
+  try {
+  // loop thru body property of the req object to retrieve values from activity
+    inputData.activity.forEach((values, index) => {
+      console.log('INPUT DATA', values)
+      activityValue = values.info;
+      time = values.time;
+      mainCardId = values.mainCardId;
     });
-
-  });
+    const params = [mainCardId, cardColumnId, activityValue, time];
+    const result = await db.query(sql, params);
+  } catch (err) {
+    console.error(err);
+  }
 
 });
 

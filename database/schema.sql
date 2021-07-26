@@ -23,18 +23,16 @@ CREATE TABLE "activities" (
 	"userId" integer NOT NULL,
 	"column" text NOT NULL,
 	"card" text NOT NULL,
-	"cardId" serial NOT NULL,
-	primary key ("cardId")
+	"cardId" serial NOT NULL
 );
 
-CREATE TABLE "public.activities" (
+CREATE TABLE "record" (
 	"activityId" serial NOT NULL,
-	"cardId" serial NOT NULL,
+	"cardId" integer NOT NULL,
+	"columnId" integer NOT NULL,
 	"record" TEXT NOT NULL,
-	"time" integer NOT NULL,
-	primary key ("cardId")
+	"time" TEXT NOT NULL
 );
 
 
 ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("cardId") REFERENCES "Task"("cardId");

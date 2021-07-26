@@ -6,6 +6,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
   const [input, updateInput] = useState('');
   const [openModal, updateOpenModal] = useState(false);
   const [selectedItem, updatedSelectedItem] = useState('');
+  const [closeCard, updateCloseCard] = useState(false)
 
   const handleUpdateInput = event => updateInput(event.target.value);
   const handleSubmit = e => {
@@ -18,15 +19,14 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
 
   const enterTitle = async e => {
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
-      masterCharacter[columnNumber].list[cardSequence] = { name: e.target.value };
-      masterCharacter[columnNumber].list[cardSequence].desc = description;
-      masterCharacter[columnNumber].list[cardSequence].activity = [];
+      masterCharacter[columnNumber].list[cardSequence] = { card: e.target.value };
       const idName = masterCharacter[columnNumber].id;
-      const cardDescription = masterCharacter[columnNumber].list[cardSequence];
+      const cardDescription = masterCharacter[columnNumber].list[cardSequence].card;
+      console.log(cardDescription)
       update(masterCharacter);
-      masterCharacterUpdate(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
+
       try {
         const result = await fetch('/api/addCard', {
           method: 'POST',
@@ -57,13 +57,13 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
 
   return (
     <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} >
-      <div className="card-body">
+      <div className="card-body" >
         <div className="text-right position-relative">
-          <i className={pencilVisibility}></i>
+          <i className={pencilVisibility()}></i>
         </div>
-        <h5 className="card-title">{values.name}</h5>
+        <h5 className="card-title">{values}</h5>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Enter a title for this card" className={values.name ? 'hidden' : 'titleEnter'} onKeyUp={enterTitle} onChange={handleUpdateInput} required></input>
+          <input type="text" placeholder="Enter a title for this card" className={values ? 'hidden' : 'titleEnter'} onKeyUp={enterTitle} onChange={handleUpdateInput} required ></input>
         </form>
       </div>
     </div>
