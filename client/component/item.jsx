@@ -18,7 +18,6 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
   });
 
   const enterTitle = async e => {
-    console.log(e.target.value)
     if (e.key === 'Enter' && e.target.value !== '' && columnNumber !== undefined) {
       masterCharacter[columnNumber].list[cardSequence] = { card: e.target.value };
       const idName = masterCharacter[columnNumber].id;

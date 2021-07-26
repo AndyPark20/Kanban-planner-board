@@ -26,10 +26,6 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
     }
   }, [columnUpdate]);
 
-  useEffect(()=>{
-    console.log(masterCharacter)
-  })
-
   const dropIt = (e, info, position) => {
     // the column index number
     e.preventDefault();
