@@ -43,13 +43,16 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   };
 
   const renderLog = () => {
+
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
+      console.log(masterCharacter[columnNumber].list[cardNumber].activity)
+      console.log(columnNumber);
+      console.log(cardNumber)
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
         return (
             <div key={index} className="d-flex align-items-center">
               <i className="far fa-comment-dots icon"></i>
-              {console.log(values.info)}
-              <h5 className="pl-2 activity-info">{values.info}</h5>
+              <h5 className="pl-2 activity-info">{values.record}</h5>
             <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{parseInt(values.time)}</Moment>
               <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
             </div>
@@ -84,7 +87,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
             });
           }
         });
-        console.log('COPIED ACTIVITY', copiedActivity)
         const activityPost = await fetch('/api/activity', {
           method: 'POST',
           headers: {
@@ -93,7 +95,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
-        console.log(result);
+        updateMasterCharacter(copiedActivity)
       } catch (err) {
         console.error(err);
       }
