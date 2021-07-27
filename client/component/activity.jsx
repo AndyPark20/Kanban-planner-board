@@ -105,7 +105,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
-        console.log('result', result);
         if (result) {
           try {
             const data = await fetch('/api/retrieve');
@@ -124,7 +123,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
               });
               return values;
             });
-            console.log(updateObject);
+            updateMasterCharacter(updateObject);
           } catch (err) {
             console.error(err);
           }

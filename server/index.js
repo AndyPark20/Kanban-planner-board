@@ -135,26 +135,26 @@ app.get('/api/retrieve', async (req, res, next) => {
   `;
     const params = [userIdNumber];
     const result = await db.query(sql);
-    if(result){
+    if (result) {
       const sqlRecord = `
       select *
       from "record"
-      `
-    const recordResult = await db.query(sqlRecord)
-    //Create an object with result and record result and send it to the front end
-    const combinedObject = result.rows.map(values=>{
-          let activity=[];
-      recordResult.rows.forEach(recordValues=>{
-        if(values.cardId === recordValues.cardId){
+      `;
+      const recordResult = await db.query(sqlRecord);
+      // Create an object with result and record result and send it to the front end
+      const combinedObject = result.rows.map(values => {
+        const activity = [];
+        recordResult.rows.forEach(recordValues => {
+          if (values.cardId === recordValues.cardId) {
           // console.log('RECORD VALUES', recordValues)
-          activity.push(recordValues)
-          values['activity'] = activity;
-        }
-      })
-      return values;
-    })
+            activity.push(recordValues);
+            values.activity = activity;
+          }
+        });
+        return values;
+      });
 
-    res.status(201).send(combinedObject);
+      res.status(201).send(combinedObject);
     }
   } catch (err) {
     console.error(err);
@@ -196,13 +196,13 @@ app.post('/api/activity', async (req, res, next) => {
   try {
   // loop thru body property of the req object to retrieve values from activity
     inputData.activity.forEach((values, index) => {
-      console.log('INPUT DATA', values)
       activityValue = values.info;
       time = values.time;
       mainCardId = values.mainCardId;
     });
     const params = [mainCardId, cardColumnId, activityValue, time];
     const result = await db.query(sql, params);
+    res.status(201).send(result);
   } catch (err) {
     console.error(err);
   }
@@ -213,20 +213,3 @@ app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
 });
-
-//   try {
-//   const sql = `
-//   insert into "public.activities" ("cardId","record", "time")
-//   values($1,$2,$3)
-//   returning *;
-//   `;
-//   if (values.activity) {
-//     const params = [values.cardId, values.activity, values.activity.time];
-//     const result = await db.query(sql, params);
-//   }
-
-// } catch (err) {
-//   console.error(err);
-// }
-// }
-// });
