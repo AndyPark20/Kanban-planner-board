@@ -44,9 +44,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const renderLog = () => {
 
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
-      console.log(masterCharacter[columnNumber].list[cardNumber].activity);
-      console.log(columnNumber);
-      console.log(cardNumber);
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
         return (
             <div key={index} className="d-flex align-items-center">
@@ -64,8 +61,12 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const userSave = async e => {
     e.preventDefault();
     if (!userEdit && userLog.info) {
-      masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
+      console.log(masterCharacter[columnNumber].list[cardNumber]);
 
+      if (userLogSubmit.length === 0) {
+        masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
+      }
+      console.log('userlogsubmit', userLogSubmit);
       // Copy Array;
       let copiedActivity;
       copiedActivity = { cardName: masterCharacter[columnNumber].list[cardNumber].card, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
