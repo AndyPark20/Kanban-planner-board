@@ -46,20 +46,19 @@ const Home = () => {
         // push it to characters array of objects.
         const copiedObject = characters.concat();
 
-        //received Data from back end
+        // received Data from back end
         const copiedObjectUpdate = result;
-        //Use map method to update the object into an array.
-        const updateObject = copiedObject.map(values=>{
-          copiedObjectUpdate.forEach((copyValues)=>{
-            if(values.id === copyValues.column){
-              values.list.push({card: copyValues.card, activity:copyValues.activity})
+        // Use map method to update the object into an array.
+        const updateObject = copiedObject.map(values => {
+          copiedObjectUpdate.forEach(copyValues => {
+            if (values.id === copyValues.column) {
+              values.list.push({ card: copyValues.card, activity: copyValues.activity });
             }
-          })
+          });
           return values;
-        })
+        });
 
-
-       //reassign data back to copied object called "Copied Object"
+        // reassign data back to copied object called "Copied Object"
         updateMasterCharacter(updateObject);
       } catch (err) {
         console.error(err);
@@ -67,7 +66,7 @@ const Home = () => {
 
     };
     retrieveData();
-  },[]);
+  }, []);
 
   // Wallpapeer
   useEffect(() => {

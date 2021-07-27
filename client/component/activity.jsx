@@ -12,7 +12,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const [saveButton, updateSaveButton] = useState(false);
   const [renderActivityItem, updateRenderActivity] = useState(false);
 
-
   useEffect(() => {
     if (userEdit) {
       updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber]);
@@ -45,9 +44,9 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const renderLog = () => {
 
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
-      console.log(masterCharacter[columnNumber].list[cardNumber].activity)
+      console.log(masterCharacter[columnNumber].list[cardNumber].activity);
       console.log(columnNumber);
-      console.log(cardNumber)
+      console.log(cardNumber);
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
         return (
             <div key={index} className="d-flex align-items-center">
@@ -66,11 +65,11 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     e.preventDefault();
     if (!userEdit && userLog.info) {
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
+
       // Copy Array;
       let copiedActivity;
       copiedActivity = { cardName: masterCharacter[columnNumber].list[cardNumber].card, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
-      updateMasterCharacter(masterCharacter);
       updateUserLog({ info: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
@@ -80,7 +79,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         const cardDataResult = returnedPromisedCardInfo.rows;
         // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
         cardDataResult.forEach((resultValues, index) => {
-          console.log('RESULTVALUES', resultValues)
           if (resultValues.card === copiedActivity.cardName) {
             copiedActivity.activity.forEach((activityValue, indexValue) => {
               activityValue.mainCardId = resultValues.cardId;
@@ -95,7 +93,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
-        updateMasterCharacter(copiedActivity)
+        updateMasterCharacter(copiedActivity);
       } catch (err) {
         console.error(err);
       }
