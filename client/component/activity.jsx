@@ -41,6 +41,10 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
 
   };
 
+  useEffect(() => {
+    console.log('MASTER CHARACTER AT USE EFFECT', masterCharacter);
+  });
+
   const renderLog = () => {
 
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
@@ -61,12 +65,11 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const userSave = async e => {
     e.preventDefault();
     if (!userEdit && userLog.info) {
-      console.log(masterCharacter[columnNumber].list[cardNumber]);
-
+      console.log('USERLOG', userLog);
       if (userLogSubmit.length === 0) {
-        masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
+        masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.push(userLog);
       }
-      console.log('userlogsubmit', userLogSubmit);
+      console.log('masterCharacter[columnNumber].list[cardNumber].activity', masterCharacter[columnNumber].list[cardNumber].activity);
       // Copy Array;
       let copiedActivity;
       copiedActivity = { cardName: masterCharacter[columnNumber].list[cardNumber].card, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
@@ -80,6 +83,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         const cardDataResult = returnedPromisedCardInfo.rows;
         // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
         cardDataResult.forEach((resultValues, index) => {
+          console.log('RESULTVALUES', resultValues);
           if (resultValues.card === copiedActivity.cardName) {
             copiedActivity.activity.forEach((activityValue, indexValue) => {
               activityValue.mainCardId = resultValues.cardId;
