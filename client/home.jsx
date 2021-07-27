@@ -38,7 +38,6 @@ const Home = () => {
 
   // Retrieve card and info data when user signs in
   useEffect(() => {
-
     const retrieveData = async () => {
       try {
         const data = await fetch('/api/retrieve');
@@ -59,6 +58,7 @@ const Home = () => {
         });
 
         // reassign data back to copied object called "Copied Object"
+        console.log(updateObject);
         updateMasterCharacter(updateObject);
       } catch (err) {
         console.error(err);
