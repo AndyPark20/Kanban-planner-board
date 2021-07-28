@@ -47,6 +47,7 @@ const Home = () => {
 
         // received Data from back end
         const copiedObjectUpdate = result;
+        console.log('COPIED OBJECT', copiedObjectUpdate);
         // Use map method to update the object into an array.
         const updateObject = copiedObject.map(values => {
           copiedObjectUpdate.forEach(copyValues => {
@@ -58,7 +59,7 @@ const Home = () => {
         });
 
         // reassign data back to copied object called "Copied Object"
-        console.log(updateObject);
+        // console.log('UPDATE OBJECT', updateObject);
         updateMasterCharacter(updateObject);
       } catch (err) {
         console.error(err);

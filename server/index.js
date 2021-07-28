@@ -161,9 +161,11 @@ app.get('/api/retrieve', async (req, res, next) => {
         if (values.userId === userIdNumber) {
           return values;
         }
-
       });
-      res.status(201).send(finalObject);
+
+      // use Filter method to filter out Null
+      const filteredOBject = finalObject.filter(Boolean);
+      res.status(201).send(filteredOBject);
     }
   } catch (err) {
     console.error(err);
