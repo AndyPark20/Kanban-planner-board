@@ -12,6 +12,14 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(true);
 
+  useEffect(() => {
+    if (masterCharacter.length !== 0) {
+      const selectedColumn = masterCharacter[columnNumber].list;
+      selectedColumn.forEach(values => {
+        updateFinalValues(values.card);
+      });
+
+    }
 
     updateModalClose(modal);
   });
