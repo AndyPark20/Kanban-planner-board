@@ -143,17 +143,18 @@ app.get('/api/retrieve', async (req, res, next) => {
       const recordResult = await db.query(sqlRecord);
       // Create an object with result and record result and send it to the front end
       const combinedObject = result.rows.map(values => {
-        console.log('VALUES', values);
-
-        const activity = [];
-        recordResult.rows.forEach(recordValues => {
-          if (values.cardId === recordValues.cardId && values.userId === recordValues.userId) {
-            console.log('recordValues', recordValues);
-            // console.log('RECORD VALUES', recordValues)
-            activity.push(recordValues);
-            values.activity = activity;
-          }
-        });
+        if (values.userId === userIdNumber) {
+          const activity = [];
+          console.log('ACTIVITY', activity);
+          recordResult.rows.forEach(recordValues => {
+            if (values.cardId === recordValues.cardId) {
+              console.log('recordValues', recordValues);
+              activity.push(recordValues);
+              values.activity = activity;
+              console.log('ACTIVITY TWO', activity);
+            }
+          });
+        }
         return values;
       });
       console.log('combinedObject', combinedObject);
