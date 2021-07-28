@@ -145,20 +145,25 @@ app.get('/api/retrieve', async (req, res, next) => {
       const combinedObject = result.rows.map(values => {
         if (values.userId === userIdNumber) {
           const activity = [];
-          console.log('ACTIVITY', activity);
           recordResult.rows.forEach(recordValues => {
             if (values.cardId === recordValues.cardId) {
-              console.log('recordValues', recordValues);
+              // console.log('RECORD VALUES', recordValues)
               activity.push(recordValues);
               values.activity = activity;
-              console.log('ACTIVITY TWO', activity);
             }
           });
         }
         return values;
       });
-      console.log('combinedObject', combinedObject);
-      res.status(201).send(combinedObject);
+
+      // use map to filterOut by userIdNumber
+      const finalObject = combinedObject.map(values => {
+        if (values.userId === userIdNumber) {
+          return values;
+        }
+
+      });
+      res.status(201).send(finalObject);
     }
   } catch (err) {
     console.error(err);
