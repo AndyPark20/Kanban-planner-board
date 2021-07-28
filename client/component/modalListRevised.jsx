@@ -12,16 +12,6 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(true);
 
-  useEffect(() => {
-    if (masterCharacter.length !== 0) {
-      // const selectedColumn = masterCharacter[columnNumber].list;
-      // if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined) {
-      //   const cardTitle = selectedColumn[cardNumber].name;
-      //   const selectedCardDescription = selectedColumn[cardNumber].desc;
-      //   updateFinalDescription(selectedCardDescription);
-      //   updateFinalValues(cardTitle);
-      // }
-    }
 
     updateModalClose(modal);
   });
@@ -138,7 +128,6 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
         </div>
       </div>
     </div>
-    // e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })
   );
 };
 
