@@ -43,7 +43,6 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
       masterCharacter[columnNumber].list[cardNumber].card = e.target.value;
       updateColumnComponent(true);
       updateModalStatus(false);
-      console.log('what is it?', masterCharacter[columnNumber].list[cardNumber]);
       const updateTitle = async () => {
         try {
           const send = await fetch('api/update', {
@@ -54,10 +53,9 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
             body: JSON.stringify(masterCharacter[columnNumber].list[cardNumber])
           });
           const response = await send.json();
-          console.log(response.rows[0].card);
-          masterCharacter[columnNumber].list[cardNumber].card = response.rows.card;
-          console.log(masterCharacter[columnNumber].list[cardNumber].card);
-          updateFinalValues(response.rows.card);
+          const copyCharacter = masterCharacter.concat();
+          copyCharacter[columnNumber].list[cardNumber].card = response.rows[0].card;
+          updateFinalValues(response.rows[0].card);
           updateMasterCharacter(masterCharacter);
         } catch (err) {
           console.error(err);
