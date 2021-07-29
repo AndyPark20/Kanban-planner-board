@@ -177,16 +177,16 @@ app.get('/api/retrieve', async (req, res, next) => {
 app.post('/api/update', async (req, res, next) => {
   const id = req.body.cardId;
   const name = req.body.name;
-  console.log('req.body', req.body);
   try {
     const sql = `
     update "activities"
     set "card" = $1
-    where "cardId" = $2;
+    where "cardId" = $2
+    returning *;
     `;
     const params = [name, id];
     const result = await db.query(sql, params);
-    console.log('result', result);
+    res.status(201).send(result);
   } catch (err) {
     console.error(err);
   }

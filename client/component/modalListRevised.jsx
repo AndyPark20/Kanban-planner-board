@@ -40,7 +40,6 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
   function updateCardTitle(e) {
     updateValues(e.target.value);
     if (e.key === 'Enter') {
-      console.log(masterCharacter);
       masterCharacter[columnNumber].list[cardNumber].name = values;
       const modalCardTitle = masterCharacter[columnNumber].list[cardNumber].name;
       updateFinalValues(modalCardTitle);
@@ -57,7 +56,7 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
             body: JSON.stringify(masterCharacter[columnNumber].list[cardNumber])
           });
           const response = await send.json();
-          console.log('response', response);
+          console.log('response', response.rows);
         } catch (err) {
           console.error(err);
         }
