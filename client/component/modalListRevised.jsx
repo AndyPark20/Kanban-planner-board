@@ -40,6 +40,7 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
   function updateCardTitle(e) {
     updateValues(e.target.value);
     if (e.key === 'Enter') {
+      console.log(masterCharacter);
       masterCharacter[columnNumber].list[cardNumber].name = values;
       const modalCardTitle = masterCharacter[columnNumber].list[cardNumber].name;
       updateFinalValues(modalCardTitle);
