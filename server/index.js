@@ -176,7 +176,7 @@ app.get('/api/retrieve', async (req, res, next) => {
 // Update Card Title
 app.post('/api/update', async (req, res, next) => {
   const id = req.body.cardId;
-  const name = req.body.name;
+  const name = req.body.card;
   try {
     const sql = `
     update "activities"
@@ -186,6 +186,7 @@ app.post('/api/update', async (req, res, next) => {
     `;
     const params = [name, id];
     const result = await db.query(sql, params);
+    console.log('result', result);
     res.status(201).send(result);
   } catch (err) {
     console.error(err);
