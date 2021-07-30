@@ -10,7 +10,6 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
-  const [cardName, updateCardName] = useState('');
 
   useEffect(() => {
     updateMasterCharacter(initialCharacter);
@@ -95,7 +94,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   const changeTitle = (indexItem, index) => {
     updateRenderActivity(true);
     const cardTitle = masterCharacter[index].list[indexItem].card;
-    console.log(cardTitle);
+    updateCardTitle(cardTitle);
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
@@ -129,7 +128,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
                   <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values.card} cardSequence={cardNumber}
-                    columnNumber={index} masterCharacter={masterCharacter} cardName={updateCardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
+                    columnNumber={index} masterCharacter={masterCharacter} cardName={cardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
                     masterCharacterUpdate={updateMasterCharacter} />
                 </div>
               );
