@@ -6,6 +6,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
   const [input, updateInput] = useState('');
   const [openModal, updateOpenModal] = useState(false);
   const [selectedItem, updatedSelectedItem] = useState('');
+  const [closeCard, updateCloseCard] = useState(false);
 
   const handleUpdateInput = event => updateInput(event.target.value);
   const handleSubmit = e => {
@@ -13,7 +14,6 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
   };
 
   useEffect(() => {
-    console.log(cardName);
     updatedSelectedItem(selectedCard);
   });
 

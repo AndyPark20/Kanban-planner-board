@@ -19,6 +19,7 @@ const Home = () => {
   const [columnUpdate, updateColumnComponent] = useState(false);
   const [description, updateDescription] = useState('');
   const [renderActivity, updateRenderActivity] = useState(false);
+  const [modalTitle, updateModalTitle] = useState('');
 
   const characters = [
     {
