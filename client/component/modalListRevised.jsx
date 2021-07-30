@@ -49,7 +49,6 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
           copyCharacter[columnNumber].list[cardNumber].card = response.rows[0].card;
           updateModalTitle(masterCharacter[columnNumber].list[cardNumber].card);
           updateMasterCharacter(masterCharacter);
-          updateValues('');
         } catch (err) {
           console.error(err);
         }
@@ -64,7 +63,7 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
   }
 
   const clickUpdate = () => {
-    updateValues(masterCharacter[columnNumber].list[cardNumber].name);
+    updateValues(masterCharacter[columnNumber].list[cardNumber].card);
     updateModalStatus(true);
   };
 
