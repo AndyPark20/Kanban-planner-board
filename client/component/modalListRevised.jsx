@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ modalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -14,7 +14,7 @@ const Modal = ({ modalTitle, updateRenderActivity, renderActivity, updateDescrip
 
   useEffect(() => {
     updateModalClose(modal);
-  }, []);
+  });
 
   function descriptionInfo(e) {
     e.preventDefault();
@@ -47,8 +47,9 @@ const Modal = ({ modalTitle, updateRenderActivity, renderActivity, updateDescrip
           const response = await send.json();
           const copyCharacter = masterCharacter.concat();
           copyCharacter[columnNumber].list[cardNumber].card = response.rows[0].card;
-          // updateFinalValues(masterCharacter[columnNumber].list[cardNumber].card);
+          updateModalTitle(masterCharacter[columnNumber].list[cardNumber].card);
           updateMasterCharacter(masterCharacter);
+          updateValues('');
         } catch (err) {
           console.error(err);
         }
