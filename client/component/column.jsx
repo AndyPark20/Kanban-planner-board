@@ -10,6 +10,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
+  const [cardName, updateCardName] = useState('');
 
   useEffect(() => {
     updateMasterCharacter(initialCharacter);
@@ -93,7 +94,8 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
 
   const changeTitle = (indexItem, index) => {
     updateRenderActivity(true);
-    const cardTitle = masterCharacter[index].list[indexItem].name;
+    const cardTitle = masterCharacter[index].list[indexItem].card;
+    console.log(cardTitle);
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
