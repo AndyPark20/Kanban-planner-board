@@ -16,11 +16,11 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
     if (masterCharacter.length !== 0) {
       const selectedColumn = masterCharacter[columnNumber].list;
       selectedColumn.forEach(values => {
+        console.log(values.card);
         updateFinalValues(values.card);
       });
 
     }
-
     updateModalClose(modal);
   });
 
