@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ modalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -13,15 +13,8 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
-    // if (masterCharacter.length !== 0) {
-    //   const selectedColumn = masterCharacter[columnNumber].list;
-    //   console.log(selectedColumn[cardNumber]);
-    // //   selectedColumn.forEach(values => {
-    // //     updateFinalValues(values.card);
-    // //   });
-    // }
     updateModalClose(modal);
-  });
+  }, []);
 
   function descriptionInfo(e) {
     e.preventDefault();
@@ -54,7 +47,7 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
           const response = await send.json();
           const copyCharacter = masterCharacter.concat();
           copyCharacter[columnNumber].list[cardNumber].card = response.rows[0].card;
-          updateFinalValues(masterCharacter[columnNumber].list[cardNumber].card);
+          // updateFinalValues(masterCharacter[columnNumber].list[cardNumber].card);
           updateMasterCharacter(masterCharacter);
         } catch (err) {
           console.error(err);
@@ -110,7 +103,7 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
         <div className=" pt-2 pb-50">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-tasks logoSize"></i>
-            <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{finalValues}</h3>
+            <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{modalTitle}</h3>
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdate}>Edit</p>
             <input text="type" className={modalStatus ? 'pl-2' : 'hidden'} value={values} onChange={e => handleSubmit(e)} onKeyUp={e => updateCardTitle(e)}></input>
           </div>
