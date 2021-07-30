@@ -13,14 +13,13 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
   const [button, updateButton] = useState(true);
 
   useEffect(() => {
-    if (masterCharacter.length !== 0) {
-      const selectedColumn = masterCharacter[columnNumber].list;
-      selectedColumn.forEach(values => {
-        console.log(values.card);
-        updateFinalValues(values.card);
-      });
-
-    }
+    // if (masterCharacter.length !== 0) {
+    //   const selectedColumn = masterCharacter[columnNumber].list;
+    //   console.log(selectedColumn[cardNumber]);
+    // //   selectedColumn.forEach(values => {
+    // //     updateFinalValues(values.card);
+    // //   });
+    // }
     updateModalClose(modal);
   });
 
@@ -55,7 +54,7 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
           const response = await send.json();
           const copyCharacter = masterCharacter.concat();
           copyCharacter[columnNumber].list[cardNumber].card = response.rows[0].card;
-          updateFinalValues(response.rows[0].card);
+          updateFinalValues(masterCharacter[columnNumber].list[cardNumber].card);
           updateMasterCharacter(masterCharacter);
         } catch (err) {
           console.error(err);
