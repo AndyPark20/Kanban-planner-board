@@ -82,16 +82,28 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
     updateButton(false);
   };
 
-  const saveButton = e => {
+  const saveButton = async e => {
     e.preventDefault();
     masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
-    updateDescriptionStatus(true);
-    updateButton(true);
-    updateMasterCharacter(masterCharacter);
-    updateDescriptionStatus(true);
-    updateButton(false);
-    updateDescription(initialDescription);
-    updateInitialDescription(initialDescription);
+    try {
+      const descriptionUpdate = await fetch('api/description', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify()
+      });
+      updateDescriptionStatus(true);
+      updateButton(true);
+      updateMasterCharacter(masterCharacter);
+      updateDescriptionStatus(true);
+      updateButton(false);
+      updateDescription(initialDescription);
+      updateInitialDescription(initialDescription);
+    } catch (err) {
+      console.log(err);
+    }
+
   };
 
   return (
