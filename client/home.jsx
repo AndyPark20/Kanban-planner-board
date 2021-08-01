@@ -62,6 +62,7 @@ const Home = () => {
 
         // reassign data back to copied object called "Copied Object"
         // console.log('UPDATE OBJECT', updateObject);
+        console.log('updateObject', updateObject);
         updateMasterCharacter(updateObject);
       } catch (err) {
         console.error(err);
