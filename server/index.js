@@ -165,7 +165,6 @@ app.get('/api/retrieve', async (req, res, next) => {
 
       // use Filter method to filter out Null
       const filteredOBject = finalObject.filter(Boolean);
-      console.log('FILTERED OBJECT', filteredOBject);
       res.status(201).send(filteredOBject);
     }
   } catch (err) {
