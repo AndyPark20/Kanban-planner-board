@@ -31,7 +31,7 @@ CREATE TABLE "record" (
 	"cardId" integer NOT NULL,
 	"columnId" integer NOT NULL,
 	"record" TEXT NOT NULL,
-		"description" TEXT NOT NULL,
+		"description" TEXT NULL,
 	"time" TEXT NOT NULL
 );
 
