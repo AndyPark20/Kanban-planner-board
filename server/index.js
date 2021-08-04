@@ -230,6 +230,7 @@ app.post('/api/description', async (req, res, next) => {
     const sql = `
     insert into "description" ("cardId","description")
     values ($1,$2)
+    returning*;
     `;
     const params = [cardId, description];
     const result = await db.query(sql, params);

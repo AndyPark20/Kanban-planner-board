@@ -100,6 +100,19 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
           body: JSON.stringify([cardId, description])
         });
         const result = await descriptionUpdate.json();
+        console.log('result', result);
+
+        // result is received to update the description for the card
+        if (result) {
+          masterCharacter.forEach((values, index) => {
+            values.list.forEach((indexValues, index) => {
+              if (indexValues.cardId === 1) {
+                console.log(indexValues);
+              }
+            });
+          });
+        }
+
       } catch (err) {
         console.error(err);
       }
