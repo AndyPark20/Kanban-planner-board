@@ -10,7 +10,7 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
   const [descriptionStatus, updateDescriptionStatus] = useState(true);
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
-  const [button, updateButton] = useState(true);
+  const [button, updateButton] = useState(false);
 
   useEffect(() => {
     updateModalClose(modal);
@@ -68,10 +68,10 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
   };
 
   const clickUpdateDescription = () => {
+    updateButton(true);
     const description = masterCharacter[columnNumber].list[cardNumber].desc;
     updateInitialDescription(description);
     updateDescriptionStatus(false);
-    updateButton(true);
   };
 
   const updateDescriptionInput = () => updateDescriptionStatus(false);
@@ -84,8 +84,7 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
 
   const saveButton = async e => {
     e.preventDefault();
-    console.log(e.target.value);
-    if (e.target.value) {
+    if (initialDescription) {
       masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
       const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
@@ -93,6 +92,10 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
       console.log('e.target.value', initialDescription);
       console.log('description', description);
       updateButton(true);
+      updateDescriptionStatus(true);
+      updateMasterCharacter(masterCharacter);
+      updateDescription(initialDescription);
+      updateInitialDescription(initialDescription);
     }
 
     try {
@@ -103,12 +106,6 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
       //   },
       //   body: JSON.stringify()
       // });
-      updateDescriptionStatus(true);
-      updateMasterCharacter(masterCharacter);
-      updateDescriptionStatus(true);
-      updateButton(false);
-      updateDescription(initialDescription);
-      updateInitialDescription(initialDescription);
     } catch (err) {
       console.error(err);
     }
