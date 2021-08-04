@@ -235,6 +235,7 @@ app.post('/api/description', async (req, res, next) => {
     `;
     const params = [description, cardId];
     const result = await db.query(sql, params);
+    console.log('result.rows', result.rows);
     res.status(201).json(result.rows);
   } catch (err) {
     console.error(err);
