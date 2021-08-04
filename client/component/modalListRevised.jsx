@@ -13,6 +13,7 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
   const [button, updateButton] = useState(false);
 
   useEffect(() => {
+    console.log(modal);
     updateModalClose(modal);
   });
 

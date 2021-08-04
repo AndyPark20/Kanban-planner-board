@@ -99,9 +99,11 @@ const Column = ({ updateModalTitle, updateRenderActivity, description, initialCh
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
-    if (cardTitle !== '') {
+    if (cardTitle) {
       updatedSelectedCard(masterCharacter[index].list[indexItem].name);
       updateModal(true);
+    } else {
+      updateModal(false);
     }
   };
 
