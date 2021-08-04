@@ -101,7 +101,7 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
       updateDescription(initialDescription);
       updateInitialDescription(initialDescription);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
 
   };
