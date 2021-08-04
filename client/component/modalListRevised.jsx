@@ -15,7 +15,7 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
   useEffect(async () => {
     const data = await fetch('/api/retrieve');
     const result = await data.json();
-    updateMasterCharacter(result);
+    console.log(result);
     updateModalClose(modal);
   });
 
