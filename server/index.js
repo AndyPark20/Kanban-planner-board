@@ -142,6 +142,7 @@ app.get('/api/retrieve', async (req, res, next) => {
       `;
       const recordResult = await db.query(sqlRecord);
       // Create an object with result and record result and send it to the front end
+      console.log(recordResult);
       const combinedObject = result.rows.map(values => {
         if (values.userId === userIdNumber) {
           const activity = [];
@@ -224,7 +225,21 @@ app.post('/api/activity', async (req, res, next) => {
 
 // Description update
 app.post('/api/description', async (req, res, next) => {
-  console.log(req.body);
+  const cardId = req.body[0];
+  const description = req.body[1];
+  try {
+    const sql = `
+   update "record"
+   set "description" =$1
+   where "cardId" = $2
+   returning *;
+    `;
+    const params = [description, cardId];
+    const result = await db.query(sql, params);
+    res.status(201).json(result.rows);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 app.listen(process.env.PORT, () => {

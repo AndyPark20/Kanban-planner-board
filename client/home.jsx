@@ -39,7 +39,6 @@ const Home = () => {
 
   // Retrieve card and info data when user signs in
   useEffect(() => {
-
     const retrieveData = async () => {
       try {
         const data = await fetch('/api/retrieve');
@@ -49,7 +48,7 @@ const Home = () => {
 
         // received Data from back end
         const copiedObjectUpdate = result;
-
+        console.log(copiedObjectUpdate);
         // Use map method to update the object into an array.
         const updateObject = copiedObject.map(values => {
           copiedObjectUpdate.forEach(copyValues => {

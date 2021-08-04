@@ -13,7 +13,6 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
   const [button, updateButton] = useState(false);
 
   useEffect(() => {
-    console.log(modal);
     updateModalClose(modal);
   });
 
@@ -89,8 +88,6 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
       masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
       const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
-      console.log('cardId', cardId);
-      console.log('description', description);
       updateButton(true);
       updateDescriptionStatus(true);
       updateMasterCharacter(masterCharacter);
