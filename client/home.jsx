@@ -57,7 +57,6 @@ const Home = () => {
           });
           return values;
         });
-        console.log('update object', updateObject);
         updateMasterCharacter(updateObject);
       } catch (err) {
         console.error(err);
