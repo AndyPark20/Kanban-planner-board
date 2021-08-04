@@ -84,11 +84,17 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
 
   const saveButton = async e => {
     e.preventDefault();
-    masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
-    const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
-    const description = masterCharacter[columnNumber].list[cardNumber].desc;
-    console.log('cardId', cardId);
-    console.log('description', description);
+    console.log(e.target.value);
+    if (e.target.value) {
+      masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
+      const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
+      const description = masterCharacter[columnNumber].list[cardNumber].desc;
+      console.log('cardId', cardId);
+      console.log('e.target.value', initialDescription);
+      console.log('description', description);
+      updateButton(true);
+    }
+
     try {
       // const descriptionUpdate = await fetch('api/description', {
       //   method: 'POST',
@@ -98,7 +104,6 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
       //   body: JSON.stringify()
       // });
       updateDescriptionStatus(true);
-      updateButton(true);
       updateMasterCharacter(masterCharacter);
       updateDescriptionStatus(true);
       updateButton(false);
