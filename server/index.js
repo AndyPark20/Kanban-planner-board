@@ -142,15 +142,14 @@ app.get('/api/retrieve', async (req, res, next) => {
       `;
       const recordResult = await db.query(sqlRecord);
       // Create an object with result and record result and send it to the front end
-      console.log(recordResult);
       const combinedObject = result.rows.map(values => {
         if (values.userId === userIdNumber) {
           const activity = [];
           recordResult.rows.forEach(recordValues => {
             if (values.cardId === recordValues.cardId) {
-              // console.log('RECORD VALUES', recordValues)
               activity.push(recordValues);
               values.activity = activity;
+              values.description = recordValues.description;
             }
           });
         }
@@ -166,6 +165,7 @@ app.get('/api/retrieve', async (req, res, next) => {
 
       // use Filter method to filter out Null
       const filteredOBject = finalObject.filter(Boolean);
+      console.log('FILTERED OBJECT', filteredOBject);
       res.status(201).send(filteredOBject);
     }
   } catch (err) {
