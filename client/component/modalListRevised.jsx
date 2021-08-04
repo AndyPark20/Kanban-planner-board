@@ -89,27 +89,25 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
       const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const description = masterCharacter[columnNumber].list[cardNumber].desc;
       console.log('cardId', cardId);
-      console.log('e.target.value', initialDescription);
       console.log('description', description);
       updateButton(true);
       updateDescriptionStatus(true);
       updateMasterCharacter(masterCharacter);
       updateDescription(initialDescription);
       updateInitialDescription(initialDescription);
-    }
 
-    try {
-      // const descriptionUpdate = await fetch('api/description', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-type': 'application/json'
-      //   },
-      //   body: JSON.stringify()
-      // });
-    } catch (err) {
-      console.error(err);
+      try {
+        const descriptionUpdate = await fetch('/api/description', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify([cardId, description])
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
-
   };
 
   return (
@@ -142,7 +140,7 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber}/>
+          <Activity renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
         </div>
       </div>
     </div>

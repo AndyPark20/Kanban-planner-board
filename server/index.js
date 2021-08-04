@@ -177,8 +177,6 @@ app.get('/api/retrieve', async (req, res, next) => {
 app.post('/api/update', async (req, res, next) => {
   const id = req.body.cardId;
   const name = req.body.card;
-  console.log('id', id);
-  console.log('name', name);
   try {
     const sql = `
     update "activities"
@@ -222,6 +220,11 @@ app.post('/api/activity', async (req, res, next) => {
     console.error(err);
   }
 
+});
+
+// Description update
+app.post('/api/description', async (req, res, next) => {
+  console.log(req.body);
 });
 
 app.listen(process.env.PORT, () => {
