@@ -228,14 +228,11 @@ app.post('/api/description', async (req, res, next) => {
   const description = req.body[1];
   try {
     const sql = `
-   update "record"
-   set "description" =$1
-   where "cardId" = $2
-   returning *;
+    insert into "description" ("cardId","description")
+    values ($1,$2)
     `;
-    const params = [description, cardId];
+    const params = [cardId, description];
     const result = await db.query(sql, params);
-    console.log('result.rows', result.rows);
     res.status(201).json(result.rows);
   } catch (err) {
     console.error(err);

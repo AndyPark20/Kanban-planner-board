@@ -31,8 +31,13 @@ CREATE TABLE "record" (
 	"cardId" integer NOT NULL,
 	"columnId" integer NOT NULL,
 	"record" TEXT NOT NULL,
-		"description" TEXT NULL,
 	"time" TEXT NOT NULL
+);
+
+CREATE TABLE "description" (
+	"descriptionId" serial NOT NULL,
+	"cardId" integer NOT NULL,
+	"description" TEXT NOT NULL
 );
 
 
