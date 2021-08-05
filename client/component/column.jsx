@@ -106,6 +106,14 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
       updateModal(false);
     }
     try {
+      console.log('masterobject', masterCharacter[index].list[indexItem]);
+      const result = await fetch('/api/retrieve');
+      const finalResult = await result.json();
+      finalResult.forEach((values, index) => {
+        if (values.column === masterCharacter[index].id) {
+          console.log(values);
+        }
+      });
 
     } catch (err) {
       console.error(err);
