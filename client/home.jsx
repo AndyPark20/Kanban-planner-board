@@ -45,14 +45,13 @@ const Home = () => {
         const result = await data.json();
         // push it to characters array of objects.
         const copiedObject = characters.concat();
-
         // received Data from back end
         const copiedObjectUpdate = result;
         // Use map method to update the object into an array.
         const updateObject = copiedObject.map(values => {
           copiedObjectUpdate.forEach(copyValues => {
             if (values.id === copyValues.column) {
-              values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
+              values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description, description: copyValues.description });
             }
           });
           return values;

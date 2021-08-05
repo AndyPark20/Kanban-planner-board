@@ -141,31 +141,44 @@ app.get('/api/retrieve', async (req, res, next) => {
       from "record"
       `;
       const recordResult = await db.query(sqlRecord);
-      // Create an object with result and record result and send it to the front end
-      const combinedObject = result.rows.map(values => {
-        if (values.userId === userIdNumber) {
-          const activity = [];
-          recordResult.rows.forEach(recordValues => {
-            if (values.cardId === recordValues.cardId) {
-              activity.push(recordValues);
-              values.activity = activity;
-              values.description = recordValues.description;
+      if (recordResult) {
+        const description = `
+        select*
+        from "description"
+        `;
+        const descriptionResult = await db.query(description);
+        // Create an object with result and record result and send it to the front end
+        const combinedObject = result.rows.map(values => {
+          if (values.userId === userIdNumber) {
+            const activity = [];
+            recordResult.rows.forEach(recordValues => {
+              if (values.cardId === recordValues.cardId) {
+                activity.push(recordValues);
+                values.activity = activity;
+                values.description = recordValues.description;
+              }
+            });
+          }
+          return values;
+        });
+        const updateDescriptionObject = combinedObject.map((values, index) => {
+          descriptionResult.rows.forEach((descValue, index) => {
+            if (descValue.cardId === values.cardId) {
+              values.description = descValue.description;
             }
           });
-        }
-        return values;
-      });
-
-      // use map to filterOut by userIdNumber
-      const finalObject = combinedObject.map(values => {
-        if (values.userId === userIdNumber) {
           return values;
-        }
-      });
-
-      // use Filter method to filter out Null
-      const filteredOBject = finalObject.filter(Boolean);
-      res.status(201).send(filteredOBject);
+        });
+        // use map to filterOut by userIdNumber
+        const finalObject = updateDescriptionObject.map(values => {
+          if (values.userId === userIdNumber) {
+            return values;
+          }
+        });
+        // use Filter method to filter out Null
+        const filteredObject = finalObject.filter(Boolean);
+        res.status(201).send(filteredObject);
+      }
     }
   } catch (err) {
     console.error(err);
