@@ -91,7 +91,7 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
     }
   };
 
-  const changeTitle = (indexItem, index) => {
+  const changeTitle = async (indexItem, index) => {
     updateRenderActivity(true);
     const cardTitle = masterCharacter[index].list[indexItem].card;
     updateCardTitle(cardTitle);
@@ -105,6 +105,12 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
     } else {
       updateModal(false);
     }
+    try {
+
+    } catch (err) {
+      console.error(err);
+    }
+    console.log(masterCharacter[index].list[indexItem].description);
     updateDescriptionCard(masterCharacter[index].list[indexItem].description);
   };
 

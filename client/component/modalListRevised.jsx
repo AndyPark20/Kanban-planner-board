@@ -15,7 +15,7 @@ const Modal = ({ descriptionForCard, modalTitle, updateModalTitle, updateRenderA
   useEffect(() => {
     console.log(descriptionForCard);
     updateFinalDescription(descriptionForCard);
-  }, [cardNumber]);
+  });
 
   useEffect(() => {
     updateModalClose(modal);
