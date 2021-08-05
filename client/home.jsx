@@ -14,12 +14,13 @@ const Home = () => {
   const [userWallpaper, userWallPaperUpdate] = useState('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg');
   const [modal, updateModal] = useState(false);
   const [columnNumberMaster, updateColumnNumberMaster] = useState(0);
-  const [cardNumberMaster, updateCardNumberMaster] = useState(0);
+  const [cardNumberMaster, updateCardNumberMaster] = useState(null);
   const [masterCharacter, updateMasterCharacter] = useState([]);
   const [columnUpdate, updateColumnComponent] = useState(false);
   const [description, updateDescription] = useState('');
   const [renderActivity, updateRenderActivity] = useState(false);
   const [modalTitle, updateModalTitle] = useState('');
+  const [descriptionForCard, updateDescriptionForCard] = useState('');
 
   const characters = [
     {
@@ -137,12 +138,12 @@ const Home = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper} />
         </div>
         <div>
-          <ModalRevised updateModalTitle={updateModalTitle} modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription} modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent} />
+          <ModalRevised descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle} modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription} modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent} />
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
-        <Column updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
+        <Column updateDescriptionCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -11,6 +11,11 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(false);
+
+  useEffect(() => {
+    console.log(descriptionForCard);
+    updateFinalDescription(descriptionForCard);
+  }, [cardNumber]);
 
   useEffect(() => {
     updateModalClose(modal);
@@ -28,12 +33,6 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
     updateModal(false);
     updateRenderActivity(false);
   }
-
-  const renderLog = () => {
-    if (masterCharacter[columnNumber]) {
-      console.log(masterCharacter[columnNumber].list);
-    }
-  };
 
   function updateCardTitle(e) {
     updateValues(e.target.value);
@@ -96,7 +95,7 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
       updateButton(true);
       updateDescriptionStatus(true);
       updateDescription(initialDescription);
-      updateInitialDescription(initialDescription);
+      updateFinalDescription(initialDescription);
       try {
         const descriptionUpdate = await fetch('/api/description', {
           method: 'POST',
@@ -137,7 +136,7 @@ const Modal = ({ modalTitle, updateModalTitle, updateRenderActivity, renderActiv
           <div className="pl-2">
             <form onChange={e => descriptionInfo(e)}>
               <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} rows="4" value={initialDescription}></textarea>
-              <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{renderLog()}</p>
+              <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{finalDescription}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveButton(e)} >Save</button>
               <button type="button" className={button ? 'btn btn-danger mt-2 ml-1' : 'hidden'} onClick={updateCancelButton}>Cancel</button>
             </form>
