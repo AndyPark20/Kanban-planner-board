@@ -255,7 +255,21 @@ app.post('/api/description', async (req, res, next) => {
 
 // update moving cards
 app.post('/api/cardMove', async (req, res, next) => {
-  console.log(req.body);
+  const columnName = req.body[0];
+  const cardName = req.body[1];
+  console.log(columnName, cardName);
+
+  const sql = `
+  update "activities"
+  set "column" =$1
+  where "card" =$2
+  `;
+
+  const params = [columnName, cardName];
+  const result = await db.query(sql, params);
+  console.log('result', result);
+  res.status(201).json(result);
+
 });
 
 app.listen(process.env.PORT, () => {
