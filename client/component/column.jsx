@@ -42,7 +42,7 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
     }
   }, [columnUpdate]);
 
-  const dropIt = (e, info, position) => {
+  const dropIt = async (e, info, position) => {
     // the column index number
     e.preventDefault();
 
@@ -51,8 +51,22 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     const description = e.dataTransfer.getData('description');
-    console.log(info.id);
-    console.log(masterCharacter[columnStartIndex].list[originId].card);
+    const cardId = info.id;
+    const card = masterCharacter[columnStartIndex].list[originId].card;
+
+    try {
+      const result = await fetch('/api/cardMove', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify([cardId, card])
+      });
+
+    } catch (err) {
+      console.error(err);
+    }
+
     if (masterCharacter.id !== originId && !columnMover) {
       if (e.target.nodeName === 'DIV' || e.target.nodeName === 'H5') {
         masterCharacter[position].list.push(masterCharacter[columnStartIndex].list[originId]);
