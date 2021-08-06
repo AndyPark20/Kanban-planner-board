@@ -13,7 +13,6 @@ const Modal = ({ descriptionForCard, modalTitle, updateModalTitle, updateRenderA
   const [button, updateButton] = useState(false);
 
   useEffect(() => {
-    console.log(descriptionForCard);
     updateFinalDescription(descriptionForCard);
   });
 
