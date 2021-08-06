@@ -108,7 +108,7 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
     try {
       const result = await fetch('/api/retrieve');
       const finalResult = await result.json();
-      console.log('column Description', finalResult[indexItem].description);
+      console.log(finalResult[indexItem].description);
       updateDescriptionCard(finalResult[indexItem].description);
     } catch (err) {
       console.error(err);

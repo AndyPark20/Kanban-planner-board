@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -14,6 +14,7 @@ const Modal = ({ descriptionForCard, modalTitle, updateModalTitle, updateRenderA
 
   useEffect(() => {
     updateFinalDescription(descriptionForCard);
+    console.log(finalDescription);
   });
 
   useEffect(() => {
@@ -94,7 +95,6 @@ const Modal = ({ descriptionForCard, modalTitle, updateModalTitle, updateRenderA
       updateButton(true);
       updateDescriptionStatus(true);
       updateDescription(initialDescription);
-      updateFinalDescription(initialDescription);
       try {
         const descriptionUpdate = await fetch('/api/description', {
           method: 'POST',
@@ -104,6 +104,7 @@ const Modal = ({ descriptionForCard, modalTitle, updateModalTitle, updateRenderA
           body: JSON.stringify([cardId, description])
         });
         const result = await descriptionUpdate.json();
+        updateDescriptionForCard(result[0].description);
         updateFinalDescription(result[0].description);
       } catch (err) {
         console.error(err);
