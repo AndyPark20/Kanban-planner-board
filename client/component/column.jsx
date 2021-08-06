@@ -11,6 +11,22 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
 
+  const characters = [
+    {
+      id: 'Todo',
+      list: []
+
+    },
+    {
+      id: 'Doing',
+      list: []
+    },
+    {
+      id: 'Done',
+      list: []
+    }
+  ];
+
   useEffect(() => {
     updateMasterCharacter(initialCharacter);
   }, []);
@@ -106,11 +122,24 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
       updateModal(false);
     }
     try {
-      const result = await fetch('/api/retrieve');
-      const finalResult = await result.json();
-      console.log(finalResult[indexItem].description);
-      updateDescriptionCard(finalResult[indexItem].description);
+      const data = await fetch('/api/retrieve');
+      const result = await data.json();
+      // push it to characters array of objects.
+      const copiedObject = characters.concat();
+      // received Data from back end
+      const copiedObjectUpdate = result;
+      // Use map method to update the object into an array.
+      const updateObject = copiedObject.map(values => {
+        copiedObjectUpdate.forEach(copyValues => {
+          if (values.id === copyValues.column) {
+            values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
+          }
+        });
+        return values;
+      });
+      updateDescriptionCard(updateObject[index].list[indexItem].description);
     } catch (err) {
+
       console.error(err);
     }
 
