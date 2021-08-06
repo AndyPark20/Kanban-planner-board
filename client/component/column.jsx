@@ -45,11 +45,14 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
   const dropIt = (e, info, position) => {
     // the column index number
     e.preventDefault();
+
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     const description = e.dataTransfer.getData('description');
+    console.log(info.id);
+    console.log(masterCharacter[columnStartIndex].list[originId].card);
     if (masterCharacter.id !== originId && !columnMover) {
       if (e.target.nodeName === 'DIV' || e.target.nodeName === 'H5') {
         masterCharacter[position].list.push(masterCharacter[columnStartIndex].list[originId]);
