@@ -14,7 +14,6 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
 
   useEffect(() => {
     updateFinalDescription(descriptionForCard);
-    console.log(finalDescription);
   });
 
   useEffect(() => {
