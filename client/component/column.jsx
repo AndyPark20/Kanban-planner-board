@@ -108,12 +108,12 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
     try {
       const result = await fetch('/api/retrieve');
       const finalResult = await result.json();
-      console.log(finalResult[indexItem]);
-
+      console.log('column Description', finalResult[indexItem].description);
+      updateDescriptionCard(finalResult[indexItem].description);
     } catch (err) {
       console.error(err);
     }
-    updateDescriptionCard(masterCharacter[index].list[indexItem].description);
+
   };
 
   const columnStyle = () => {

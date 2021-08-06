@@ -104,8 +104,7 @@ const Modal = ({ descriptionForCard, modalTitle, updateModalTitle, updateRenderA
           body: JSON.stringify([cardId, description])
         });
         const result = await descriptionUpdate.json();
-        console.log('result', result);
-
+        updateFinalDescription(result[0].description);
       } catch (err) {
         console.error(err);
       }
