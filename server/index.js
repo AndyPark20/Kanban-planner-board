@@ -135,26 +135,50 @@ app.get('/api/retrieve', async (req, res, next) => {
   `;
     const params = [userIdNumber];
     const result = await db.query(sql);
-    if(result){
+    if (result) {
       const sqlRecord = `
       select *
       from "record"
-      `
-    const recordResult = await db.query(sqlRecord)
-    //Create an object with result and record result and send it to the front end
-    const combinedObject = result.rows.map(values=>{
-          let activity=[];
-      recordResult.rows.forEach(recordValues=>{
-        if(values.cardId === recordValues.cardId){
-          // console.log('RECORD VALUES', recordValues)
-          activity.push(recordValues)
-          values['activity'] = activity;
-        }
-      })
-      return values;
-    })
-
-    res.status(201).send(combinedObject);
+      `;
+      const recordResult = await db.query(sqlRecord);
+      if (recordResult) {
+        const description = `
+        select*
+        from "description"
+        `;
+        const descriptionResult = await db.query(description);
+        // Create an object with result and record result and send it to the front end
+        const combinedObject = result.rows.map(values => {
+          if (values.userId === userIdNumber) {
+            const activity = [];
+            recordResult.rows.forEach(recordValues => {
+              if (values.cardId === recordValues.cardId) {
+                activity.push(recordValues);
+                values.activity = activity;
+                values.description = recordValues.description;
+              }
+            });
+          }
+          return values;
+        });
+        const updateDescriptionObject = combinedObject.map((values, index) => {
+          descriptionResult.rows.forEach((descValue, index) => {
+            if (descValue.cardId === values.cardId) {
+              values.description = descValue.description;
+            }
+          });
+          return values;
+        });
+        // use map to filterOut by userIdNumber
+        const finalObject = updateDescriptionObject.map(values => {
+          if (values.userId === userIdNumber) {
+            return values;
+          }
+        });
+        // use Filter method to filter out Null
+        const filteredObject = finalObject.filter(Boolean);
+        res.status(201).send(filteredObject);
+      }
     }
   } catch (err) {
     console.error(err);
@@ -165,16 +189,18 @@ app.get('/api/retrieve', async (req, res, next) => {
 // Update Card Title
 app.post('/api/update', async (req, res, next) => {
   const id = req.body.cardId;
-  const name = req.body.name;
+  const name = req.body.card;
   try {
     const sql = `
     update "activities"
     set "card" = $1
-    where "cardId" = $2;
+    where "cardId" = $2
+    returning *;
     `;
     const params = [name, id];
     const result = await db.query(sql, params);
-    console.log('result', result);
+    console.log('result', result.rows);
+    res.status(201).send(result);
   } catch (err) {
     console.error(err);
   }
@@ -196,37 +222,38 @@ app.post('/api/activity', async (req, res, next) => {
   try {
   // loop thru body property of the req object to retrieve values from activity
     inputData.activity.forEach((values, index) => {
-      console.log('INPUT DATA', values)
       activityValue = values.info;
       time = values.time;
       mainCardId = values.mainCardId;
     });
     const params = [mainCardId, cardColumnId, activityValue, time];
     const result = await db.query(sql, params);
+    res.status(201).send(result);
   } catch (err) {
     console.error(err);
   }
 
 });
 
+// Description update
+app.post('/api/description', async (req, res, next) => {
+  const cardId = req.body[0];
+  const description = req.body[1];
+  try {
+    const sql = `
+    insert into "description" ("cardId","description")
+    values ($1,$2)
+    returning*;
+    `;
+    const params = [cardId, description];
+    const result = await db.query(sql, params);
+    res.status(201).json(result.rows);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
 });
-
-//   try {
-//   const sql = `
-//   insert into "public.activities" ("cardId","record", "time")
-//   values($1,$2,$3)
-//   returning *;
-//   `;
-//   if (values.activity) {
-//     const params = [values.cardId, values.activity, values.activity.time];
-//     const result = await db.query(sql, params);
-//   }
-
-// } catch (err) {
-//   console.error(err);
-// }
-// }
-// });

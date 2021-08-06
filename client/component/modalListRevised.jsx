@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -10,19 +10,13 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
   const [descriptionStatus, updateDescriptionStatus] = useState(true);
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
-  const [button, updateButton] = useState(true);
+  const [button, updateButton] = useState(false);
 
   useEffect(() => {
-    if (masterCharacter.length !== 0) {
-      // const selectedColumn = masterCharacter[columnNumber].list;
-      // if (selectedColumn.length !== 0 && selectedColumn[cardNumber] !== undefined) {
-      //   const cardTitle = selectedColumn[cardNumber].name;
-      //   const selectedCardDescription = selectedColumn[cardNumber].desc;
-      //   updateFinalDescription(selectedCardDescription);
-      //   updateFinalValues(cardTitle);
-      // }
-    }
+    updateFinalDescription(descriptionForCard);
+  });
 
+  useEffect(() => {
     updateModalClose(modal);
   });
 
@@ -42,10 +36,7 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
   function updateCardTitle(e) {
     updateValues(e.target.value);
     if (e.key === 'Enter') {
-      masterCharacter[columnNumber].list[cardNumber].name = values;
-      const modalCardTitle = masterCharacter[columnNumber].list[cardNumber].name;
-      updateFinalValues(modalCardTitle);
-      updateMasterCharacter(masterCharacter);
+      masterCharacter[columnNumber].list[cardNumber].card = e.target.value;
       updateColumnComponent(true);
       updateModalStatus(false);
       const updateTitle = async () => {
@@ -58,7 +49,10 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
             body: JSON.stringify(masterCharacter[columnNumber].list[cardNumber])
           });
           const response = await send.json();
-          console.log('response', response);
+          const copyCharacter = masterCharacter.concat();
+          copyCharacter[columnNumber].list[cardNumber].card = response.rows[0].card;
+          updateModalTitle(masterCharacter[columnNumber].list[cardNumber].card);
+          updateMasterCharacter(masterCharacter);
         } catch (err) {
           console.error(err);
         }
@@ -73,15 +67,15 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
   }
 
   const clickUpdate = () => {
-    updateValues(masterCharacter[columnNumber].list[cardNumber].name);
+    updateValues(masterCharacter[columnNumber].list[cardNumber].card);
     updateModalStatus(true);
   };
 
   const clickUpdateDescription = () => {
+    updateButton(true);
     const description = masterCharacter[columnNumber].list[cardNumber].desc;
     updateInitialDescription(description);
     updateDescriptionStatus(false);
-    updateButton(true);
   };
 
   const updateDescriptionInput = () => updateDescriptionStatus(false);
@@ -92,16 +86,29 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
     updateButton(false);
   };
 
-  const saveButton = e => {
+  const saveButton = async e => {
     e.preventDefault();
-    masterCharacter[columnNumber].list[cardNumber].desc = initialDescription;
-    updateDescriptionStatus(true);
-    updateButton(true);
-    updateMasterCharacter(masterCharacter);
-    updateDescriptionStatus(true);
-    updateButton(false);
-    updateDescription(initialDescription);
-    updateInitialDescription(initialDescription);
+    if (initialDescription) {
+      const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
+      const description = initialDescription;
+      updateButton(true);
+      updateDescriptionStatus(true);
+      updateDescription(initialDescription);
+      try {
+        const descriptionUpdate = await fetch('/api/description', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify([cardId, description])
+        });
+        const result = await descriptionUpdate.json();
+        updateDescriptionForCard(result[0].description);
+        updateFinalDescription(result[0].description);
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
   return (
@@ -113,7 +120,7 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
         <div className=" pt-2 pb-50">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-tasks logoSize"></i>
-            <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{finalValues}</h3>
+            <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{modalTitle}</h3>
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdate}>Edit</p>
             <input text="type" className={modalStatus ? 'pl-2' : 'hidden'} value={values} onChange={e => handleSubmit(e)} onKeyUp={e => updateCardTitle(e)}></input>
           </div>
@@ -134,11 +141,10 @@ const Modal = ({ updateRenderActivity, renderActivity, updateDescription, modal,
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber}/>
+          <Activity renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
         </div>
       </div>
     </div>
-    // e => this.setState({ descriptionStatus: true, description: this.state.finalDescription })
   );
 };
 

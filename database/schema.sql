@@ -34,5 +34,11 @@ CREATE TABLE "record" (
 	"time" TEXT NOT NULL
 );
 
+CREATE TABLE "description" (
+	"descriptionId" serial NOT NULL,
+	"cardId" integer NOT NULL,
+	"description" TEXT NOT NULL
+);
+
 
 ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");

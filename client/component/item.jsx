@@ -6,7 +6,7 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
   const [input, updateInput] = useState('');
   const [openModal, updateOpenModal] = useState(false);
   const [selectedItem, updatedSelectedItem] = useState('');
-  const [closeCard, updateCloseCard] = useState(false)
+  const [closeCard, updateCloseCard] = useState(false);
 
   const handleUpdateInput = event => updateInput(event.target.value);
   const handleSubmit = e => {
@@ -22,7 +22,6 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
       masterCharacter[columnNumber].list[cardSequence] = { card: e.target.value };
       const idName = masterCharacter[columnNumber].id;
       const cardDescription = masterCharacter[columnNumber].list[cardSequence].card;
-      console.log(cardDescription)
       update(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);

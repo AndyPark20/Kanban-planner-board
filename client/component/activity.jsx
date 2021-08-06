@@ -12,6 +12,21 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const [saveButton, updateSaveButton] = useState(false);
   const [renderActivityItem, updateRenderActivity] = useState(false);
 
+  const characters = [
+    {
+      id: 'Todo',
+      list: []
+
+    },
+    {
+      id: 'Doing',
+      list: []
+    },
+    {
+      id: 'Done',
+      list: []
+    }
+  ];
 
   useEffect(() => {
     if (userEdit) {
@@ -45,17 +60,14 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const renderLog = () => {
 
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
-      console.log(masterCharacter[columnNumber].list[cardNumber].activity)
-      console.log(columnNumber);
-      console.log(cardNumber)
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
         return (
-            <div key={index} className="d-flex align-items-center">
-              <i className="far fa-comment-dots icon"></i>
-              <h5 className="pl-2 activity-info">{values.record}</h5>
+          <div key={index} className="d-flex align-items-center">
+            <i className="far fa-comment-dots icon"></i>
+            <h5 className="pl-2 activity-info">{values.record}</h5>
             <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{parseInt(values.time)}</Moment>
-              <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
-            </div>
+            <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
+          </div>
         );
       });
       return data;
@@ -70,7 +82,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       let copiedActivity;
       copiedActivity = { cardName: masterCharacter[columnNumber].list[cardNumber].card, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
-      updateMasterCharacter(masterCharacter);
       updateUserLog({ info: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
@@ -80,7 +91,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         const cardDataResult = returnedPromisedCardInfo.rows;
         // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
         cardDataResult.forEach((resultValues, index) => {
-          console.log('RESULTVALUES', resultValues)
           if (resultValues.card === copiedActivity.cardName) {
             copiedActivity.activity.forEach((activityValue, indexValue) => {
               activityValue.mainCardId = resultValues.cardId;
@@ -95,7 +105,30 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
-        updateMasterCharacter(copiedActivity)
+        if (result) {
+          try {
+            const data = await fetch('/api/retrieve');
+            const result = await data.json();
+            // push it to characters array of objects.
+            const copiedObject = characters.concat();
+
+            // received Data from back end
+            const copiedObjectUpdate = result;
+            // Use map method to update the object into an array.
+            const updateObject = copiedObject.map(values => {
+              copiedObjectUpdate.forEach(copyValues => {
+                if (values.id === copyValues.column) {
+                  values.list.push({ card: copyValues.card, activity: copyValues.activity });
+                }
+              });
+              return values;
+            });
+            updateMasterCharacter(updateObject);
+          } catch (err) {
+            console.error(err);
+          }
+        }
+
       } catch (err) {
         console.error(err);
       }

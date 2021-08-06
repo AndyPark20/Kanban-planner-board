@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
+const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
 
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
@@ -10,6 +10,22 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
+
+  const characters = [
+    {
+      id: 'Todo',
+      list: []
+
+    },
+    {
+      id: 'Doing',
+      list: []
+    },
+    {
+      id: 'Done',
+      list: []
+    }
+  ];
 
   useEffect(() => {
     updateMasterCharacter(initialCharacter);
@@ -91,16 +107,42 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
     }
   };
 
-  const changeTitle = (indexItem, index) => {
+  const changeTitle = async (indexItem, index) => {
     updateRenderActivity(true);
-    const cardTitle = masterCharacter[index].list[indexItem].name;
+    const cardTitle = masterCharacter[index].list[indexItem].card;
+    updateCardTitle(cardTitle);
+    updateModalTitle(cardTitle);
     updateColumnNumberMaster(index);
     updateCardNumberMaster(indexItem);
     updateCardNumber(indexItem);
-    if (cardTitle !== '') {
+    if (cardTitle) {
       updatedSelectedCard(masterCharacter[index].list[indexItem].name);
       updateModal(true);
+    } else {
+      updateModal(false);
     }
+    try {
+      const data = await fetch('/api/retrieve');
+      const result = await data.json();
+      // push it to characters array of objects.
+      const copiedObject = characters.concat();
+      // received Data from back end
+      const copiedObjectUpdate = result;
+      // Use map method to update the object into an array.
+      const updateObject = copiedObject.map(values => {
+        copiedObjectUpdate.forEach(copyValues => {
+          if (values.id === copyValues.column) {
+            values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
+          }
+        });
+        return values;
+      });
+      updateDescriptionCard(updateObject[index].list[indexItem].description);
+    } catch (err) {
+
+      console.error(err);
+    }
+
   };
 
   const columnStyle = () => {
@@ -127,7 +169,7 @@ const Column = ({ updateRenderActivity, description, initialCharacter, updateDes
                 <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
                   <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values.card} cardSequence={cardNumber}
-                    columnNumber={index} masterCharacter={masterCharacter} cardName={updateCardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
+                    columnNumber={index} masterCharacter={masterCharacter} cardName={cardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
                     masterCharacterUpdate={updateMasterCharacter} />
                 </div>
               );
