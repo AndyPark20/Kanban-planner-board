@@ -242,14 +242,14 @@ app.post('/api/description', async (req, res, next) => {
   console.log('CARDID', cardId);
   console.log('DESCRIPTION', description);
   try {
-    // const sql = `
-    // insert into "description" ("cardId","description")
-    // values ($1,$2)
-    // returning*;
-    // `;
-    // const params = [cardId, description];
-    // const result = await db.query(sql, params);
-    // res.status(201).json(result.rows);
+    const sql = `
+    insert into "description" ("cardId","description")
+    values ($1,$2)
+    returning*;
+    `;
+    const params = [cardId, description];
+    const result = await db.query(sql, params);
+    res.status(201).json(result.rows);
   } catch (err) {
     console.error(err);
   }
