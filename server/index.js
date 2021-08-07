@@ -239,6 +239,8 @@ app.post('/api/activity', async (req, res, next) => {
 app.post('/api/description', async (req, res, next) => {
   const cardId = req.body[0];
   const description = req.body[1];
+  console.log('CARDID', cardId);
+  console.log('DESCRIPTION', description);
   try {
     const sql = `
     insert into "description" ("cardId","description")
