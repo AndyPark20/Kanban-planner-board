@@ -89,7 +89,6 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
   const saveButton = async e => {
     e.preventDefault();
     if (initialDescription) {
-      const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const description = initialDescription;
       updateButton(true);
       updateDescriptionStatus(true);
@@ -100,7 +99,7 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
           headers: {
             'Content-type': 'application/json'
           },
-          body: JSON.stringify([cardId, description])
+          body: JSON.stringify([masterCharacter[columnNumber].list[cardNumber].cardId, description])
         });
         const result = await descriptionUpdate.json();
         updateDescriptionForCard(result[0].description);
