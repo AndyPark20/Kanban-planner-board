@@ -157,6 +157,7 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
         return values;
       });
       updateDescriptionCard(updateObject[index].list[indexItem].description);
+      updateMasterCharacter(updateObject);
     } catch (err) {
 
       console.error(err);
