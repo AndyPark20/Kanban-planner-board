@@ -241,3 +241,8 @@ input:focus{
   color: green;
   font-weight:700;
 }
+
+
+.deleteBtn{
+margin-right:2%;
+}
