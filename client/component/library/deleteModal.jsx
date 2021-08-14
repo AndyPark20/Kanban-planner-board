@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const DeleteModal = ({ updateConfirmationModal, confirmationModal }) => {
+const DeleteModal = ({ updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
 
   // function for ClassName to hide and unhide the confirmation modal
   const hideConfirmationModal = () => {
