@@ -259,7 +259,6 @@ app.post('/api/description', async (req, res, next) => {
 app.post('/api/cardMove', async (req, res, next) => {
   const columnName = req.body[0];
   const cardName = req.body[1];
-  console.log(columnName, cardName);
 
   const sql = `
   update "activities"
@@ -275,12 +274,9 @@ app.post('/api/cardMove', async (req, res, next) => {
 });
 
 // Delete Cards
-app.delete('/api/delete/:columnNumber/:cardNumber', async (req, res, next) => {
-  console.log('hello');
-  console.log('req.params', req.params);
-  const columnNumber = req.params.columnNumber;
-  const cardNumber = req.params.cardNumber;
-  console.log(columnNumber, cardNumber);
+app.delete('/api/delete/:cardId', async (req, res, next) => {
+  const cardId = req.params.cardId;
+  console.log(cardId);
 });
 
 app.listen(process.env.PORT, () => {

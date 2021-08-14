@@ -5,12 +5,12 @@ const DeleteModal = ({ masterCharacter, updateConfirmationModal, confirmationMod
   // delete card by calling backend
   const deleteCard = async () => {
     const selectedCardId = masterCharacter[columnNumber].list[cardNumber].cardId;
-    // const deleteCard = await fetch(`/api/delete/${columnNumber}/${cardNumber}`, {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Content-type': 'application/json'
-    //   }
-    // });
+    const deleteCard = await fetch(`/api/delete/${selectedCardId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
   };
 
   // function for ClassName to hide and unhide the confirmation modal
