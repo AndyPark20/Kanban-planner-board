@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
-const DeleteModal = ({ updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
+const DeleteModal = ({ masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
 
   // delete card by calling backend
   const deleteCard = async () => {
-    console.log(columnNumber);
-    console.log(cardNumber);
-    const deleteCard = await fetch(`/api/delete/${columnNumber}/${cardNumber}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json'
-      }
-    });
+    const selectedCardId = masterCharacter[columnNumber].list[cardNumber].cardId;
+    // const deleteCard = await fetch(`/api/delete/${columnNumber}/${cardNumber}`, {
+    //   method: 'DELETE',
+    //   headers: {
+    //     'Content-type': 'application/json'
+    //   }
+    // });
   };
 
   // function for ClassName to hide and unhide the confirmation modal
