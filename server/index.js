@@ -220,7 +220,7 @@ app.post('/api/activity', async (req, res, next) => {
   returning *;
   `;
   try {
-  // loop thru body property of the req object to retrieve values from activity
+    // loop thru body property of the req object to retrieve values from activity
     inputData.activity.forEach((values, index) => {
       activityValue = values.info;
       time = values.time;
@@ -276,7 +276,40 @@ app.post('/api/cardMove', async (req, res, next) => {
 // Delete Cards
 app.delete('/api/delete/:cardId', async (req, res, next) => {
   const cardId = req.params.cardId;
-  console.log(cardId);
+  try {
+    const sql = `
+  delete from "activities"
+  where "cardId" = $1
+  returning*;
+  `;
+    const deleteCard = [cardId];
+    const deleteCardResult = await db.query(sql, deleteCard);
+    // Delete description
+    if (deleteCardResult) {
+      const sql = `
+      delete from "description"
+      where "cardId"=$1
+      returning*
+      `;
+      const deleteDescription = [cardId];
+      const deleteDescriptionResult = await db.query(sql, deleteDescription);
+
+      // delete Record
+      if (deleteDescriptionResult) {
+        const sql = `
+      delete from "record"
+      where "cardId" =$1
+      returning*
+      `;
+        const deleteRecord = [cardId];
+        const deleteRecordResult = await db.query(sql, deleteRecord);
+        res.status(201).json(deleteRecordResult);
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
 });
 
 app.listen(process.env.PORT, () => {
