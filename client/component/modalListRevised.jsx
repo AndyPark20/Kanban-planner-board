@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -113,7 +113,7 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
   return (
     <div className={modalClose ? 'container centerModal' : 'hidden'}>
       <div className="text-right">
-        <button type='click' className="btn btn-danger clseFont deleteBtn" onClick={() => console.log('hello')}>Delete</button>
+        <button type='click' className="btn btn-danger clseFont deleteBtn" onClick={() => updateConfirmationModal(false)}>Delete</button>
         <button type="submit" className="btn btn-light closeFont" onClick={e => closeModal(e)}>Close</button>
       </div>
       <div className="row d-flex flex-column">

@@ -16,7 +16,7 @@ const DeleteModal = ({ updateConfirmationModal, confirmationModal }) => {
       <h3 className="deleteTitle">Are you Sure you want to delete this card?</h3>
       <div className="button-layout">
         <button type="click" className="btn btn-danger danger">Yes</button>
-        <button type="click" className="btn btn-warning warning" onClick={() => updateConfirmationModal(false)}>No</button>
+        <button type="click" className="btn btn-warning warning" onClick={() => updateConfirmationModal(true)}>No</button>
       </div>
     </div>
   );
