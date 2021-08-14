@@ -5,6 +5,7 @@ import Background from './component/library/backgroundOption';
 // import Modal from './component/modalList';
 import ModalRevised from './component/modalListRevised';
 import ParseRoute from '../client/component/library/parse-route';
+import DeleteModal from './component/library/deleteModal';
 
 const Home = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
@@ -145,6 +146,9 @@ const Home = () => {
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
         <Column updateDescriptionCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
+      </div>
+      <div>
+        <DeleteModal />
       </div>
     </div>
   );
