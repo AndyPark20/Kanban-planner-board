@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const DeleteModal = ({ updateMasterCharacter, masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
+const DeleteModal = ({ updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
 
   const characters = [
     {
@@ -30,6 +30,10 @@ const DeleteModal = ({ updateMasterCharacter, masterCharacter, updateConfirmatio
     const result = await deleteCard.json();
     // if delete card is a sucess re-render master character object
     if (result) {
+
+      // Close modal window for the card content
+      updateModal(false);
+      updateRenderActivity(false);
       updateConfirmationModal(true);
       const retrieveData = async () => {
         try {
@@ -48,7 +52,6 @@ const DeleteModal = ({ updateMasterCharacter, masterCharacter, updateConfirmatio
             });
             return values;
           });
-          console.log('UPDATED OBJECT', updateObject);
           updateMasterCharacter(updateObject);
         } catch (err) {
           console.error(err);

@@ -17,6 +17,7 @@ const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionF
   });
 
   useEffect(() => {
+    // Update Modal window state
     updateModalClose(modal);
   });
 
@@ -29,8 +30,16 @@ const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionF
     e.preventDefault();
     updateInitialDescription('');
     updateDescription('');
+
     updateModal(false);
     updateRenderActivity(false);
+    // Close Save and Cancel button on Description when user closes modal
+    updateButton(false);
+    // Close TextArea for Description when user closes modal
+    updateDescriptionStatus(true);
+    // Close Edit title inside modal when user closes modal
+    updateModalStatus(false);
+
   }
 
   function updateCardTitle(e) {
@@ -120,6 +129,7 @@ const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionF
         <div className=" pt-2 pb-50">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-tasks logoSize"></i>
+            {/** **********************************************Card Title **********************************************************************/}
             <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{modalTitle}</h3>
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdate}>Edit</p>
             <input text="type" className={modalStatus ? 'pl-2' : 'hidden'} value={values} onChange={e => handleSubmit(e)} onKeyUp={e => updateCardTitle(e)}></input>
@@ -128,11 +138,13 @@ const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionF
         <div className=" pt-2 descriptionPadding">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-database"></i>
+            {/** ******************************************************************DESCRIPTION SECTION************************************************/}
             <h3 className="pl-2">Description</h3>
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdateDescription}>Edit</p>
           </div>
           <div className="pl-2">
             <form onChange={e => descriptionInfo(e)}>
+              {/** **************************************************************TEXT AREA TO WRITE DESCRIPTION *****************************************************************/}
               <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} rows="4" value={initialDescription}></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{finalDescription}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveButton(e)} >Save</button>
