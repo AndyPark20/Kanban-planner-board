@@ -274,6 +274,12 @@ app.post('/api/cardMove', async (req, res, next) => {
 
 });
 
+// Delete Cards
+app.delete('/api/delete/:columnNumber/:cardNumber', async (req, res, next) => {
+  console.log('hello');
+  console.log('req.params', req.params);
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);

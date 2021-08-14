@@ -4,8 +4,9 @@ const DeleteModal = ({ updateConfirmationModal, confirmationModal, columnNumber,
 
   // delete card by calling backend
   const deleteCard = async () => {
-    const deleteCard = await fetch(`api/delete/${columnNumber}/${cardNumber}`, {
-      method: 'Delete',
+    console.log('triggered');
+    const deleteCard = await fetch('/api/delete/', {
+      method: 'DELETE',
       headers: {
         'Content-type': 'application/json'
       }
