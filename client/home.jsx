@@ -23,6 +23,9 @@ const Home = () => {
   const [modalTitle, updateModalTitle] = useState('');
   const [descriptionForCard, updateDescriptionForCard] = useState('');
 
+  // hide and unhide confirmation modal
+  const [confirmationModal, updateConfirmationModal] = useState(true);
+
   const characters = [
     {
       id: 'Todo',
@@ -148,7 +151,7 @@ const Home = () => {
         <Column updateDescriptionCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
       </div>
       <div>
-        <DeleteModal />
+        <DeleteModal confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} />
       </div>
     </div>
   );
