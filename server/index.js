@@ -278,6 +278,9 @@ app.post('/api/cardMove', async (req, res, next) => {
 app.delete('/api/delete/:columnNumber/:cardNumber', async (req, res, next) => {
   console.log('hello');
   console.log('req.params', req.params);
+  const columnNumber = req.params.columnNumber;
+  const cardNumber = req.params.cardNumber;
+  console.log(columnNumber, cardNumber);
 });
 
 app.listen(process.env.PORT, () => {
