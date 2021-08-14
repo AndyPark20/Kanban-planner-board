@@ -1,6 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
-const DeleteModal = ({ masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
+const DeleteModal = ({ updateMasterCharacter, masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
+
+  const characters = [
+    {
+      id: 'Todo',
+      list: []
+
+    },
+    {
+      id: 'Doing',
+      list: []
+    },
+    {
+      id: 'Done',
+      list: []
+    }
+  ];
 
   // delete card by calling backend
   const deleteCard = async () => {
@@ -11,6 +27,36 @@ const DeleteModal = ({ masterCharacter, updateConfirmationModal, confirmationMod
         'Content-type': 'application/json'
       }
     });
+    const result = await deleteCard.json();
+    // if delete card is a sucess re-render master character object
+    if (result) {
+      updateConfirmationModal(true);
+      const retrieveData = async () => {
+        try {
+          const data = await fetch('/api/retrieve');
+          const result = await data.json();
+          // push it to characters array of objects.
+          const copiedObject = characters.concat();
+          // received Data from back end
+          const copiedObjectUpdate = result;
+          // Use map method to update the object into an array.
+          const updateObject = copiedObject.map(values => {
+            copiedObjectUpdate.forEach(copyValues => {
+              if (values.id === copyValues.column) {
+                values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
+              }
+            });
+            return values;
+          });
+          console.log('UPDATED OBJECT', updateObject);
+          updateMasterCharacter(updateObject);
+        } catch (err) {
+          console.error(err);
+        }
+
+      };
+      retrieveData();
+    }
   };
 
   // function for ClassName to hide and unhide the confirmation modal
