@@ -258,3 +258,9 @@ input:focus{
 .deleteTitle{
   color:white;
 }
+
+/****Confirmation confirmation buttons *****/
+.danger, .warning{
+  padding:1% 3%;
+}
+}
