@@ -113,6 +113,7 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
   return (
     <div className={modalClose ? 'container centerModal' : 'hidden'}>
       <div className="text-right">
+        <button type='click' className="btn btn-danger closeFont" onClick={() => console.log('hello')}>Delete</button>
         <button type="submit" className="btn btn-light closeFont" onClick={e => closeModal(e)}>Close</button>
       </div>
       <div className="row d-flex flex-column">
