@@ -50,11 +50,24 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   };
 
-  const userEditActivity = index => {
+  const userEditActivity = async index => {
     updateUserEdit(true);
     updateEditIndexNumber(index);
     updateValueLog(userLogSubmit[index]);
+    console.log(masterCharacter[columnNumber].list[cardNumber].activity[index]);
 
+    // create post fetch for editing selected activity
+    try {
+      const editActivity = await fetch('/api/editActivity', {
+        type: 'POST',
+        'Content-type': 'application/json'
+      });
+      // return promise
+      const result = await editActivity.json();
+      console.log('result for edit activity post', result);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const renderLog = () => {
@@ -66,6 +79,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
             <h5 className="pl-2 activity-info">{values.record}</h5>
             <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{parseInt(values.time)}</Moment>
             <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
+            <h6 className="pl-2 editActivity">Delete</h6>
           </div>
         );
       });
