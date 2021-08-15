@@ -313,6 +313,9 @@ app.delete('/api/delete/:cardId', async (req, res, next) => {
 });
 
 // Edit Activity
+app.post('/api/editActivity', async (req, res, next) => {
+  console.log(req.body);
+});
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
