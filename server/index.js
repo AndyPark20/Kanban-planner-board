@@ -316,9 +316,11 @@ app.delete('/api/delete/:cardId', async (req, res, next) => {
 app.post('/api/editActivity', async (req, res, next) => {
   console.log(req.body);
   // retrieve to be updated info (activityId, updatedInfo, time)
-  const activityCardId = req.body[0];
-  const editActivityDetails = req.body[1].info;
-  const editActivityTime = req.body[1].time;
+  const activityCardId = req.body[1].activityId;
+  const editActivityDetails = req.body[0].info;
+  const editActivityTime = req.body[0].time;
+
+  console.log(activityCardId, editActivityDetails, editActivityTime);
   try {
     const sql = `
   update "record"

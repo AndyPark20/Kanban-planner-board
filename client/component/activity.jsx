@@ -146,13 +146,14 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
       updateUserLog({ info: '' });
+      const updatedActivity = masterCharacter[columnNumber].list[cardNumber].activity[currentIndex];
       try {
         const editActivity = await fetch('/api/editActivity', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
           },
-          body: JSON.stringify(selectedActivityObject)
+          body: JSON.stringify([updatedActivity, selectedActivityObject])
         });
         // return promise
         const result = await editActivity.json();
