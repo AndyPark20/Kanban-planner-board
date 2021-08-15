@@ -82,7 +82,7 @@ const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionF
 
   const clickUpdateDescription = () => {
     updateButton(true);
-    const description = masterCharacter[columnNumber].list[cardNumber].desc;
+    const description = finalDescription;
     updateInitialDescription(description);
     updateDescriptionStatus(false);
   };
@@ -90,7 +90,7 @@ const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionF
   const updateDescriptionInput = () => updateDescriptionStatus(false);
 
   const updateCancelButton = () => {
-    masterCharacter[columnNumber].list[cardNumber].desc = finalDescription;
+    // masterCharacter[columnNumber].list[cardNumber].desc = finalDescription;
     updateDescriptionStatus(true);
     updateButton(false);
   };
