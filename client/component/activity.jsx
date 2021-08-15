@@ -15,6 +15,9 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   // track which activity user wants to edit via index number in the array
   const [currentIndex, updateCurrentIndex] = useState(null);
 
+  // store selected activity object that needs to be updated
+  const [selectedActivityObject, updateSelectedActivityObject] = useState({});
+
   const characters = [
     {
       id: 'Todo',
@@ -53,7 +56,9 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   };
 
+  // When clicked "Edit" for activity
   const userEditActivity = index => {
+    updateSelectedActivityObject(masterCharacter[columnNumber].list[cardNumber].activity[index]);
     updateUserEdit(true);
     updateEditIndexNumber(index);
     updateValueLog(userLogSubmit[index]);
@@ -141,15 +146,13 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
       updateUserLog({ info: '' });
-      const activityCardId = masterCharacter[columnNumber].list[cardNumber].activity[1].cardId;
-      const activityCardDetails = masterCharacter[columnNumber].list[cardNumber].activity[0];
       try {
         const editActivity = await fetch('/api/editActivity', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
           },
-          body: JSON.stringify([activityCardId, activityCardDetails])
+          body: JSON.stringify(selectedActivityObject)
         });
         // return promise
         const result = await editActivity.json();
