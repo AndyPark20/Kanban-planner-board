@@ -157,7 +157,30 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         });
         // return promise
         const result = await editActivity.json();
-        console.log('result for edit activity post', result);
+
+        // if promised has been successfully returned, updateMasterCharacter
+        if (result) {
+          try {
+            const data = await fetch('/api/retrieve');
+            const result = await data.json();
+            // push it to characters array of objects.
+            const copiedObject = characters.concat();
+            // received Data from back end
+            const copiedObjectUpdate = result;
+            // Use map method to update the object into an array.
+            const updateObject = copiedObject.map(values => {
+              copiedObjectUpdate.forEach(copyValues => {
+                if (values.id === copyValues.column) {
+                  values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
+                }
+              });
+              return values;
+            });
+            updateMasterCharacter(updateObject);
+          } catch (err) {
+            console.error(err);
+          }
+        }
       } catch (err) {
         console.error(err);
       }
