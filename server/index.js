@@ -315,6 +315,24 @@ app.delete('/api/delete/:cardId', async (req, res, next) => {
 // Edit Activity
 app.post('/api/editActivity', async (req, res, next) => {
   console.log(req.body);
+  // retrieve to be updated info (cardId, updatedInfo, time)
+  const activityCardId = req.body[0];
+  const editActivityDetails = req.body[1].info;
+  const editActivityTime = req.body[1].time;
+  console.log(activityCardId, editActivityDetails, editActivityTime);
+  try {
+    const sql = `
+  update "record"
+  set "record" =$1, "time" =$2
+  where "cardId" = $3
+  `;
+    const params = [editActivityDetails, editActivityTime, activityCardId];
+    const editActivityResult = await db.query(sql, params);
+    res.status(201).json(editActivityResult);
+  } catch (err) {
+    console.error(err);
+  }
+
 });
 
 app.listen(process.env.PORT, () => {
