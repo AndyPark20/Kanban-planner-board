@@ -11,7 +11,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const [editIndexNumber, updateEditIndexNumber] = useState(null);
   const [saveButton, updateSaveButton] = useState(false);
   const [renderActivityItem, updateRenderActivity] = useState(false);
-
   // track which activity user wants to edit via index number in the array
   const [currentIndex, updateCurrentIndex] = useState(null);
 
@@ -64,6 +63,9 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     updateValueLog(userLogSubmit[index]);
     updateCurrentIndex(index);
 
+    // update user log
+    updateUserLog({ info: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
+
   };
 
   const renderLog = () => {
@@ -83,6 +85,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   };
 
+  // When user clicks SAVE button next to Activity TextArea
   const userSave = async e => {
     e.preventDefault();
     if (!userEdit && userLog.info) {
@@ -145,7 +148,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     } else {
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
-      updateUserLog({ info: '' });
       const updatedActivity = masterCharacter[columnNumber].list[cardNumber].activity[currentIndex];
       try {
         const editActivity = await fetch('/api/editActivity', {
@@ -187,9 +189,21 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   };
 
+  // Save user Text on Activity
+  const renderInputText = () => {
+    updateUserLog({ info: '' });
+  };
+
   const saveButtonRender = () => {
     if (saveButton) {
       return 'btn btn-success mt-2 ml-2';
+    }
+    return 'hidden';
+  };
+
+  const cancelButtonRender = () => {
+    if (saveButton) {
+      return 'btn btn-danger mt-2 ml-2';
     }
     return 'hidden';
   };
@@ -200,8 +214,9 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         <h3 className="pl-2">Activity</h3>
       </div>
       <form onChange={e => userActivity(e)} className="d-flex" required>
-        <textarea className="form-control w-75" rows="1" value={userLog.info} required></textarea>
+        <textarea className="form-control w-75" rows="1" value={userLog.info} required onChange={renderInputText}></textarea>
         <button type="submit" className={saveButtonRender()} onClick={e => userSave(e)}>Save</button>
+        <button type="button" className={cancelButtonRender()} onClick={() => { console.log('hello'); }}>Cancel</button>
       </form>
       <div className="pl-4">
         {renderLog()}
