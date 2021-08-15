@@ -189,6 +189,35 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   };
 
+  // User Cancels editing Activity
+  const editActivityCancel = async () => {
+    updateUserEdit(false);
+    updateSaveButton(false);
+    updateUserLog({ info: '' });
+
+    // call backend to update masterCharacter
+    try {
+      const data = await fetch('/api/retrieve');
+      const result = await data.json();
+      // push it to characters array of objects.
+      const copiedObject = characters.concat();
+      // received Data from back end
+      const copiedObjectUpdate = result;
+      // Use map method to update the object into an array.
+      const updateObject = copiedObject.map(values => {
+        copiedObjectUpdate.forEach(copyValues => {
+          if (values.id === copyValues.column) {
+            values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
+          }
+        });
+        return values;
+      });
+      updateMasterCharacter(updateObject);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // Save user Text on Activity
   const renderInputText = () => {
     updateUserLog({ info: '' });
@@ -216,7 +245,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       <form onChange={e => userActivity(e)} className="d-flex" required>
         <textarea className="form-control w-75" rows="1" value={userLog.info} required onChange={renderInputText}></textarea>
         <button type="submit" className={saveButtonRender()} onClick={e => userSave(e)}>Save</button>
-        <button type="button" className={cancelButtonRender()} onClick={() => { console.log('hello'); }}>Cancel</button>
+        <button type="button" className={cancelButtonRender()} onClick={editActivityCancel}>Cancel</button>
       </form>
       <div className="pl-4">
         {renderLog()}
