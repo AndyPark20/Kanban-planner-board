@@ -12,6 +12,9 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   const [saveButton, updateSaveButton] = useState(false);
   const [renderActivityItem, updateRenderActivity] = useState(false);
 
+  // track which activity user wants to edit via index number in the array
+  const [currentIndex, updateCurrentIndex] = useState(null);
+
   const characters = [
     {
       id: 'Todo',
@@ -50,24 +53,12 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
     }
   };
 
-  const userEditActivity = async index => {
+  const userEditActivity = index => {
     updateUserEdit(true);
     updateEditIndexNumber(index);
     updateValueLog(userLogSubmit[index]);
-    console.log(masterCharacter[columnNumber].list[cardNumber].activity[index]);
+    updateCurrentIndex(index);
 
-    // create post fetch for editing selected activity
-    try {
-      const editActivity = await fetch('/api/editActivity', {
-        type: 'POST',
-        'Content-type': 'application/json'
-      });
-      // return promise
-      const result = await editActivity.json();
-      console.log('result for edit activity post', result);
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   const renderLog = () => {
@@ -145,10 +136,27 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       } catch (err) {
         console.error(err);
       }
+      // For editing Existing Activity
     } else {
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
       updateUserLog({ info: '' });
+      const activityCardId = masterCharacter[columnNumber].list[cardNumber].activity[currentIndex];
+      console.log(activityCardId);
+      try {
+        const editActivity = await fetch('/api/editActivity', {
+          type: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(activityCardId)
+        });
+        // return promise
+        const result = await editActivity.json();
+        console.log('result for edit activity post', result);
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
