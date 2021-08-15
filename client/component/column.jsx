@@ -42,27 +42,46 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
     }
   }, [columnUpdate]);
 
-  const dropIt = (e, info, position) => {
+  const dropIt = async (e, info, position) => {
     // the column index number
     e.preventDefault();
+
     const identity = e.dataTransfer.getData('name');
     const imgs = e.dataTransfer.getData('img');
     const originId = e.dataTransfer.getData('startIndex');
     const columnStartIndex = e.dataTransfer.getData('columnStartIndex');
     const description = e.dataTransfer.getData('description');
-    if (masterCharacter.id !== originId && !columnMover) {
-      if (e.target.nodeName === 'DIV' || e.target.nodeName === 'H5') {
-        masterCharacter[position].list.push(masterCharacter[columnStartIndex].list[originId]);
-        masterCharacter[columnStartIndex].list.splice(originId, 1);
-        const returnedObjects = masterCharacter.concat();
-        updateMasterCharacter(returnedObjects);
+    const cardId = info.id;
+    const card = masterCharacter[columnStartIndex].list[originId].card;
+
+    try {
+      const result = await fetch('/api/cardMove', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify([cardId, card])
+      });
+
+      if (result) {
+        if (masterCharacter.id !== originId && !columnMover) {
+          if (e.target.nodeName === 'DIV' || e.target.nodeName === 'H5') {
+            masterCharacter[position].list.push(masterCharacter[columnStartIndex].list[originId]);
+            masterCharacter[columnStartIndex].list.splice(originId, 1);
+            const returnedObjects = masterCharacter.concat();
+            updateMasterCharacter(returnedObjects);
+          }
+        } else {
+          const originCol = e.dataTransfer.getData('columnStartIndex');
+          const desintationColumn = masterCharacter[position];
+          [masterCharacter[originCol], masterCharacter[position]] = [masterCharacter[position], masterCharacter[originCol]];
+          const finalResult = masterCharacter.concat();
+          updateMasterCharacter(finalResult);
+        }
       }
-    } else {
-      const originCol = e.dataTransfer.getData('columnStartIndex');
-      const desintationColumn = masterCharacter[position];
-      [masterCharacter[originCol], masterCharacter[position]] = [masterCharacter[position], masterCharacter[originCol]];
-      const finalResult = masterCharacter.concat();
-      updateMasterCharacter(finalResult);
+
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -138,6 +157,7 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
         return values;
       });
       updateDescriptionCard(updateObject[index].list[indexItem].description);
+      updateMasterCharacter(updateObject);
     } catch (err) {
 
       console.error(err);

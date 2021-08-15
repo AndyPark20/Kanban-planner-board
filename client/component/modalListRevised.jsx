@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -17,6 +17,7 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
   });
 
   useEffect(() => {
+    // Update Modal window state
     updateModalClose(modal);
   });
 
@@ -29,8 +30,16 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
     e.preventDefault();
     updateInitialDescription('');
     updateDescription('');
+
     updateModal(false);
     updateRenderActivity(false);
+    // Close Save and Cancel button on Description when user closes modal
+    updateButton(false);
+    // Close TextArea for Description when user closes modal
+    updateDescriptionStatus(true);
+    // Close Edit title inside modal when user closes modal
+    updateModalStatus(false);
+
   }
 
   function updateCardTitle(e) {
@@ -73,7 +82,7 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
 
   const clickUpdateDescription = () => {
     updateButton(true);
-    const description = masterCharacter[columnNumber].list[cardNumber].desc;
+    const description = finalDescription;
     updateInitialDescription(description);
     updateDescriptionStatus(false);
   };
@@ -81,7 +90,7 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
   const updateDescriptionInput = () => updateDescriptionStatus(false);
 
   const updateCancelButton = () => {
-    masterCharacter[columnNumber].list[cardNumber].desc = finalDescription;
+    // masterCharacter[columnNumber].list[cardNumber].desc = finalDescription;
     updateDescriptionStatus(true);
     updateButton(false);
   };
@@ -89,7 +98,6 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
   const saveButton = async e => {
     e.preventDefault();
     if (initialDescription) {
-      const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const description = initialDescription;
       updateButton(true);
       updateDescriptionStatus(true);
@@ -100,7 +108,7 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
           headers: {
             'Content-type': 'application/json'
           },
-          body: JSON.stringify([cardId, description])
+          body: JSON.stringify([masterCharacter[columnNumber].list[cardNumber].cardId, description])
         });
         const result = await descriptionUpdate.json();
         updateDescriptionForCard(result[0].description);
@@ -114,12 +122,14 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
   return (
     <div className={modalClose ? 'container centerModal' : 'hidden'}>
       <div className="text-right">
+        <button type='click' className="btn btn-danger clseFont deleteBtn" onClick={() => updateConfirmationModal(false)}>Delete</button>
         <button type="submit" className="btn btn-light closeFont" onClick={e => closeModal(e)}>Close</button>
       </div>
       <div className="row d-flex flex-column">
         <div className=" pt-2 pb-50">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-tasks logoSize"></i>
+            {/** **********************************************Card Title **********************************************************************/}
             <h3 className={modalStatus ? 'hidden' : 'pl-2'}>{modalTitle}</h3>
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdate}>Edit</p>
             <input text="type" className={modalStatus ? 'pl-2' : 'hidden'} value={values} onChange={e => handleSubmit(e)} onKeyUp={e => updateCardTitle(e)}></input>
@@ -128,11 +138,13 @@ const Modal = ({ updateDescriptionForCard, descriptionForCard, modalTitle, updat
         <div className=" pt-2 descriptionPadding">
           <div className="d-flex align-items-center pl-2">
             <i className="fas fa-database"></i>
+            {/** ******************************************************************DESCRIPTION SECTION************************************************/}
             <h3 className="pl-2">Description</h3>
             <p className={modalStatus ? 'hidden' : 'pl-2'} onClick={clickUpdateDescription}>Edit</p>
           </div>
           <div className="pl-2">
             <form onChange={e => descriptionInfo(e)}>
+              {/** **************************************************************TEXT AREA TO WRITE DESCRIPTION *****************************************************************/}
               <textarea className={descriptionStatus ? 'hidden' : 'form-control w-75'} rows="4" value={initialDescription}></textarea>
               <p className={descriptionStatus ? 'pl-4' : 'hidden'} onClick={updateDescriptionInput}>{finalDescription}</p>
               <button type="submit" className={button ? 'btn btn-success mt-2' : 'hidden'} onClick={e => saveButton(e)} >Save</button>

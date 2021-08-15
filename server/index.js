@@ -220,7 +220,7 @@ app.post('/api/activity', async (req, res, next) => {
   returning *;
   `;
   try {
-  // loop thru body property of the req object to retrieve values from activity
+    // loop thru body property of the req object to retrieve values from activity
     inputData.activity.forEach((values, index) => {
       activityValue = values.info;
       time = values.time;
@@ -239,6 +239,8 @@ app.post('/api/activity', async (req, res, next) => {
 app.post('/api/description', async (req, res, next) => {
   const cardId = req.body[0];
   const description = req.body[1];
+  console.log('CARDID', cardId);
+  console.log('DESCRIPTION', description);
   try {
     const sql = `
     insert into "description" ("cardId","description")
@@ -251,6 +253,87 @@ app.post('/api/description', async (req, res, next) => {
   } catch (err) {
     console.error(err);
   }
+});
+
+// update moving cards
+app.post('/api/cardMove', async (req, res, next) => {
+  const columnName = req.body[0];
+  const cardName = req.body[1];
+
+  const sql = `
+  update "activities"
+  set "column" =$1
+  where "card" =$2
+  `;
+
+  const params = [columnName, cardName];
+  const result = await db.query(sql, params);
+  console.log('result', result);
+  res.status(201).json(result);
+
+});
+
+// Delete Cards
+app.delete('/api/delete/:cardId', async (req, res, next) => {
+  const cardId = req.params.cardId;
+  try {
+    const sql = `
+  delete from "activities"
+  where "cardId" = $1
+  returning*;
+  `;
+    const deleteCard = [cardId];
+    const deleteCardResult = await db.query(sql, deleteCard);
+    // Delete description
+    if (deleteCardResult) {
+      const sql = `
+      delete from "description"
+      where "cardId"=$1
+      returning*
+      `;
+      const deleteDescription = [cardId];
+      const deleteDescriptionResult = await db.query(sql, deleteDescription);
+
+      // delete Record
+      if (deleteDescriptionResult) {
+        const sql = `
+      delete from "record"
+      where "cardId" =$1
+      returning*
+      `;
+        const deleteRecord = [cardId];
+        const deleteRecordResult = await db.query(sql, deleteRecord);
+        res.status(201).json(deleteRecordResult);
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+});
+
+// Edit Activity
+app.post('/api/editActivity', async (req, res, next) => {
+  console.log(req.body);
+  // retrieve to be updated info (activityId, updatedInfo, time)
+  const activityCardId = req.body[1].activityId;
+  const editActivityDetails = req.body[0].info;
+  const editActivityTime = req.body[0].time;
+
+  console.log(activityCardId, editActivityDetails, editActivityTime);
+  try {
+    const sql = `
+  update "record"
+  set "record" =$1, "time" =$2
+  where "activityId" = $3
+  `;
+    const params = [editActivityDetails, editActivityTime, activityCardId];
+    const editActivityResult = await db.query(sql, params);
+    res.status(201).json(editActivityResult);
+  } catch (err) {
+    console.error(err);
+  }
+
 });
 
 app.listen(process.env.PORT, () => {

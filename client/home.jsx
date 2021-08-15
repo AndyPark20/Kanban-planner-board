@@ -5,6 +5,7 @@ import Background from './component/library/backgroundOption';
 // import Modal from './component/modalList';
 import ModalRevised from './component/modalListRevised';
 import ParseRoute from '../client/component/library/parse-route';
+import DeleteModal from './component/library/deleteModal';
 
 const Home = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
@@ -21,6 +22,9 @@ const Home = () => {
   const [renderActivity, updateRenderActivity] = useState(false);
   const [modalTitle, updateModalTitle] = useState('');
   const [descriptionForCard, updateDescriptionForCard] = useState('');
+
+  // hide and unhide confirmation modal
+  const [confirmationModal, updateConfirmationModal] = useState(true);
 
   const characters = [
     {
@@ -139,12 +143,15 @@ const Home = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper} />
         </div>
         <div>
-          <ModalRevised updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle} modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription} modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent} />
+          <ModalRevised confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle} modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription} modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent} />
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
         <Column updateDescriptionCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
+      </div>
+      <div>
+        <DeleteModal updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster}/>
       </div>
     </div>
   );
