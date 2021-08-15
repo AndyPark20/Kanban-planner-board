@@ -2,21 +2,20 @@ import React, { useEffect, useState } from 'react';
 
 const DeleteModal = ({ updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
 
-  const characters = [
-    {
+  const characters = {
+    Todo: {
       id: 'Todo',
       list: []
-
     },
-    {
+    Doing: {
       id: 'Doing',
       list: []
     },
-    {
+    Done: {
       id: 'Done',
       list: []
     }
-  ];
+  };
 
   // delete card by calling backend
   const deleteCard = async () => {
@@ -39,20 +38,19 @@ const DeleteModal = ({ updateModal, updateRenderActivity, updateMasterCharacter,
         try {
           const data = await fetch('/api/retrieve');
           const result = await data.json();
-          // push it to characters array of objects.
-          const copiedObject = characters.concat();
-          // received Data from back end
-          const copiedObjectUpdate = result;
-          // Use map method to update the object into an array.
-          const updateObject = copiedObject.map(values => {
-            copiedObjectUpdate.forEach(copyValues => {
-              if (values.id === copyValues.column) {
-                values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
-              }
+          // Add the results into characters object
+          if (result) {
+            // loop thru the returned result
+            result.forEach(values => {
+              // debugger;
+              const charactersList = characters[values.column].list;
+              charactersList.push(values);
+              charactersList[values.column] = { ...charactersList[values.column], charactersList };
             });
-            return values;
-          });
-          updateMasterCharacter(updateObject);
+            console.log('updatedObject', characters);
+          }
+
+          updateMasterCharacter(Object.values(characters));
         } catch (err) {
           console.error(err);
         }
@@ -72,13 +70,13 @@ const DeleteModal = ({ updateModal, updateRenderActivity, updateMasterCharacter,
   };
 
   return (
-    <div className={hideConfirmationModal()}>
-      <h3 className="deleteTitle">Are you Sure you want to delete this card?</h3>
-      <div className="button-layout">
-        <button type="click" className="btn btn-danger danger" onClick={deleteCard}>Yes</button>
-        <button type="click" className="btn btn-warning warning" onClick={() => updateConfirmationModal(true)}>No</button>
-      </div>
+  <div className={hideConfirmationModal()}>
+    <h3 className="deleteTitle">Are you Sure you want to delete this card?</h3>
+    <div className="button-layout">
+      <button type="click" className="btn btn-danger danger" onClick={deleteCard}>Yes</button>
+      <button type="click" className="btn btn-warning warning" onClick={() => updateConfirmationModal(true)}>No</button>
     </div>
+  </div>
   );
 };
 
