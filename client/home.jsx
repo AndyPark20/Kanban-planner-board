@@ -56,9 +56,8 @@ const Home = () => {
             characterList.push(values);
             copiedCharacterObject[values.column] = { ...copiedCharacterObject[values.column], list: characterList };
           })
-          // update MasterCharacter with values of characters only
-          const updatedMasterCharacter = Object.values(copiedCharacterObject)
-          updateMasterCharacter(updatedMasterCharacter)
+          // update MasterCharacter
+          updateMasterCharacter(Object.values(copiedCharacterObject))
         }
 
       } catch (err) {
