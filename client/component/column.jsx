@@ -27,9 +27,13 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
     }
   ];
 
-  useEffect(() => {
-    updateMasterCharacter(initialCharacter);
-  }, []);
+  // useEffect(()=>{
+  //   console.log('master character in the column', masterCharacter)
+  // })
+
+  // useEffect(() => {
+  //   updateMasterCharacter(initialCharacter);
+  // }, []);
 
   useEffect(() => {
     updateTitleBoolean(false);
@@ -175,6 +179,7 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
   };
 
   const renderIt = () => {
+    // debugger;
     const loop = masterCharacter.map((info, index) => {
       return (
         <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)}

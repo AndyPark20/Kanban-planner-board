@@ -44,6 +44,7 @@ app.post('/api/signup', async (req, res, next) => {
   const username = req.body.userName;
   try {
     const hash = await argon2.hash(req.body.password);
+    console.log('hash',hash)
     const sql = `
   insert into "users"( "firstName", "lastName", "userName","password")
   values ($1,$2,$3, $4)

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
-const DeleteModal = ({ updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
+const DeleteModal = ({ characters, updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
 
-  const characters = {
-    Todo: {
-      id: 'Todo',
-      list: []
-    },
-    Doing: {
-      id: 'Doing',
-      list: []
-    },
-    Done: {
-      id: 'Done',
-      list: []
-    }
-  };
+  // const characters = {
+  //   Todo: {
+  //     id: 'Todo',
+  //     list: []
+  //   },
+  //   Doing: {
+  //     id: 'Doing',
+  //     list: []
+  //   },
+  //   Done: {
+  //     id: 'Done',
+  //     list: []
+  //   }
+  // };
 
   // delete card by calling backend
   const deleteCard = async () => {
@@ -39,18 +39,19 @@ const DeleteModal = ({ updateModal, updateRenderActivity, updateMasterCharacter,
           const data = await fetch('/api/retrieve');
           const result = await data.json();
           // Add the results into characters object
+
           if (result) {
             // loop thru the returned result
             result.forEach(values => {
-              // debugger;
+              console.log(characters)
               const charactersList = characters[values.column].list;
               charactersList.push(values);
-              charactersList[values.column] = { ...charactersList[values.column], charactersList };
+              characters[values.column] = { ...charactersList[values.column], list:charactersList };
             });
             console.log('updatedObject', characters);
           }
 
-          updateMasterCharacter(Object.values(characters));
+          // updateMasterCharacter(Object.values(characters));
         } catch (err) {
           console.error(err);
         }
