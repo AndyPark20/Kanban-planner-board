@@ -142,9 +142,8 @@ const Column = ({characters, updateDescriptionCard, updateModalTitle, updateRend
         characterList.push(values);
         copiedObject[values.column]={...copiedObject[values.column],list:characterList}
       })
-      console.log('copiedObject', Object.values(copiedObject))
-      updateDescriptionCard(updateObject[index].list[indexItem].description);
-      updateMasterCharacter(updateObject);
+      // updateDescriptionCard(updateObject[index].list[indexItem].description);
+      updateMasterCharacter(Object.values(copiedObject));
     } catch (err) {
 
       console.error(err);
