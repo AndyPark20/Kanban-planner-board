@@ -11,6 +11,7 @@ const Column = ({characters, updateDescriptionCard, updateModalTitle, updateRend
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
 
+
   useEffect(() => {
     updateTitleBoolean(false);
   }, [titleBoolean]);
@@ -123,23 +124,23 @@ const Column = ({characters, updateDescriptionCard, updateModalTitle, updateRend
     try {
       const data = await fetch('/api/retrieve');
       const result = await data.json();
+      // push it to characters array of objects.
+      const copiedObject = Object.assign(characters)
+      // received Data from back end
+      const copiedObjectUpdate = result;
+      // Use map method to update the object into an array.
 
-      //make a copy of characters object
-      const copiedObject = Object.assign(characters);
-
-      // Use hashmap to update the values of characters object
       result.forEach((values)=>{
         let characterList = copiedObject[values.column].list;
-        characterList.push(values);
-        copiedObject[values.column]={...copiedObject[values.column],list:characterList}
+        characterList.push({card:values.card,activity:values.activity, cardId:values.cardId, desciprtion: values.description});
+        copiedObject[values.column] ={...copiedObject[values.column],list:characterList}
       })
-      // updateDescriptionCard(updateObject[index].list[indexItem].description);
-      //update masterCharacter with the values in the object.
-      updateMasterCharacter(Object.values(copiedObject));
+      const masterObject =Object.values(copiedObject)
+      updateDescriptionCard(masterObject[index].list[indexItem].description);
+      updateMasterCharacter(masterObject);
     } catch (err) {
       console.error(err);
     }
-
   };
 
   const columnStyle = () => {
@@ -152,7 +153,6 @@ const Column = ({characters, updateDescriptionCard, updateModalTitle, updateRend
   };
 
   const renderIt = () => {
-    // debugger;
     const loop = masterCharacter.map((info, index) => {
       return (
         <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)}

@@ -29,12 +29,11 @@ const DeleteModal = ({ characters, updateModal, updateRenderActivity, updateMast
             result.forEach(values => {
               const charactersList = characters[values.column].list;
               charactersList.push(values);
-              characters[values.column] = { ...charactersList[values.column], list: charactersList };
+              characters[values.column] = { ...characters[values.column], list: charactersList };
             });
-            console.log('updatedObject', characters);
           }
 
-          // updateMasterCharacter(Object.values(characters));
+          updateMasterCharacter(Object.values(characters));
         } catch (err) {
           console.error(err);
         }
