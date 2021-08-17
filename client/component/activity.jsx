@@ -17,9 +17,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   // store selected activity object that needs to be updated
   const [selectedActivityObject, updateSelectedActivityObject] = useState({});
 
-  useEffect((values)=>{
-    console.log('masterCharacter', masterCharacter)
-  })
 
   const characters = [
     {

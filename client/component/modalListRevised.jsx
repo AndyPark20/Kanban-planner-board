@@ -13,13 +13,11 @@ const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionF
   const [button, updateButton] = useState(false);
 
   useEffect(() => {
+    updateModalClose(modal);
     updateFinalDescription(descriptionForCard);
   });
 
-  useEffect(() => {
-    // Update Modal window state
-    updateModalClose(modal);
-  });
+
 
   function descriptionInfo(e) {
     e.preventDefault();

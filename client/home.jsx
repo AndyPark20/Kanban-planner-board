@@ -26,9 +26,6 @@ const Home = () => {
   // hide and unhide confirmation modal
   const [confirmationModal, updateConfirmationModal] = useState(true);
 
-  useEffect(()=>{
-    console.log('descriptionCard', descriptionForCard)
-  })
 
   const characters = {
     Todo: {

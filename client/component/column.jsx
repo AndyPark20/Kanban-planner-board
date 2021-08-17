@@ -122,22 +122,23 @@ const Column = ({characters, updateDescriptionCard, updateModalTitle, updateRend
       updateModal(false);
     }
     try {
+      console.log('hello')
       const data = await fetch('/api/retrieve');
       const result = await data.json();
       // push it to characters array of objects.
       const copiedObject = Object.assign(characters)
-      // received Data from back end
-      const copiedObjectUpdate = result;
-      // Use map method to update the object into an array.
 
-      result.forEach((values)=>{
-        let characterList = copiedObject[values.column].list;
-        characterList.push({card:values.card,activity:values.activity, cardId:values.cardId, desciprtion: values.description});
-        copiedObject[values.column] ={...copiedObject[values.column],list:characterList}
-      })
-      const masterObject =Object.values(copiedObject)
-      updateDescriptionCard(masterObject[index].list[indexItem].description);
-      updateMasterCharacter(masterObject);
+        result.forEach((values) => {
+          let characterList = copiedObject[values.column].list;
+          characterList.push({ card: values.card, activity: values.activity, cardId: values.cardId, description: values.description });
+          copiedObject[values.column] = { ...copiedObject[values.column], list: characterList }
+        })
+        const masterObject = Object.values(copiedObject)
+
+      console.log('desciprtion', masterObject[index].list[indexItem].description)
+        updateDescriptionCard(masterObject[index].list[indexItem].description);
+        updateMasterCharacter(masterObject);
+
     } catch (err) {
       console.error(err);
     }

@@ -41,8 +41,9 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
     }
   };
 
+
   return (
-    <div className="card spacing" draggable onMouseEnter={()=>updatePencil(true)} onMouseLeave={()=>hidePencil(false)} >
+    <div className="card spacing" draggable onMouseEnter={()=>updatePencil(false)} onMouseLeave={()=>updatePencil(false)} >
       <div className="card-body" >
         <div className="text-right position-relative">
           <i className={pencil ? 'fas fa-pencil-alt position-absolute top-0 start-0' :'hidden'}></i>
