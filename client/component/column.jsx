@@ -137,15 +137,12 @@ const Column = ({characters, updateDescriptionCard, updateModalTitle, updateRend
       const copiedObject = Object.assign(characters);
 
       // Use hashmap to update the values of characters object
-      console.log('result', result)
-      const updateObject = copiedObject.map(values => {
-        copiedObjectUpdate.forEach(copyValues => {
-          if (values.id === copyValues.column) {
-            values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
-          }
-        });
-        return values;
-      });
+      result.forEach((values)=>{
+        let characterList = copiedObject[values.column].list;
+        characterList.push(values);
+        copiedObject[values.column]={...copiedObject[values.column],list:characterList}
+      })
+      console.log('copiedObject', Object.values(copiedObject))
       updateDescriptionCard(updateObject[index].list[indexItem].description);
       updateMasterCharacter(updateObject);
     } catch (err) {
