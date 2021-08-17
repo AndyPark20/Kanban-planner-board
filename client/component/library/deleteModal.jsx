@@ -27,7 +27,6 @@ const DeleteModal = ({ characters, updateModal, updateRenderActivity, updateMast
           if (result) {
             // loop thru the returned result
             result.forEach(values => {
-              console.log(characters)
               const charactersList = characters[values.column].list;
               charactersList.push(values);
               characters[values.column] = { ...charactersList[values.column], list: charactersList };

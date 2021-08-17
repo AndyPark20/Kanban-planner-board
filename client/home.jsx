@@ -146,7 +146,7 @@ const Home = () => {
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
-        <Column updateDescriptionCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
+        <Column characters={characters} updateDescriptionCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
       </div>
       <div>
         <DeleteModal characters={characters} updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} />

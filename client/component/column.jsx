@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
+const Column = ({characters, updateDescriptionCard, updateModalTitle, updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
 
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
@@ -11,21 +11,6 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
 
-  const characters = [
-    {
-      id: 'Todo',
-      list: []
-
-    },
-    {
-      id: 'Doing',
-      list: []
-    },
-    {
-      id: 'Done',
-      list: []
-    }
-  ];
 
   // useEffect(()=>{
   //   console.log('master character in the column', masterCharacter)
@@ -147,11 +132,12 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
     try {
       const data = await fetch('/api/retrieve');
       const result = await data.json();
-      // push it to characters array of objects.
-      const copiedObject = characters.concat();
-      // received Data from back end
-      const copiedObjectUpdate = result;
-      // Use map method to update the object into an array.
+
+      //make a copy of characters object
+      const copiedObject = Object.assign(characters);
+
+      // Use hashmap to update the values of characters object
+      console.log('result', result)
       const updateObject = copiedObject.map(values => {
         copiedObjectUpdate.forEach(copyValues => {
           if (values.id === copyValues.column) {
