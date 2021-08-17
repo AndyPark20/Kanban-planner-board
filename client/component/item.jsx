@@ -41,24 +41,11 @@ const Item = ({ description, cardName, update, userCardTitle, cardSequence, colu
     }
   };
 
-  const editPencil = () => {
-    updatePencil(true);
-  };
-
-  const hidePencil = () => updatePencil(false);
-
-  const pencilVisibility = () => {
-    if (pencil) {
-      return 'fas fa-pencil-alt position-absolute top-0 start-0';
-    }
-    return 'hidden';
-  };
-
   return (
-    <div className="card spacing" draggable onMouseEnter={editPencil} onMouseLeave={hidePencil} >
+    <div className="card spacing" draggable onMouseEnter={()=>updatePencil(true)} onMouseLeave={()=>hidePencil(false)} >
       <div className="card-body" >
         <div className="text-right position-relative">
-          <i className={pencilVisibility()}></i>
+          <i className={pencil ? 'fas fa-pencil-alt position-absolute top-0 start-0' :'hidden'}></i>
         </div>
         <h5 className="card-title">{values}</h5>
         <form onSubmit={handleSubmit}>
