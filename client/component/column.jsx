@@ -11,15 +11,6 @@ const Column = ({characters, updateDescriptionCard, updateModalTitle, updateRend
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
 
-
-  // useEffect(()=>{
-  //   console.log('master character in the column', masterCharacter)
-  // })
-
-  // useEffect(() => {
-  //   updateMasterCharacter(initialCharacter);
-  // }, []);
-
   useEffect(() => {
     updateTitleBoolean(false);
   }, [titleBoolean]);
@@ -143,9 +134,9 @@ const Column = ({characters, updateDescriptionCard, updateModalTitle, updateRend
         copiedObject[values.column]={...copiedObject[values.column],list:characterList}
       })
       // updateDescriptionCard(updateObject[index].list[indexItem].description);
+      //update masterCharacter with the values in the object.
       updateMasterCharacter(Object.values(copiedObject));
     } catch (err) {
-
       console.error(err);
     }
 
