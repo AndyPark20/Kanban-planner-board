@@ -83,8 +83,15 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   const userSave = async e => {
     e.preventDefault();
     if (!userEdit && userLog.record) {
-      masterCharacter[columnNumber].list[cardNumber].activity.push(userLog);
-      // Copy Array
+      const activityList = masterCharacter[columnNumber].list[cardNumber].activity;
+
+      // If this is the first time writing an activity (activity === undefined)
+      if (!activityList) {
+        masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
+      } else {
+        masterCharacter[columnNumber].list[cardNumber].activity.push(userLog);
+      }
+
       // Properties toa dd from the selected values of MasterCharacter object
       const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const cardName = masterCharacter[columnNumber].list[cardNumber].card;
@@ -123,13 +130,12 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
 
             // Make a copy of the masterCharacter
             const copiedMastercharacter = masterCharacter.concat();
-            console.log(copiedMastercharacter);
+
             // loop master character and if the id equals to the column name of the returned promise, push the values form resultWithUpdatedActivity to the values of the object's list.
             copiedMastercharacter.forEach(values => {
               if (values.id === resultsWithUpdatedActivity.column) { values.list.push(resultsWithUpdatedActivity[0]); }
             });
 
-            console.log('updatedMasterCharacter', copiedMastercharacter);
             updateMasterCharacter(copiedMastercharacter);
           } catch (err) {
             console.error(err);
