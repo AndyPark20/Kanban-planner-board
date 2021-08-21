@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import { render } from 'react-dom';
 
-const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
+const Activity = ({ updatedCharacters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
 
   const [userLog, updateUserLog] = useState('');
   const [valueLog, updateValueLog] = useState('');
@@ -78,6 +78,25 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         'Content-type': 'application/json'
       }
     });
+    if(deleteActivity){
+      try {
+        const data = await fetch('/api/retrieve');
+        const result = await data.json();
+        // Add the results into characters object
+        if (result) {
+          // loop thru the returned result
+          result.forEach(values => {
+            const charactersList = updatedCharacters[values.column].list;
+            charactersList.push(values);
+            updatedCharacters[values.column] = { ...updatedCharacters[values.column], list: charactersList };
+          });
+        }
+
+        updateMasterCharacter(Object.values(updatedCharacters));
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
 
