@@ -102,7 +102,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       // Copy Array
 
-      // Properties toa dd from the selected values of MasterCharacter object
+      // Properties to add from the selected values of MasterCharacter object
       const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const cardName = masterCharacter[columnNumber].list[cardNumber].card;
       const list = masterCharacter[columnNumber].id;
@@ -122,17 +122,17 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       updateUserEdit(false);
       updateRenderActivity(true);
       try {
-        const cardInfo = await fetch('/api/cardIdRetrieve');
-        const returnedPromisedCardInfo = await cardInfo.json();
-        const cardDataResult = returnedPromisedCardInfo.rows;
-        // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
-        cardDataResult.forEach((resultValues, index) => {
-          if (resultValues.card === copiedActivity.cardName) {
-            copiedActivity.activity.forEach((activityValue, indexValue) => {
-              activityValue.mainCardId = resultValues.cardId;
-            });
-          }
-        });
+        // const cardInfo = await fetch('/api/cardIdRetrieve');
+        // const returnedPromisedCardInfo = await cardInfo.json();
+        // const cardDataResult = returnedPromisedCardInfo.rows;
+        // // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
+        // cardDataResult.forEach((resultValues, index) => {
+        //   if (resultValues.card === copiedActivity.cardName) {
+        //     copiedActivity.activity.forEach((activityValue, indexValue) => {
+        //       activityValue.mainCardId = resultValues.cardId;
+        //     });
+        //   }
+        // });
         const activityPost = await fetch('/api/activity', {
           method: 'POST',
           headers: {
@@ -141,6 +141,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
+        console.log('result from the updated Activity', copiedActivity);
         if (result) {
           try {
             const data = await fetch('/api/retrieve');
