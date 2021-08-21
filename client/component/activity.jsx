@@ -102,11 +102,17 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       // Copy Array;
       let copiedActivity;
-      copiedActivity = { cardName: masterCharacter[columnNumber].list[cardNumber].card, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
+      console.log('mastercharacter', masterCharacter);
+
+      //Properties toa dd from the selected values of MasterCharacter object
+      const cardId = masterCharacter[columnNumber].list[cardNumber].cardName
+
+      copiedActivity = {cardId: : masterCharacter[columnNumber].list[cardNumber].card, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateUserLog({ info: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
+      console.log('copiedActivity', copiedActivity);
       try {
         const cardInfo = await fetch('/api/cardIdRetrieve');
         const returnedPromisedCardInfo = await cardInfo.json();
