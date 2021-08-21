@@ -17,6 +17,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   // store selected activity object that needs to be updated
   const [selectedActivityObject, updateSelectedActivityObject] = useState({});
 
+
   const characters = [
     {
       id: 'Todo',
