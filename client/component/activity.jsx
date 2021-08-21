@@ -102,7 +102,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       // Copy Array
 
-      // Properties to add from the selected values of MasterCharacter object
+      // Properties toa dd from the selected values of MasterCharacter object
       const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const cardName = masterCharacter[columnNumber].list[cardNumber].card;
       const list = masterCharacter[columnNumber].id;
@@ -116,6 +116,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         cardNumber: cardNumber,
         activity: activity
       };
+
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateUserLog({ info: '' });
       updateUserEdit(false);
@@ -140,29 +141,28 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
-
         if (result) {
-          try {
-            const data = await fetch('/api/retrieve');
-            const result = await data.json();
-            // push it to characters array of objects.
-            const copiedObject = characters.concat();
+          // try {
+          //   const data = await fetch('/api/retrieve');
+          //   const result = await data.json();
+          //   // push it to characters array of objects.
+          //   const copiedObject = characters.concat();
 
-            // received Data from back end
-            const copiedObjectUpdate = result;
-            // Use map method to update the object into an array.
-            const updateObject = copiedObject.map(values => {
-              copiedObjectUpdate.forEach(copyValues => {
-                if (values.id === copyValues.column) {
-                  values.list.push({ card: copyValues.card, activity: copyValues.activity });
-                }
-              });
-              return values;
-            });
-            updateMasterCharacter(updateObject);
-          } catch (err) {
-            console.error(err);
-          }
+          //   // received Data from back end
+          //   const copiedObjectUpdate = result;
+          //   // Use map method to update the object into an array.
+          //   const updateObject = copiedObject.map(values => {
+          //     copiedObjectUpdate.forEach(copyValues => {
+          //       if (values.id === copyValues.column) {
+          //         values.list.push({ card: copyValues.card, activity: copyValues.activity });
+          //       }
+          //     });
+          //     return values;
+          //   });
+          //   updateMasterCharacter(updateObject);
+          // } catch (err) {
+          //   console.error(err);
+          // }
         }
 
       } catch (err) {
