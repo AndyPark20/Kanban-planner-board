@@ -116,7 +116,6 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
         cardNumber: cardNumber,
         activity: activity
       };
-
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateUserLog({ info: '' });
       updateUserEdit(false);
@@ -141,7 +140,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
-        console.log('result from the updated Activity', copiedActivity);
+
         if (result) {
           try {
             const data = await fetch('/api/retrieve');
