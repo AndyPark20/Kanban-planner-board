@@ -178,6 +178,7 @@ app.get('/api/retrieve', async (req, res, next) => {
         // use Filter method to filter out Null
         const filteredObject = finalObject.filter(Boolean);
         res.status(201).send(filteredObject);
+        console.log(filteredObject);
       }
     }
   } catch (err) {
@@ -216,6 +217,7 @@ app.post('/api/activity', async (req, res, next) => {
   values ($1,$2,$3,$4)
   returning *;
   `;
+  console.log(req.body);
   try {
     // loop thru body property of the req object to retrieve values from activity
     req.body.activity.forEach((values, index) => {

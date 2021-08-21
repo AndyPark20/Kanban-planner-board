@@ -17,10 +17,6 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   // store selected activity object that needs to be updated
   const [selectedActivityObject, updateSelectedActivityObject] = useState({});
 
-  // useEffect(() => {
-  //   console.log(masterCharacter);
-  // });
-
   useEffect(() => {
     if (userEdit) {
       updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber]);
@@ -87,6 +83,8 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   const userSave = async e => {
     e.preventDefault();
     if (!userEdit && userLog.record) {
+      masterCharacter[columnNumber].list[cardNumber].activity.push(userLog);
+      // Copy Array
       // Properties toa dd from the selected values of MasterCharacter object
       const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const cardName = masterCharacter[columnNumber].list[cardNumber].card;
@@ -125,12 +123,13 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
 
             // Make a copy of the masterCharacter
             const copiedMastercharacter = masterCharacter.concat();
-
+            console.log(copiedMastercharacter);
             // loop master character and if the id equals to the column name of the returned promise, push the values form resultWithUpdatedActivity to the values of the object's list.
             copiedMastercharacter.forEach(values => {
-
               if (values.id === resultsWithUpdatedActivity.column) { values.list.push(resultsWithUpdatedActivity[0]); }
             });
+
+            console.log('updatedMasterCharacter', copiedMastercharacter);
             updateMasterCharacter(copiedMastercharacter);
           } catch (err) {
             console.error(err);
