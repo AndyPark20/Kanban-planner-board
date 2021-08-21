@@ -134,7 +134,6 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
       });
       const masterObject = Object.values(copiedObject);
 
-      console.log('desciprtion', masterObject[index].list[indexItem].description);
       updateDescriptionCard(masterObject[index].list[indexItem].description);
       updateMasterCharacter(masterObject);
 

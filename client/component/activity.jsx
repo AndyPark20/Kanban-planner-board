@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import { render } from 'react-dom';
 
-const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
+const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
 
   const [userLog, updateUserLog] = useState('');
   const [valueLog, updateValueLog] = useState('');
@@ -17,21 +17,25 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
   // store selected activity object that needs to be updated
   const [selectedActivityObject, updateSelectedActivityObject] = useState({});
 
-  const characters = [
-    {
-      id: 'Todo',
-      list: []
+  // const characters = [
+  //   {
+  //     id: 'Todo',
+  //     list: []
 
-    },
-    {
-      id: 'Doing',
-      list: []
-    },
-    {
-      id: 'Done',
-      list: []
-    }
-  ];
+  //   },
+  //   {
+  //     id: 'Doing',
+  //     list: []
+  //   },
+  //   {
+  //     id: 'Done',
+  //     list: []
+  //   }
+  // ];
+
+  useEffect(() => {
+    console.log(characters);
+  });
 
   useEffect(() => {
     if (userEdit) {
