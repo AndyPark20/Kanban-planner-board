@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import { render } from 'react-dom';
 
-const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
+const Activity = ({ updatedCharacters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
 
   const [userLog, updateUserLog] = useState('');
   const [valueLog, updateValueLog] = useState('');
@@ -69,6 +69,39 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
 
   };
 
+  //Delete selected activity card
+  const deleteActivityLog = async activityId => {
+    // use Delete method to remove the activity in the backend
+    const deleteActivity = await fetch(`/api/deleteActivity/${activityId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+    if(deleteActivity){
+      try {
+        const data = await fetch('/api/retrieve');
+        const result = await data.json();
+        // Add the results into characters object
+        if (result) {
+          // loop thru the returned result
+          result.forEach(values => {
+            const charactersList = updatedCharacters[values.column].list;
+            charactersList.push(values);
+            updatedCharacters[values.column] = { ...updatedCharacters[values.column], list: charactersList };
+          });
+        }
+
+        updateMasterCharacter(Object.values(updatedCharacters));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
+
+
+
   const renderLog = () => {
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
@@ -78,7 +111,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
             <h5 className="pl-2 activity-info">{values.record}</h5>
             <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{parseInt(values.time)}</Moment>
             <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
-            <h6 className="pl-2 editActivity">Delete</h6>
+            <h6 className="pl-2 editActivity" onClick={() => deleteActivityLog(values.activityId)}>Delete</h6>
           </div>
         );
       });
