@@ -337,16 +337,20 @@ app.post('/api/editActivity', async (req, res, next) => {
 
 });
 
-//Delete activity log
-const deleteActivityLog = async activityId => {
-  // use Delete method to remove the activity in the backend
-  const deleteActivity = await fetch(`/api/deleteActivity/${activityId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-type': 'application/json'
-    }
-  });
-};
+// Delete Activity
+app.delete('/api/deleteActivity/:cardId', async (req, res, next) => {
+  const cardIdToDelete = parseInt(req.params.cardId);
+  console.log(cardIdToDelete);
+  const sql = `
+  delete from "record"
+  where "activityId" =$1
+  returning*
+  `;
+  const params = [cardIdToDelete];
+  const deleteActivity = await db.query(sql, params);
+  res.status(201).json(deleteActivity);
+});
+
 
 
 app.listen(process.env.PORT, () => {
