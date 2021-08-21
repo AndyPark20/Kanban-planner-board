@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({characters, updateConfirmationModal, updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -151,7 +151,7 @@ const Modal = ({ updateConfirmationModal, updateDescriptionForCard, descriptionF
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
+          <Activity characters={characters} renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
         </div>
       </div>
     </div>

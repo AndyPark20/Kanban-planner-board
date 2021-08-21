@@ -337,6 +337,18 @@ app.post('/api/editActivity', async (req, res, next) => {
 
 });
 
+//Delete activity log
+const deleteActivityLog = async activityId => {
+  // use Delete method to remove the activity in the backend
+  const deleteActivity = await fetch(`/api/deleteActivity/${activityId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-type': 'application/json'
+    }
+  });
+};
+
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);

@@ -69,6 +69,20 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
 
   };
 
+  //Delete selected activity card
+  const deleteActivityLog = async activityId => {
+    // use Delete method to remove the activity in the backend
+    const deleteActivity = await fetch(`/api/deleteActivity/${activityId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+  };
+
+
+
+
   const renderLog = () => {
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
