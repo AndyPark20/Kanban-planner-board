@@ -26,21 +26,20 @@ const Home = () => {
   // hide and unhide confirmation modal
   const [confirmationModal, updateConfirmationModal] = useState(true);
 
-  const characters = [
-    {
+  const characters = {
+    Todo: {
       id: 'Todo',
       list: []
-
     },
-    {
+    Doing: {
       id: 'Doing',
       list: []
     },
-    {
+    Done: {
       id: 'Done',
       list: []
     }
-  ];
+  };
 
   // Retrieve card and info data when user signs in
   useEffect(() => {
@@ -48,21 +47,19 @@ const Home = () => {
       try {
         const data = await fetch('/api/retrieve');
         const result = await data.json();
-        // push it to characters array of objects.
-        const copiedObject = characters.concat();
-        // received Data from back end
-        const copiedObjectUpdate = result;
-        // Use map method to update the object into an array.
-        const updateObject = copiedObject.map(values => {
-          copiedObjectUpdate.forEach(copyValues => {
-            if (values.id === copyValues.column) {
-              values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
-            }
+        if (result) {
+          // make a copy of the masterCharacter (will also be updating object from other components)
+          const copiedCharacterObject = Object.assign(characters);
+          // When result promise has been returned, insert the result values to the appropriate values in the character object.
+          result.forEach(values => {
+            const characterList = copiedCharacterObject[values.column].list;
+            characterList.push(values);
+            copiedCharacterObject[values.column] = { ...copiedCharacterObject[values.column], list: characterList };
           });
-          return values;
-        });
-        console.log('home', updateObject);
-        updateMasterCharacter(updateObject);
+          // update MasterCharacter
+          updateMasterCharacter(Object.values(copiedCharacterObject));
+        }
+
       } catch (err) {
         console.error(err);
       }
@@ -144,15 +141,15 @@ const Home = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper} />
         </div>
         <div>
-          <ModalRevised confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle} modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription} modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent} />
+          <ModalRevised updatedCharacters={characters} characters={characters} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle} modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription} modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent} />
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
         </div>
-        <Column updateDescriptionCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
+        <Column characters={characters} updateDescriptionCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
       </div>
       <div>
-        <DeleteModal updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster}/>
+        <DeleteModal characters={characters} updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} />
       </div>
     </div>
   );

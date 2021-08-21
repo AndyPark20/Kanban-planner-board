@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
+const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
 
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
@@ -10,26 +10,6 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
-
-  const characters = [
-    {
-      id: 'Todo',
-      list: []
-
-    },
-    {
-      id: 'Doing',
-      list: []
-    },
-    {
-      id: 'Done',
-      list: []
-    }
-  ];
-
-  useEffect(() => {
-    updateMasterCharacter(initialCharacter);
-  }, []);
 
   useEffect(() => {
     updateTitleBoolean(false);
@@ -141,28 +121,26 @@ const Column = ({ updateDescriptionCard, updateModalTitle, updateRenderActivity,
       updateModal(false);
     }
     try {
+      console.log('hello');
       const data = await fetch('/api/retrieve');
       const result = await data.json();
       // push it to characters array of objects.
-      const copiedObject = characters.concat();
-      // received Data from back end
-      const copiedObjectUpdate = result;
-      // Use map method to update the object into an array.
-      const updateObject = copiedObject.map(values => {
-        copiedObjectUpdate.forEach(copyValues => {
-          if (values.id === copyValues.column) {
-            values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
-          }
-        });
-        return values;
-      });
-      updateDescriptionCard(updateObject[index].list[indexItem].description);
-      updateMasterCharacter(updateObject);
-    } catch (err) {
+      const copiedObject = Object.assign(characters);
 
+      result.forEach(values => {
+        const characterList = copiedObject[values.column].list;
+        characterList.push({ card: values.card, activity: values.activity, cardId: values.cardId, description: values.description });
+        copiedObject[values.column] = { ...copiedObject[values.column], list: characterList };
+      });
+      const masterObject = Object.values(copiedObject);
+
+      console.log('desciprtion', masterObject[index].list[indexItem].description);
+      updateDescriptionCard(masterObject[index].list[indexItem].description);
+      updateMasterCharacter(masterObject);
+
+    } catch (err) {
       console.error(err);
     }
-
   };
 
   const columnStyle = () => {

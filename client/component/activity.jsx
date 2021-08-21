@@ -141,28 +141,30 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
-        if (result) {
-          // try {
-          //   const data = await fetch('/api/retrieve');
-          //   const result = await data.json();
-          //   // push it to characters array of objects.
-          //   const copiedObject = characters.concat();
 
-          //   // received Data from back end
-          //   const copiedObjectUpdate = result;
-          //   // Use map method to update the object into an array.
-          //   const updateObject = copiedObject.map(values => {
-          //     copiedObjectUpdate.forEach(copyValues => {
-          //       if (values.id === copyValues.column) {
-          //         values.list.push({ card: copyValues.card, activity: copyValues.activity });
-          //       }
-          //     });
-          //     return values;
-          //   });
-          //   updateMasterCharacter(updateObject);
-          // } catch (err) {
-          //   console.error(err);
-          // }
+        // once activity has been updated in the backend
+        if (result) {
+          try {
+            const data = await fetch('/api/retrieve');
+            const result = await data.json();
+            // push it to characters array of objects.
+            const copiedObject = characters.concat();
+
+            // received Data from back end
+            const copiedObjectUpdate = result;
+            // Use map method to update the object into an array.
+            const updateObject = copiedObject.map(values => {
+              copiedObjectUpdate.forEach(copyValues => {
+                if (values.id === copyValues.column) {
+                  values.list.push({ card: copyValues.card, activity: copyValues.activity });
+                }
+              });
+              return values;
+            });
+            updateMasterCharacter(updateObject);
+          } catch (err) {
+            console.error(err);
+          }
         }
 
       } catch (err) {
