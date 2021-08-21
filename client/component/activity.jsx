@@ -68,6 +68,16 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
 
   };
 
+  const deleteActivityLog = async activityId => {
+    // use Delete method to remove the activity in the backend
+    const deleteActivity = await fetch(`/api/deleteActivity/${activityId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+  };
+
   const renderLog = () => {
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
@@ -77,7 +87,7 @@ const Activity = ({ renderActivity, updateMasterCharacter, masterCharacter, card
             <h5 className="pl-2 activity-info">{values.record}</h5>
             <Moment className="timeFontSize pl-2" format='YYYY/MM/DD hh:mm:ss'>{parseInt(values.time)}</Moment>
             <h6 className="pl-2 editActivity" onClick={() => userEditActivity(index)}>Edit</h6>
-            <h6 className="pl-2 editActivity">Delete</h6>
+            <h6 className="pl-2 editActivity" onClick={() => deleteActivityLog(values.activityId)}>Delete</h6>
           </div>
         );
       });
