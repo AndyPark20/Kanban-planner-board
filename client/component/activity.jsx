@@ -17,26 +17,6 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   // store selected activity object that needs to be updated
   const [selectedActivityObject, updateSelectedActivityObject] = useState({});
 
-  // const characters = [
-  //   {
-  //     id: 'Todo',
-  //     list: []
-
-  //   },
-  //   {
-  //     id: 'Doing',
-  //     list: []
-  //   },
-  //   {
-  //     id: 'Done',
-  //     list: []
-  //   }
-  // ];
-
-  useEffect(() => {
-    console.log(characters);
-  });
-
   useEffect(() => {
     if (userEdit) {
       updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber]);
@@ -46,10 +26,10 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   const userActivity = e => {
     e.preventDefault();
     if (!userEdit) {
-      updateUserLog({ info: e.target.value, time: Date.now() });
+      updateUserLog({ record: e.target.value, time: Date.now() });
     } else {
-      masterCharacter[columnNumber].list[cardNumber].activity.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() });
-      updateUserLog({ info: e.target.value, time: Date.now() });
+      masterCharacter[columnNumber].list[cardNumber].activity.splice(editIndexNumber, 1, { record: e.target.value, time: Date.now() });
+      updateUserLog({ record: e.target.value, time: Date.now() });
 
     }
     if (e.target.value !== '') {
@@ -68,7 +48,7 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
     updateCurrentIndex(index);
 
     // update user log
-    updateUserLog({ info: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
+    updateUserLog({ record: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
 
   };
 
@@ -83,8 +63,11 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   };
 
   const renderLog = () => {
+    console.log('fired!');
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
+      console.log('rendering!');
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
+        console.log('values', values);
         return (
           <div key={index} className="d-flex align-items-center">
             <i className="far fa-comment-dots icon"></i>
@@ -102,7 +85,7 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   // When user clicks SAVE button next to Activity TextArea
   const userSave = async e => {
     e.preventDefault();
-    if (!userEdit && userLog.info) {
+    if (!userEdit && userLog.record) {
       masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
       // Copy Array
 
@@ -122,21 +105,11 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
       };
 
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
-      updateUserLog({ info: '' });
+      updateUserLog({ record: '' });
       updateUserEdit(false);
       updateRenderActivity(true);
+
       try {
-        // const cardInfo = await fetch('/api/cardIdRetrieve');
-        // const returnedPromisedCardInfo = await cardInfo.json();
-        // const cardDataResult = returnedPromisedCardInfo.rows;
-        // // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
-        // cardDataResult.forEach((resultValues, index) => {
-        //   if (resultValues.card === copiedActivity.cardName) {
-        //     copiedActivity.activity.forEach((activityValue, indexValue) => {
-        //       activityValue.mainCardId = resultValues.cardId;
-        //     });
-        //   }
-        // });
         const activityPost = await fetch('/api/activity', {
           method: 'POST',
           headers: {
@@ -150,22 +123,17 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
         if (result) {
           try {
             const data = await fetch('/api/retrieve');
-            const result = await data.json();
-            // push it to characters array of objects.
-            const copiedObject = characters.concat();
+            const resultsWithUpdatedActivity = await data.json();
 
-            // received Data from back end
-            const copiedObjectUpdate = result;
-            // Use map method to update the object into an array.
-            const updateObject = copiedObject.map(values => {
-              copiedObjectUpdate.forEach(copyValues => {
-                if (values.id === copyValues.column) {
-                  values.list.push({ card: copyValues.card, activity: copyValues.activity });
-                }
-              });
-              return values;
+            // Make a copy of the masterCharacter
+            const copiedMastercharacter = masterCharacter.concat();
+
+            // loop master character and if the id equals to the column name of the returned promise, push the values form resultWithUpdatedActivity to the values of the object's list.
+            copiedMastercharacter.forEach(values => {
+              if (values.id === resultsWithUpdatedActivity.column) { values.list.push(resultsWithUpdatedActivity[0]); }
             });
-            updateMasterCharacter(updateObject);
+            console.log('updatedMasterCharacter', copiedMastercharacter);
+            updateMasterCharacter(copiedMastercharacter);
           } catch (err) {
             console.error(err);
           }
@@ -223,7 +191,7 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   const editActivityCancel = async () => {
     updateUserEdit(false);
     updateSaveButton(false);
-    updateUserLog({ info: '' });
+    updateUserLog({ record: '' });
 
     // call backend to update masterCharacter
     try {
@@ -250,7 +218,7 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
 
   // Save user Text on Activity
   const renderInputText = () => {
-    updateUserLog({ info: '' });
+    updateUserLog({ record: '' });
   };
 
   const saveButtonRender = () => {
@@ -273,7 +241,7 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
         <h3 className="pl-2">Activity</h3>
       </div>
       <form onChange={e => userActivity(e)} className="d-flex" required>
-        <textarea className="form-control w-75" rows="1" value={userLog.info} required onChange={renderInputText}></textarea>
+        <textarea className="form-control w-75" rows="1" value={userLog.record} required onChange={renderInputText}></textarea>
         <button type="submit" className={saveButtonRender()} onClick={e => userSave(e)}>Save</button>
         <button type="button" className={cancelButtonRender()} onClick={editActivityCancel}>Cancel</button>
       </form>
@@ -285,3 +253,15 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
 };
 
 export default Activity;
+
+// const cardInfo = await fetch('/api/cardIdRetrieve');
+// const returnedPromisedCardInfo = await cardInfo.json();
+// const cardDataResult = returnedPromisedCardInfo.rows;
+// // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
+// cardDataResult.forEach((resultValues, index) => {
+//   if (resultValues.card === copiedActivity.cardName) {
+//     copiedActivity.activity.forEach((activityValue, indexValue) => {
+//       activityValue.mainCardId = resultValues.cardId;
+//     });
+//   }
+// });
