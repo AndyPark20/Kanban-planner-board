@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import { render } from 'react-dom';
 
-const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
+const Activity = ({ updateCloseActivitySavebutton, closeActivitySaveButton, modalStatus, characters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
 
   const [userLog, updateUserLog] = useState('');
   const [valueLog, updateValueLog] = useState('');
@@ -18,12 +18,17 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   const [selectedActivityObject, updateSelectedActivityObject] = useState({});
 
   useEffect(() => {
+    updateSaveButton(closeActivitySaveButton);
+  });
+
+  useEffect(() => {
     if (userEdit) {
       updateUserLog(masterCharacter[columnNumber].list[cardNumber].activity[editIndexNumber]);
     }
   }, [userEdit]);
 
   const userActivity = e => {
+    updateCloseActivitySavebutton(true);
     e.preventDefault();
     if (!userEdit) {
       updateUserLog({ record: e.target.value, time: Date.now() });

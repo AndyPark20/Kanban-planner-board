@@ -11,10 +11,7 @@ const Modal = ({ characters, updateConfirmationModal, updateDescriptionForCard, 
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(false);
-
-  useEffect(() => {
-    updateFinalDescription(descriptionForCard);
-  });
+  const [closeActivitySaveButton, updateCloseActivitySavebutton] = useState(false);
 
   useEffect(() => {
     // Update Modal window state
@@ -39,6 +36,8 @@ const Modal = ({ characters, updateConfirmationModal, updateDescriptionForCard, 
     updateDescriptionStatus(true);
     // Close Edit title inside modal when user closes modal
     updateModalStatus(false);
+    // Close Activity textArea Save button when usser closes modal
+    updateCloseActivitySavebutton(false);
 
   }
 
@@ -153,7 +152,7 @@ const Modal = ({ characters, updateConfirmationModal, updateDescriptionForCard, 
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity characters={characters} renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
+          <Activity updateCloseActivitySavebutton={updateCloseActivitySavebutton} closeActivitySaveButton={closeActivitySaveButton} modalStatus={modalStatus} characters={characters} renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
         </div>
       </div>
     </div>
