@@ -157,8 +157,7 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
   const renderIt = () => {
     const loop = masterCharacter.map((info, index) => {
       return (
-        <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)}
-          onDrop={e => dropIt(e, info, index)}>
+        <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select'>
           <div className="d-flex align-items-end justify-content-around w-100">
             <h2 className="fontColor">{info.id}</h2>
             <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
