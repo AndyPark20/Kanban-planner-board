@@ -21,20 +21,22 @@ const db = new pg.Pool({
 // userId login
 let userIdNumber = null;
 
-app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
-  fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
-    }
-  })
-    .then(res => {
-      return res.json();
-    })
-    .then(data => {
-      res.status(201).json(data);
+app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
+  console.log(req.params);
+  try {
+    const background = await fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
+      }
     });
+    const result = await background.json();
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+
 });
 
 // POST method for sign up credentials

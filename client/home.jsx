@@ -119,21 +119,22 @@ const Home = () => {
 
   };
 
-  const userSearch = (e, keyWord) => {
+  const userSearch = async (e, keyWord) => {
     if (e.key === 'Enter') {
-      fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`)
-        .then(res => res.json())
-        .then(result => {
+      try {
+        const background = await fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`);
+        const result = await background.json();
+        if (result) {
           const splitData = result.photos;
           localStorage.setItem('wallpaper', JSON.stringify(splitData));
           const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
           wallpaperUpdate(retrieveWallpaper);
-
-        })
-        .catch(err => {
-          console.error(err);
-        });
+        }
+      } catch (err) {
+        console.error(err);
+      }
     }
+
   };
 
   return (
