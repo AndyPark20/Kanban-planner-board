@@ -63,7 +63,7 @@ const Activity = ({ updateUserLogActivty, userLogActivity, updateCloseActivitySa
 
     // update user log
     updateUserLog({ record: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
-
+    updateUserLogActivty({ record: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
   };
 
   const deleteActivityLog = async activityId => {
@@ -215,6 +215,7 @@ const Activity = ({ updateUserLogActivty, userLogActivity, updateCloseActivitySa
     updateUserEdit(false);
     updateSaveButton(false);
     updateUserLog({ record: '' });
+    updateUserLogActivty({ record: '' });
     updateCloseActivitySavebutton(false);
 
     // call backend to update masterCharacter
@@ -237,11 +238,6 @@ const Activity = ({ updateUserLogActivty, userLogActivity, updateCloseActivitySa
     }
   };
 
-  // Save user Text on Activity
-  const renderInputText = () => {
-    updateUserLog({ record: '' });
-  };
-
   return (
     <div>
       <div className="d-flex align-items-center pl-2">
@@ -249,7 +245,7 @@ const Activity = ({ updateUserLogActivty, userLogActivity, updateCloseActivitySa
         <h3 className="pl-2">Activity</h3>
       </div>
       <form onChange={e => userActivity(e)} className="d-flex" required>
-        <textarea className="form-control w-75" rows="1" value={userLog.record} required onChange={renderInputText}></textarea>
+        <textarea className="form-control w-75" rows="1" value={userLog.record} required></textarea>
         <button type="submit" className={saveButton ? 'btn btn-success mt-2 ml-2' : 'hidden'} onClick={e => userSave(e)}>Save</button>
         <button type="button" className={saveButton ? 'btn btn-danger mt-2 ml-2' : 'hidden'} onClick={editActivityCancel}>Cancel</button>
       </form>
