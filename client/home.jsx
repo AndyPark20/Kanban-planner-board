@@ -30,6 +30,9 @@ const Home = () => {
   // hide and unhide Activity delete confirmation modal
   const [confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal] = useState(true);
 
+  // ActivityId state for deleting activity log
+  const [activityIdDelete, updateActivityIdDelete] = useState(null);
+
   const characters = {
     Todo: {
       id: 'Todo',
@@ -145,7 +148,7 @@ const Home = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper} />
         </div>
         <div>
-          <ModalRevised characters={characters} updatedCharacters={characters} characters={characters} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle} modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription} modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent} />
+          <ModalRevised updateActivityIdDelete={updateActivityIdDelete} characters={characters} updatedCharacters={characters} characters={characters} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle} modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription} modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent} />
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
@@ -155,7 +158,7 @@ const Home = () => {
       <div>
         <DeleteModal characters={characters} updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} />
       </div>
-      <DeleteActivity characters={characters} updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} confirmationActivityDeleteModal={confirmationActivityDeleteModal} updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} />
+      <DeleteActivity activityIdDelete={activityIdDelete} characters={characters} updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} confirmationActivityDeleteModal={confirmationActivityDeleteModal} updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} />
     </div>
   );
 };

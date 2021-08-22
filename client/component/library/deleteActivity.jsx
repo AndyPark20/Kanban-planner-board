@@ -3,14 +3,13 @@ import React from 'react';
 const DeleteActivity = ({ confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal, characters, updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, columnNumber, cardNumber }) => {
   // delete card by calling backend
   const deleteCard = async () => {
-    const selectedCardId = masterCharacter[columnNumber].list[cardNumber].cardId;
-    const deleteCard = await fetch(`/api/delete/${selectedCardId}`, {
+    const deleteActivity = await fetch(`/api/deleteActivity/${activityId}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'
       }
     });
-    const result = await deleteCard.json();
+    const result = await deleteActivity.json();
     // if delete card is a sucess re-render master character object
     if (result) {
       // Close modal window for the card content
