@@ -20,7 +20,6 @@ const Modal = ({ characters, updateConfirmationModal, updateDescriptionForCard, 
   useEffect(() => {
     // Update Modal window state
     updateModalClose(modal);
-    console.log(userLogActivity);
   });
 
   function descriptionInfo(e) {
