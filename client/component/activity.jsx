@@ -64,6 +64,7 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
 
   const renderLog = () => {
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
+      console.log('render logs', masterCharacter[columnNumber].list[cardNumber]);
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
         return (
           <div key={index} className="d-flex align-items-center">
@@ -86,11 +87,17 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
       const activityList = masterCharacter[columnNumber].list[cardNumber].activity;
 
       // If this is the first time writing an activity (activity === undefined)
+      // copy Mastercharacter
+      const copiedMastercharacter = masterCharacter.concat();
       if (!activityList) {
-        masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
+        copiedMastercharacter[columnNumber].list[cardNumber].activity = [userLog];
+        updateMasterCharacter(copiedMastercharacter);
       } else {
-        masterCharacter[columnNumber].list[cardNumber].activity.push(userLog);
+        copiedMastercharacter[columnNumber].list[cardNumber].activity.push(userLog);
+        updateMasterCharacter(copiedMastercharacter);
       }
+
+      // console.log(masterCharacter);
 
       // Properties toa dd from the selected values of MasterCharacter object
       const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
@@ -121,7 +128,6 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
-
         // once activity has been updated in the backend
         if (result) {
           try {
@@ -135,7 +141,6 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
             copiedMastercharacter.forEach(values => {
               if (values.id === resultsWithUpdatedActivity.column) { values.list.push(resultsWithUpdatedActivity[0]); }
             });
-
             updateMasterCharacter(copiedMastercharacter);
           } catch (err) {
             console.error(err);

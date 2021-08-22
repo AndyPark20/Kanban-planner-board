@@ -134,7 +134,10 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
       });
       const masterObject = Object.values(copiedObject);
 
-      updateDescriptionCard(masterObject[index].list[indexItem].description);
+      if (masterObject[index].list[indexItem].description) {
+        updateDescriptionCard(masterObject[index].list[indexItem].description);
+      }
+
       updateMasterCharacter(masterObject);
 
     } catch (err) {
