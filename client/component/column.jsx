@@ -97,6 +97,7 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
 
   // functions to move columns around
   const moveColumn = (e, info, value) => {
+
     if (e.target.nodeName === 'DIV' && e.target.className === 'card spacing') {
       updateColumnMover(false);
       e.dataTransfer.setData('columnStartIndex', value);
@@ -157,15 +158,15 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
   const renderIt = () => {
     const loop = masterCharacter.map((info, index) => {
       return (
-        <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select'>
+        <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' >
           <div className="d-flex align-items-end justify-content-around w-100">
             <h2 className="fontColor">{info.id}</h2>
             <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
           </div>
-          <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
+          <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)} >
             {info.list.map((values, indexItem) => {
               return (
-                <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
+                <div key={indexItem} draggable onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
                   <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values.card} cardSequence={cardNumber}
                     columnNumber={index} masterCharacter={masterCharacter} cardName={cardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
