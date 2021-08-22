@@ -46,6 +46,8 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
     updateEditIndexNumber(index);
     updateValueLog(userLogSubmit[index]);
     updateCurrentIndex(index);
+    // Render Save and Cancel button
+    updateSaveButton(true);
 
     // update user log
     updateUserLog({ record: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
@@ -83,7 +85,6 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   const userSave = async e => {
     e.preventDefault();
     if (!userEdit && userLog.record) {
-
       const activityList = masterCharacter[columnNumber].list[cardNumber].activity;
 
       // copy Mastercharacter
@@ -142,6 +143,7 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
               if (values.id === resultsWithUpdatedActivity.column) { values.list.push(resultsWithUpdatedActivity[0]); }
             });
             updateMasterCharacter(copiedMastercharacter);
+            updateSaveButton(false);
           } catch (err) {
             console.error(err);
           }
@@ -152,6 +154,7 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
       }
       // For editing Existing Activity
     } else {
+      updateUserLog({ record: '' });
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
       const updatedActivity = masterCharacter[columnNumber].list[cardNumber].activity[currentIndex];
@@ -182,6 +185,7 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
             });
 
             updateMasterCharacter(Object.values(copiedObject));
+            updateSaveButton(false);
           } catch (err) {
             console.error(err);
           }
@@ -202,13 +206,11 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
     try {
       const data = await fetch('/api/retrieve');
       const result = await data.json();
-
       // Copy a clone of characters object
       const copiedObject = Object.assign(characters);
-      console.log(copiedObject);
       // Use map method to update the object into an array.
       const updateObject = copiedObject.map(values => {
-        copiedObjectUpdate.forEach(copyValues => {
+        result.forEach(copyValues => {
           if (values.id === copyValues.column) {
             values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
           }
@@ -226,19 +228,6 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
     updateUserLog({ record: '' });
   };
 
-  const saveButtonRender = () => {
-    if (saveButton) {
-      return 'btn btn-success mt-2 ml-2';
-    }
-    return 'hidden';
-  };
-
-  const cancelButtonRender = () => {
-    if (saveButton) {
-      return 'btn btn-danger mt-2 ml-2';
-    }
-    return 'hidden';
-  };
   return (
     <div>
       <div className="d-flex align-items-center pl-2">
@@ -247,8 +236,8 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
       </div>
       <form onChange={e => userActivity(e)} className="d-flex" required>
         <textarea className="form-control w-75" rows="1" value={userLog.record} required onChange={renderInputText}></textarea>
-        <button type="submit" className={saveButtonRender()} onClick={e => userSave(e)}>Save</button>
-        <button type="button" className={cancelButtonRender()} onClick={editActivityCancel}>Cancel</button>
+        <button type="submit" className={saveButton ? 'btn btn-success mt-2 ml-2' : 'hidden'} onClick={e => userSave(e)}>Save</button>
+        <button type="button" className={saveButton ? 'btn btn-danger mt-2 ml-2' : 'hidden'} onClick={editActivityCancel}>Cancel</button>
       </form>
       <div className="pl-4">
         {renderLog()}
@@ -258,15 +247,3 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
 };
 
 export default Activity;
-
-// const cardInfo = await fetch('/api/cardIdRetrieve');
-// const returnedPromisedCardInfo = await cardInfo.json();
-// const cardDataResult = returnedPromisedCardInfo.rows;
-// // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
-// cardDataResult.forEach((resultValues, index) => {
-//   if (resultValues.card === copiedActivity.cardName) {
-//     copiedActivity.activity.forEach((activityValue, indexValue) => {
-//       activityValue.mainCardId = resultValues.cardId;
-//     });
-//   }
-// });
