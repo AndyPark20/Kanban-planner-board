@@ -64,6 +64,7 @@ const Home = () => {
             copiedCharacterObject[values.column] = { ...copiedCharacterObject[values.column], list: characterList };
           });
           // update MasterCharacter
+          console.log(Object.values(copiedCharacterObject));
           updateMasterCharacter(Object.values(copiedCharacterObject));
         }
 

@@ -90,24 +90,22 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
     if (!userEdit && userLog.record) {
       const activityList = masterCharacter[columnNumber].list[cardNumber].activity;
 
-      // // copy Mastercharacter
-      // const copiedMastercharacter = masterCharacter.concat();
-      // // If this is the first time writing an activity (activity === undefined)
-      // if (!activityList) {
-      //   copiedMastercharacter[columnNumber].list[cardNumber].activity = [userLog];
-      //   // updateMasterCharacter(copiedMastercharacter);
-      // } else {
-      //   copiedMastercharacter[columnNumber].list[cardNumber].activity.push(userLog);
-      //   console.log(copiedMastercharacter[columnNumber]);
-      //   // updateMasterCharacter(copiedMastercharacter);
-      // }
-      // console.log(copiedMastercharacter);
+      // copy Mastercharacter
+      const copiedMastercharacter = masterCharacter.concat();
+      // If this is the first time writing an activity (activity === undefined)
+      if (!activityList) {
+        copiedMastercharacter[columnNumber].list[cardNumber].activity = [userLog];
 
-      // Properties to add from the selected values of MasterCharacter object
-      const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
-      const cardName = masterCharacter[columnNumber].list[cardNumber].card;
-      const list = masterCharacter[columnNumber].id;
-      const activity = masterCharacter[columnNumber].list[cardNumber].activity;
+      } else {
+        copiedMastercharacter[columnNumber].list[cardNumber].activity.push(userLog);
+
+      }
+
+      // Properties toa dd from the selected values of MasterCharacter object
+      const cardId = copiedMastercharacter[columnNumber].list[cardNumber].cardId;
+      const cardName = copiedMastercharacter[columnNumber].list[cardNumber].card;
+      const list = copiedMastercharacter[columnNumber].id;
+      const activity = copiedMastercharacter[columnNumber].list[cardNumber].activity;
 
       // Create an object that holds the updated activity log which will be sent to the backend for SQL update
       const copiedActivity = {
@@ -138,15 +136,15 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
           try {
             const data = await fetch('/api/retrieve');
             const resultsWithUpdatedActivity = await data.json();
-            // copy Mastercharacter
-            const copiedMastercharacter = masterCharacter.concat();
-            console.log(resultsWithUpdatedActivity);
-            // loop master character and if the id equals to the column name of the returned promise, push the values form resultWithUpdatedActivity to the values of the object's list.
-            copiedMastercharacter.forEach(values => {
-              if (values.id === resultsWithUpdatedActivity.column) { values.list.push(resultsWithUpdatedActivity[0]); }
+            // Make a copy of the masterCharacter
+            const copiedMastercharacter = Object.assign(characters);
+            resultsWithUpdatedActivity.forEach(values => {
+              console.log(values);
+              const characterList = copiedMastercharacter[values.column].list;
+              characterList.push(values);
+              copiedMastercharacter[values.column] = { ...copiedMastercharacter[values.column], list: characterList };
             });
-            console.log(copiedMastercharacter);
-            updateMasterCharacter(copiedMastercharacter);
+            updateMasterCharacter(Object.values(copiedMastercharacter));
             updateSaveButton(false);
             updateCloseActivitySavebutton(false);
           } catch (err) {
