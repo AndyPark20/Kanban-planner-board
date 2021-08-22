@@ -173,21 +173,15 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
             const result = await data.json();
             // push it to characters array of objects.
             const copiedObject = Object.assign(characters);
-            // received Data from back end
-
-            // Use map method to update the object into an array.
 
             // Use hashMap to push values into the correct properties in the copiedObject
-
-            const updateObject = copiedObject.map(values => {
-              copiedObjectUpdate.forEach(copyValues => {
-                if (values.id === copyValues.column) {
-                  values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
-                }
-              });
-              return values;
+            result.forEach(values => {
+              const characterList = copiedObject[values.column].list;
+              characterList.push(values);
+              copiedObject[values.column] = { ...copiedObject[values.column], list: characterList };
             });
-            updateMasterCharacter(updateObject);
+
+            updateMasterCharacter(Object.values(copiedObject));
           } catch (err) {
             console.error(err);
           }
