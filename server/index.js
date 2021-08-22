@@ -21,20 +21,22 @@ const db = new pg.Pool({
 // userId login
 let userIdNumber = null;
 
-app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
-  fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
-    }
-  })
-    .then(res => {
-      return res.json();
-    })
-    .then(data => {
-      res.status(201).json(data);
+app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
+  console.log(req.params);
+  try {
+    const background = await fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
+      }
     });
+    const result = await background.json();
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+
 });
 
 // POST method for sign up credentials
@@ -200,7 +202,6 @@ app.post('/api/update', async (req, res, next) => {
     `;
     const params = [name, id];
     const result = await db.query(sql, params);
-    console.log('result', result.rows);
     res.status(201).send(result);
   } catch (err) {
     console.error(err);
@@ -209,25 +210,23 @@ app.post('/api/update', async (req, res, next) => {
 
 // activity Update
 app.post('/api/activity', async (req, res, next) => {
-  const inputData = req.body;
-  const cardName = req.body.list;
+  const cardId = req.body.cardId;
   const cardColumnId = req.body.cardNumber;
   let time = '';
-  let mainCardId = null;
   let activityValue = '';
   const sql = `
   insert into "record" ("cardId","columnId","record","time")
   values ($1,$2,$3,$4)
   returning *;
   `;
+  console.log(req.body);
   try {
     // loop thru body property of the req object to retrieve values from activity
-    inputData.activity.forEach((values, index) => {
-      activityValue = values.info;
+    req.body.activity.forEach((values, index) => {
+      activityValue = values.record;
       time = values.time;
-      mainCardId = values.mainCardId;
     });
-    const params = [mainCardId, cardColumnId, activityValue, time];
+    const params = [cardId, cardColumnId, activityValue, time];
     const result = await db.query(sql, params);
     res.status(201).send(result);
   } catch (err) {
@@ -240,8 +239,6 @@ app.post('/api/activity', async (req, res, next) => {
 app.post('/api/description', async (req, res, next) => {
   const cardId = req.body[0];
   const description = req.body[1];
-  console.log('CARDID', cardId);
-  console.log('DESCRIPTION', description);
   try {
     const sql = `
     insert into "description" ("cardId","description")
@@ -269,7 +266,6 @@ app.post('/api/cardMove', async (req, res, next) => {
 
   const params = [columnName, cardName];
   const result = await db.query(sql, params);
-  console.log('result', result);
   res.status(201).json(result);
 
 });
@@ -315,13 +311,11 @@ app.delete('/api/delete/:cardId', async (req, res, next) => {
 
 // Edit Activity
 app.post('/api/editActivity', async (req, res, next) => {
-  console.log(req.body);
   // retrieve to be updated info (activityId, updatedInfo, time)
   const activityCardId = req.body[1].activityId;
-  const editActivityDetails = req.body[0].info;
+  const editActivityDetails = req.body[0].record;
   const editActivityTime = req.body[0].time;
 
-  console.log(activityCardId, editActivityDetails, editActivityTime);
   try {
     const sql = `
   update "record"
@@ -340,7 +334,8 @@ app.post('/api/editActivity', async (req, res, next) => {
 // Delete Activity
 app.delete('/api/deleteActivity/:cardId', async (req, res, next) => {
   const cardIdToDelete = parseInt(req.params.cardId);
-  console.log(cardIdToDelete);
+
+
   const sql = `
   delete from "record"
   where "activityId" =$1
@@ -350,7 +345,6 @@ app.delete('/api/deleteActivity/:cardId', async (req, res, next) => {
   const deleteActivity = await db.query(sql, params);
   res.status(201).json(deleteActivity);
 });
-
 
 
 app.listen(process.env.PORT, () => {
