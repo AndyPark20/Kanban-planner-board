@@ -1,9 +1,9 @@
 import React from 'react';
 
-const DeleteActivity = ({ confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal, characters, updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, columnNumber, cardNumber }) => {
+const DeleteActivity = ({ activityIdDelete, confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal, characters, updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, columnNumber, cardNumber }) => {
   // delete card by calling backend
   const deleteCard = async () => {
-    const deleteActivity = await fetch(`/api/deleteActivity/${activityId}`, {
+    const deleteActivity = await fetch(`/api/deleteActivity/${activityIdDelete}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'

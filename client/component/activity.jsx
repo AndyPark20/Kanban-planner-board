@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import { render } from 'react-dom';
 
-const Activity = ({ updateActivityIdDelete, updateUserLogActivty, userLogActivity, updateCloseActivitySavebutton, closeActivitySaveButton, modalStatus, characters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
+const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, updateUserLogActivty, userLogActivity, updateCloseActivitySavebutton, closeActivitySaveButton, modalStatus, characters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
 
   const [userLog, updateUserLog] = useState({});
   const [valueLog, updateValueLog] = useState('');
@@ -69,6 +69,7 @@ const Activity = ({ updateActivityIdDelete, updateUserLogActivty, userLogActivit
   const deleteActivityLog = async activityId => {
     // use Delete method to remove the activity in the backend
     updateActivityIdDelete(activityId);
+    updateConfirmationActivityDeleteModal(false);
   };
 
   const renderLog = () => {

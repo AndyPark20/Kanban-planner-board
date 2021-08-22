@@ -148,7 +148,14 @@ const Home = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper} />
         </div>
         <div>
-          <ModalRevised updateActivityIdDelete={updateActivityIdDelete} characters={characters} updatedCharacters={characters} characters={characters} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle} modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription} modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter} updateColumnComponent={updateColumnComponent} />
+          <ModalRevised updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} updateActivityIdDelete={updateActivityIdDelete}
+          characters={characters} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal}
+          updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle}
+          modalTitle={modalTitle} updateRenderActivity={updateRenderActivity} renderActivity={renderActivity} updateDescription={updateDescription}
+          modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster}
+          masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter}
+          updateColumnComponent={updateColumnComponent}/>
+
         </div>
         <div className="hamburgerStyle">
           <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />

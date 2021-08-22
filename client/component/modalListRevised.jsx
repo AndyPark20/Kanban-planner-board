@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-const Modal = ({ updateActivityIdDelete, characters, updateConfirmationModal, updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, characters, updateConfirmationModal, updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -159,7 +159,7 @@ const Modal = ({ updateActivityIdDelete, characters, updateConfirmationModal, up
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity updateActivityIdDelete={updateActivityIdDelete} userLogActivity={userLogActivity} updateUserLogActivty={updateUserLogActivty} updateCloseActivitySavebutton={updateCloseActivitySavebutton} closeActivitySaveButton={closeActivitySaveButton} modalStatus={modalStatus} characters={characters} renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
+          <Activity updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} updateActivityIdDelete={updateActivityIdDelete} userLogActivity={userLogActivity} updateUserLogActivty={updateUserLogActivty} updateCloseActivitySavebutton={updateCloseActivitySavebutton} closeActivitySaveButton={closeActivitySaveButton} modalStatus={modalStatus} characters={characters} renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
         </div>
       </div>
     </div>
