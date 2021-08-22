@@ -42,15 +42,6 @@ const DeleteModal = ({ characters, updateModal, updateRenderActivity, updateMast
     }
   };
 
-  // function for ClassName to hide and unhide the confirmation modal
-  const hideConfirmationModal = () => {
-    if (confirmationModal) {
-      return 'deleteModal hidden';
-    } else {
-      return 'deleteModal';
-    }
-  };
-
   return (
     <div className={confirmationModal ? 'deleteModal hidden' : 'deleteModal'}>
       <h3 className="deleteTitle">Are you Sure you want to delete this card?</h3>

@@ -6,6 +6,7 @@ import Background from './component/library/backgroundOption';
 import ModalRevised from './component/modalListRevised';
 import ParseRoute from '../client/component/library/parse-route';
 import DeleteModal from './component/library/deleteModal';
+import DeleteActivity from './component/library/deleteActivity';
 
 const Home = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
@@ -25,6 +26,9 @@ const Home = () => {
 
   // hide and unhide confirmation modal
   const [confirmationModal, updateConfirmationModal] = useState(true);
+
+  // hide and unhide Activity delete confirmation modal
+  const [confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal] = useState(false);
 
   const characters = {
     Todo: {
@@ -151,6 +155,7 @@ const Home = () => {
       <div>
         <DeleteModal characters={characters} updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} />
       </div>
+      <DeleteActivity confirmationActivityDeleteModal={confirmationActivityDeleteModal} updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} />
     </div>
   );
 };
