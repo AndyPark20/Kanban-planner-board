@@ -11,11 +11,16 @@ const Modal = ({ characters, updateConfirmationModal, updateDescriptionForCard, 
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(false);
+  // State for Activity Save button
   const [closeActivitySaveButton, updateCloseActivitySavebutton] = useState(false);
+
+  // state for input textarea for log activity
+  const [userLogActivity, updateUserLogActivty] = useState({});
 
   useEffect(() => {
     // Update Modal window state
     updateModalClose(modal);
+    console.log(userLogActivity);
   });
 
   function descriptionInfo(e) {
@@ -36,8 +41,11 @@ const Modal = ({ characters, updateConfirmationModal, updateDescriptionForCard, 
     updateDescriptionStatus(true);
     // Close Edit title inside modal when user closes modal
     updateModalStatus(false);
-    // Close Activity textArea Save button when usser closes modal
+    // Close Activity textArea Save button and clear input when usser closes modal
     updateCloseActivitySavebutton(false);
+
+    // Erase log activity input when user closes modal
+    updateUserLogActivty({ record: '' });
 
   }
 
@@ -152,7 +160,7 @@ const Modal = ({ characters, updateConfirmationModal, updateDescriptionForCard, 
           </div>
         </div>
         <div className="pl-2 pt-4">
-          <Activity updateCloseActivitySavebutton={updateCloseActivitySavebutton} closeActivitySaveButton={closeActivitySaveButton} modalStatus={modalStatus} characters={characters} renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
+          <Activity userLogActivity={userLogActivity} updateUserLogActivty={updateUserLogActivty} updateCloseActivitySavebutton={updateCloseActivitySavebutton} closeActivitySaveButton={closeActivitySaveButton} modalStatus={modalStatus} characters={characters} renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
         </div>
       </div>
     </div>

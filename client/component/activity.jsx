@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import { render } from 'react-dom';
 
-const Activity = ({ updateCloseActivitySavebutton, closeActivitySaveButton, modalStatus, characters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
+const Activity = ({ updateUserLogActivty, userLogActivity, updateCloseActivitySavebutton, closeActivitySaveButton, modalStatus, characters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
 
-  const [userLog, updateUserLog] = useState('');
+  const [userLog, updateUserLog] = useState({});
   const [valueLog, updateValueLog] = useState('');
   const [userLogSubmit, updateUserLogSubmit] = useState([]);
   const [userEdit, updateUserEdit] = useState(false);
@@ -18,6 +18,7 @@ const Activity = ({ updateCloseActivitySavebutton, closeActivitySaveButton, moda
   const [selectedActivityObject, updateSelectedActivityObject] = useState({});
 
   useEffect(() => {
+    updateUserLog(userLogActivity);
     updateSaveButton(closeActivitySaveButton);
   });
 
@@ -29,12 +30,15 @@ const Activity = ({ updateCloseActivitySavebutton, closeActivitySaveButton, moda
 
   const userActivity = e => {
     updateCloseActivitySavebutton(true);
+    updateUserLogActivty(e.target.value);
     e.preventDefault();
     if (!userEdit) {
       updateUserLog({ record: e.target.value, time: Date.now() });
+      updateUserLogActivty({ record: e.target.value, time: Date.now() });
     } else {
       masterCharacter[columnNumber].list[cardNumber].activity.splice(editIndexNumber, 1, { record: e.target.value, time: Date.now() });
       updateUserLog({ record: e.target.value, time: Date.now() });
+      updateUserLogActivty({ record: e.target.value, time: Date.now() });
 
     }
     if (e.target.value !== '') {
@@ -53,6 +57,9 @@ const Activity = ({ updateCloseActivitySavebutton, closeActivitySaveButton, moda
     updateCurrentIndex(index);
     // Render Save and Cancel button
     updateSaveButton(true);
+
+    // update Modal List revised component state for rendering buttons
+    updateCloseActivitySavebutton(true);
 
     // update user log
     updateUserLog({ record: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
@@ -122,6 +129,7 @@ const Activity = ({ updateCloseActivitySavebutton, closeActivitySaveButton, moda
 
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
       updateUserLog({ record: '' });
+      updateUserLogActivty({ record: e.target.value });
       updateUserEdit(false);
       updateRenderActivity(true);
 
@@ -160,6 +168,7 @@ const Activity = ({ updateCloseActivitySavebutton, closeActivitySaveButton, moda
       // For editing Existing Activity
     } else {
       updateUserLog({ record: '' });
+      updateUserLogActivty({ record: e.target.value });
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
       const updatedActivity = masterCharacter[columnNumber].list[cardNumber].activity[currentIndex];
@@ -206,23 +215,23 @@ const Activity = ({ updateCloseActivitySavebutton, closeActivitySaveButton, moda
     updateUserEdit(false);
     updateSaveButton(false);
     updateUserLog({ record: '' });
+    updateCloseActivitySavebutton(false);
 
     // call backend to update masterCharacter
     try {
       const data = await fetch('/api/retrieve');
       const result = await data.json();
+
       // Copy a clone of characters object
-      const copiedObject = Object.assign(characters);
-      // Use map method to update the object into an array.
-      const updateObject = copiedObject.map(values => {
-        result.forEach(copyValues => {
-          if (values.id === copyValues.column) {
-            values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
-          }
-        });
-        return values;
+      const copiedCharacterObject = Object.assign(characters);
+      // When result promise has been returned, insert the result values to the appropriate values in the character object.
+      result.forEach(values => {
+        const characterList = copiedCharacterObject[values.column].list;
+        characterList.push(values);
+        copiedCharacterObject[values.column] = { ...copiedCharacterObject[values.column], list: characterList };
       });
-      updateMasterCharacter(updateObject);
+      // update MasterCharacter
+      updateMasterCharacter(Object.values(copiedCharacterObject));
     } catch (err) {
       console.error(err);
     }
