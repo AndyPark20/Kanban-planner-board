@@ -106,8 +106,6 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
         updateMasterCharacter(copiedMastercharacter);
       }
 
-      // console.log(masterCharacter);
-
       // Properties toa dd from the selected values of MasterCharacter object
       const cardId = masterCharacter[columnNumber].list[cardNumber].cardId;
       const cardName = masterCharacter[columnNumber].list[cardNumber].card;

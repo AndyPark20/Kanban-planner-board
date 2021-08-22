@@ -1,8 +1,10 @@
 import React from 'react';
 
-const DeleteActivity = ({ activityIdDelete, confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal, characters, updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, columnNumber, cardNumber }) => {
+const DeleteActivity = ({ updateRenderActivity, activityIdDelete, confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal, characters, updateModal, updateMasterCharacter, masterCharacter, columnNumber, cardNumber }) => {
+
   // delete card by calling backend
   const deleteCard = async () => {
+    console.log(activityIdDelete);
     const deleteActivity = await fetch(`/api/deleteActivity/${activityIdDelete}`, {
       method: 'DELETE',
       headers: {
@@ -13,7 +15,6 @@ const DeleteActivity = ({ activityIdDelete, confirmationActivityDeleteModal, upd
     // if delete card is a sucess re-render master character object
     if (result) {
       // Close modal window for the card content
-      updateModal(false);
       updateRenderActivity(false);
       updateConfirmationActivityDeleteModal(true);
       const retrieveData = async () => {
@@ -31,6 +32,7 @@ const DeleteActivity = ({ activityIdDelete, confirmationActivityDeleteModal, upd
           }
 
           updateMasterCharacter(Object.values(characters));
+          updateRenderActivity(true);
         } catch (err) {
           console.error(err);
         }
