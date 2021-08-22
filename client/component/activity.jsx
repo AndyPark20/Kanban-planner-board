@@ -64,7 +64,6 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
 
   const renderLog = () => {
     if (renderActivity && masterCharacter[columnNumber].list[cardNumber].activity) {
-      console.log('render logs', masterCharacter[columnNumber].list[cardNumber]);
       const data = masterCharacter[columnNumber].list[cardNumber].activity.map((values, index) => {
         return (
           <div key={index} className="d-flex align-items-center">
@@ -84,11 +83,12 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
   const userSave = async e => {
     e.preventDefault();
     if (!userEdit && userLog.record) {
+
       const activityList = masterCharacter[columnNumber].list[cardNumber].activity;
 
-      // If this is the first time writing an activity (activity === undefined)
       // copy Mastercharacter
       const copiedMastercharacter = masterCharacter.concat();
+      // If this is the first time writing an activity (activity === undefined)
       if (!activityList) {
         copiedMastercharacter[columnNumber].list[cardNumber].activity = [userLog];
         updateMasterCharacter(copiedMastercharacter);
@@ -172,10 +172,13 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
             const data = await fetch('/api/retrieve');
             const result = await data.json();
             // push it to characters array of objects.
-            const copiedObject = characters.concat();
+            const copiedObject = Object.assign(characters);
             // received Data from back end
-            const copiedObjectUpdate = result;
+
             // Use map method to update the object into an array.
+
+            // Use hashMap to push values into the correct properties in the copiedObject
+
             const updateObject = copiedObject.map(values => {
               copiedObjectUpdate.forEach(copyValues => {
                 if (values.id === copyValues.column) {
@@ -205,10 +208,10 @@ const Activity = ({ characters, renderActivity, updateMasterCharacter, masterCha
     try {
       const data = await fetch('/api/retrieve');
       const result = await data.json();
-      // push it to characters array of objects.
-      const copiedObject = characters.concat();
-      // received Data from back end
-      const copiedObjectUpdate = result;
+
+      // Copy a clone of characters object
+      const copiedObject = Object.assign(characters);
+      console.log(copiedObject);
       // Use map method to update the object into an array.
       const updateObject = copiedObject.map(values => {
         copiedObjectUpdate.forEach(copyValues => {
