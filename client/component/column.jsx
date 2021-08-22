@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
+
 const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
+
 
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
@@ -10,6 +12,7 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
   const [titleBoolean, updateTitleBoolean] = useState(false);
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
+
 
   useEffect(() => {
     updateTitleBoolean(false);
@@ -122,6 +125,7 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
       updateModal(false);
     }
     try {
+
       console.log('hello');
       const data = await fetch('/api/retrieve');
       const result = await data.json();
@@ -140,6 +144,7 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
       }
 
       updateMasterCharacter(masterObject);
+
 
     } catch (err) {
       console.error(err);

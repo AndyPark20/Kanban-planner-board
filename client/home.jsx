@@ -27,11 +27,13 @@ const Home = () => {
   // hide and unhide confirmation modal
   const [confirmationModal, updateConfirmationModal] = useState(true);
 
+
   // hide and unhide Activity delete confirmation modal
   const [confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal] = useState(true);
 
   // ActivityId state for deleting activity log
   const [activityIdDelete, updateActivityIdDelete] = useState(null);
+
 
   const characters = {
     Todo: {
@@ -54,6 +56,7 @@ const Home = () => {
       try {
         const data = await fetch('/api/retrieve');
         const result = await data.json();
+
         if (result) {
           // make a copy of the masterCharacter (will also be updating object from other components)
           const copiedCharacterObject = Object.assign(characters);
@@ -66,6 +69,7 @@ const Home = () => {
           // update MasterCharacter
           console.log(Object.values(copiedCharacterObject));
           updateMasterCharacter(Object.values(copiedCharacterObject));
+
         }
 
       } catch (err) {
@@ -150,6 +154,7 @@ const Home = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper} />
         </div>
         <div>
+
           <ModalRevised updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} updateActivityIdDelete={updateActivityIdDelete}
           characters={characters} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal}
           updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle}
@@ -157,6 +162,7 @@ const Home = () => {
           modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster}
           masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter}
           updateColumnComponent={updateColumnComponent}/>
+
 
         </div>
         <div className="hamburgerStyle">

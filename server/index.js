@@ -46,6 +46,7 @@ app.post('/api/signup', async (req, res, next) => {
   const username = req.body.userName;
   try {
     const hash = await argon2.hash(req.body.password);
+    console.log('hash',hash)
     const sql = `
   insert into "users"( "firstName", "lastName", "userName","password")
   values ($1,$2,$3, $4)
@@ -333,6 +334,8 @@ app.post('/api/editActivity', async (req, res, next) => {
 // Delete Activity
 app.delete('/api/deleteActivity/:cardId', async (req, res, next) => {
   const cardIdToDelete = parseInt(req.params.cardId);
+
+
   const sql = `
   delete from "record"
   where "activityId" =$1
@@ -342,6 +345,7 @@ app.delete('/api/deleteActivity/:cardId', async (req, res, next) => {
   const deleteActivity = await db.query(sql, params);
   res.status(201).json(deleteActivity);
 });
+
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

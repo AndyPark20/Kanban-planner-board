@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
+
 const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, characters, updateConfirmationModal, updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
+
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -14,13 +16,12 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
   // State for Activity Save button
   const [closeActivitySaveButton, updateCloseActivitySavebutton] = useState(false);
 
+
   // state for input textarea for log activity
   const [userLogActivity, updateUserLogActivty] = useState({});
 
-  useEffect(() => {
-    // Update Modal window state
-    updateModalClose(modal);
-  });
+
+
 
   function descriptionInfo(e) {
     e.preventDefault();
@@ -159,7 +160,9 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
           </div>
         </div>
         <div className="pl-2 pt-4">
+
           <Activity modalClose={modalClose} updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} updateActivityIdDelete={updateActivityIdDelete} userLogActivity={userLogActivity} updateUserLogActivty={updateUserLogActivty} updateCloseActivitySavebutton={updateCloseActivitySavebutton} closeActivitySaveButton={closeActivitySaveButton} modalStatus={modalStatus} characters={characters} renderActivity={renderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumber} cardNumber={cardNumber} />
+
         </div>
       </div>
     </div>
