@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DeleteActivity = ({ characters, updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
+const DeleteActivity = ({ confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal, characters, updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, columnNumber, cardNumber }) => {
   // delete card by calling backend
   const deleteCard = async () => {
     const selectedCardId = masterCharacter[columnNumber].list[cardNumber].cardId;
@@ -16,7 +16,7 @@ const DeleteActivity = ({ characters, updateModal, updateRenderActivity, updateM
       // Close modal window for the card content
       updateModal(false);
       updateRenderActivity(false);
-      updateConfirmationModal(true);
+      updateConfirmationActivityDeleteModal(true);
       const retrieveData = async () => {
         try {
           const data = await fetch('/api/retrieve');
@@ -42,11 +42,11 @@ const DeleteActivity = ({ characters, updateModal, updateRenderActivity, updateM
   };
 
   return (
-    <div className={confirmationModal ? 'deleteModal hidden' : 'deleteModal'}>
+    <div className={confirmationActivityDeleteModal ? 'deleteModal hidden' : 'deleteModal'}>
       <h3 className="deleteTitle">Are you Sure you want to delete this Activity?</h3>
       <div className="button-layout">
         <button type="click" className="btn btn-danger danger" onClick={deleteCard}>Yes</button>
-        <button type="click" className="btn btn-warning warning" onClick={() => updateConfirmationModal(true)}>No</button>
+        <button type="click" className="btn btn-warning warning" onClick={() => updateConfirmationActivityDeleteModal(true)}>No</button>
       </div>
     </div>
   );

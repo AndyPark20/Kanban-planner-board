@@ -28,7 +28,7 @@ const Home = () => {
   const [confirmationModal, updateConfirmationModal] = useState(true);
 
   // hide and unhide Activity delete confirmation modal
-  const [confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal] = useState(false);
+  const [confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal] = useState(true);
 
   const characters = {
     Todo: {
@@ -155,7 +155,7 @@ const Home = () => {
       <div>
         <DeleteModal characters={characters} updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} />
       </div>
-      <DeleteActivity confirmationActivityDeleteModal={confirmationActivityDeleteModal} updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} />
+      <DeleteActivity characters={characters} updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} confirmationActivityDeleteModal={confirmationActivityDeleteModal} updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} />
     </div>
   );
 };
