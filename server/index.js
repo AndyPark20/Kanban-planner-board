@@ -22,7 +22,6 @@ const db = new pg.Pool({
 let userIdNumber = null;
 
 app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
-  console.log(req.params);
   try {
     const background = await fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
       method: 'GET',
@@ -32,7 +31,7 @@ app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
       }
     });
     const result = await background.json();
-    console.log(result);
+    res.status(201).json(result);
   } catch (err) {
     console.error(err);
   }
@@ -218,7 +217,6 @@ app.post('/api/activity', async (req, res, next) => {
   values ($1,$2,$3,$4)
   returning *;
   `;
-  console.log(req.body);
   try {
     // loop thru body property of the req object to retrieve values from activity
     req.body.activity.forEach((values, index) => {

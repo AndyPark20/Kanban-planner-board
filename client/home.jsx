@@ -64,7 +64,6 @@ const Home = () => {
             copiedCharacterObject[values.column] = { ...copiedCharacterObject[values.column], list: characterList };
           });
           // update MasterCharacter
-          console.log(Object.values(copiedCharacterObject));
           updateMasterCharacter(Object.values(copiedCharacterObject));
         }
 
@@ -120,19 +119,19 @@ const Home = () => {
   };
 
   const userSearch = async (e, keyWord) => {
-    if (e.key === 'Enter') {
-      try {
-        const background = await fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`);
-        const result = await background.json();
-        if (result) {
-          const splitData = result.photos;
-          localStorage.setItem('wallpaper', JSON.stringify(splitData));
-          const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
-          wallpaperUpdate(retrieveWallpaper);
-        }
-      } catch (err) {
-        console.error(err);
+
+    console.log(keyWord);
+    try {
+      const background = await fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`);
+      const result = await background.json();
+      if (result) {
+        const splitData = result.photos;
+        localStorage.setItem('wallpaper', JSON.stringify(splitData));
+        const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
+        wallpaperUpdate(retrieveWallpaper);
       }
+    } catch (err) {
+      console.error(err);
     }
 
   };
