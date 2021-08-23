@@ -31,6 +31,7 @@ app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
       }
     });
     const result = await background.json();
+    console.log(result);
     res.status(201).json(result);
   } catch (err) {
     console.error(err);

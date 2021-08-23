@@ -4,6 +4,9 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
   const [keyWord, keyWordUpdate] = useState('');
   const [highlightBorder, updateHighLight] = useState(false);
 
+  // hide Image until everything has been loaded
+  const [imageLoad, updateImageLoad] = useState(false);
+
   const modalUpdate = () => {
     if (!status) {
       return 'container modalPosition hidden';
@@ -24,9 +27,10 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
   const renderPictures = () => {
     if (pictures !== null) {
       const downloadedData = pictures.map((values, index) => {
+        console.log(values);
         return (
           <div key={index} className="col-3 d-flex p-3">
-            <img className="wallPaperStyle" src={values.src.original} alt="pictures" onClick={() => { userSelect(index); updateHighLight(true); }} />
+            <img onLoad={() => updateImageLoad(true)} className={imageLoad ? 'wallPaperStyle' : 'hidden'} src={values.src.tiny} alt="pictures" onClick={() => { userSelect(index); updateHighLight(true); updateImageLoad(true); }} />
           </div>
         );
       });

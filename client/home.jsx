@@ -118,9 +118,8 @@ const Home = () => {
 
   };
 
+  // For changing Background
   const userSearch = async (e, keyWord) => {
-
-    console.log(keyWord);
     try {
       const background = await fetch(`/api/picture/${keyWord}/${'landscape'}/${'medium'}`);
       const result = await background.json();
@@ -138,7 +137,7 @@ const Home = () => {
 
   return (
     <div style={{
-      backgroundImage: `url(${userWallpaper}?auto=compress&cs=tinysrgb&fit=crop&h=1440&w=2500)`,
+      backgroundImage: `url(${userWallpaper}?auto=compress&cs=tinysrgb&fit=crop&h=1080&w=1920)`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       overflow: 'hidden',
