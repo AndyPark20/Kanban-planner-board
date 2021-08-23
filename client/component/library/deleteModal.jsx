@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 const DeleteModal = ({ characters, updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
 
-
   // delete card by calling backend
   const deleteCard = async () => {
     const selectedCardId = masterCharacter[columnNumber].list[cardNumber].cardId;
