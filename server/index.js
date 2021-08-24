@@ -32,7 +32,6 @@ app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
       }
     });
     const result = await background.json();
-    console.log(result);
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -40,9 +39,10 @@ app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
 });
 
 // Store selected background URL
-app.post('/api/picture/upload', async (req, res, next) => {
-  const backgroundUrl = req.body;
-  console.log(backgroundUrl);
+app.post('/api/wallpaper', async (req, res, next) => {
+  console.log(req.body);
+  // const backgroundUrl = req.body;
+  // console.log(backgroundUrl);
   // try {
 
   // } catch (err) {
