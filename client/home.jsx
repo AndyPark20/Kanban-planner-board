@@ -118,14 +118,15 @@ const Home = () => {
     }
   };
 
-  const chosenWallpaper = index => {
+  const chosenWallpaper = async index => {
     const selectedPicture = wallpaper[index].src.original;
     console.log(selectedPicture);
-    // When user selects a new background clearout default localstorage
-    localStorage.removeItem('wallpaper');
-    // Set new Selected wallpaper
-    localStorage.setItem('wallpaper', JSON.stringify(selectedPicture));
-    const getUpdateSelectedWallPaper = JSON.parse(localStorage.getItem('wallpaper'));
+    // when user selects a picture, use post to store the url in the backend
+    try {
+      const backgroundPost = fetch('');
+    } catch (err) {
+      console.error(err);
+    }
     userWallPaperUpdate(getUpdateSelectedWallPaper);
 
   };

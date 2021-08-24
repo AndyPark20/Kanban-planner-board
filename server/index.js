@@ -21,6 +21,7 @@ const db = new pg.Pool({
 // userId login
 let userIdNumber = null;
 
+// Fetch background images
 app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
   try {
     const background = await fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
@@ -36,7 +37,15 @@ app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
   } catch (err) {
     console.error(err);
   }
+});
 
+// Store selected background URL
+app.post('/api/picture/upload', async (req, res, next) => {
+  try {
+
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 // POST method for sign up credentials
