@@ -21,6 +21,7 @@ const Background = ({ status, searchValue, pictures, modalUpdateParent, userSele
   const renderPictures = () => {
     if (pictures !== null) {
       const downloadedData = pictures.map((values, index) => {
+        console.log(values);
         return (
           <div key={index} className="col-3 d-flex p-3">
             <img onLoad={() => updateImageLoad(true)} className={imageLoad ? 'wallPaperStyle' : 'hidden'} src={values.src.tiny} alt="pictures" onClick={() => { userSelect(index); updateHighLight(true); updateImageLoad(true); }} />

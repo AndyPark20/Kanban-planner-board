@@ -13,7 +13,7 @@ const Home = () => {
   const [naviOption, naviOptionUpdate] = useState('');
   const [modalStatus, modalStatusUpdate] = useState(false);
   const [wallpaper, wallpaperUpdate] = useState([]);
-  const [userWallpaper, userWallPaperUpdate] = useState('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg');
+  const [userWallpaper, userWallPaperUpdate] = useState('');
   const [modal, updateModal] = useState(false);
   const [columnNumberMaster, updateColumnNumberMaster] = useState(0);
   const [cardNumberMaster, updateCardNumberMaster] = useState(null);
@@ -80,8 +80,13 @@ const Home = () => {
   useEffect(() => {
     location.hash = 'Home';
     const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
-    userWallPaperUpdate(retrieveWallpaper);
-    // wallpaperUpdate(retrieveWallpaper);
+    if (retrieveWallpaper) {
+      userWallPaperUpdate(retrieveWallpaper);
+    } else {
+      // Default wallpaper when user logs in for the very first time.
+      userWallPaperUpdate('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg');
+    }
+
   }, []);
 
   const change = e => {
@@ -115,12 +120,13 @@ const Home = () => {
 
   const chosenWallpaper = index => {
     const selectedPicture = wallpaper[index].src.original;
+    console.log(selectedPicture);
     // When user selects a new background clearout default localstorage
     localStorage.removeItem('wallpaper');
     // Set new Selected wallpaper
     localStorage.setItem('wallpaper', JSON.stringify(selectedPicture));
     const getUpdateSelectedWallPaper = JSON.parse(localStorage.getItem('wallpaper'));
-    wallpaperUpdate(getUpdateSelectedWallPaper);
+    userWallPaperUpdate(getUpdateSelectedWallPaper);
 
   };
 
