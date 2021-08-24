@@ -54,6 +54,19 @@ app.post('/api/wallpaper', async (req, res, next) => {
   } catch (err) {
     console.error(err);
   }
+});
+
+// get Background url
+app.get('/api/getWallpaper', async (req, res, next) => {
+  try {
+    const sql = `
+  select *
+  from "wallpapers"
+  `;
+    const result = await db.query(sql);
+    res.status(201).json(result);
+  } catch (err) {}
+  console.error(err);
 
 });
 
