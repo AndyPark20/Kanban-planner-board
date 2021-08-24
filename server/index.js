@@ -41,11 +41,13 @@ app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
 
 // Store selected background URL
 app.post('/api/picture/upload', async (req, res, next) => {
-  try {
+  const backgroundUrl = req.body;
+  console.log(backgroundUrl);
+  // try {
 
-  } catch (err) {
-    console.error(err);
-  }
+  // } catch (err) {
+  //   console.error(err);
+  // }
 });
 
 // POST method for sign up credentials

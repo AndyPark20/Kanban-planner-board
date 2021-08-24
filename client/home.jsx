@@ -120,14 +120,19 @@ const Home = () => {
 
   const chosenWallpaper = async index => {
     const selectedPicture = wallpaper[index].src.original;
-    console.log(selectedPicture);
     // when user selects a picture, use post to store the url in the backend
     try {
-      const backgroundPost = fetch('');
+      const backgroundPost = fetch('/api/picture/upload', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(selectedPicture)
+      });
     } catch (err) {
       console.error(err);
     }
-    userWallPaperUpdate(getUpdateSelectedWallPaper);
+    // userWallPaperUpdate(getUpdateSelectedWallPaper);
 
   };
 
