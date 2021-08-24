@@ -74,18 +74,22 @@ const Home = () => {
     };
     retrieveData();
 
-  }, []);
-
-  // Wallpaper
-  useEffect(() => {
-    location.hash = 'Home';
-    const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
-    if (retrieveWallpaper) {
-      userWallPaperUpdate(retrieveWallpaper);
-    } else {
-      // Default wallpaper when user logs in for the very first time.
-      userWallPaperUpdate('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg');
-    }
+    // Retrieve wallpaper
+    const retrieveWallPaper = async () => {
+      try {
+        const wallpaperData = await fetch('/api/getWallpaper');
+        const result = await wallpaperData.json();
+        if (result.length !== 0) {
+          userWallPaperUpdate(result[0].url);
+        } else {
+          // If no wallpaper is selected or if its the users first time using the app, use this default wallpaper
+          userWallPaperUpdate('https://images.pexels.com/photos/890035/pexels-photo-890035.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=1440&w=2560');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    retrieveWallPaper();
 
   }, []);
 
@@ -105,9 +109,7 @@ const Home = () => {
   };
 
   const modalChange = () => {
-    // this does the same thing but much cleaner
     modalStatusUpdate(!modalStatus);
-
   };
 
   const modalCancelFunction = () => {
@@ -130,6 +132,8 @@ const Home = () => {
         },
         body: JSON.stringify([selectedPicture])
       });
+      const result = await backgroundPost.json();
+      console.log(result);
     } catch (err) {
       console.error(err);
     }

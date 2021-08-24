@@ -43,14 +43,33 @@ app.post('/api/wallpaper', async (req, res, next) => {
   const wallpaperUrl = req.body[0];
   try {
     const sql = `
+         select *
+  from "wallpapers"
+      `;
+    const result = await db.query(sql);
+    /** **If there is already saved url, use update to replace the old url with the new one ***/
+    if (result.rows.length !== 0) {
+      const sql = `
+      update "wallpapers"
+      set "url" =$1
+      where "userId" =$2;
+      `;
+      const params = [wallpaperUrl, userIdNumber];
+      const updateResult = await db.query(sql, params);
+      console.log(updateResult);
+      res.status(201).json(updateResult.rows);
+    } else {
+      /** ***If there is no saved url, go ahead and update the new url *************/
+      const sql = `
      insert into "wallpapers" ("userId","url")
      values ($1,$2)
     returning *;
     `;
-
-    const params = [userIdNumber, wallpaperUrl];
-    const result = await db.query(sql, params);
-    console.log(result);
+      const params = [userIdNumber, wallpaperUrl];
+      const result = await db.query(sql, params);
+      console.log(result);
+      res.status(201).json(result.rows);
+    }
   } catch (err) {
     console.error(err);
   }
@@ -64,10 +83,10 @@ app.get('/api/getWallpaper', async (req, res, next) => {
   from "wallpapers"
   `;
     const result = await db.query(sql);
-    res.status(201).json(result);
-  } catch (err) {}
-  console.error(err);
-
+    res.status(201).json(result.rows);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 // POST method for sign up credentials
