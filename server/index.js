@@ -40,14 +40,21 @@ app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
 
 // Store selected background URL
 app.post('/api/wallpaper', async (req, res, next) => {
-  console.log(req.body);
-  // const backgroundUrl = req.body;
-  // console.log(backgroundUrl);
-  // try {
+  const wallpaperUrl = req.body[0];
+  try {
+    const sql = `
+     insert into "wallpapers" ("userId","url")
+     values ($1,$2)
+    returning *;
+    `;
 
-  // } catch (err) {
-  //   console.error(err);
-  // }
+    const params = [userIdNumber, wallpaperUrl];
+    const result = await db.query(sql, params);
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+
 });
 
 // POST method for sign up credentials
