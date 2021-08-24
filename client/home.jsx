@@ -76,11 +76,11 @@ const Home = () => {
 
   }, []);
 
-  // Wallpapeer
+  // Wallpaper
   useEffect(() => {
     location.hash = 'Home';
-    // const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
-
+    const retrieveWallpaper = JSON.parse(localStorage.getItem('wallpaper'));
+    userWallPaperUpdate(retrieveWallpaper);
     // wallpaperUpdate(retrieveWallpaper);
   }, []);
 
@@ -115,7 +115,6 @@ const Home = () => {
 
   const chosenWallpaper = index => {
     const selectedPicture = wallpaper[index].src.original;
-    console.log(selectedPicture);
     // When user selects a new background clearout default localstorage
     localStorage.removeItem('wallpaper');
     // Set new Selected wallpaper
