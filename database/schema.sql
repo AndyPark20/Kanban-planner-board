@@ -20,7 +20,7 @@ CREATE TABLE "users" (
 CREATE TABLE "wallpapers" (
 "wallpaperId" serial NOT NULL,
 "userId" integer NOT NULL,
-"url" text NOT NULL
+"url" text NOT NULL,
 	primary key ("userId")
 );
 
