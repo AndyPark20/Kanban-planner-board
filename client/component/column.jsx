@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
-const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
+const Column = ({ characters, updateDescriptionForCard, updateModalTitle, updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
 
   const [columnMover, updateColumnMover] = useState(false);
   const [openModal, updateOpenModalColumn] = useState(false);
@@ -122,7 +122,6 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
       updateModal(false);
     }
     try {
-      console.log('hello');
       const data = await fetch('/api/retrieve');
       const result = await data.json();
       // push it to characters array of objects.
@@ -136,7 +135,7 @@ const Column = ({ characters, updateDescriptionCard, updateModalTitle, updateRen
       const masterObject = Object.values(copiedObject);
 
       if (masterObject[index].list[indexItem].description) {
-        updateDescriptionCard(masterObject[index].list[indexItem].description);
+        updateDescriptionForCard(masterObject[index].list[indexItem].description);
       }
 
       updateMasterCharacter(masterObject);

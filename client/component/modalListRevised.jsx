@@ -22,6 +22,10 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
     updateModalClose(modal);
   });
 
+  useEffect(() => {
+    updateFinalDescription(descriptionForCard);
+  });
+
   function descriptionInfo(e) {
     e.preventDefault();
     updateInitialDescription(e.target.value);
@@ -96,7 +100,6 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
   const updateDescriptionInput = () => updateDescriptionStatus(false);
 
   const updateCancelButton = () => {
-    // masterCharacter[columnNumber].list[cardNumber].desc = finalDescription;
     updateDescriptionStatus(true);
     updateButton(false);
   };
