@@ -33,6 +33,9 @@ const Home = () => {
   // ActivityId state for deleting activity log
   const [activityIdDelete, updateActivityIdDelete] = useState(null);
 
+  // Existing Wallpaper Url
+  const [existingWallPaperUrl, updateExistingWallPaperUrl] = useState(false);
+
   const characters = {
     Todo: {
       id: 'Todo',
@@ -81,6 +84,7 @@ const Home = () => {
         const result = await wallpaperData.json();
         if (result.length !== 0) {
           userWallPaperUpdate(result[0].url);
+          updateExistingWallPaperUrl(true);
         } else {
           // If no wallpaper is selected or if its the users first time using the app, use this default wallpaper
           userWallPaperUpdate('https://images.pexels.com/photos/890035/pexels-photo-890035.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=1440&w=2560');
@@ -123,19 +127,22 @@ const Home = () => {
   // Save selected wallpaper into the data base
   const chosenWallpaper = async index => {
     const selectedPicture = wallpaper[index].src.original;
-    // when user selects a picture, use post to store the url in the backend
-    try {
-      const backgroundPost = await fetch('/api/wallpaper', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify([selectedPicture])
-      });
-      const result = await backgroundPost.json();
-      console.log(result);
-    } catch (err) {
-      console.error(err);
+    // when user selects a picture AND there is not existing wallpaper (existingWallPaper is False)
+    if (!existingWallPaperUrl) {
+      try {
+        const backgroundPost = await fetch('/api/wallpaper', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify([selectedPicture])
+        });
+        const result = await backgroundPost.json();
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+
     }
 
   };
