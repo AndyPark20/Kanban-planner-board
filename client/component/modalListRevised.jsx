@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
@@ -23,6 +22,7 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
   });
 
   useEffect(() => {
+
     updateFinalDescription(descriptionForCard);
   });
 
@@ -84,7 +84,7 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
     updateValues(e.target.value);
     e.preventDefault();
   }
-
+  // test comment
   const clickUpdate = () => {
     updateValues(masterCharacter[columnNumber].list[cardNumber].card);
     updateModalStatus(true);
