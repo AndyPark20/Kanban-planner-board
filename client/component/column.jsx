@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Item from './item';
 
+
 const Column = ({ characters, updateDescriptionForCard, updateModalTitle, updateRenderActivity, description, initialCharacter, updateDescription, masterCharacter, updateModal, updateCardNumberMaster, updateColumnNumberMaster, updateMasterCharacter, updatedCharacter, columnUpdate, updateColumnComponent }) => {
 
   const [columnMover, updateColumnMover] = useState(false);
@@ -97,7 +98,6 @@ const Column = ({ characters, updateDescriptionForCard, updateModalTitle, update
 
   // functions to move columns around
   const moveColumn = (e, info, value) => {
-
     if (e.target.nodeName === 'DIV' && e.target.className === 'card spacing') {
       updateColumnMover(false);
       e.dataTransfer.setData('columnStartIndex', value);
@@ -125,19 +125,19 @@ const Column = ({ characters, updateDescriptionForCard, updateModalTitle, update
       const data = await fetch('/api/retrieve');
       const result = await data.json();
       // push it to characters array of objects.
-      const copiedObject = Object.assign(characters);
+      const copiedObject = Object.assign(characters)
 
-      result.forEach(values => {
-        const characterList = copiedObject[values.column].list;
-        characterList.push({ card: values.card, activity: values.activity, cardId: values.cardId, description: values.description });
-        copiedObject[values.column] = { ...copiedObject[values.column], list: characterList };
-      });
-      const masterObject = Object.values(copiedObject);
+        result.forEach((values) => {
+          let characterList = copiedObject[values.column].list;
+          characterList.push({ card: values.card, activity: values.activity, cardId: values.cardId, description: values.description });
+          copiedObject[values.column] = { ...copiedObject[values.column], list: characterList }
+        })
+        const masterObject = Object.values(copiedObject)
+
 
       if (masterObject[index].list[indexItem].description) {
         updateDescriptionForCard(masterObject[index].list[indexItem].description);
       }
-
       updateMasterCharacter(masterObject);
 
     } catch (err) {
@@ -157,15 +157,16 @@ const Column = ({ characters, updateDescriptionForCard, updateModalTitle, update
   const renderIt = () => {
     const loop = masterCharacter.map((info, index) => {
       return (
-        <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' >
+        <div key={index} className='scroll col-4 d-flex text-center flex-column justify-content-around w-100 select' draggable onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)}
+          onDrop={e => dropIt(e, info, index)}>
           <div className="d-flex align-items-end justify-content-around w-100">
             <h2 className="fontColor">{info.id}</h2>
             <h6 className="point fontColor" onClick={e => makeNewItem(e, info, index)}>add</h6>
           </div>
-          <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragStart={e => moveColumn(e, info, index)} onDrag={e => allowDrop(e)} onDragOver={e => allowDrop(e)} onDrop={e => dropIt(e, info, index)} >
+          <div className=" columnBackground w-100 columnCustom d-flex flex-column border border-dark" onDragOver={e => allowDrop(e)} >
             {info.list.map((values, indexItem) => {
               return (
-                <div key={indexItem} draggable onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
+                <div key={indexItem} onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
                   <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values.card} cardSequence={cardNumber}
                     columnNumber={index} masterCharacter={masterCharacter} cardName={cardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}

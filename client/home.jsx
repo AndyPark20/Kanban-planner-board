@@ -6,7 +6,6 @@ import Background from './component/library/backgroundOption';
 import ModalRevised from './component/modalListRevised';
 import ParseRoute from '../client/component/library/parse-route';
 import DeleteModal from './component/library/deleteModal';
-import DeleteActivity from './component/library/deleteActivity';
 
 const Home = () => {
   const [hamburger, hamburgerUpdate] = useState(false);
@@ -27,6 +26,7 @@ const Home = () => {
   // hide and unhide confirmation modal
   const [confirmationModal, updateConfirmationModal] = useState(true);
 
+
   // hide and unhide Activity delete confirmation modal
   const [confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal] = useState(true);
 
@@ -35,6 +35,7 @@ const Home = () => {
 
   // Existing Wallpaper Url
   const [existingWallPaperUrl, updateExistingWallPaperUrl] = useState(false);
+
 
   const characters = {
     Todo: {
@@ -57,6 +58,7 @@ const Home = () => {
       try {
         const data = await fetch('/api/retrieve');
         const result = await data.json();
+        
         if (result) {
           // make a copy of the masterCharacter (will also be updating object from other components)
           const copiedCharacterObject = Object.assign(characters);
@@ -65,9 +67,11 @@ const Home = () => {
             const characterList = copiedCharacterObject[values.column].list;
             characterList.push(values);
             copiedCharacterObject[values.column] = { ...copiedCharacterObject[values.column], list: characterList };
-          });
+          })
           // update MasterCharacter
+
           updateMasterCharacter(Object.values(copiedCharacterObject));
+
         }
 
       } catch (err) {
@@ -145,6 +149,7 @@ const Home = () => {
 
   };
 
+
   // For changing Background
   const userSearch = async (e, keyWord) => {
     try {
@@ -160,6 +165,12 @@ const Home = () => {
       console.error(err);
     }
 
+
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   };
 
   return (
@@ -175,6 +186,7 @@ const Home = () => {
           <Background status={modalStatus} searchValue={userSearch} pictures={wallpaper} modalUpdateParent={modalCancelFunction} userSelect={chosenWallpaper} />
         </div>
         <div>
+
           <ModalRevised updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} updateActivityIdDelete={updateActivityIdDelete}
             characters={characters} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal}
             updateDescriptionForCard={updateDescriptionForCard} descriptionForCard={descriptionForCard} updateModalTitle={updateModalTitle}
@@ -182,6 +194,7 @@ const Home = () => {
             modal={modal} updateModal={updateModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster}
             masterCharacter={masterCharacter} updateMasterCharacter={updateMasterCharacter}
             updateColumnComponent={updateColumnComponent} />
+
 
         </div>
         <div className="hamburgerStyle">
@@ -192,7 +205,6 @@ const Home = () => {
       <div>
         <DeleteModal characters={characters} updateModal={updateModal} updateRenderActivity={updateRenderActivity} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} confirmationModal={confirmationModal} updateConfirmationModal={updateConfirmationModal} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} />
       </div>
-      <DeleteActivity updateRenderActivity={updateRenderActivity} activityIdDelete={activityIdDelete} characters={characters} updateModal={updateModal} updateMasterCharacter={updateMasterCharacter} masterCharacter={masterCharacter} columnNumber={columnNumberMaster} cardNumber={cardNumberMaster} confirmationActivityDeleteModal={confirmationActivityDeleteModal} updateConfirmationActivityDeleteModal={updateConfirmationActivityDeleteModal} />
     </div>
   );
 };
