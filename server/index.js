@@ -42,7 +42,6 @@ app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
 app.post('/api/wallpaper', async (req, res, next) => {
   const wallpaperUrl = req.body[0];
   const existingWallPaperUrlStatus = req.body[1];
-  console.log(wallpaperUrl, existingWallPaperUrlStatus);
 
   // If existingWallPaperUrlStatus is false, then it means that there are no saved wallpaper Url, if so use Post method to update the db
   if (!existingWallPaperUrlStatus) {
@@ -79,8 +78,10 @@ app.get('/api/getWallpaper', async (req, res, next) => {
     const sql = `
   select *
   from "wallpapers"
+  where = $1
   `;
-    const result = await db.query(sql);
+    const params = [userIdNumber];
+    const result = await db.query(sql, params);
     res.status(201).json(result.rows);
   } catch (err) {
     console.error(err);

@@ -136,6 +136,9 @@ const Home = () => {
         body: JSON.stringify([selectedPicture, existingWallPaperUrl])
       });
       const result = await backgroundPost.json();
+
+      // when promise has beenn returned, update the userWallPaper state
+      userWallPaperUpdate(result.rows[0].url);
     } catch (err) {
       console.error(err);
     }
