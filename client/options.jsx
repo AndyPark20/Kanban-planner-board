@@ -23,7 +23,7 @@ export default class Navigation extends React.Component {
 
   render() {
     return (
-    <div >
+      <div >
         <i className={this.hideHamburg()}></i>
         <div className={this.revealSlider()}>
           <div className="row">
@@ -34,7 +34,7 @@ export default class Navigation extends React.Component {
             </div>
           </div>
         </div>
-    </div>
+      </div>
     );
   }
 

@@ -21,20 +21,73 @@ const db = new pg.Pool({
 // userId login
 let userIdNumber = null;
 
-app.get('/api/picture/:query/:orientation/:size', (req, res, next) => {
-  fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
-    }
-  })
-    .then(res => {
-      return res.json();
-    })
-    .then(data => {
-      res.status(201).json(data);
+
+// Fetch background images
+app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
+  try {
+    const background = await fetch(`https://api.pexels.com/v1/search?query=${req.params.query}&orientation=${req.params.orientation}&size=${req.params.size}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: '563492ad6f917000010000010af25f7c94cc48d29741c25d8bf6aa0f'
+      }
     });
+    const result = await background.json();
+    res.status(201).json(result);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+// Store selected background URL
+app.post('/api/wallpaper', async (req, res, next) => {
+  const wallpaperUrl = req.body[0];
+  const existingWallPaperUrlStatus = req.body[1];
+
+  // If existingWallPaperUrlStatus is false, then it means that there are no saved wallpaper Url, if so use Post method to update the db
+  if (!existingWallPaperUrlStatus) {
+    try {
+      const sql = `
+      insert into "wallpapers" ("userId","url")
+      values ($1,$2)
+      returning*
+      `;
+      const params = [userIdNumber, wallpaperUrl];
+      const updateWallPaperUrl = await db.query(sql, params);
+      res.status(201).json(updateWallPaperUrl);
+    } catch (err) {
+      console.error(err);
+    }
+    // IF existingWallPaperUrlStatus is TRUE, then it means that user previously saved wallpaper Url, if so use update to replace the existing URL
+  } else {
+    const sql = `
+    update "wallpapers"
+    set "url" =$1
+    where "userId" =$2
+    returning*
+    `;
+    const params = [wallpaperUrl, userIdNumber];
+    const replaceWallPaper = await db.query(sql, params);
+    res.status(201).json(replaceWallPaper);
+  }
+
+
+});
+
+// get Background url
+app.get('/api/getWallpaper', async (req, res, next) => {
+  try {
+    const sql = `
+  select *
+  from "wallpapers"
+  where "userId"= $1;
+  `;
+    const params = [userIdNumber];
+    const result = await db.query(sql, params);
+    res.status(201).json(result.rows);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 // POST method for sign up credentials
@@ -44,7 +97,6 @@ app.post('/api/signup', async (req, res, next) => {
   const username = req.body.userName;
   try {
     const hash = await argon2.hash(req.body.password);
-    console.log('hash',hash)
     const sql = `
   insert into "users"( "firstName", "lastName", "userName","password")
   values ($1,$2,$3, $4)
@@ -340,7 +392,6 @@ app.post('/api/editActivity', async (req, res, next) => {
 // Delete Activity
 app.delete('/api/deleteActivity/:cardId', async (req, res, next) => {
   const cardIdToDelete = parseInt(req.params.cardId);
-  console.log(cardIdToDelete);
   const sql = `
   delete from "record"
   where "activityId" =$1
@@ -350,8 +401,6 @@ app.delete('/api/deleteActivity/:cardId', async (req, res, next) => {
   const deleteActivity = await db.query(sql, params);
   res.status(201).json(deleteActivity);
 });
-
-
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
