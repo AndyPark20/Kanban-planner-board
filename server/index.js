@@ -44,6 +44,33 @@ app.post('/api/wallpaper', async (req, res, next) => {
   const existingWallPaperUrlStatus = req.body[1];
   console.log(wallpaperUrl, existingWallPaperUrlStatus);
 
+  // If existingWallPaperUrlStatus is false, then it means that there are no saved wallpaper Url, if so use Post method to update the db
+  if (!existingWallPaperUrlStatus) {
+    try {
+      const sql = `
+      insert into "wallpapers" ("userId","url")
+      values ($1,$2)
+      returning*
+      `;
+      const params = [userIdNumber, wallpaperUrl];
+      const updateWallPaperUrl = await db.query(sql, params);
+      res.status(201).json(updateWallPaperUrl);
+    } catch (err) {
+      console.error(err);
+    }
+    // IF existingWallPaperUrlStatus is TRUE, then it means that user previously saved wallpaper Url, if so use update to replace the existing URL
+  } else {
+    const sql = `
+    update "wallpapers"
+    set "url" =$1
+    where "userId" =$2
+    returning*
+    `;
+    const params = [wallpaperUrl, userIdNumber];
+    const replaceWallPaper = await db.query(sql, params);
+    res.status(201).json(replaceWallPaper);
+  }
+
 });
 
 // get Background url
