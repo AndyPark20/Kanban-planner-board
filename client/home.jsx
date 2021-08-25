@@ -127,22 +127,17 @@ const Home = () => {
   // Save selected wallpaper into the data base
   const chosenWallpaper = async index => {
     const selectedPicture = wallpaper[index].src.original;
-    // when user selects a picture AND there is not existing wallpaper (existingWallPaper is False)
-    if (!existingWallPaperUrl) {
-      try {
-        const backgroundPost = await fetch('/api/wallpaper', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify([selectedPicture])
-        });
-        const result = await backgroundPost.json();
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-
+    try {
+      const backgroundPost = await fetch('/api/wallpaper', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify([selectedPicture, existingWallPaperUrl])
+      });
+      const result = await backgroundPost.json();
+    } catch (err) {
+      console.error(err);
     }
 
   };
