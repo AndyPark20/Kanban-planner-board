@@ -78,7 +78,7 @@ app.get('/api/getWallpaper', async (req, res, next) => {
     const sql = `
   select *
   from "wallpapers"
-  where = $1
+  where "userId"= $1;
   `;
     const params = [userIdNumber];
     const result = await db.query(sql, params);
