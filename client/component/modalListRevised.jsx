@@ -1,9 +1,8 @@
+
 import React, { useEffect, useState } from 'react';
 import Activity from './activity';
 
-
 const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, characters, updateConfirmationModal, updateDescriptionForCard, descriptionForCard, modalTitle, updateModalTitle, updateRenderActivity, renderActivity, updateDescription, modal, columnNumber, cardNumber, masterCharacter, updateMasterCharacter, updateColumnComponent, updateModal }) => {
-
   const [values, updateValues] = useState('');
   const [finalValues, updateFinalValues] = useState('');
   const [modalClose, updateModalClose] = useState(false);
@@ -12,7 +11,6 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
   const [initialDescription, updateInitialDescription] = useState('');
   const [finalDescription, updateFinalDescription] = useState('');
   const [button, updateButton] = useState(false);
-
   // State for Activity Save button
   const [closeActivitySaveButton, updateCloseActivitySavebutton] = useState(false);
 
@@ -22,11 +20,9 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
   useEffect(() => {
     // Update Modal window state
     updateModalClose(modal);
-
   });
 
   useEffect(() => {
-
     updateFinalDescription(descriptionForCard);
   });
 
@@ -48,6 +44,11 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
     updateDescriptionStatus(true);
     // Close Edit title inside modal when user closes modal
     updateModalStatus(false);
+    // Close Activity textArea Save button and clear input when usser closes modal
+    updateCloseActivitySavebutton(false);
+
+    // Erase log activity input when user closes modal
+    updateUserLogActivty({ record: '' });
 
   }
 
@@ -83,7 +84,7 @@ const Modal = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, 
     updateValues(e.target.value);
     e.preventDefault();
   }
-  // test comment
+
   const clickUpdate = () => {
     updateValues(masterCharacter[columnNumber].list[cardNumber].card);
     updateModalStatus(true);
