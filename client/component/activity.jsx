@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import { render } from 'react-dom';
 
-
 const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelete, updateUserLogActivty, userLogActivity, updateCloseActivitySavebutton, closeActivitySaveButton, modalStatus, characters, renderActivity, updateMasterCharacter, masterCharacter, cardNumber, columnNumber }) => {
 
   const [userLog, updateUserLog] = useState({});
@@ -18,7 +17,6 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
   // store selected activity object that needs to be updated
   const [selectedActivityObject, updateSelectedActivityObject] = useState({});
 
-
   useEffect(() => {
     updateUserLog(userLogActivity);
     updateSaveButton(closeActivitySaveButton);
@@ -31,18 +29,17 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
   }, [userEdit]);
 
   const userActivity = e => {
+    updateCloseActivitySavebutton(true);
+    updateUserLogActivty(e.target.value);
     e.preventDefault();
     if (!userEdit) {
-      updateUserLog({ info: e.target.value, time: Date.now() });
+      updateUserLog({ record: e.target.value, time: Date.now() });
+      updateUserLogActivty({ record: e.target.value, time: Date.now() });
     } else {
-      masterCharacter[columnNumber].list[cardNumber].activity.splice(editIndexNumber, 1, { info: e.target.value, time: Date.now() });
-      updateUserLog({ info: e.target.value, time: Date.now() });
+      masterCharacter[columnNumber].list[cardNumber].activity.splice(editIndexNumber, 1, { record: e.target.value, time: Date.now() });
+      updateUserLog({ record: e.target.value, time: Date.now() });
+      updateUserLogActivty({ record: e.target.value, time: Date.now() });
 
-    }
-    if (e.target.value !== '') {
-      updateSaveButton(true);
-    } else {
-      updateSaveButton(false);
     }
   };
 
@@ -53,10 +50,21 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
     updateEditIndexNumber(index);
     updateValueLog(userLogSubmit[index]);
     updateCurrentIndex(index);
+    // Render Save and Cancel button
+    updateSaveButton(true);
+
+    // update Modal List revised component state for rendering buttons
+    updateCloseActivitySavebutton(true);
 
     // update user log
-    updateUserLog({ info: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
+    updateUserLog({ record: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
+    updateUserLogActivty({ record: masterCharacter[columnNumber].list[cardNumber].activity[index].record });
+  };
 
+  const deleteActivityLog = async activityId => {
+    // use Delete method to remove the activity in the backend
+    updateActivityIdDelete(activityId);
+    updateConfirmationActivityDeleteModal(false);
   };
 
   const renderLog = () => {
@@ -79,27 +87,42 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
   // When user clicks SAVE button next to Activity TextArea
   const userSave = async e => {
     e.preventDefault();
-    if (!userEdit && userLog.info) {
-      masterCharacter[columnNumber].list[cardNumber].activity = userLogSubmit.concat(userLog);
-      // Copy Array;
-      let copiedActivity;
-      copiedActivity = { cardName: masterCharacter[columnNumber].list[cardNumber].card, list: masterCharacter[columnNumber].id, cardNumber: cardNumber, activity: masterCharacter[columnNumber].list[cardNumber].activity };
+    if (!userEdit && userLog.record) {
+      const activityList = masterCharacter[columnNumber].list[cardNumber].activity;
+
+      // copy Mastercharacter
+      const copiedMastercharacter = masterCharacter.concat();
+      // If this is the first time writing an activity (activity === undefined)
+      if (!activityList) {
+        copiedMastercharacter[columnNumber].list[cardNumber].activity = [userLog];
+
+      } else {
+        copiedMastercharacter[columnNumber].list[cardNumber].activity.push(userLog);
+
+      }
+
+      // Properties toa dd from the selected values of MasterCharacter object
+      const cardId = copiedMastercharacter[columnNumber].list[cardNumber].cardId;
+      const cardName = copiedMastercharacter[columnNumber].list[cardNumber].card;
+      const list = copiedMastercharacter[columnNumber].id;
+      const activity = copiedMastercharacter[columnNumber].list[cardNumber].activity;
+
+      // Create an object that holds the updated activity log which will be sent to the backend for SQL update
+      const copiedActivity = {
+        cardId: cardId,
+        cardName: cardName,
+        list: list,
+        cardNumber: cardNumber,
+        activity: activity
+      };
+
       updateUserLogSubmit(masterCharacter[columnNumber].list[cardNumber].activity);
-      updateUserLog({ info: '' });
+      updateUserLog({ record: '' });
+      updateUserLogActivty({ record: e.target.value });
       updateUserEdit(false);
       updateRenderActivity(true);
+
       try {
-        const cardInfo = await fetch('/api/cardIdRetrieve');
-        const returnedPromisedCardInfo = await cardInfo.json();
-        const cardDataResult = returnedPromisedCardInfo.rows;
-        // loop thru CardDataResult and match card name, if it matches add cardId to the appropriate object
-        cardDataResult.forEach((resultValues, index) => {
-          if (resultValues.card === copiedActivity.cardName) {
-            copiedActivity.activity.forEach((activityValue, indexValue) => {
-              activityValue.mainCardId = resultValues.cardId;
-            });
-          }
-        });
         const activityPost = await fetch('/api/activity', {
           method: 'POST',
           headers: {
@@ -108,25 +131,22 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
           body: JSON.stringify(copiedActivity)
         });
         const result = await activityPost.json();
+        // once activity has been updated in the backend
         if (result) {
           try {
             const data = await fetch('/api/retrieve');
-            const result = await data.json();
-            // push it to characters array of objects.
-            const copiedObject = characters.concat();
-
-            // received Data from back end
-            const copiedObjectUpdate = result;
-            // Use map method to update the object into an array.
-            const updateObject = copiedObject.map(values => {
-              copiedObjectUpdate.forEach(copyValues => {
-                if (values.id === copyValues.column) {
-                  values.list.push({ card: copyValues.card, activity: copyValues.activity });
-                }
-              });
-              return values;
+            const resultsWithUpdatedActivity = await data.json();
+            // Make a copy of the masterCharacter
+            const copiedMastercharacter = Object.assign(characters);
+            resultsWithUpdatedActivity.forEach(values => {
+              console.log(values);
+              const characterList = copiedMastercharacter[values.column].list;
+              characterList.push(values);
+              copiedMastercharacter[values.column] = { ...copiedMastercharacter[values.column], list: characterList };
             });
-            updateMasterCharacter(updateObject);
+            updateMasterCharacter(Object.values(copiedMastercharacter));
+            updateSaveButton(false);
+            updateCloseActivitySavebutton(false);
           } catch (err) {
             console.error(err);
           }
@@ -137,6 +157,8 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
       }
       // For editing Existing Activity
     } else {
+      updateUserLog({ record: '' });
+      updateUserLogActivty({ record: e.target.value });
       updateUserLogSubmit(userLogSubmit);
       updateUserEdit(false);
       const updatedActivity = masterCharacter[columnNumber].list[cardNumber].activity[currentIndex];
@@ -157,19 +179,17 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
             const data = await fetch('/api/retrieve');
             const result = await data.json();
             // push it to characters array of objects.
-            const copiedObject = characters.concat();
-            // received Data from back end
-            const copiedObjectUpdate = result;
-            // Use map method to update the object into an array.
-            const updateObject = copiedObject.map(values => {
-              copiedObjectUpdate.forEach(copyValues => {
-                if (values.id === copyValues.column) {
-                  values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
-                }
-              });
-              return values;
+            const copiedObject = Object.assign(characters);
+
+            // Use hashMap to push values into the correct properties in the copiedObject
+            result.forEach(values => {
+              const characterList = copiedObject[values.column].list;
+              characterList.push(values);
+              copiedObject[values.column] = { ...copiedObject[values.column], list: characterList };
             });
-            updateMasterCharacter(updateObject);
+
+            updateMasterCharacter(Object.values(copiedObject));
+            updateSaveButton(false);
           } catch (err) {
             console.error(err);
           }
@@ -184,49 +204,30 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
   const editActivityCancel = async () => {
     updateUserEdit(false);
     updateSaveButton(false);
-    updateUserLog({ info: '' });
+    updateUserLog({ record: '' });
+    updateUserLogActivty({ record: '' });
+    updateCloseActivitySavebutton(false);
 
     // call backend to update masterCharacter
     try {
       const data = await fetch('/api/retrieve');
       const result = await data.json();
-      // push it to characters array of objects.
-      const copiedObject = characters.concat();
-      // received Data from back end
-      const copiedObjectUpdate = result;
-      // Use map method to update the object into an array.
-      const updateObject = copiedObject.map(values => {
-        copiedObjectUpdate.forEach(copyValues => {
-          if (values.id === copyValues.column) {
-            values.list.push({ card: copyValues.card, activity: copyValues.activity, cardId: copyValues.cardId, description: copyValues.description });
-          }
-        });
-        return values;
+
+      // Copy a clone of characters object
+      const copiedCharacterObject = Object.assign(characters);
+      // When result promise has been returned, insert the result values to the appropriate values in the character object.
+      result.forEach(values => {
+        const characterList = copiedCharacterObject[values.column].list;
+        characterList.push(values);
+        copiedCharacterObject[values.column] = { ...copiedCharacterObject[values.column], list: characterList };
       });
-      updateMasterCharacter(updateObject);
+      // update MasterCharacter
+      updateMasterCharacter(Object.values(copiedCharacterObject));
     } catch (err) {
       console.error(err);
     }
   };
 
-  // Save user Text on Activity
-  const renderInputText = () => {
-    updateUserLog({ info: '' });
-  };
-
-  const saveButtonRender = () => {
-    if (saveButton) {
-      return 'btn btn-success mt-2 ml-2';
-    }
-    return 'hidden';
-  };
-
-  const cancelButtonRender = () => {
-    if (saveButton) {
-      return 'btn btn-danger mt-2 ml-2';
-    }
-    return 'hidden';
-  };
   return (
     <div>
       <div className="d-flex align-items-center pl-2">
@@ -234,9 +235,9 @@ const Activity = ({ updateConfirmationActivityDeleteModal, updateActivityIdDelet
         <h3 className="pl-2">Activity</h3>
       </div>
       <form onChange={e => userActivity(e)} className="d-flex" required>
-        <textarea className="form-control w-75" rows="1" value={userLog.info} required onChange={renderInputText}></textarea>
-        <button type="submit" className={saveButtonRender()} onClick={e => userSave(e)}>Save</button>
-        <button type="button" className={cancelButtonRender()} onClick={editActivityCancel}>Cancel</button>
+        <textarea className="form-control w-75" rows="1" value={userLog.record} required></textarea>
+        <button type="submit" className={saveButton ? 'btn btn-success mt-2 ml-2' : 'hidden'} onClick={e => userSave(e)}>Save</button>
+        <button type="button" className={saveButton ? 'btn btn-danger mt-2 ml-2' : 'hidden'} onClick={editActivityCancel}>Cancel</button>
       </form>
       <div className="pl-4">
         {renderLog()}
