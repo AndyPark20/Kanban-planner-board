@@ -136,6 +136,8 @@ const Column = ({ characters, updateDescriptionForCard, updateModalTitle, update
 
       if (masterObject[index].list[indexItem].description) {
         updateDescriptionForCard(masterObject[index].list[indexItem].description);
+      } else {
+        updateDescriptionForCard('');
       }
 
       updateMasterCharacter(masterObject);
