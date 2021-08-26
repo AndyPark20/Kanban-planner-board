@@ -92,13 +92,18 @@ const signUp = () => {
           body: JSON.stringify(userInfo)
         });
       } catch (err) {
-        console.log('ERR' + err);
+        console.error('ERR' + err);
       }
     } else if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password !== userInfo.confirmPassword)) {
       updateTitleStatus(true);
       updateStatusCheck('Password and confirm-password doesn\'t Match!');
     }
 
+  };
+
+  // When user Clicks Cancel
+  const homePage = () => {
+    location.hash = '';
   };
 
   const status = () => {
@@ -141,7 +146,7 @@ const signUp = () => {
             <label htmlFor="confirmPassword" className={confirmPasswordStatus ? redFont() : 'mt-2'}>{confirmPassword}</label>
             <input name="confirmPassword" type="password" className={confirmPasswordStatus ? redBox() : ''} value={userInfo.confirmPassword} onChange={handleChange}></input>
             <div className="mt-2 d-flex justify-content-end custom-margin">
-              <button name="lastname" type="submit" className="btn btn-danger mr-2" >Cancel</button>
+              <button name="lastname" type="submit" className="btn btn-danger mr-2" onClick={homePage}>Cancel</button>
               <button name="lastname" type="submit" className="btn btn-success" onClick={submitForm}>Submit</button>
             </div>
           </form>
