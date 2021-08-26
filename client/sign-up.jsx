@@ -82,6 +82,10 @@ const signUp = () => {
       updateConfirmPasswordStatus(true);
     }
 
+    const reloadHomePage = () => {
+      location.hash = '';
+    };
+
     if (userInfo.firstname && userInfo.lastname && userInfo.userName && (userInfo.password === userInfo.confirmPassword)) {
       try {
         const sendSignUp = await fetch('/api/signup', {
@@ -91,6 +95,12 @@ const signUp = () => {
           },
           body: JSON.stringify(userInfo)
         });
+        if (sendSignUp) {
+          updateStatusCheck('Sign-up Success! Re-directing to Homepage!');
+
+          setTimeout(reloadHomePage, 3000);
+
+        }
       } catch (err) {
         console.error('ERR' + err);
       }
