@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const DeleteModal = ({ characters, updateModal, updateRenderActivity, updateMasterCharacter, masterCharacter, updateConfirmationModal, confirmationModal, columnNumber, cardNumber }) => {
+const DeleteActivity = ({ updateRenderActivity, activityIdDelete, confirmationActivityDeleteModal, updateConfirmationActivityDeleteModal, characters, updateModal, updateMasterCharacter, masterCharacter, columnNumber, cardNumber }) => {
 
   // delete card by calling backend
   const deleteCard = async () => {
-    const selectedCardId = masterCharacter[columnNumber].list[cardNumber].cardId;
-    const deleteCard = await fetch(`/api/delete/${selectedCardId}`, {
+    console.log(activityIdDelete);
+    const deleteActivity = await fetch(`/api/deleteActivity/${activityIdDelete}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'
       }
     });
-    const result = await deleteCard.json();
+    const result = await deleteActivity.json();
     // if delete card is a sucess re-render master character object
     if (result) {
       // Close modal window for the card content
-      updateModal(false);
       updateRenderActivity(false);
-      updateConfirmationModal(true);
+      updateConfirmationActivityDeleteModal(true);
       const retrieveData = async () => {
         try {
           const data = await fetch('/api/retrieve');
@@ -33,6 +32,7 @@ const DeleteModal = ({ characters, updateModal, updateRenderActivity, updateMast
           }
 
           updateMasterCharacter(Object.values(characters));
+          updateRenderActivity(true);
         } catch (err) {
           console.error(err);
         }
@@ -42,24 +42,15 @@ const DeleteModal = ({ characters, updateModal, updateRenderActivity, updateMast
     }
   };
 
-  // function for ClassName to hide and unhide the confirmation modal
-  const hideConfirmationModal = () => {
-    if (confirmationModal) {
-      return 'deleteModal hidden';
-    } else {
-      return 'deleteModal';
-    }
-  };
-
   return (
-    <div className={confirmationModal ? 'deleteModal hidden' : 'deleteModal'}>
-      <h3 className="deleteTitle">Are you Sure you want to delete this card?</h3>
+    <div className={confirmationActivityDeleteModal ? 'deleteModal hidden' : 'deleteModal'}>
+      <h3 className="deleteTitle">Are you Sure you want to delete this Activity?</h3>
       <div className="button-layout">
         <button type="click" className="btn btn-danger danger" onClick={deleteCard}>Yes</button>
-        <button type="click" className="btn btn-warning warning" onClick={() => updateConfirmationModal(true)}>No</button>
+        <button type="click" className="btn btn-warning warning" onClick={() => updateConfirmationActivityDeleteModal(true)}>No</button>
       </div>
     </div>
   );
 };
 
-export default DeleteModal;
+export default DeleteActivity;
