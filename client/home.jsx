@@ -172,7 +172,7 @@ const Home = () => {
         });
     }
   };
-
+  // Shouldn't be any .catch
   return (
     <div style={{
       backgroundImage: `url(${userWallpaper}?auto=compress&cs=tinysrgb&fit=crop&h=1080&w=1920)`,
