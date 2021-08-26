@@ -21,7 +21,6 @@ const db = new pg.Pool({
 // userId login
 let userIdNumber = null;
 
-
 // Fetch background images
 app.get('/api/picture/:query/:orientation/:size', async (req, res, next) => {
   try {
@@ -70,7 +69,6 @@ app.post('/api/wallpaper', async (req, res, next) => {
     const replaceWallPaper = await db.query(sql, params);
     res.status(201).json(replaceWallPaper);
   }
-
 
 });
 
@@ -252,7 +250,6 @@ app.post('/api/update', async (req, res, next) => {
     `;
     const params = [name, id];
     const result = await db.query(sql, params);
-    console.log('result', result.rows);
     res.status(201).send(result);
   } catch (err) {
     console.error(err);
@@ -261,11 +258,9 @@ app.post('/api/update', async (req, res, next) => {
 
 // activity Update
 app.post('/api/activity', async (req, res, next) => {
-  const inputData = req.body;
-  const cardName = req.body.list;
+  const cardId = req.body.cardId;
   const cardColumnId = req.body.cardNumber;
   let time = '';
-  let mainCardId = null;
   let activityValue = '';
   const sql = `
   insert into "record" ("cardId","columnId","record","time")
@@ -274,12 +269,11 @@ app.post('/api/activity', async (req, res, next) => {
   `;
   try {
     // loop thru body property of the req object to retrieve values from activity
-    inputData.activity.forEach((values, index) => {
-      activityValue = values.info;
+    req.body.activity.forEach((values, index) => {
+      activityValue = values.record;
       time = values.time;
-      mainCardId = values.mainCardId;
     });
-    const params = [mainCardId, cardColumnId, activityValue, time];
+    const params = [cardId, cardColumnId, activityValue, time];
     const result = await db.query(sql, params);
     res.status(201).send(result);
   } catch (err) {
@@ -292,8 +286,6 @@ app.post('/api/activity', async (req, res, next) => {
 app.post('/api/description', async (req, res, next) => {
   const cardId = req.body[0];
   const description = req.body[1];
-  console.log('CARDID', cardId);
-  console.log('DESCRIPTION', description);
   try {
     const sql = `
     insert into "description" ("cardId","description")
@@ -321,7 +313,6 @@ app.post('/api/cardMove', async (req, res, next) => {
 
   const params = [columnName, cardName];
   const result = await db.query(sql, params);
-  console.log('result', result);
   res.status(201).json(result);
 
 });
@@ -367,13 +358,11 @@ app.delete('/api/delete/:cardId', async (req, res, next) => {
 
 // Edit Activity
 app.post('/api/editActivity', async (req, res, next) => {
-  console.log(req.body);
   // retrieve to be updated info (activityId, updatedInfo, time)
   const activityCardId = req.body[1].activityId;
-  const editActivityDetails = req.body[0].info;
+  const editActivityDetails = req.body[0].record;
   const editActivityTime = req.body[0].time;
 
-  console.log(activityCardId, editActivityDetails, editActivityTime);
   try {
     const sql = `
   update "record"
