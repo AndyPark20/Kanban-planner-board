@@ -31,6 +31,19 @@ const App = () => {
         },
         body: JSON.stringify({ token: parsedToken })
       });
+
+      const result = await backendTokenVerify.json();
+
+      // if result is authorzed, then change location hash to Home
+      if (result === 'Authorized!') {
+        location.hash = 'Home';
+        updateCurrentUrl('Home');
+      }
+      if (result === 'crediential error') {
+        location.hash = '';
+        updateCurrentUrl('');
+      }
+
     };
     verifyToken();
   }, []);

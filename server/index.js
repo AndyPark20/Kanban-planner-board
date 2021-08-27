@@ -146,9 +146,17 @@ app.post('/api/logIn', async (req, res, next) => {
   }
 });
 
-// VERIFY TOKEN
+// // VERIFY TOKEN
 app.post('/api/verifyToken', async (req, res, next) => {
-  console.log(req.body);
+  try {
+    const result = jwt.verify(req.body.token, process.env.TOKEN_SECRET);
+    if (result) {
+      res.status(201).json('Authorized!');
+    }
+  } catch (err) {
+    res.status(401).json('crediential error');
+  }
+
 });
 
 // POST METHOD for adding card
