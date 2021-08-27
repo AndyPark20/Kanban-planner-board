@@ -17,22 +17,22 @@ const App = () => {
   });
 
   useEffect(() => {
-    // get token
+    // get token from localstorage drive
+    const token = localStorage.getItem('token');
+    const parsedToken = JSON.parse(token);
 
-    const parsedToken = localStorage.getItem('token');
-    console.log(parsedToken);
-    // console.log(parsedToken);
-    // const verifyToken = async () => {
+    // send a post method to verify token
+    const verifyToken = async () => {
 
-    //   const backendTokenVerify = await fetch('/api/verifyToken', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify({})
-
-    //   });
-    // };
+      const backendTokenVerify = await fetch('/api/verifyToken', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ token: parsedToken })
+      });
+    };
+    verifyToken();
   }, []);
 
   const renderPage = () => {

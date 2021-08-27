@@ -34,7 +34,8 @@ const HomeEntry = () => {
         // another promise
         const response = await result.json();
         if (response) {
-          localStorage.setItem('token', response.token);
+
+          localStorage.setItem('token', JSON.stringify(response.token));
           location.hash = 'Home';
         }
       } catch (err) {

@@ -144,12 +144,13 @@ app.post('/api/logIn', async (req, res, next) => {
   } catch (err) {
     console.error('ERR' + err);
   }
-
-  app.get('/api/verifyToken', async (req, res, next) => {
-    console.log(req.body);
-  });
-
 });
+
+// VERIFY TOKEN
+app.post('/api/verifyToken', async (req, res, next) => {
+  console.log(req.body);
+});
+
 // POST METHOD for adding card
 app.post('/api/addCard', async (req, res, next) => {
   const cardColumnName = req.body[0];
