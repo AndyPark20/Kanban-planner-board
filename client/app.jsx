@@ -16,6 +16,7 @@ const App = () => {
   });
 
   const renderPage = () => {
+    const token = localStorage.getItem('token');
     if (currentUrl === 'Home') {
       return <Home />;
     }

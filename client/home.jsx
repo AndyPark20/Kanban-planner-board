@@ -53,6 +53,11 @@ const Home = () => {
 
   // Retrieve card and info data when user signs in
   useEffect(() => {
+
+    // First Check if the user is kept logged in
+    const token = localStorage.getItem('token');
+    console.log('hello');
+
     const retrieveData = async () => {
       try {
         const data = await fetch('/api/retrieve');

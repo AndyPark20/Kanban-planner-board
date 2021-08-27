@@ -7,6 +7,7 @@ const json = express.json();
 const argon2 = require('argon2');
 const pg = require('pg');
 const app = express();
+const jwt = require('jsonwebtoken');
 
 app.use(json);
 app.use(cors());
@@ -131,7 +132,10 @@ app.post('/api/logIn', async (req, res, next) => {
       const checkPassword = result.rows[0].password;
       const argon2Verify = await argon2.verify(checkPassword, password);
       if (argon2Verify) {
-        res.status(201).json('Welcome!');
+        // Serialize the user once there is a matching password
+        const token = jwt.sign(username, process.env.TOKEN_SECRET);
+        console.log(token);
+        res.status(201).json({ auth: 'Welcome', token: token });
       } else {
         res.status(404).json('Password Invalid X_x');
       }
@@ -141,6 +145,10 @@ app.post('/api/logIn', async (req, res, next) => {
   } catch (err) {
     console.error('ERR' + err);
   }
+
+  app.get('/api/verifyToken', async (req, res, next) => {
+    console.log(req.body);
+  });
 
 });
 // POST METHOD for adding card

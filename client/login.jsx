@@ -2,13 +2,16 @@
 import React, { useState, useEffect } from 'react';
 
 const HomeEntry = () => {
-
   const [userName, updateUserName] = useState('');
   const [passWord, updatePassWord] = useState('');
   const [erroruserNameLogin, updateuserNameLogIn] = useState('Username:');
   const [errorPassword, updateErrorPassword] = useState('Password:');
   const [errorStatus, updateErrorStatus] = useState(false);
   const [passwordError, updatePasswordError] = useState(false);
+
+  useEffect(() => {
+    console.log('hello');
+  });
 
   const logIn = async e => {
     const credentials = { username: userName, password: passWord };
@@ -34,7 +37,8 @@ const HomeEntry = () => {
         });
         // another promise
         const response = await result.json();
-        if (response === 'Welcome!') {
+        if (response) {
+          localStorage.setItem('token', response.token);
           location.hash = 'Home';
         }
       } catch (err) {
