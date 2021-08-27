@@ -6,6 +6,7 @@ import SignUp from './sign-up';
 
 const App = () => {
   const [currentUrl, updateCurrentUrl] = useState('');
+  const [token, updateToken] = useState('');
 
   useEffect(() => {
     window.addEventListener('hashchange', () => {
@@ -15,14 +16,32 @@ const App = () => {
     });
   });
 
+  useEffect(() => {
+    // get token
+
+    const parsedToken = localStorage.getItem('token');
+    console.log(parsedToken);
+    // console.log(parsedToken);
+    // const verifyToken = async () => {
+
+    //   const backendTokenVerify = await fetch('/api/verifyToken', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify({})
+
+    //   });
+    // };
+  }, []);
+
   const renderPage = () => {
-    const token = localStorage.getItem('token');
     if (currentUrl === 'Home') {
       return <Home />;
     }
     if (currentUrl === '') {
       // return <Home />;
-      return <LogIn />;
+      return <LogIn/>;
     }
     if (currentUrl === 'signup') {
       return <SignUp />;

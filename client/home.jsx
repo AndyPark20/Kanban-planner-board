@@ -56,7 +56,6 @@ const Home = () => {
 
     // First Check if the user is kept logged in
     const token = localStorage.getItem('token');
-    console.log('hello');
 
     const retrieveData = async () => {
       try {

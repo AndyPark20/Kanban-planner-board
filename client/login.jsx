@@ -9,10 +9,6 @@ const HomeEntry = () => {
   const [errorStatus, updateErrorStatus] = useState(false);
   const [passwordError, updatePasswordError] = useState(false);
 
-  useEffect(() => {
-    console.log('hello');
-  });
-
   const logIn = async e => {
     const credentials = { username: userName, password: passWord };
     if (!userName && passWord) {

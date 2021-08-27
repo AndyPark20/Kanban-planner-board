@@ -134,7 +134,6 @@ app.post('/api/logIn', async (req, res, next) => {
       if (argon2Verify) {
         // Serialize the user once there is a matching password
         const token = jwt.sign(username, process.env.TOKEN_SECRET);
-        console.log(token);
         res.status(201).json({ auth: 'Welcome', token: token });
       } else {
         res.status(404).json('Password Invalid X_x');
