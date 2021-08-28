@@ -189,7 +189,7 @@ const Home = ({ updateLogout }) => {
 
         </div>
         <div className="hamburgerStyle">
-          <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} updateLogout={updateLogout}/>
+          <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} updateLogout={updateLogout} />
         </div>
         <Column characters={characters} updateDescriptionForCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
       </div>

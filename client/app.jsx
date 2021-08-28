@@ -9,15 +9,12 @@ const App = () => {
   const [logout, updateLogout] = useState(null);
 
   useEffect(() => {
+
     window.addEventListener('hashchange', () => {
       const changedHash = window.location.hash;
       const parsed = ParseRoute(changedHash);
       updateCurrentUrl(parsed.path);
     });
-    if (logout) {
-      localStorage.removeItem('token');
-      location.hash = '#';
-    }
   });
 
   useEffect(() => {
@@ -58,7 +55,7 @@ const App = () => {
     }
     if (currentUrl === '') {
       // return <Home />;
-      return <LogIn/>;
+      return <LogIn logout={logout}/>;
     }
     if (currentUrl === 'signup') {
       return <SignUp />;

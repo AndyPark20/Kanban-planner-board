@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-const HomeEntry = () => {
+const HomeEntry = ({ logout }) => {
   const [userName, updateUserName] = useState('');
   const [passWord, updatePassWord] = useState('');
   const [erroruserNameLogin, updateuserNameLogIn] = useState('Username:');
@@ -104,16 +104,19 @@ const HomeEntry = () => {
       <div className="row d-flex flex-column justify-content-center">
         <div className="type-column d-flex flex-column ">
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
-            <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
-            <div className="pt-2">
-              <label htmlFor="password" className={errorPassWordRed()}>{errorPassword}</label>
-              <input name="password" className={errorPassWordBorder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
-            </div>
-            <div className="text-right mt-5">
-              <button type="button" className="btn btn-primary mr-2" onClick={signUp}>sign-up</button>
-              <button type="submit" className="btn btn-success margin" onClick={e => logIn(e)}>Submit</button>
-            </div>
+
+              <p className="login-status">Hello</p>
+              <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
+              <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
+              <div className="pt-2">
+                <label htmlFor="password" className={errorPassWordRed()}>{errorPassword}</label>
+                <input name="password" className={errorPassWordBorder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
+              </div>
+              <div className="text-right mt-5">
+                <button type="button" className="btn btn-primary mr-2" onClick={signUp}>sign-up</button>
+                <button type="submit" className="btn btn-success margin" onClick={e => logIn(e)}>Submit</button>
+              </div>
+
           </form>
         </div>
       </div>

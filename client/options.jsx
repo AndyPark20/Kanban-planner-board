@@ -12,6 +12,7 @@ export default class Navigation extends React.Component {
   logout() {
     localStorage.removeItem('token');
     location.hash = '#';
+    this.props.updateLogout(true);
   }
 
   revealSlider() {
