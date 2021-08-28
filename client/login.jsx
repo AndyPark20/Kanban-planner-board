@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { render } from 'react-dom';
 
 const HomeEntry = ({ logout }) => {
   const [userName, updateUserName] = useState('');
@@ -99,13 +100,20 @@ const HomeEntry = ({ logout }) => {
     location.hash = 'signup';
   };
 
+  // render logout status
+  const renderStatus = () => {
+    if (logout) {
+      return 'Successfully Logged Out!';
+    }
+  };
+
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
         <div className="type-column d-flex flex-column ">
           <form onSubmit={handleSubmit}>
 
-              <p className="login-status">Hello</p>
+              <p className="login-status">{renderStatus()}</p>
               <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
               <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
               <div className="pt-2">
