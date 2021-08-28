@@ -6,7 +6,7 @@ import SignUp from './sign-up';
 
 const App = () => {
   const [currentUrl, updateCurrentUrl] = useState('');
-  const [token, updateToken] = useState('');
+  const [logout, updateLogout] = useState(null);
 
   useEffect(() => {
     window.addEventListener('hashchange', () => {
@@ -14,6 +14,10 @@ const App = () => {
       const parsed = ParseRoute(changedHash);
       updateCurrentUrl(parsed.path);
     });
+    if (logout) {
+      localStorage.removeItem('token');
+      location.hash = '#';
+    }
   });
 
   useEffect(() => {
@@ -50,7 +54,7 @@ const App = () => {
 
   const renderPage = () => {
     if (currentUrl === 'Home') {
-      return <Home />;
+      return <Home updateLogout={updateLogout}/>;
     }
     if (currentUrl === '') {
       // return <Home />;
