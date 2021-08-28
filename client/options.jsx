@@ -28,7 +28,8 @@ export default class Navigation extends React.Component {
         <div className={this.revealSlider()}>
           <div className="row">
             <div className="columnHamburger ">
-              <ul>
+              <ul className="text-left">
+                <li><h6 className="check" onClick={() => console.log('hello')}>Logout</h6></li>
                 <li><h6 className="check" onClick={() => this.props.modalUpdate()}>Change wallpaper</h6></li>
               </ul>
             </div>
