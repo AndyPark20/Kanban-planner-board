@@ -1,17 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
+import { render } from 'react-dom';
 
-const HomeEntry = () => {
+const HomeEntry = ({ logout }) => {
   const [userName, updateUserName] = useState('');
   const [passWord, updatePassWord] = useState('');
   const [erroruserNameLogin, updateuserNameLogIn] = useState('Username:');
   const [errorPassword, updateErrorPassword] = useState('Password:');
   const [errorStatus, updateErrorStatus] = useState(false);
   const [passwordError, updatePasswordError] = useState(false);
-
-  useEffect(() => {
-    console.log('hello');
-  });
 
   const logIn = async e => {
     const credentials = { username: userName, password: passWord };
@@ -38,7 +35,7 @@ const HomeEntry = () => {
         // another promise
         const response = await result.json();
         if (response) {
-          localStorage.setItem('token', response.token);
+          localStorage.setItem('token', JSON.stringify(response.token));
           location.hash = 'Home';
         }
       } catch (err) {
@@ -103,21 +100,31 @@ const HomeEntry = () => {
     location.hash = 'signup';
   };
 
+  // render logout status
+  const renderStatus = () => {
+    if (logout) {
+      return 'Successfully Logged Out!';
+    }
+  };
+
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
         <div className="type-column d-flex flex-column ">
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
-            <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
-            <div className="pt-2">
-              <label htmlFor="password" className={errorPassWordRed()}>{errorPassword}</label>
-              <input name="password" className={errorPassWordBorder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
-            </div>
-            <div className="text-right mt-5">
-              <button type="button" className="btn btn-primary mr-2" onClick={signUp}>sign-up</button>
-              <button type="submit" className="btn btn-success margin" onClick={e => logIn(e)}>Submit</button>
-            </div>
+
+              <p className="login-status">{renderStatus()}</p>
+              <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
+              <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
+              <div className="pt-2">
+                <label htmlFor="password" className={errorPassWordRed()}>{errorPassword}</label>
+                <input name="password" className={errorPassWordBorder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
+              </div>
+              <div className="text-right mt-5">
+                <button type="button" className="btn btn-primary mr-2" onClick={signUp}>sign-up</button>
+                <button type="submit" className="btn btn-success margin" onClick={e => logIn(e)}>Submit</button>
+              </div>
+
           </form>
         </div>
       </div>

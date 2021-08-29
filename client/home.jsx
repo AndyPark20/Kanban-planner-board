@@ -8,7 +8,7 @@ import ParseRoute from '../client/component/library/parse-route';
 import DeleteModal from './component/library/deleteModal';
 import DeleteActivity from './component/library/deleteActivity';
 
-const Home = () => {
+const Home = ({ updateLogout }) => {
   const [hamburger, hamburgerUpdate] = useState(false);
   const [naviOption, naviOptionUpdate] = useState('');
   const [modalStatus, modalStatusUpdate] = useState(false);
@@ -56,7 +56,6 @@ const Home = () => {
 
     // First Check if the user is kept logged in
     const token = localStorage.getItem('token');
-    console.log('hello');
 
     const retrieveData = async () => {
       try {
@@ -190,7 +189,7 @@ const Home = () => {
 
         </div>
         <div className="hamburgerStyle">
-          <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} />
+          <Navigation values={hamburger} class={naviOption} modalUpdate={modalChange} updateLogout={updateLogout} />
         </div>
         <Column characters={characters} updateDescriptionForCard={updateDescriptionForCard} updateModalTitle={updateModalTitle} updateRenderActivity={updateRenderActivity} description={description} initialCharacter={characters} masterCharacter={masterCharacter} updateColumnComponent={updateColumnComponent} columnUpdate={columnUpdate} updateModal={updateModal} updateCardNumberMaster={updateCardNumberMaster} updateColumnNumberMaster={updateColumnNumberMaster} updateMasterCharacter={updateMasterCharacter} updatedCharacter={masterCharacter} />
       </div>

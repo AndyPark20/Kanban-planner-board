@@ -6,8 +6,10 @@ import SignUp from './sign-up';
 
 const App = () => {
   const [currentUrl, updateCurrentUrl] = useState('');
+  const [logout, updateLogout] = useState(null);
 
   useEffect(() => {
+
     window.addEventListener('hashchange', () => {
       const changedHash = window.location.hash;
       const parsed = ParseRoute(changedHash);
@@ -15,14 +17,45 @@ const App = () => {
     });
   });
 
-  const renderPage = () => {
+  useEffect(() => {
+    // get token from localstorage drive
     const token = localStorage.getItem('token');
+    const parsedToken = JSON.parse(token);
+
+    // send a post method to verify token
+    const verifyToken = async () => {
+
+      const backendTokenVerify = await fetch('/api/verifyToken', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ token: parsedToken })
+      });
+
+      const result = await backendTokenVerify.json();
+
+      // if result is authorzed, then change location hash to Home
+      if (result === 'Authorized!') {
+        location.hash = 'Home';
+        updateCurrentUrl('Home');
+      }
+      if (result === 'crediential error') {
+        location.hash = '';
+        updateCurrentUrl('');
+      }
+
+    };
+    verifyToken();
+  }, []);
+
+  const renderPage = () => {
     if (currentUrl === 'Home') {
-      return <Home />;
+      return <Home updateLogout={updateLogout}/>;
     }
     if (currentUrl === '') {
       // return <Home />;
-      return <LogIn />;
+      return <LogIn logout={logout}/>;
     }
     if (currentUrl === 'signup') {
       return <SignUp />;

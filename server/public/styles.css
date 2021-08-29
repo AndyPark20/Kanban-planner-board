@@ -111,7 +111,8 @@ ul{
 }
 
 .check{
-  text-align: center;
+  text-align: left;
+  font-size:1.2rem;
 }
 
 .hidden{
@@ -263,4 +264,10 @@ input:focus{
 .danger, .warning{
   padding:1% 3%;
 }
+
+.login-status{
+  margin-left:39%;
+  font: size 21px;;
+  color:red;
+  font-weight:bold;
 }

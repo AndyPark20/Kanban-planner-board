@@ -4,7 +4,6 @@ const DeleteActivity = ({ updateRenderActivity, activityIdDelete, confirmationAc
 
   // delete card by calling backend
   const deleteCard = async () => {
-    console.log(activityIdDelete);
     const deleteActivity = await fetch(`/api/deleteActivity/${activityIdDelete}`, {
       method: 'DELETE',
       headers: {
@@ -14,7 +13,7 @@ const DeleteActivity = ({ updateRenderActivity, activityIdDelete, confirmationAc
     const result = await deleteActivity.json();
     // if delete card is a sucess re-render master character object
     if (result) {
-      // Close modal window for the card content
+    // Close modal window for the card content
       updateRenderActivity(false);
       updateConfirmationActivityDeleteModal(true);
       const retrieveData = async () => {
@@ -23,7 +22,7 @@ const DeleteActivity = ({ updateRenderActivity, activityIdDelete, confirmationAc
           const result = await data.json();
           // Add the results into characters object
           if (result) {
-            // loop thru the returned result
+          // loop thru the returned result
             result.forEach(values => {
               const charactersList = characters[values.column].list;
               charactersList.push(values);
