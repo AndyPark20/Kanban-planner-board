@@ -20,7 +20,7 @@ const App = () => {
   useEffect(() => {
     // get token from localstorage drive
     const token = localStorage.getItem('token');
-    const parsedToken = JSON.parse(token);
+    // const parsedToken = JSON.parse(token);
 
     // send a post method to verify token
     const verifyToken = async () => {
@@ -30,7 +30,7 @@ const App = () => {
         headers: {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify({ token: parsedToken })
+        body: JSON.stringify({ token: token })
       });
 
       const result = await backendTokenVerify.json();
