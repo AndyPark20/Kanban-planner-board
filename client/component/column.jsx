@@ -11,6 +11,9 @@ const Column = ({ characters, updateDescriptionForCard, updateModalTitle, update
   const [selectedCard, updatedSelectedCard] = useState('');
   const [destination, updateDestination] = useState(null);
 
+  // Allow users to only add new card if the previous card name has been added
+  const [makeNewCard, updateMakeNewCard] = useState(true);
+
   useEffect(() => {
     updateTitleBoolean(false);
   }, [titleBoolean]);
@@ -89,9 +92,11 @@ const Column = ({ characters, updateDescriptionForCard, updateModalTitle, update
   };
 
   const makeNewItem = async (e, info, index) => {
-    masterCharacter[index].list.push({ name: '' });
-    const addedCardObject = masterCharacter.concat();
-    updateMasterCharacter(addedCardObject);
+    if (makeNewCard) {
+      masterCharacter[index].list.push({ name: '' });
+      const addedCardObject = masterCharacter.concat();
+      updateMasterCharacter(addedCardObject);
+    }
 
   };
 
