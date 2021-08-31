@@ -18,7 +18,7 @@ The purpose of building this application was to get further practice on handling
 ## Application Features:
 
 - User can add a card and enter a title.
-- User can also Edit the title by clicking into the card.
+- User can also edit the title by clicking into the card.
 - User can add and edit description.
 - User can add, edit and delete activity logs.
 - User can drag and swap cards between "Todo", "Doing", and "Done" columns.
