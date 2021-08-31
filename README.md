@@ -34,5 +34,7 @@ It really helped me to write more efficient and readable code by eliminating nes
 
 I need to be very careful and practice on naming my variables. As components got more complicated, I started to lose my understanding where the variables came from and what they did. Secondly, I need to learn React Context so that I can avoid props drilling which can help me write cleaner code and exactly know where the props are getting passed to and from.
 
+## ScreenShot:
 
+![features](https://github.com/AndyPark20/Kanban-planner-board/blob/master/Animation.gif?raw=true)
 
