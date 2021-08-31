@@ -110,20 +110,26 @@ const HomeEntry = ({ logout }) => {
   return (
     <div className="container">
       <div className="row d-flex flex-column justify-content-center">
-        <div className="type-column d-flex flex-column ">
+        <div className="title d-flex justify-content-center align-items-center mb-5">
+          <img className="logo-size" src='/images/kanban.png' alt="kanban logo" />
+          <div className="title-font ml-3">
+            <h3>Kanban Planner</h3>
+            <h3>Board</h3>
+          </div>
+        </div>
+        <div className="type-column d-flex flex-column mt-5">
           <form onSubmit={handleSubmit}>
-
-              <p className="login-status">{renderStatus()}</p>
-              <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
-              <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
-              <div className="pt-2">
-                <label htmlFor="password" className={errorPassWordRed()}>{errorPassword}</label>
-                <input name="password" className={errorPassWordBorder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
-              </div>
-              <div className="text-right mt-5">
-                <button type="button" className="btn btn-primary mr-2" onClick={signUp}>sign-up</button>
-                <button type="submit" className="btn btn-success margin" onClick={e => logIn(e)}>Submit</button>
-              </div>
+            <p className="login-status">{renderStatus()}</p>
+            <label htmlFor="username" className={errorCredentialRed()}>{erroruserNameLogin}</label>
+            <input name="username" className={errorUserNameborder()} type="text" value={userName} onChange={e => handleSubmituserName(e)}></input>
+            <div className="pt-2">
+              <label htmlFor="password" className={errorPassWordRed()}>{errorPassword}</label>
+              <input name="password" className={errorPassWordBorder()} type="password" value={passWord} onChange={e => handleSubmitPassWord(e)}></input>
+            </div>
+            <div className="text-right mt-5">
+              <button type="button" className="btn btn-primary mr-2" onClick={signUp}>sign-up</button>
+              <button type="submit" className="btn btn-success margin" onClick={e => logIn(e)}>Submit</button>
+            </div>
 
           </form>
         </div>
