@@ -276,3 +276,16 @@ input:focus{
 .logo-size{
   width:15%;
 }
+
+.mobile-warning-background{
+  background:black;
+  height:100vh;
+  color:white;
+  text-align:center;
+  padding-top:50%;
+}
+
+
+.mobile-font{
+  font-size:1.3rem;
+}

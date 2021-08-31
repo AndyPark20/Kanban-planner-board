@@ -52,17 +52,17 @@ const App = () => {
   }, []);
 
   const renderPage = () => {
-    if (currentUrl === 'Home') {
+    if (currentUrl === 'Home' && screen.width >= 1920) {
       return <Home updateLogout={updateLogout}/>;
     }
-    if (currentUrl === '') {
+    if (currentUrl === '' && screen.width >= 1920) {
       // return <Home />;
       return <LogIn logout={logout}/>;
     }
-    if (currentUrl === 'signup') {
+    if (currentUrl === 'signup' && screen.width >= 1920) {
       return <SignUp />;
     }
-    if (screen.width > 1920) {
+    if (screen.width < 1920) {
       return <MobileRenderWarning />;
     }
   };
