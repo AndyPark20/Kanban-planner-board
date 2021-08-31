@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 
 const HomeEntry = ({ logout }) => {
-  const [userName, updateUserName] = useState('');
-  const [passWord, updatePassWord] = useState('');
+  const [userName, updateUserName] = useState('123');
+  const [passWord, updatePassWord] = useState('123');
   const [erroruserNameLogin, updateuserNameLogIn] = useState('Username:');
   const [errorPassword, updateErrorPassword] = useState('Password:');
   const [errorStatus, updateErrorStatus] = useState(false);
