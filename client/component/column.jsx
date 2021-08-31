@@ -96,6 +96,7 @@ const Column = ({ characters, updateDescriptionForCard, updateModalTitle, update
       masterCharacter[index].list.push({ name: '' });
       const addedCardObject = masterCharacter.concat();
       updateMasterCharacter(addedCardObject);
+      updateMakeNewCard(false);
     }
 
   };
@@ -174,7 +175,7 @@ const Column = ({ characters, updateDescriptionForCard, updateModalTitle, update
               return (
                 <div key={indexItem} draggable onDragStart={e => controlDragStart(e, values, info, indexItem)} onDrag={e => allowDrop(e)} onDrop={e => lastIndex(e, info, indexItem, index)}
                   onClick={() => changeTitle(indexItem, index)}>
-                  <Item description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values.card} cardSequence={cardNumber}
+                  <Item updateMakeNewCard={updateMakeNewCard} description={description} updateDescription={updateDescription} selectedCard={selectedCard} selectedOpenItem={openModal} updateOpenModalColumn={updateOpenModalColumn} updateModal={updateModal} values={values.card} cardSequence={cardNumber}
                     columnNumber={index} masterCharacter={masterCharacter} cardName={cardTitle} cardHeading={cardTitle} update={updateMasterCharacter} titleBoolean={updateTitleBoolean}
                     masterCharacterUpdate={updateMasterCharacter} />
                 </div>
