@@ -25,7 +25,6 @@ const Item = ({ updateMakeNewCard, description, cardName, update, userCardTitle,
       update(masterCharacter);
       titleBoolean(true);
       updateOpenModal(true);
-
       try {
         const result = await fetch('/api/addCard', {
           method: 'POST',
@@ -35,6 +34,9 @@ const Item = ({ updateMakeNewCard, description, cardName, update, userCardTitle,
           body: JSON.stringify([idName, cardDescription])
         });
         const response = await result.json();
+        if (response) {
+          updateMakeNewCard(true);
+        }
       } catch (err) {
         console.error('ERR' + err);
       }
