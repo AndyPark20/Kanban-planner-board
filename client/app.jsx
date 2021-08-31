@@ -3,6 +3,8 @@ import Home from './home';
 import ParseRoute from '../client/component/library/parse-route';
 import LogIn from './login';
 import SignUp from './sign-up';
+import MobileWarning from './mobile-warning';
+import MobileRenderWarning from './mobile-warning';
 
 const App = () => {
   const [currentUrl, updateCurrentUrl] = useState('');
@@ -59,6 +61,9 @@ const App = () => {
     }
     if (currentUrl === 'signup') {
       return <SignUp />;
+    }
+    if (screen.width > 1920) {
+      return <MobileRenderWarning />;
     }
   };
 
